@@ -125,8 +125,8 @@ async function waitForAppRunnerService(
   region: string,
   serviceArn: string,
   maxWait: number,
-  logger: Logger,
-  isDeleting?: boolean
+  isDeleting: boolean,
+  logger: Logger
 ): Promise<Service | undefined> {
   const apprunner = getAppRunnerClient(region);
   const command = new DescribeServiceCommand({
@@ -347,6 +347,7 @@ async function updateAppRunnerService(
                         RuntimeEnvironmentSecrets: desiredConfig,
                         RuntimeEnvironmentVariables: {
                           LETSGO_IMAGE_TAG: options.imageTag,
+                          LETSGO_DEPLOYMENT: options.deployment,
                           LETSGO_UPDATED_AT: updatedAt,
                           // Workaround for a Next.js issue. See https://github.com/vercel/next.js/issues/49777
                           HOSTNAME: "0.0.0.0",
@@ -375,6 +376,7 @@ async function updateAppRunnerService(
       options.region,
       existingService.ServiceArn || "",
       MaxWaitTimeForAppRunnerUpdate,
+      false,
       options.logger
     );
     if (!service) {
@@ -459,6 +461,7 @@ async function createAppRunnerService(
             ]?.[options.deployment] || {},
           RuntimeEnvironmentVariables: {
             LETSGO_IMAGE_TAG: options.imageTag,
+            LETSGO_DEPLOYMENT: options.deployment,
             LETSGO_UPDATED_AT: new Date().toISOString(),
             // Workaround for a Next.js issue. See https://github.com/vercel/next.js/issues/49777
             HOSTNAME: "0.0.0.0",
@@ -499,6 +502,7 @@ async function createAppRunnerService(
     options.region,
     createServiceResult.Service?.ServiceArn || "",
     MaxWaitTimeForAppRunnerCreate,
+    false,
     options.logger
   );
   if (service) {
@@ -548,8 +552,8 @@ export async function deleteAppRunnerService(
     region,
     serviceArn,
     MaxWaitTimeForAppRunnerUpdate,
-    logger,
-    true
+    true,
+    logger
   );
   if (service) {
     logger(

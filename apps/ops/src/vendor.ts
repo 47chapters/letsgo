@@ -155,3 +155,11 @@ export const WebConfiguration: AppRunnerSettings = {
     ],
   },
 };
+
+export interface DBSettings {
+  getTableName: (deployment: string) => string;
+}
+
+export const DBConfiguration: DBSettings = {
+  getTableName: (deployment: string) => `${VendorPrefix}-${deployment}`,
+};

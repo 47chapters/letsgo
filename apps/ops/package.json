@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@aws-sdk/client-apprunner": "^3.421.0",
+    "@aws-sdk/client-dynamodb": "^3.425.0",
     "@aws-sdk/client-ecr": "^3.421.0",
     "@aws-sdk/client-iam": "^3.421.0",
     "@aws-sdk/client-ssm": "^3.421.0",

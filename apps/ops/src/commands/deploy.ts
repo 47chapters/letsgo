@@ -11,6 +11,7 @@ import {
   ApiConfiguration,
   WebConfiguration,
   AppRunnerSettings,
+  DBConfiguration,
 } from "../vendor";
 import { join } from "path";
 import { readFileSync } from "fs";
@@ -20,8 +21,9 @@ import {
   SetConfigValueCallback,
   setConfigValue,
 } from "../aws/ssm";
+import { ensureDynamo } from "../aws/dynamodb";
 
-const AllArtifacts = ["all", "api", "web"];
+const AllArtifacts = ["all", "api", "web", "db"];
 
 function readLastBuildTag(component: string): string | undefined {
   try {
@@ -179,12 +181,23 @@ program
     );
     const artifacts = getArtifacts(options.artifact, AllArtifacts);
 
+    if (artifacts.db) {
+      await ensureDynamo(
+        options.region,
+        options.deployment,
+        DBConfiguration,
+        createLogger("aws:dynamodb", options.region, options.deployment)
+      );
+    }
     if (artifacts.api) {
       await deployAppRunner(options, options.apiTag, ApiConfiguration);
     }
     if (artifacts.web) {
       await deployAppRunner(options, options.webTag, WebConfiguration);
     }
+    console.log(
+      `Deployed: ${chalk.bold(Object.keys(artifacts).sort().join(", "))}`
+    );
   });
 
 export default program;

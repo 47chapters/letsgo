@@ -9,7 +9,6 @@ import {
 } from "@aws-sdk/client-ssm";
 import { ConfigPrefix, getTags } from "./defaults";
 import { AppRunnerSettingsDefaultConfig, ConfigRegion } from "../vendor";
-import { type } from "os";
 
 export interface LetsGoDeploymentConfig {
   [key: string]: string;

@@ -13,13 +13,15 @@ import {
   ApiConfiguration,
   WebConfiguration,
   AppRunnerSettings,
+  DBConfiguration,
 } from "../vendor";
 import { Logger, createLogger, getArtifacts } from "./defaults";
 import { deleteRole } from "../aws/iam";
+import { deleteDynamo } from "../aws/dynamodb";
 
 const program = new Command();
 
-const AllArtifacts = ["all", "api", "web", "configuration"];
+const AllArtifacts = ["all", "api", "web", "db", "configuration"];
 
 async function deleteAppRunnerServices(
   region: string,
@@ -130,9 +132,9 @@ program
     );
     const artifacts = getArtifacts(options.artifact, AllArtifacts);
 
-    const parallel: Promise<any>[] = [];
+    const step1: Promise<any>[] = [];
     if (artifacts.web) {
-      parallel.push(
+      step1.push(
         deleteAppRunner(
           options.region,
           options.deployment,
@@ -142,7 +144,7 @@ program
       );
     }
     if (artifacts.api) {
-      parallel.push(
+      step1.push(
         deleteAppRunner(
           options.region,
           options.deployment,
@@ -151,12 +153,34 @@ program
         )
       );
     }
-    if (parallel.length > 0) {
-      await Promise.all(parallel);
+    if (step1.length > 0) {
+      await Promise.all(step1);
     }
+    const step2: Promise<any>[] = [];
     if (artifacts.configuration) {
-      await deleteConfiguration(options.region, options.deployment);
+      step2.push(deleteConfiguration(options.region, options.deployment));
     }
+    if (artifacts.db) {
+      step2.push(
+        deleteDynamo(
+          options.region,
+          options.deployment,
+          DBConfiguration,
+          createLogger(
+            "aws:dynamodb",
+            options.region,
+            options.deployment,
+            "aws:dynamodb"
+          )
+        )
+      );
+    }
+    if (step2.length > 0) {
+      await Promise.all(step2);
+    }
+    console.log(
+      `Removed: ${chalk.bold(Object.keys(artifacts).sort().join(", "))}`
+    );
   });
 
 export default program;
