@@ -1,3 +1,5 @@
+import { defaultConfig } from "next/dist/server/config-shared";
+
 export const VendorPrefix = "letsgo";
 export const ConfigRegion = "us-west-2";
 export const DefaultRegion = process.env.AWS_REGION || "us-west-2";
@@ -30,9 +32,17 @@ export const ConfigSettings = {
     "LETSGO_WEB_APPRUNNER_HEALTH_HEALTHY_THRESHOLD",
   WebAppRunnerHealthUnhealthyThreshold:
     "LETSGO_WEB_APPRUNNER_HEALTH_UNHEALTHY_THRESHOLD",
+  WorkerMessageRetentionPeriod: "LETSGO_WORKER_MESSAGE_RETENTION_PERIOD",
+  WorkerVisibilityTimeout: "LETSGO_WORKER_VISIBILITY_TIMEOUT",
+  WorkerReceiveMessageWaitTimeSeconds:
+    "LETSGO_WORKER_RECEIVE_MESSAGE_WAIT_TIME_SECONDS",
 };
 
-export interface AppRunnerSettingsDefaultConfig {
+export interface DefaultConfig {
+  [key: string]: string[];
+}
+
+export interface AppRunnerSettingsDefaultConfig extends DefaultConfig {
   minSize: string[];
   maxSize: string[];
   maxConcurrency: string[];
@@ -162,4 +172,30 @@ export interface DBSettings {
 
 export const DBConfiguration: DBSettings = {
   getTableName: (deployment: string) => `${VendorPrefix}-${deployment}`,
+};
+
+export interface WorkerSettingsDefaultConfig extends DefaultConfig {
+  messageRetentionPeriod: string[];
+  visibilityTimeout: string[];
+  receiveMessageWaitTimeSeconds: string[];
+}
+
+export interface WorkerSettings {
+  getQueueNamePrefix: (deployment: string) => string;
+  defaultConfig: WorkerSettingsDefaultConfig;
+}
+
+export const WorkerConfiguration: WorkerSettings = {
+  getQueueNamePrefix: (deployment: string) => `${VendorPrefix}-${deployment}`,
+  defaultConfig: {
+    messageRetentionPeriod: [
+      ConfigSettings.WorkerMessageRetentionPeriod,
+      "345600", // 4 days in seconds
+    ],
+    visibilityTimeout: [ConfigSettings.WorkerVisibilityTimeout, "30"],
+    receiveMessageWaitTimeSeconds: [
+      ConfigSettings.WorkerReceiveMessageWaitTimeSeconds,
+      "0",
+    ],
+  },
 };

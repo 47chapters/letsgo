@@ -18,10 +18,11 @@ import {
 import { Logger, createLogger, getArtifacts } from "./defaults";
 import { deleteRole } from "../aws/iam";
 import { deleteDynamo } from "../aws/dynamodb";
+import { deleteQueue } from "../aws/sqs";
 
 const program = new Command();
 
-const AllArtifacts = ["all", "api", "web", "db", "configuration"];
+const AllArtifacts = ["all", "api", "web", "db", "worker", "configuration"];
 
 async function deleteAppRunnerServices(
   region: string,
@@ -102,6 +103,18 @@ async function deleteConfiguration(region: string, deployment: string) {
   logger(`deleted ${deleted.length} configuration keys`);
 }
 
+async function deleteWorker(
+  region: string,
+  deployment: string,
+  skipQueue: boolean
+) {
+  const logger = createLogger("aws", region, deployment);
+  logger("deleting worker...");
+  if (!skipQueue) {
+    await deleteQueue(region, deployment, logger);
+  }
+}
+
 program
   .name("rm")
   .summary("Remove artifacts from AWS")
@@ -164,6 +177,9 @@ program
     }
     if (step1.length > 0) {
       await Promise.all(step1);
+    }
+    if (artifacts.worker) {
+      await deleteWorker(options.region, options.deployment, !options.killData);
     }
     const step2: Promise<any>[] = [];
     if (artifacts.configuration) {

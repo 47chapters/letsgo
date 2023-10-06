@@ -8,7 +8,11 @@ import {
   GetParameterCommand,
 } from "@aws-sdk/client-ssm";
 import { ConfigPrefix, getTags } from "./defaults";
-import { AppRunnerSettingsDefaultConfig, ConfigRegion } from "../vendor";
+import {
+  AppRunnerSettingsDefaultConfig,
+  ConfigRegion,
+  DefaultConfig,
+} from "../vendor";
 
 export interface LetsGoDeploymentConfig {
   [key: string]: string;
@@ -163,8 +167,10 @@ export async function deleteConfig(
 export async function ensureDefaultConfig(
   region: string,
   deployment: string,
-  defaultConfig: AppRunnerSettingsDefaultConfig
+  defaultConfig: DefaultConfig
 ): Promise<LetsGoDeploymentConfig> {
+  // Read SSM for the deployment and then write back default values for any missing keys.
+  // Return the full deployment config.
   const existingConfig =
     (await getConfig(region, deployment))[region]?.[deployment] || {};
   const newConfigSettings = Object.entries(defaultConfig).reduce(

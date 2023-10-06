@@ -42,3 +42,17 @@ export function getTags(
   }
   return tags;
 }
+
+export function getTagsAsObject(
+  region: string,
+  deployment: string,
+  additionalTags?: { [key: string]: string }
+) {
+  return getTags(region, deployment, additionalTags).reduce(
+    (acc: { [key: string]: string }, cur) => {
+      acc[cur.Key] = cur.Value;
+      return acc;
+    },
+    {}
+  );
+}

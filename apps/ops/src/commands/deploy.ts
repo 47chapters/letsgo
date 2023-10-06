@@ -11,7 +11,10 @@ import {
   ApiConfiguration,
   WebConfiguration,
   AppRunnerSettings,
+  DBSettings,
   DBConfiguration,
+  WorkerConfiguration,
+  WorkerSettings,
 } from "../vendor";
 import { join } from "path";
 import { readFileSync } from "fs";
@@ -22,8 +25,10 @@ import {
   setConfigValue,
 } from "../aws/ssm";
 import { ensureDynamo } from "../aws/dynamodb";
+import { settings } from "cluster";
+import { ensureQueue } from "../aws/sqs";
 
-const AllArtifacts = ["all", "api", "web", "db"];
+const AllArtifacts = ["all", "api", "web", "db", "worker"];
 
 function readLastBuildTag(component: string): string | undefined {
   try {
@@ -143,6 +148,43 @@ async function deployAppRunner(
   });
 }
 
+async function deployDb(options: any, settings: DBSettings) {
+  await ensureDynamo(
+    options.region,
+    options.deployment,
+    settings,
+    createLogger("aws:dynamodb", options.region, options.deployment)
+  );
+}
+
+async function deployWorker(options: any, settings: WorkerSettings) {
+  const logger = createLogger(
+    "aws:worker",
+    options.region,
+    options.deployment,
+    "worker"
+  );
+  // Populate default configuration values
+  logger(
+    "reading current config and ensuring default configuration values are set",
+    "aws:ssm"
+  );
+  const config = (await ensureDefaultConfig(
+    options.region,
+    options.deployment,
+    settings.defaultConfig
+  )) as LetsGoDeploymentConfig;
+  // Ensure SQS queue is set up
+  logger("ensuring SQS queue is set up...", "aws:sqs");
+  await ensureQueue(
+    options.region,
+    options.deployment,
+    settings,
+    config,
+    logger
+  );
+}
+
 program
   .name("deploy")
   .summary("Deploy artifacts to AWS")
@@ -182,12 +224,10 @@ program
     const artifacts = getArtifacts(options.artifact, AllArtifacts);
 
     if (artifacts.db) {
-      await ensureDynamo(
-        options.region,
-        options.deployment,
-        DBConfiguration,
-        createLogger("aws:dynamodb", options.region, options.deployment)
-      );
+      await deployDb(options, DBConfiguration);
+    }
+    if (artifacts.worker) {
+      await deployWorker(options, WorkerConfiguration);
     }
     if (artifacts.api) {
       await deployAppRunner(options, options.apiTag, ApiConfiguration);
