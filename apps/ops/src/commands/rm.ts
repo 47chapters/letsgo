@@ -115,8 +115,10 @@ program
       AllArtifacts
     )
   )
-  .option(`--leave-api-ecr`, `Leave ECR for api images in place`)
-  .option(`--leave-web-ecr`, `Leave ECR for web images in place`)
+  .option(
+    `-k, --kill-data`,
+    `Delete all durable data (db, queues), not just transient artifacts`
+  )
   .action(async (options) => {
     options.artifact = options.artifact || [];
     if (options.artifact.length === 0) {
@@ -130,6 +132,13 @@ program
         options.artifact.sort().join(", ")
       )} from ${chalk.bold(`${options.region}/${options.deployment}`)}...`
     );
+    if (!options.killData) {
+      console.log(
+        chalk.yellow(
+          "All durable data (db, queues, images) will remain intact. Use the '-k' option to force delete all data."
+        )
+      );
+    }
     const artifacts = getArtifacts(options.artifact, AllArtifacts);
 
     const step1: Promise<any>[] = [];
@@ -139,7 +148,7 @@ program
           options.region,
           options.deployment,
           WebConfiguration,
-          options.leaveWebEcr
+          !options.killData
         )
       );
     }
@@ -149,7 +158,7 @@ program
           options.region,
           options.deployment,
           ApiConfiguration,
-          options.leaveApiEcr
+          !options.killData
         )
       );
     }
@@ -161,19 +170,21 @@ program
       step2.push(deleteConfiguration(options.region, options.deployment));
     }
     if (artifacts.db) {
-      step2.push(
-        deleteDynamo(
-          options.region,
-          options.deployment,
-          DBConfiguration,
-          createLogger(
-            "aws:dynamodb",
+      if (options.killData) {
+        step2.push(
+          deleteDynamo(
             options.region,
             options.deployment,
-            "aws:dynamodb"
+            DBConfiguration,
+            createLogger(
+              "aws:dynamodb",
+              options.region,
+              options.deployment,
+              "aws:dynamodb"
+            )
           )
-        )
-      );
+        );
+      }
     }
     if (step2.length > 0) {
       await Promise.all(step2);
