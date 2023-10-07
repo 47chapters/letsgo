@@ -14,6 +14,7 @@ import { WorkerSettings } from "../vendor";
 import { TagKeys, getTagsAsObject } from "./defaults";
 import chalk from "chalk";
 import { LetsGoDeploymentConfig } from "./ssm";
+import { getAccountId } from "./sts";
 
 const apiVersion = "2012-11-05";
 
@@ -37,10 +38,19 @@ export async function listLetsGoQueues(
       const listTagsCommand = new ListQueueTagsCommand({
         QueueUrl: queueUrl,
       });
-      const tagsResult = await sqs.send(listTagsCommand);
-      const deploymentValue = tagsResult.Tags?.[TagKeys.LetsGoDeployment];
-      if (deploymentValue && (!deployment || deployment === deploymentValue)) {
-        queues.push(queueUrl);
+      try {
+        const tagsResult = await sqs.send(listTagsCommand);
+        const deploymentValue = tagsResult.Tags?.[TagKeys.LetsGoDeployment];
+        if (
+          deploymentValue &&
+          (!deployment || deployment === deploymentValue)
+        ) {
+          queues.push(queueUrl);
+        }
+      } catch (e: any) {
+        if (e.name !== "AWS.SimpleQueueService.NonExistentQueue") {
+          throw e;
+        }
       }
     }
     if (!result.NextToken) {
@@ -51,7 +61,7 @@ export async function listLetsGoQueues(
   return queues;
 }
 
-async function getOneLetsGoQueue(
+export async function getOneLetsGoQueue(
   region: string,
   deployment: string,
   logger: Logger
@@ -111,7 +121,7 @@ function getQueueuAttributes(
     MessageRetentionPeriod:
       config[settings.defaultConfig.messageRetentionPeriod[0]],
     ReceiveMessageWaitTimeSeconds:
-      config[settings.defaultConfig.receiveMessageWaitTimeSeconds[0]],
+      config[settings.defaultConfig.receiveMessageWaitTime[0]],
   };
 }
 
@@ -206,4 +216,19 @@ export async function deleteQueue(
   });
   await sqs.send(deleteCommand);
   logger(`queue ${queueUrl} deleted`, "aws:sqs");
+}
+
+export async function getQueueArnFromQueueName(
+  region: string,
+  queueName: string
+) {
+  return `arn:aws:sqs:${region}:${await getAccountId()}:${queueName}`;
+}
+
+export async function getQueueArnFromQueueUrl(
+  region: string,
+  queueUrl: string
+) {
+  const queueName = queueUrl.split("/").pop() || "";
+  return getQueueArnFromQueueName(region, queueName);
 }

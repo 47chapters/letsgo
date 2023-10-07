@@ -8,15 +8,12 @@ import {
   AttachRolePolicyCommand,
   DeleteRoleCommand,
   DeleteRolePolicyCommand,
-  ListAttachedRolePoliciesRequest,
 } from "@aws-sdk/client-iam";
 import { getTags } from "./defaults";
 import { getAccountId } from "./sts";
-import { SetConfigValueCallback } from "./ssm";
-import { VendorPrefix } from "../vendor";
 import { Logger } from "../commands/defaults";
 
-const AppRunnerAssumeRolePolicy = {
+export const AppRunnerAssumeRolePolicy = {
   Version: "2012-10-17",
   Statement: [
     {
@@ -26,6 +23,19 @@ const AppRunnerAssumeRolePolicy = {
           "tasks.apprunner.amazonaws.com",
           "build.apprunner.amazonaws.com",
         ],
+      },
+      Action: "sts:AssumeRole",
+    },
+  ],
+};
+
+export const LambdaAssumeRolePolicy = {
+  Version: "2012-10-17",
+  Statement: [
+    {
+      Effect: "Allow",
+      Principal: {
+        Service: "lambda.amazonaws.com",
       },
       Action: "sts:AssumeRole",
     },
@@ -99,7 +109,8 @@ export async function ensureRole(
   roleName: string,
   policyName: string,
   managedPolicies: string[],
-  inlinePolicy: object
+  inlinePolicy: object,
+  assumeRolePolicy: object
 ): Promise<void> {
   const Tags = getTags(region, deployment);
 
@@ -127,7 +138,7 @@ export async function ensureRole(
     // If role does not exist, create it then update its online policy
     const createRoleCommand = new CreateRoleCommand({
       RoleName: roleName,
-      AssumeRolePolicyDocument: JSON.stringify(AppRunnerAssumeRolePolicy),
+      AssumeRolePolicyDocument: JSON.stringify(assumeRolePolicy),
       Tags,
     });
     await iam.send(createRoleCommand);

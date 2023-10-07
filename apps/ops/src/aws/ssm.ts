@@ -169,7 +169,7 @@ export async function ensureDefaultConfig(
   deployment: string,
   defaultConfig: DefaultConfig
 ): Promise<LetsGoDeploymentConfig> {
-  // Read SSM for the deployment and then write back default values for any missing keys.
+  // Read config from SSM for the deployment and then write back default values for any missing keys.
   // Return the full deployment config.
   const existingConfig =
     (await getConfig(region, deployment))[region]?.[deployment] || {};

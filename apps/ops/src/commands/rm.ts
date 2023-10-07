@@ -14,11 +14,14 @@ import {
   WebConfiguration,
   AppRunnerSettings,
   DBConfiguration,
+  WorkerSettings,
+  WorkerConfiguration,
 } from "../vendor";
 import { Logger, createLogger, getArtifacts } from "./defaults";
 import { deleteRole } from "../aws/iam";
 import { deleteDynamo } from "../aws/dynamodb";
 import { deleteQueue } from "../aws/sqs";
+import { deleteLambda } from "../aws/lambda";
 
 const program = new Command();
 
@@ -106,13 +109,34 @@ async function deleteConfiguration(region: string, deployment: string) {
 async function deleteWorker(
   region: string,
   deployment: string,
-  skipQueue: boolean
+  settings: WorkerSettings,
+  skipData: boolean
 ) {
-  const logger = createLogger("aws", region, deployment);
+  const logger = createLogger("aws", region, deployment, "worker");
   logger("deleting worker...");
-  if (!skipQueue) {
-    await deleteQueue(region, deployment, logger);
-  }
+  await deleteLambda(
+    region,
+    settings.getLambdaFunctionName(deployment),
+    logger
+  );
+  const step2: Promise<any>[] = [
+    deleteRole(
+      settings.getRoleName(region, deployment),
+      settings.getPolicyName(region, deployment),
+      logger
+    ),
+    ...(skipData
+      ? []
+      : [
+          deleteQueue(region, deployment, logger),
+          deleteRepository(
+            region,
+            settings.getEcrRepositoryName(deployment),
+            logger
+          ),
+        ]),
+  ];
+  await Promise.all(step2);
 }
 
 program
@@ -179,7 +203,12 @@ program
       await Promise.all(step1);
     }
     if (artifacts.worker) {
-      await deleteWorker(options.region, options.deployment, !options.killData);
+      await deleteWorker(
+        options.region,
+        options.deployment,
+        WorkerConfiguration,
+        !options.killData
+      );
     }
     const step2: Promise<any>[] = [];
     if (artifacts.configuration) {

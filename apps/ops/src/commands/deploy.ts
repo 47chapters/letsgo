@@ -1,5 +1,10 @@
 import { Command, Option } from "commander";
-import { ensureRole, getRoleArn } from "../aws/iam";
+import {
+  AppRunnerAssumeRolePolicy,
+  LambdaAssumeRolePolicy,
+  ensureRole,
+  getRoleArn,
+} from "../aws/iam";
 import { getAccountId } from "../aws/sts";
 import { ensureRepository, ensureImage } from "../aws/ecr";
 import { ensureAppRunner } from "../aws/apprunner";
@@ -25,8 +30,8 @@ import {
   setConfigValue,
 } from "../aws/ssm";
 import { ensureDynamo } from "../aws/dynamodb";
-import { settings } from "cluster";
 import { ensureQueue } from "../aws/sqs";
+import { ensureLambda } from "../aws/lambda";
 
 const AllArtifacts = ["all", "api", "web", "db", "worker"];
 
@@ -43,6 +48,7 @@ function readLastBuildTag(component: string): string | undefined {
 
 const ApiSha = readLastBuildTag("api");
 const WebSha = readLastBuildTag("web");
+const WorkerSha = readLastBuildTag("worker");
 
 const program = new Command();
 
@@ -95,7 +101,8 @@ async function deployAppRunner(
       await getAccountId(),
       options.region,
       options.deployment
-    )
+    ),
+    AppRunnerAssumeRolePolicy
   );
   // Ensure ECR repository images exists
   logger("ensuring ECR repository exists", "aws:ecr");
@@ -158,6 +165,14 @@ async function deployDb(options: any, settings: DBSettings) {
 }
 
 async function deployWorker(options: any, settings: WorkerSettings) {
+  if (!options.workerTag) {
+    console.log(
+      chalk.red(
+        `No 'worker' docker image tag specified, and no local build exists. Use the '--worker-tag' option to specify the docker image tag to deploy, or build the docker image locally using 'yarn ops buildx'.`
+      )
+    );
+    process.exit(1);
+  }
   const logger = createLogger(
     "aws:worker",
     options.region,
@@ -174,6 +189,22 @@ async function deployWorker(options: any, settings: WorkerSettings) {
     options.deployment,
     settings.defaultConfig
   )) as LetsGoDeploymentConfig;
+  // Ensure IAM role is configured
+  const roleName = settings.getRoleName(options.region, options.deployment);
+  logger("ensuring IAM role is configured", "aws:iam");
+  await ensureRole(
+    options.region,
+    options.deployment,
+    roleName,
+    settings.getPolicyName(options.region, options.deployment),
+    [],
+    settings.getInlineRolePolicy(
+      await getAccountId(),
+      options.region,
+      options.deployment
+    ),
+    LambdaAssumeRolePolicy
+  );
   // Ensure SQS queue is set up
   logger("ensuring SQS queue is set up...", "aws:sqs");
   await ensureQueue(
@@ -181,6 +212,32 @@ async function deployWorker(options: any, settings: WorkerSettings) {
     options.deployment,
     settings,
     config,
+    logger
+  );
+  // Ensure ECR repository images exists
+  logger("ensuring ECR repository exists", "aws:ecr");
+  await ensureRepository(
+    options.region,
+    options.deployment,
+    settings.getEcrRepositoryName(options.deployment)
+  );
+  // Ensure ECR image exists
+  logger("ensuring ECR image exists", "aws:ecr");
+  await ensureImage(
+    options.region,
+    settings.getEcrRepositoryName(options.deployment),
+    settings.getLocalRepositoryName(options.deployment),
+    options.workerTag,
+    logger
+  );
+  // Ensure worker Lambda exists
+  logger("ensuring worker Lambda function exists", "aws:lambda");
+  await ensureLambda(
+    options.region,
+    options.deployment,
+    settings,
+    config,
+    options.workerTag,
     logger
   );
 }
@@ -207,6 +264,11 @@ program
     "--web-tag [sha]",
     "The docker image tag of the 'web' docker image to deploy. Defaults to the last locally built image.",
     WebSha
+  )
+  .option(
+    "--worker-tag [sha]",
+    "The docker image tag of the 'worker' docker image to deploy. Defaults to the last locally built image.",
+    WorkerSha
   )
   .action(async (options) => {
     options.artifact = options.artifact || [];
