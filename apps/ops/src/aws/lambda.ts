@@ -140,22 +140,35 @@ async function waitForEventSourceMapping(
   }
 }
 
-export async function getEventSourceMapping(
+export async function listEventSourceMappings(
   region: string,
   functionName: string,
-  queueArn: string,
-  logger: Logger
-): Promise<EventSourceMappingConfiguration | undefined> {
+  queueArn: string
+): Promise<EventSourceMappingConfiguration[]> {
   const lambda = getLambdaClient(region);
   const listSourcesCommand = new ListEventSourceMappingsCommand({
     FunctionName: functionName,
     EventSourceArn: queueArn,
   });
   const listResult = await lambda.send(listSourcesCommand);
-  if (!listResult.EventSourceMappings?.length) {
+  return listResult.EventSourceMappings || [];
+}
+
+export async function getEventSourceMapping(
+  region: string,
+  functionName: string,
+  queueArn: string,
+  logger: Logger
+): Promise<EventSourceMappingConfiguration | undefined> {
+  const listResult = await listEventSourceMappings(
+    region,
+    functionName,
+    queueArn
+  );
+  if (!listResult.length) {
     return undefined;
   }
-  if (listResult.EventSourceMappings?.length > 1) {
+  if (listResult.length > 1) {
     logger(
       chalk.red(
         `found multiple event source mappings from queue ${queueArn} to function ${functionName} and expected exactly one`
@@ -164,7 +177,7 @@ export async function getEventSourceMapping(
     );
     process.exit(1);
   }
-  return listResult.EventSourceMappings[0];
+  return listResult[0];
 }
 
 async function createEventSourceMapping(

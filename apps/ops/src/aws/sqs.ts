@@ -92,7 +92,7 @@ export async function getOneLetsGoQueue(
   return existingQueues[0];
 }
 
-async function describeQueue(
+export async function describeQueue(
   region: string,
   queueUrl: string
 ): Promise<{ [key: string]: string }> {

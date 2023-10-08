@@ -6,6 +6,7 @@ import get from "./commands/get";
 import set from "./commands/set";
 import rm from "./commands/rm";
 import deploy from "./commands/deploy";
+import status from "./commands/status";
 
 const program = new Command();
 
@@ -19,6 +20,7 @@ program
   .addCommand(get)
   .addCommand(set)
   .addCommand(rm)
-  .addCommand(deploy);
+  .addCommand(deploy)
+  .addCommand(status);
 
 program.parse();

@@ -97,6 +97,27 @@ export async function deleteDynamo(
   logger(`table ${TableName} deleted`, "aws:dynamodb");
 }
 
+export async function getTable(
+  region: string,
+  deployment: string,
+  settings: DBSettings
+): Promise<TableDescription | undefined> {
+  const dynamodb = new DynamoDBClient({ region });
+  const TableName = settings.getTableName(deployment);
+  const command = new DescribeTableCommand({
+    TableName,
+  });
+  try {
+    const result = await dynamodb.send(command);
+    return result.Table;
+  } catch (e: any) {
+    if (e.name === "ResourceNotFoundException") {
+      return undefined;
+    }
+    throw e;
+  }
+}
+
 export async function ensureDynamo(
   region: string,
   deployment: string,

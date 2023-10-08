@@ -16,6 +16,7 @@ import {
   ListServicesCommand,
   ServiceSummary,
   ListTagsForResourceCommand,
+  AutoScalingConfiguration,
 } from "@aws-sdk/client-apprunner";
 import { getTags, TagKeys } from "./defaults";
 import { getConfig, SetConfigValueCallback } from "./ssm";
@@ -202,6 +203,19 @@ function getHealthCheckSettings(options: EnsureAppRunnerOptions) {
   };
 }
 
+export async function describeAutoScalingConfiguration(
+  region: string,
+  autoScalingConfigurationArn: string
+): Promise<AutoScalingConfiguration> {
+  const apprunner = getAppRunnerClient(region);
+  const describeAutoScalingCommand =
+    new DescribeAutoScalingConfigurationCommand({
+      AutoScalingConfigurationArn: autoScalingConfigurationArn,
+    });
+  const autoScalingResponse = await apprunner.send(describeAutoScalingCommand);
+  return autoScalingResponse.AutoScalingConfiguration as AutoScalingConfiguration;
+}
+
 async function updateAppRunnerService(
   options: EnsureAppRunnerOptions,
   existingService: Service
@@ -223,15 +237,12 @@ async function updateAppRunnerService(
   );
 
   // Create new AutoScalingConfiguration if needed
-  const describeAutoScalingCommand =
-    new DescribeAutoScalingConfigurationCommand({
-      AutoScalingConfigurationArn:
-        existingService.AutoScalingConfigurationSummary
-          ?.AutoScalingConfigurationArn || "",
-    });
-  const autoScalingResponse = await apprunner.send(describeAutoScalingCommand);
   const currentAutoScalingSettings: any =
-    autoScalingResponse.AutoScalingConfiguration || {};
+    await describeAutoScalingConfiguration(
+      options.region,
+      existingService.AutoScalingConfigurationSummary
+        ?.AutoScalingConfigurationArn || ""
+    );
   const desiredAutoScalingSettings: any = getAutoScalingSettings(options);
   const autoScalingNeedsUpdate =
     ["MaxConcurrency", "MinSize", "MaxSize"].find(
