@@ -7,6 +7,9 @@ import set from "./commands/set";
 import rm from "./commands/rm";
 import deploy from "./commands/deploy";
 import status from "./commands/status";
+import stop from "./commands/stop";
+import start from "./commands/start";
+import restart from "./commands/restart";
 
 const program = new Command();
 
@@ -21,6 +24,9 @@ program
   .addCommand(set)
   .addCommand(rm)
   .addCommand(deploy)
-  .addCommand(status);
+  .addCommand(status)
+  .addCommand(stop)
+  .addCommand(start)
+  .addCommand(restart);
 
 program.parse();

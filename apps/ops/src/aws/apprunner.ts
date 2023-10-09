@@ -17,12 +17,15 @@ import {
   ServiceSummary,
   ListTagsForResourceCommand,
   AutoScalingConfiguration,
+  ResumeServiceCommand,
+  PauseServiceCommand,
 } from "@aws-sdk/client-apprunner";
 import { getTags, TagKeys } from "./defaults";
 import { getConfig, SetConfigValueCallback } from "./ssm";
 import chalk from "chalk";
 import { getEcrRepositoryArn } from "./ecr";
 import { Logger } from "../commands/defaults";
+import { AppRunnerSettings } from "../vendor";
 
 const MaxWaitTimeForAppRunnerCreate = 60 * 15;
 const MaxWaitTimeForAppRunnerUpdate = 60 * 15;
@@ -33,6 +36,74 @@ function getAppRunnerClient(region: string) {
     apiVersion,
     region,
   });
+}
+
+export async function enableOrDisableService(
+  region: string,
+  deployment: string,
+  settings: AppRunnerSettings,
+  start: boolean,
+  logger: Logger
+) {
+  logger(
+    `${start ? "starting" : "stopping"} ${settings.Name} service...`,
+    "aws:apprunner"
+  );
+  const service = await getOneLetsGoAppRunnerService(
+    region,
+    deployment,
+    settings.Name,
+    logger
+  );
+  if (service) {
+    const expectedStatus = start ? "PAUSED" : "RUNNING";
+    const desiredStatus = start ? "RUNNING" : "PAUSED";
+    if (service.Status !== desiredStatus) {
+      if (service.Status !== expectedStatus) {
+        logger(
+          chalk.red(
+            `service ${settings.Name} is in an unexpected state '${service.Status}' (expected '${expectedStatus}')`
+          ),
+          "aws:lambda"
+        );
+        process.exit(1);
+      }
+      const apprunner = getAppRunnerClient(region);
+      if (start) {
+        const startCommand = new ResumeServiceCommand({
+          ServiceArn: service.ServiceArn,
+        });
+        await apprunner.send(startCommand);
+      } else {
+        const stopCommand = new PauseServiceCommand({
+          ServiceArn: service.ServiceArn,
+        });
+        await apprunner.send(stopCommand);
+      }
+    }
+    await waitForAppRunnerService(
+      region,
+      settings.Name,
+      service.ServiceArn || "",
+      MaxWaitTimeForAppRunnerUpdate,
+      "OPERATION_IN_PROGRESS",
+      desiredStatus,
+      logger
+    );
+    logger(
+      `${settings.Name} service ${start ? "started" : "stopped"}`,
+      "aws:apprunner"
+    );
+  } else {
+    logger(
+      chalk.yellow(
+        `cannot ${start ? "start" : "stop"} ${
+          settings.Name
+        } service: service not found`
+      ),
+      "aws:apprunner"
+    );
+  }
 }
 
 export async function describeService(
@@ -124,9 +195,11 @@ export async function deleteUnusedAutoScalingConfigurations(
 
 async function waitForAppRunnerService(
   region: string,
+  component: string,
   serviceArn: string,
   maxWait: number,
-  isDeleting: boolean,
+  inProgressStatus: string,
+  terminalStatus: string | undefined,
   logger: Logger
 ): Promise<Service | undefined> {
   const apprunner = getAppRunnerClient(region);
@@ -140,37 +213,27 @@ async function waitForAppRunnerService(
     try {
       result = await apprunner.send(command);
     } catch (e: any) {
-      if (e.name === "ResourceNotFoundException" && isDeleting) {
+      if (
+        e.name === "ResourceNotFoundException" &&
+        terminalStatus === "DELETED"
+      ) {
         return undefined;
       }
       throw e;
     }
-    logger(`${clock}s service status: ${result.Service?.Status}`);
-    if (isDeleting) {
-      if (result.Service?.Status === "DELETED") {
-        return undefined;
-      } else if (result.Service?.Status !== "OPERATION_IN_PROGRESS") {
-        logger(
-          chalk.red(
-            `failure deleting ${serviceArn} service: unexpected service status ${result.Service?.Status}`
-          )
-        );
-        process.exit(1);
-      }
-    } else {
-      if (result.Service?.Status === "RUNNING") {
-        return result.Service;
-      } else if (result.Service?.Status !== "OPERATION_IN_PROGRESS") {
-        logger(
-          chalk.red(
-            `failure creating ${serviceArn} service: unexpected service status ${result.Service?.Status}`
-          )
-        );
-        process.exit(1);
-      }
+    logger(`${clock}s ${component} service status: ${result.Service?.Status}`);
+    if (result.Service?.Status === terminalStatus) {
+      return terminalStatus === "DELETED" ? undefined : result.Service;
+    } else if (result.Service?.Status !== inProgressStatus) {
+      logger(
+        chalk.red(
+          `failure updating ${component} service: unexpected service status ${result.Service?.Status}`
+        )
+      );
+      process.exit(1);
     }
     if (clock >= maxWait) {
-      return isDeleting ? result.Service : undefined;
+      return terminalStatus === "DELETED" ? result.Service : undefined;
     }
     if (clock > 60) {
       delay = 10;
@@ -385,9 +448,11 @@ async function updateAppRunnerService(
     await apprunner.send(tagResourceCommand);
     const service = await waitForAppRunnerService(
       options.region,
+      options.component,
       existingService.ServiceArn || "",
       MaxWaitTimeForAppRunnerUpdate,
-      false,
+      "OPERATION_IN_PROGRESS",
+      "RUNNING",
       options.logger
     );
     if (!service) {
@@ -511,9 +576,11 @@ async function createAppRunnerService(
   );
   const service = await waitForAppRunnerService(
     options.region,
+    options.component,
     createServiceResult.Service?.ServiceArn || "",
     MaxWaitTimeForAppRunnerCreate,
-    false,
+    "OPERATION_IN_PROGRESS",
+    "RUNNING",
     options.logger
   );
   if (service) {
@@ -539,6 +606,7 @@ async function createAppRunnerService(
 
 export async function deleteAppRunnerService(
   region: string,
+  component: string,
   serviceArn: string,
   logger: Logger
 ): Promise<void> {
@@ -561,9 +629,11 @@ export async function deleteAppRunnerService(
   }
   const service = await waitForAppRunnerService(
     region,
+    component,
     serviceArn,
     MaxWaitTimeForAppRunnerUpdate,
-    true,
+    "OPERATION_IN_PROGRESS",
+    "DELETED",
     logger
   );
   if (service) {
@@ -615,38 +685,37 @@ export async function listLetsGoAppRunnerServices(
 }
 
 async function getOneLetsGoAppRunnerService(
-  options: EnsureAppRunnerOptions
+  region: string,
+  deployment: string,
+  component: string,
+  logger: Logger
 ): Promise<ServiceSummary | undefined> {
-  options.logger(`discovering ${options.component} services...`);
+  logger(`discovering ${component} services...`);
   let existingServices = await listLetsGoAppRunnerServices(
-    options.region,
-    options.deployment,
-    options.component
+    region,
+    deployment,
+    component
   );
   if (existingServices.length > 1) {
-    options.logger(
-      chalk.red(
-        `found multiple ${options.component} services, and expected only one:`
-      )
+    logger(
+      chalk.red(`found multiple ${component} services, and expected only one:`)
     );
     existingServices.forEach((service) =>
-      options.logger(
-        chalk.red(`  ${service.ServiceArn} (${service.ServiceUrl})`)
-      )
+      logger(chalk.red(`  ${service.ServiceArn} (${service.ServiceUrl})`))
     );
-    options.logger(
+    logger(
       chalk.red(
-        `manually resolve this issue by deleting the ${options.component} services you don't need in AWS, then try again`
+        `manually resolve this issue by deleting the ${component} services you don't need in AWS, then try again`
       )
     );
     process.exit(1);
   }
   if (existingServices.length === 0) {
-    options.logger(`existing ${options.component} service not found`);
+    logger(`existing ${component} service not found`);
     return undefined;
   }
-  options.logger(
-    `found ${options.component} service https://${existingServices[0]?.ServiceUrl}`
+  logger(
+    `found ${component} service https://${existingServices[0]?.ServiceUrl}`
   );
   return existingServices[0];
 }
@@ -654,7 +723,12 @@ async function getOneLetsGoAppRunnerService(
 export async function ensureAppRunner(
   options: EnsureAppRunnerOptions
 ): Promise<void> {
-  let existingServiceSummary = await getOneLetsGoAppRunnerService(options);
+  let existingServiceSummary = await getOneLetsGoAppRunnerService(
+    options.region,
+    options.deployment,
+    options.component,
+    options.logger
+  );
   if (existingServiceSummary?.Status === "OPERATION_IN_PROGRESS") {
     options.logger(
       chalk.red(
@@ -667,6 +741,7 @@ export async function ensureAppRunner(
   if (existingServiceSummary?.Status === "CREATE_FAILED") {
     await deleteAppRunnerService(
       options.region,
+      options.component,
       existingServiceSummary.ServiceArn || "",
       options.logger
     );

@@ -50,7 +50,12 @@ async function deleteAppRunnerServices(
   services.forEach((service) => {
     parallel.push(
       (async () => {
-        await deleteAppRunnerService(region, service.ServiceArn || "", logger);
+        await deleteAppRunnerService(
+          region,
+          component,
+          service.ServiceArn || "",
+          logger
+        );
         logger(`deleted service ${service.ServiceName}`);
       })()
     );

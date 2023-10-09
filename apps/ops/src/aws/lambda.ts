@@ -22,6 +22,7 @@ import { getEcrRepositoryArn } from "./ecr";
 import { getOneLetsGoQueue, getQueueArnFromQueueUrl } from "./sqs";
 import { getTagsAsObject } from "./defaults";
 import chalk from "chalk";
+import { get } from "http";
 
 const MaxFunctionWaitTime = 60 * 5; // 5 minutes
 const MaxEventSourceMappingWaitTime = 60 * 5; // 5 minutes
@@ -75,6 +76,71 @@ async function waitForLambda(
   }
 }
 
+export async function enableOrDisableEventSourceMapping(
+  region: string,
+  deployment: string,
+  functionName: string,
+  start: boolean,
+  logger: Logger
+) {
+  logger(`${start ? "starting" : "stopping"} worker...`, "aws:lambda");
+  const queueUrl = await getOneLetsGoQueue(region, deployment, logger);
+  if (!queueUrl) {
+    logger(
+      chalk.yellow(
+        `cannot ${start ? "start" : "stop"} worker: queue not found`
+      ),
+      "aws:sqs"
+    );
+    return;
+  }
+  const queueArn = await getQueueArnFromQueueUrl(region, queueUrl || "");
+  const eventSource = await getEventSourceMapping(
+    region,
+    functionName,
+    queueArn,
+    logger
+  );
+  if (eventSource) {
+    const expectedState = start ? "Disabled" : "Enabled";
+    const desiredState = start ? "Enabled" : "Disabled";
+    if (eventSource.State !== desiredState) {
+      if (eventSource.State !== expectedState) {
+        logger(
+          chalk.red(
+            `event source mapping is in an unexpected state '${eventSource.State}' (expected '${expectedState}')`
+          ),
+          "aws:lambda"
+        );
+        process.exit(1);
+      }
+      const updateCommand = new UpdateEventSourceMappingCommand({
+        UUID: eventSource.UUID || "",
+        Enabled: start,
+      });
+      const result = await getLambdaClient(region).send(updateCommand);
+      await waitForEventSourceMapping(
+        region,
+        eventSource.UUID || "",
+        MaxEventSourceMappingWaitTime,
+        start ? "Enabling" : "Disabling",
+        desiredState,
+        logger
+      );
+    }
+    logger(`worker ${start ? "started" : "stopped"}`, "aws:lambda");
+  } else {
+    logger(
+      chalk.yellow(
+        `cannot ${
+          start ? "start" : "stop"
+        } worker: event source mapping not found'`
+      ),
+      "aws:lambda"
+    );
+  }
+}
+
 async function getEventSourceMappingFromUuid(region: string, uuid: string) {
   const lambda = getLambdaClient(region);
   const getEventSourceMappingCommand = new GetEventSourceMappingCommand({
@@ -107,12 +173,15 @@ async function waitForEventSourceMapping(
       if (inProgressState === "Deleting") {
         return undefined;
       } else {
-        logger(chalk.red(`cannot find event source mapping with UUID ${uuid}`));
+        logger(
+          chalk.red(`cannot find event source mapping with UUID ${uuid}`),
+          "aws:lambda"
+        );
         process.exit(1);
       }
     }
     const state = result?.State || "Unknown";
-    logger(`${clock}s event source mapping state: ${state}`);
+    logger(`${clock}s event source mapping state: ${state}`, "aws:lambda");
     if (state === terminalState) {
       return result;
     }
@@ -235,7 +304,7 @@ export async function createLambda(
   logger: Logger
 ): Promise<void> {
   const FunctionName = settings.getLambdaFunctionName(deployment);
-  logger(`creating new Lambda function '${FunctionName}'...`, "aws:lambda");
+  logger(`creating worker...`, "aws:lambda");
   const lambda = getLambdaClient(region);
   const roleName = settings.getRoleName(region, deployment);
   const roleArn = await getRoleArn(roleName);
@@ -307,10 +376,7 @@ export async function createLambda(
     logger
   );
 
-  logger(
-    `Lambda function '${FunctionName}' created and connected to SQS`,
-    "aws:lambda"
-  );
+  logger(`worker created`, "aws:lambda");
 }
 
 export async function updateLambda(
@@ -488,7 +554,7 @@ export async function updateLambda(
     }
   }
 
-  logger(`Lambda function '${FunctionName}' is up to date`, "aws:lambda");
+  logger(`worker is up to date`, "aws:lambda");
 }
 
 export async function getLambda(
