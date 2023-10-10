@@ -92,7 +92,7 @@ const createAppRunnerConfiguration = (componentName: string) => ({
         Effect: "Allow",
         Action: ["ssm:GetParameters"],
         Resource: [
-          `arn:aws:ssm:${region}:${accountId}:parameter/${VendorPrefix}/${region}/${deployment}/*`,
+          `arn:aws:ssm:${ConfigRegion}:${accountId}:parameter/${VendorPrefix}/${region}/${deployment}/*`,
         ],
       },
       {
