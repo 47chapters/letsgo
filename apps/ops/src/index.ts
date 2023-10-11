@@ -10,6 +10,7 @@ import status from "./commands/status";
 import stop from "./commands/stop";
 import start from "./commands/start";
 import restart from "./commands/restart";
+import domain from "./commands/domain";
 
 const program = new Command();
 
@@ -27,6 +28,7 @@ program
   .addCommand(status)
   .addCommand(stop)
   .addCommand(start)
-  .addCommand(restart);
+  .addCommand(restart)
+  .addCommand(domain);
 
 program.parse();

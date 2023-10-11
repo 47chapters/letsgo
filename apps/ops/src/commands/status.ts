@@ -14,13 +14,18 @@ import {
 import { getArtifacts } from "./defaults";
 import {
   describeAutoScalingConfiguration,
+  describeCustomDomains,
   describeService,
   listLetsGoAppRunnerServices,
 } from "../aws/apprunner";
 import { getLambda, listEventSourceMappings } from "../aws/lambda";
 import { describeQueue, listLetsGoQueues } from "../aws/sqs";
 import { getTable } from "../aws/dynamodb";
-import { AutoScalingConfiguration, Service } from "@aws-sdk/client-apprunner";
+import {
+  AutoScalingConfiguration,
+  CustomDomain,
+  Service,
+} from "@aws-sdk/client-apprunner";
 import {
   EventSourceMappingConfiguration,
   GetFunctionCommandOutput,
@@ -33,6 +38,7 @@ const AllArtifacts = ["all", "api", "web", "db", "worker"];
 interface AppRunnerStatus {
   apprunner?: Service;
   autoScalingConfiguration?: AutoScalingConfiguration;
+  customDomains: CustomDomain[];
   health?: string | Error;
 }
 
@@ -57,13 +63,13 @@ interface Status {
   db?: TableDescription | null;
 }
 
-function isErrorStatus(o: any): o is ErrorStatus {
+export function isErrorStatus(o: any): o is ErrorStatus {
   return typeof (<ErrorStatus>o.error) === "string";
 }
 
 const program = new Command();
 
-async function getAppRunnerStatus(
+export async function getAppRunnerStatus(
   region: string,
   deployment: string,
   settings: AppRunnerSettings
@@ -87,7 +93,11 @@ async function getAppRunnerStatus(
     apprunner?.AutoScalingConfigurationSummary?.AutoScalingConfigurationArn ||
       ""
   );
-  return { apprunner, autoScalingConfiguration };
+  const customDomains = await describeCustomDomains(
+    region,
+    services[0].ServiceArn || ""
+  );
+  return { apprunner, autoScalingConfiguration, customDomains };
 }
 
 async function getDbStatus(
@@ -198,6 +208,7 @@ function printAppRunnerStatus(
     console.log(`${chalk.bold.blue(comopnent)}: ${chalk.red(status.error)}`);
   } else {
     console.log(`${chalk.bold.blue(comopnent)}`);
+    console.log(`${chalk.bold("  Service")}`);
     const statusColor =
       status.apprunner?.Status === "RUNNING"
         ? chalk.green
@@ -219,6 +230,32 @@ function printAppRunnerStatus(
         : status.health;
     printLine("Health", healthColor(healthValue));
     printLine("Url", `https://${status.apprunner?.ServiceUrl}`);
+    if (status.customDomains.length === 1) {
+      const customDomain = status.customDomains[0];
+      const domainColor =
+        customDomain.Status === "active"
+          ? chalk.green
+          : customDomain.Status?.match(/failed/)
+          ? chalk.red
+          : chalk.yellow;
+      printLine(
+        "CustomDomain",
+        `${customDomain.DomainName}${
+          customDomain.EnableWWWSubdomain
+            ? `, www.${customDomain.DomainName}`
+            : ``
+        } (${domainColor(customDomain.Status)})`
+      );
+    } else if (status.customDomains.length > 1) {
+      printLine(
+        "CustomDomain",
+        chalk.red(
+          "Multiple custom domains are present - resolve this with AWS console/CLI."
+        )
+      );
+    } else {
+      printLine("CustomDomain", "Not configured");
+    }
     const healthUrl = `https://${status.apprunner?.ServiceUrl}${status.apprunner?.HealthCheckConfiguration?.Path}`;
     printLine("HealthUrl", healthUrl);
     printLine("MinSize", `${status.autoScalingConfiguration?.MinSize}`);

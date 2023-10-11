@@ -19,6 +19,10 @@ import {
   AutoScalingConfiguration,
   ResumeServiceCommand,
   PauseServiceCommand,
+  DescribeCustomDomainsCommand,
+  CustomDomain,
+  AssociateCustomDomainCommand,
+  DisassociateCustomDomainCommand,
 } from "@aws-sdk/client-apprunner";
 import { getTags, TagKeys } from "./defaults";
 import { getConfig, SetConfigValueCallback } from "./ssm";
@@ -29,6 +33,7 @@ import { AppRunnerSettings } from "../vendor";
 
 const MaxWaitTimeForAppRunnerCreate = 60 * 15;
 const MaxWaitTimeForAppRunnerUpdate = 60 * 15;
+const MaxWaitTimeForCustomDomain = 60 * 1;
 const apiVersion = "2020-05-15";
 
 function getAppRunnerClient(region: string) {
@@ -247,6 +252,57 @@ async function waitForAppRunnerService(
   }
 }
 
+async function waitForCustomDomain(
+  region: string,
+  serviceArn: string,
+  maxWait: number,
+  inProgressStatus: string,
+  terminalStatus: string | undefined,
+  silentOutput: boolean,
+  logger: Logger
+): Promise<CustomDomain | undefined> {
+  const apprunner = getAppRunnerClient(region);
+  let clock = 0;
+  let delay = 1;
+  while (true) {
+    const result = await describeCustomDomains(region, serviceArn);
+    if (result.length !== 1) {
+      logger(
+        chalk.red(
+          `discovered ${result.length} custom domains while expected 1`
+        ),
+        "aws:lambda"
+      );
+      process.exit(1);
+    }
+    const customDomain = result[0];
+    !silentOutput &&
+      logger(`${clock}s custom domain status: ${customDomain.Status}`);
+    if (customDomain.Status === terminalStatus) {
+      return customDomain;
+    } else if (customDomain.Status !== inProgressStatus) {
+      logger(
+        chalk.red(
+          `failure adding custom domain: unexpected custom domain status ${customDomain.Status}`
+        )
+      );
+      process.exit(1);
+    }
+    if (clock >= maxWait) {
+      return undefined;
+    }
+    if (clock > 60) {
+      delay = 10;
+    } else if (clock > 20) {
+      delay = 5;
+    } else if (clock > 5) {
+      delay = 2;
+    }
+    clock += delay;
+    await new Promise((resolve) => setTimeout(resolve, delay * 1000));
+  }
+}
+
 function getAutoScalingSettings(options: EnsureAppRunnerOptions) {
   return {
     MaxConcurrency: options.autoScaling.maxConcurrency,
@@ -277,6 +333,72 @@ export async function describeAutoScalingConfiguration(
     });
   const autoScalingResponse = await apprunner.send(describeAutoScalingCommand);
   return autoScalingResponse.AutoScalingConfiguration as AutoScalingConfiguration;
+}
+
+export async function describeCustomDomains(
+  region: string,
+  serviceArn: string
+): Promise<CustomDomain[]> {
+  const apprunner = getAppRunnerClient(region);
+  const command = new DescribeCustomDomainsCommand({
+    ServiceArn: serviceArn,
+  });
+  const result = await apprunner.send(command);
+  return result.CustomDomains || [];
+}
+
+export async function addCustomDomain(
+  region: string,
+  serviceArn: string,
+  domain: string,
+  www: boolean,
+  silentOutput: boolean,
+  logger: Logger
+): Promise<CustomDomain> {
+  const apprunner = getAppRunnerClient(region);
+  const addCommand = new AssociateCustomDomainCommand({
+    ServiceArn: serviceArn,
+    DomainName: domain,
+    EnableWWWSubdomain: www,
+  });
+  await apprunner.send(addCommand);
+  const result = await waitForCustomDomain(
+    region,
+    serviceArn,
+    MaxWaitTimeForCustomDomain,
+    "creating",
+    "pending_certificate_dns_validation",
+    silentOutput,
+    logger
+  );
+  if (!result) {
+    console.log(
+      chalk.red(
+        `The custom domain did not reach the expected state within ${MaxWaitTimeForCustomDomain} seconds`
+      )
+    );
+    console.log(
+      chalk.red(
+        `You can continue manually checking the status of the custom domain in AWS or with 'yarn ops status'`
+      )
+    );
+    process.exit(1);
+  }
+  return result;
+}
+
+export async function removeCustomDomain(
+  region: string,
+  serviceArn: string,
+  domain: string,
+  logger: Logger
+): Promise<void> {
+  const apprunner = getAppRunnerClient(region);
+  const removeCommand = new DisassociateCustomDomainCommand({
+    ServiceArn: serviceArn,
+    DomainName: domain,
+  });
+  await apprunner.send(removeCommand);
 }
 
 async function updateAppRunnerService(
