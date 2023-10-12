@@ -8,7 +8,7 @@ import {
   TableDescription,
   DeleteTableCommand,
 } from "@aws-sdk/client-dynamodb";
-import { DBSettings } from "../vendor";
+import { DBSettings } from "@letsgo/constants";
 import { Logger } from "../commands/defaults";
 import { getTags } from "./defaults";
 

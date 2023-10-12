@@ -15,12 +15,16 @@
   "jest": {
     "preset": "jest-presets/jest/node"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@letsgo/db": "*"
+  },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.123",
+    "@types/dotenv": "^8.2.0",
     "@types/jest": "^26.0.22",
     "@types/node": "^15.12.2",
     "@types/supertest": "^2.0.11",
+    "dotenv": "^16.3.1",
     "esbuild": "^0.14.38",
     "esbuild-register": "^3.3.2",
     "eslint": "^7.32.0",

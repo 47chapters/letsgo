@@ -24,12 +24,12 @@ import {
   AssociateCustomDomainCommand,
   DisassociateCustomDomainCommand,
 } from "@aws-sdk/client-apprunner";
-import { getTags, TagKeys } from "./defaults";
+import { getTags } from "./defaults";
 import { getConfig, SetConfigValueCallback } from "./ssm";
 import chalk from "chalk";
 import { getEcrRepositoryArn } from "./ecr";
 import { Logger } from "../commands/defaults";
-import { AppRunnerSettings } from "../vendor";
+import { AppRunnerSettings, TagKeys } from "@letsgo/constants";
 
 const MaxWaitTimeForAppRunnerCreate = 60 * 15;
 const MaxWaitTimeForAppRunnerUpdate = 60 * 15;
@@ -531,34 +531,26 @@ async function updateAppRunnerService(
             },
           }
         : {}),
-      ...(imageNeedsUpdate || configNeedsUpdate
-        ? {
-            SourceConfiguration: {
-              ImageRepository: {
-                ImageIdentifier: `${ecrRepositoryUrl}:${options.imageTag}`,
-                ImageRepositoryType: "ECR",
-                ...(configNeedsUpdate
-                  ? {
-                      ImageConfiguration: {
-                        RuntimeEnvironmentSecrets: desiredConfig,
-                        RuntimeEnvironmentVariables: {
-                          LETSGO_IMAGE_TAG: options.imageTag,
-                          LETSGO_DEPLOYMENT: options.deployment,
-                          LETSGO_UPDATED_AT: updatedAt,
-                          // Workaround for a Next.js issue. See https://github.com/vercel/next.js/issues/49777
-                          HOSTNAME: "0.0.0.0",
-                        },
-                      },
-                    }
-                  : {}),
-              },
-              AutoDeploymentsEnabled: false,
-              AuthenticationConfiguration: {
-                AccessRoleArn: options.appRunnerInstanceRoleArn,
-              },
+      SourceConfiguration: {
+        ImageRepository: {
+          ImageIdentifier: `${ecrRepositoryUrl}:${options.imageTag}`,
+          ImageRepositoryType: "ECR",
+          ImageConfiguration: {
+            RuntimeEnvironmentSecrets: desiredConfig,
+            RuntimeEnvironmentVariables: {
+              LETSGO_IMAGE_TAG: options.imageTag,
+              LETSGO_DEPLOYMENT: options.deployment,
+              LETSGO_UPDATED_AT: updatedAt,
+              // Workaround for a Next.js issue. See https://github.com/vercel/next.js/issues/49777
+              HOSTNAME: "0.0.0.0",
             },
-          }
-        : {}),
+          },
+        },
+        AutoDeploymentsEnabled: false,
+        AuthenticationConfiguration: {
+          AccessRoleArn: options.appRunnerInstanceRoleArn,
+        },
+      },
     });
     await apprunner.send(updateServiceCommand);
     const tagResourceCommand = new TagResourceCommand({

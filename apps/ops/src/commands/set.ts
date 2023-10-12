@@ -1,7 +1,7 @@
 import { Command } from "commander";
 import { setConfig } from "../aws/ssm";
 import chalk from "chalk";
-import { DefaultRegion, DefaultDeployment } from "../vendor";
+import { DefaultRegion, DefaultDeployment } from "@letsgo/constants";
 import dotenv from "dotenv";
 
 const program = new Command();

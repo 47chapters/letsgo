@@ -15,7 +15,7 @@ import {
   GetEventSourceMappingCommand,
 } from "@aws-sdk/client-lambda";
 import { Logger } from "../commands/defaults";
-import { WorkerSettings } from "../vendor";
+import { WorkerSettings } from "@letsgo/constants";
 import { LetsGoDeploymentConfig } from "./ssm";
 import { getRoleArn } from "./iam";
 import { getEcrRepositoryArn } from "./ecr";

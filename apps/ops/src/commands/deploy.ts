@@ -11,8 +11,6 @@ import { ensureAppRunner } from "../aws/apprunner";
 import chalk from "chalk";
 import { createLogger, getArtifacts } from "./defaults";
 import {
-  DefaultRegion,
-  DefaultDeployment,
   ApiConfiguration,
   WebConfiguration,
   AppRunnerSettings,
@@ -20,7 +18,9 @@ import {
   DBConfiguration,
   WorkerConfiguration,
   WorkerSettings,
-} from "../vendor";
+  DefaultRegion,
+  DefaultDeployment,
+} from "@letsgo/constants";
 import { join } from "path";
 import { readFileSync } from "fs";
 import {

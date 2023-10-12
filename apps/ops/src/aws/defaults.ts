@@ -1,16 +1,8 @@
-import { VendorPrefix, ConfigRegion } from "../vendor";
+import { TagKeys, VendorPrefix } from "@letsgo/constants";
 
 export const ConfigPrefix = `/${VendorPrefix}`;
 
 const version = require("../../../../package.json").version;
-
-export const TagKeys = {
-  LetsGoVersion: "LetsGoVersion",
-  LetsGoDeployment: "LetsGoDeployment",
-  LetsGoRegion: "LetsGoRegion",
-  LetsGoUpdated: "LetsGoUpdated",
-  LetsGoComponent: "LetsGoComponent",
-};
 
 export function getTags(
   region: string,

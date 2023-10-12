@@ -1,8 +1,6 @@
 import { Command, Option } from "commander";
 import chalk from "chalk";
 import {
-  DefaultRegion,
-  DefaultDeployment,
   ApiConfiguration,
   DBConfiguration,
   WebConfiguration,
@@ -10,7 +8,9 @@ import {
   AppRunnerSettings,
   DBSettings,
   WorkerSettings,
-} from "../vendor";
+  DefaultRegion,
+  DefaultDeployment,
+} from "@letsgo/constants";
 import { getArtifacts } from "./defaults";
 import {
   describeAutoScalingConfiguration,

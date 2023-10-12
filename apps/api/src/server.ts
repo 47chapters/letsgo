@@ -2,6 +2,10 @@ import { json, urlencoded } from "body-parser";
 import express from "express";
 import morgan from "morgan";
 import cors from "cors";
+import { errorHandler } from "./middleware/error-handler";
+import inventorySample from "./routes/inventory-sample";
+import { healthHandler } from "./routes/health";
+import { noCache } from "./middleware/noCache";
 
 export const createServer = () => {
   const app = express();
@@ -10,17 +14,15 @@ export const createServer = () => {
     .use(morgan("dev"))
     .use(urlencoded({ extended: true }))
     .use(json())
-    .use(cors())
-    .get("/message/:name", (req, res) => {
-      return res.json({ message: `hello ${req.params.name}` });
-    })
-    .get("/v1/health", (req, res) => {
-      return res.json({
-        ok: true,
-        imageTag: process.env.LETSGO_IMAGE_TAG || "unknown",
-        updatedAt: process.env.LETSGO_UPDATED_AT || "unknown",
-      });
-    });
+    .use(cors());
+
+  app.get("/v1/health", noCache, healthHandler);
+
+  // TODO: this is a sample API you want to remove from you app.
+  app.use("/v1", noCache, inventorySample);
+
+  // Default error handler
+  app.use(errorHandler);
 
   return app;
 };

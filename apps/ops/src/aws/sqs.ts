@@ -10,8 +10,8 @@ import {
   DeleteQueueCommand,
 } from "@aws-sdk/client-sqs";
 import { Logger } from "../commands/defaults";
-import { WorkerSettings } from "../vendor";
-import { TagKeys, getTagsAsObject } from "./defaults";
+import { getTagsAsObject } from "./defaults";
+import { TagKeys, WorkerSettings } from "@letsgo/constants";
 import chalk from "chalk";
 import { LetsGoDeploymentConfig } from "./ssm";
 import { getAccountId } from "./sts";

@@ -1,7 +1,15 @@
 export const VendorPrefix = "letsgo";
 export const ConfigRegion = "us-west-2";
 export const DefaultRegion = process.env.AWS_REGION || "us-west-2";
-export const DefaultDeployment = "main";
+export const DefaultDeployment = process.env.LETSGO_DEPLOYMENT || "main";
+
+export const TagKeys = {
+  LetsGoVersion: "LetsGoVersion",
+  LetsGoDeployment: "LetsGoDeployment",
+  LetsGoRegion: "LetsGoRegion",
+  LetsGoUpdated: "LetsGoUpdated",
+  LetsGoComponent: "LetsGoComponent",
+};
 
 export const ConfigSettings = {
   ApiAppRunnerUrl: "LETSGO_API_URL",
@@ -110,6 +118,35 @@ const createAppRunnerConfiguration = (componentName: string) => ({
         Effect: "Allow",
         Action: ["ecr:GetAuthorizationToken"],
         Resource: "*",
+      },
+      {
+        Effect: "Allow",
+        Action: [
+          "dynamodb:List*",
+          "dynamodb:DescribeReservedCapacity*",
+          "dynamodb:DescribeLimits",
+          "dynamodb:DescribeTimeToLive",
+        ],
+        Resource: "*",
+      },
+      {
+        Effect: "Allow",
+        Action: [
+          "dynamodb:BatchGet*",
+          "dynamodb:DescribeStream",
+          "dynamodb:DescribeTable",
+          "dynamodb:Get*",
+          "dynamodb:Query",
+          "dynamodb:Scan",
+          "dynamodb:BatchWrite*",
+          "dynamodb:CreateTable",
+          "dynamodb:Delete*",
+          "dynamodb:Update*",
+          "dynamodb:PutItem",
+        ],
+        Resource: `arn:aws:dynamodb:${region}:${accountId}:table/${DBConfiguration.getTableName(
+          deployment
+        )}`,
       },
     ],
   }),

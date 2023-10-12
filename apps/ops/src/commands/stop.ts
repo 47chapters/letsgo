@@ -1,5 +1,5 @@
 import { Command, Option } from "commander";
-import { DefaultRegion, DefaultDeployment } from "../vendor";
+import { DefaultRegion, DefaultDeployment } from "@letsgo/constants";
 import { AllServiceArtifacts, createStartStopCommanderAction } from "./service";
 
 const program = new Command();

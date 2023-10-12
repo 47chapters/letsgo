@@ -1,13 +1,13 @@
 import { Command, Option } from "commander";
 import {
-  DefaultRegion,
-  DefaultDeployment,
   ApiConfiguration,
   WebConfiguration,
-} from "../vendor";
+  DefaultRegion,
+  DefaultDeployment,
+} from "@letsgo/constants";
 import { getAppRunnerStatus, isErrorStatus } from "./status";
 import chalk from "chalk";
-import { addCustomDomain, removeCustomDomain } from "../aws/apprunner";
+import { removeCustomDomain } from "../aws/apprunner";
 import { createLogger } from "./defaults";
 
 const AllServiceArtifacts = ["api", "web"];

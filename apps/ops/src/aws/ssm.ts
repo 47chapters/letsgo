@@ -8,11 +8,7 @@ import {
   GetParameterCommand,
 } from "@aws-sdk/client-ssm";
 import { ConfigPrefix, getTags } from "./defaults";
-import {
-  AppRunnerSettingsDefaultConfig,
-  ConfigRegion,
-  DefaultConfig,
-} from "../vendor";
+import { ConfigRegion, DefaultConfig } from "@letsgo/constants";
 
 export interface LetsGoDeploymentConfig {
   [key: string]: string;

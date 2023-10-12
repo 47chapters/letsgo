@@ -8,15 +8,15 @@ import {
 import { deleteRepository } from "../aws/ecr";
 import chalk from "chalk";
 import {
-  DefaultRegion,
-  DefaultDeployment,
   ApiConfiguration,
   WebConfiguration,
   AppRunnerSettings,
   DBConfiguration,
   WorkerSettings,
   WorkerConfiguration,
-} from "../vendor";
+  DefaultRegion,
+  DefaultDeployment,
+} from "@letsgo/constants";
 import { Logger, createLogger, getArtifacts } from "./defaults";
 import { deleteRole } from "../aws/iam";
 import { deleteDynamo } from "../aws/dynamodb";

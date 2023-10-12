@@ -1,3 +1,4 @@
+import "dotenv/config";
 import { handler } from "./index";
 import { createServer, ServerResponse } from "http";
 

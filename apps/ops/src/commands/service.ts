@@ -1,11 +1,9 @@
 import chalk from "chalk";
 import {
-  DefaultRegion,
-  DefaultDeployment,
   ApiConfiguration,
   WebConfiguration,
   WorkerConfiguration,
-} from "../vendor";
+} from "@letsgo/constants";
 import { createLogger, getArtifacts } from "./defaults";
 import { enableOrDisableService } from "../aws/apprunner";
 import { enableOrDisableEventSourceMapping } from "../aws/lambda";

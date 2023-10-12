@@ -154,6 +154,52 @@
     tslib "^2.5.0"
     uuid "^8.3.2"
 
+"@aws-sdk/client-dynamodb@^3.427.0":
+  version "3.427.0"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/client-dynamodb/-/client-dynamodb-3.427.0.tgz#027cc0212974eb99b2c25bf99e47a4b27b735f65"
+  integrity sha512-mE435f9oDZDXJA6/Ws+Z53D+U3lh64n6p1AYKOm1IsvAzEZx2/Xf1DBQnSyqwOpVgE2vi+j/vW7yWxMmEulZLw==
+  dependencies:
+    "@aws-crypto/sha256-browser" "3.0.0"
+    "@aws-crypto/sha256-js" "3.0.0"
+    "@aws-sdk/client-sts" "3.427.0"
+    "@aws-sdk/credential-provider-node" "3.427.0"
+    "@aws-sdk/middleware-endpoint-discovery" "3.425.0"
+    "@aws-sdk/middleware-host-header" "3.425.0"
+    "@aws-sdk/middleware-logger" "3.425.0"
+    "@aws-sdk/middleware-recursion-detection" "3.425.0"
+    "@aws-sdk/middleware-signing" "3.425.0"
+    "@aws-sdk/middleware-user-agent" "3.427.0"
+    "@aws-sdk/region-config-resolver" "3.425.0"
+    "@aws-sdk/types" "3.425.0"
+    "@aws-sdk/util-endpoints" "3.427.0"
+    "@aws-sdk/util-user-agent-browser" "3.425.0"
+    "@aws-sdk/util-user-agent-node" "3.425.0"
+    "@smithy/config-resolver" "^2.0.11"
+    "@smithy/fetch-http-handler" "^2.2.1"
+    "@smithy/hash-node" "^2.0.10"
+    "@smithy/invalid-dependency" "^2.0.10"
+    "@smithy/middleware-content-length" "^2.0.12"
+    "@smithy/middleware-endpoint" "^2.0.10"
+    "@smithy/middleware-retry" "^2.0.13"
+    "@smithy/middleware-serde" "^2.0.10"
+    "@smithy/middleware-stack" "^2.0.4"
+    "@smithy/node-config-provider" "^2.0.13"
+    "@smithy/node-http-handler" "^2.1.6"
+    "@smithy/protocol-http" "^3.0.6"
+    "@smithy/smithy-client" "^2.1.9"
+    "@smithy/types" "^2.3.4"
+    "@smithy/url-parser" "^2.0.10"
+    "@smithy/util-base64" "^2.0.0"
+    "@smithy/util-body-length-browser" "^2.0.0"
+    "@smithy/util-body-length-node" "^2.1.0"
+    "@smithy/util-defaults-mode-browser" "^2.0.13"
+    "@smithy/util-defaults-mode-node" "^2.0.15"
+    "@smithy/util-retry" "^2.0.3"
+    "@smithy/util-utf8" "^2.0.0"
+    "@smithy/util-waiter" "^2.0.10"
+    tslib "^2.5.0"
+    uuid "^8.3.2"
+
 "@aws-sdk/client-ecr@^3.421.0":
   version "3.421.0"
   resolved "https://registry.yarnpkg.com/@aws-sdk/client-ecr/-/client-ecr-3.421.0.tgz#bb752b31fdf4029f16a501d5d16f95d47e07f4dd"
@@ -1155,12 +1201,19 @@
     "@smithy/types" "^2.3.3"
     tslib "^2.5.0"
 
-"@aws-sdk/types@3.425.0":
+"@aws-sdk/types@3.425.0", "@aws-sdk/types@^3.425.0":
   version "3.425.0"
   resolved "https://registry.yarnpkg.com/@aws-sdk/types/-/types-3.425.0.tgz#8d4e94743a69c865a83785a9f3bcfd49945836f7"
   integrity sha512-6lqbmorwerN4v+J5dqbHPAsjynI0mkEF+blf+69QTaKKGaxBBVaXgqoqul9RXYcK5MMrrYRbQIMd0zYOoy90kA==
   dependencies:
     "@smithy/types" "^2.3.4"
+    tslib "^2.5.0"
+
+"@aws-sdk/util-dynamodb@^3.427.0":
+  version "3.427.0"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/util-dynamodb/-/util-dynamodb-3.427.0.tgz#59254842c045274c4fc0db08339ba6f69e46cd2f"
+  integrity sha512-eXPdPM7ZIS4DfRJrGeWQJjcxnNAaioRrtgNpRoVy1HwMVYPtUvIyTuUWY8xIeJyXnX3/JrBJWCDoQPxkrp9T2w==
+  dependencies:
     tslib "^2.5.0"
 
 "@aws-sdk/util-endpoints@3.418.0":
@@ -2717,6 +2770,11 @@
   integrity sha512-Sig0SNORX9fdW+bQuTEovKj3uHcUL6LQKbCrrqb1X7J6/ReAbhCXRAhc+SMejhLELFj2QcyuxmUooZ4bt5ReSw==
   dependencies:
     "@types/node" "*"
+
+"@types/http-errors@^2.0.2":
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/@types/http-errors/-/http-errors-2.0.2.tgz#a86e00bbde8950364f8e7846687259ffcd96e8c2"
+  integrity sha512-lPG6KlZs88gef6aD85z3HNkztpj7w2R7HmR3gygjfXCQmsLloWNARFkMuzKiiY8FGdh1XDpgBdrSf4aKDiA7Kg==
 
 "@types/istanbul-lib-coverage@*", "@types/istanbul-lib-coverage@^2.0.0", "@types/istanbul-lib-coverage@^2.0.1":
   version "2.0.4"
@@ -5101,7 +5159,7 @@ html-escaper@^2.0.0:
   resolved "https://registry.yarnpkg.com/html-escaper/-/html-escaper-2.0.2.tgz#dfd60027da36a36dfcbe236262c00a5822681453"
   integrity sha512-H2iMtd0I4Mt5eYiapRdIDjp+XzelXQ0tFE4JS7YFwFevXXMmOp9myNrUvCg0D6ws8iqkRPBfKHgbwig1SmlLfg==
 
-http-errors@2.0.0:
+http-errors@2.0.0, http-errors@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/http-errors/-/http-errors-2.0.0.tgz#b7774a1486ef73cf7667ac9ae0858c012c57b9d3"
   integrity sha512-FtwrG/euBzaEjYeRqOgly7G0qviiXoJWnvEH2Z1plBdXgbyjv34pHTSb9zoeHMyDy33+DWy5Wt9Wo+TURtOYSQ==
