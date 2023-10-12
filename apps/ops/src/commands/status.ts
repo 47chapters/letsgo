@@ -19,7 +19,8 @@ import {
   listLetsGoAppRunnerServices,
 } from "../aws/apprunner";
 import { getLambda, listEventSourceMappings } from "../aws/lambda";
-import { describeQueue, listLetsGoQueues } from "../aws/sqs";
+import { describeQueue } from "../aws/sqs";
+import { listLetsGoQueues } from "@letsgo/queue";
 import { getTable } from "../aws/dynamodb";
 import {
   AutoScalingConfiguration,

@@ -16,7 +16,8 @@
     "preset": "jest-presets/jest/node"
   },
   "dependencies": {
-    "@letsgo/db": "*"
+    "@letsgo/db": "*",
+    "@letsgo/queue": "*"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.123",

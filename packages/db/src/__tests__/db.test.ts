@@ -1,3 +1,4 @@
+import "dotenv/config";
 import { getItem, putItem, deleteItem, listItems } from "..";
 
 const TestCategory = "letsgo-test";

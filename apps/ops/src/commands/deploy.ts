@@ -96,7 +96,7 @@ async function deployAppRunner(
     options.deployment,
     roleName,
     settings.getPolicyName(options.region, options.deployment),
-    [],
+    settings.getManagedPolicyArns(options.region, options.deployment),
     settings.getInlineRolePolicy(
       await getAccountId(),
       options.region,
@@ -197,7 +197,7 @@ async function deployWorker(options: any, settings: WorkerSettings) {
     options.deployment,
     roleName,
     settings.getPolicyName(options.region, options.deployment),
-    [],
+    settings.getManagedPolicyArns(options.region, options.deployment),
     settings.getInlineRolePolicy(
       await getAccountId(),
       options.region,

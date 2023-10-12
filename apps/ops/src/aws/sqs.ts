@@ -1,9 +1,5 @@
 import {
-  SQSClient,
   CreateQueueCommand,
-  ListQueueTagsCommand,
-  ListQueuesCommand,
-  ListQueuesCommandInput,
   GetQueueAttributesCommand,
   TagQueueCommand,
   SetQueueAttributesCommand,
@@ -11,55 +7,11 @@ import {
 } from "@aws-sdk/client-sqs";
 import { Logger } from "../commands/defaults";
 import { getTagsAsObject } from "./defaults";
-import { TagKeys, WorkerSettings } from "@letsgo/constants";
+import { WorkerSettings } from "@letsgo/constants";
 import chalk from "chalk";
 import { LetsGoDeploymentConfig } from "./ssm";
 import { getAccountId } from "./sts";
-
-const apiVersion = "2012-11-05";
-
-function getSQSClient(region: string) {
-  return new SQSClient({
-    apiVersion,
-    region,
-  });
-}
-
-export async function listLetsGoQueues(
-  region: string,
-  deployment?: string
-): Promise<string[]> {
-  const sqs = getSQSClient(region);
-  const listInput: ListQueuesCommandInput = {};
-  const queues: string[] = [];
-  while (true) {
-    const result = await sqs.send(new ListQueuesCommand(listInput));
-    for (const queueUrl of result.QueueUrls || []) {
-      const listTagsCommand = new ListQueueTagsCommand({
-        QueueUrl: queueUrl,
-      });
-      try {
-        const tagsResult = await sqs.send(listTagsCommand);
-        const deploymentValue = tagsResult.Tags?.[TagKeys.LetsGoDeployment];
-        if (
-          deploymentValue &&
-          (!deployment || deployment === deploymentValue)
-        ) {
-          queues.push(queueUrl);
-        }
-      } catch (e: any) {
-        if (e.name !== "AWS.SimpleQueueService.NonExistentQueue") {
-          throw e;
-        }
-      }
-    }
-    if (!result.NextToken) {
-      break;
-    }
-    listInput.NextToken = result.NextToken;
-  }
-  return queues;
-}
+import { listLetsGoQueues, getSQSClient } from "@letsgo/queue";
 
 export async function getOneLetsGoQueue(
   region: string,

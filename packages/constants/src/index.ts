@@ -75,6 +75,7 @@ export interface AppRunnerSettings {
     region: string,
     deployment: string
   ) => object;
+  getManagedPolicyArns: (region: string, deployment: string) => string[];
   getEcrRepositoryName: (deployment: string) => string;
   getLocalRepositoryName: (deployment: string) => string;
   getAppRunnerServiceName: (deployment: string) => string;
@@ -148,8 +149,19 @@ const createAppRunnerConfiguration = (componentName: string) => ({
           deployment
         )}`,
       },
+      {
+        Effect: "Allow",
+        Action: ["sqs:ListQueueTags", "sqs:ListQueues"],
+        Resource: `arn:aws:sqs:${region}:${accountId}:*`,
+      },
+      {
+        Effect: "Allow",
+        Action: ["sqs:SendMessage"],
+        Resource: `arn:aws:sqs:${region}:${accountId}:${VendorPrefix}-${deployment}*`,
+      },
     ],
   }),
+  getManagedPolicyArns: (region: string, deployment: string) => [],
   getEcrRepositoryName: (deployment: string) =>
     `${VendorPrefix}-${deployment}-${componentName}`,
   getLocalRepositoryName: (deployment: string) =>
@@ -235,6 +247,7 @@ export interface WorkerSettings {
     region: string,
     deployment: string
   ) => object;
+  getManagedPolicyArns: (region: string, deployment: string) => string[];
   getEcrRepositoryName: (deployment: string) => string;
   getLocalRepositoryName: (deployment: string) => string;
   getLambdaFunctionName: (deployment: string) => string;
@@ -295,6 +308,9 @@ export const WorkerConfiguration: WorkerSettings = {
       },
     ],
   }),
+  getManagedPolicyArns: (region: string, deployment: string) => [
+    "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+  ],
   getEcrRepositoryName: (deployment: string) =>
     `${VendorPrefix}-${deployment}-${WorkerName}`,
   getLocalRepositoryName: (deployment: string) =>
@@ -306,7 +322,7 @@ export const WorkerConfiguration: WorkerSettings = {
       ConfigSettings.WorkerMessageRetentionPeriod,
       "345600", // 4 days in seconds
     ],
-    // AWS recommends batching window + 6 x function timeout:
+    // AWS recommend setting visibility timeout to batching window + 6 x function timeout:
     visibilityTimeout: [ConfigSettings.WorkerVisibilityTimeout, "360"],
     receiveMessageWaitTime: [ConfigSettings.WorkerReceiveMessageWaitTime, "2"],
     batchSize: [ConfigSettings.WorkerBatchSize, "10"],

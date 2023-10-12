@@ -26,7 +26,8 @@
     "chalk": "4",
     "commander": "^11.0.0",
     "dotenv": "^16.3.1",
-    "@letsgo/constants": "*"
+    "@letsgo/constants": "*",
+    "@letsgo/queue": "*"
   },
   "devDependencies": {
     "@aws-sdk/types": "^3.418.0",

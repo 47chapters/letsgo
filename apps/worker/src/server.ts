@@ -26,16 +26,16 @@ const server = createServer((req, res) => {
     } catch (e: any) {
       return httpError(res, 400, "Bad request. Body must be JSON.");
     }
+    res.statusCode = 201;
+    res.end();
     try {
       const result = await handler(parsedBody, {} as any, (error, result) => {
         throw new Error(
           "Handler's callback call is not supported. Return a promise instead."
         );
       });
-      res.statusCode = 200;
-      res.end(JSON.stringify(result, null, 2));
     } catch (e: any) {
-      httpError(res, 500, e.stack || e.message);
+      console.log("WORKER HANDLER ERROR:", e.stack || e.message || e);
     }
   });
 });

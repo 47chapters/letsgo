@@ -1,15 +1,22 @@
 /**
- * This sample illustrates how to use the @letsgo/db package to create a simple REST API for managing store inventory.
+ * This sample illustrates how to use the @letsgo/db package to create a simple REST API for managing store inventory,
+ * and the @letsgo/queue package to queue up asynchronous inventory report generation jobs.
  *
- * The API manages multiple stores with multiple products in each store. The API offers CRUD over stores and products, as
- * well as listing all stores and all products in a store.
+ * The API manages inventory of multiple stores with multiple products in each store. The API offers CRUD over
+ * stores and products as well as listing all stores and all products in a store using the @letsgo/db package.
+ *
+ * The API also provides a way to request an inventory report to be generated, which is implemented
+ * as an asynchronous job using the @letsgo/queue package and the worker component.
  *
  * For clarity of example, a lot of the data validation and error handling that would normally be required is omitted.
+ *
+ * NOTE: you want to remove this sample API route from ../server.ts once you are into implementing your own API.
  */
 
 import { Router, Request, Response, NextFunction } from "express";
 import createError from "http-errors";
 import { getItem, putItem, deleteItem, listItems, DBItem } from "@letsgo/db";
+import { enqueue } from "@letsgo/queue";
 
 const router = Router();
 
@@ -249,6 +256,19 @@ router.delete("/store/:storeId/product/:productId", async (req, res, next) => {
   }
 
   res.status(204).send();
+});
+
+// Get inventory report for a store, scheduled as an asynchronous job delegated to the worker component
+router.post("/store/:storeId/report", async (req, res, next) => {
+  try {
+    const result = await enqueue({
+      type: "report",
+      storeId: req.params.storeId,
+    });
+    res.status(201).json({ reportId: result.messageId });
+  } catch (e) {
+    next(e);
+  }
 });
 
 export default router;
