@@ -24,12 +24,15 @@ import {
   AssociateCustomDomainCommand,
   DisassociateCustomDomainCommand,
 } from "@aws-sdk/client-apprunner";
+import { setLogGroupRetentionPolicy } from "./cloudwatch";
 import { getTags } from "./defaults";
 import { getConfig, SetConfigValueCallback } from "./ssm";
 import chalk from "chalk";
 import { getEcrRepositoryArn } from "./ecr";
 import { Logger } from "../commands/defaults";
 import { AppRunnerSettings, TagKeys } from "@letsgo/constants";
+import e from "express";
+import { settings } from "cluster";
 
 const MaxWaitTimeForAppRunnerCreate = 60 * 15;
 const MaxWaitTimeForAppRunnerUpdate = 60 * 15;
@@ -162,6 +165,7 @@ export interface EnsureAppRunnerOptions {
   appRunnerCpu?: string;
   appRunnerMemory?: string;
   ignoreConfigKeys: string[];
+  logRetentionInDays: number;
   logger: Logger;
 }
 
@@ -608,7 +612,7 @@ async function updateAppRunnerService(
 
 async function createAppRunnerService(
   options: EnsureAppRunnerOptions
-): Promise<void> {
+): Promise<Service> {
   const apprunner = getAppRunnerClient(options.region);
   const ecrRepositoryUrl = await getEcrRepositoryArn(
     options.region,
@@ -716,6 +720,7 @@ async function createAppRunnerService(
     );
     process.exit(1);
   }
+  return service;
 }
 
 export async function deleteAppRunnerService(
@@ -862,13 +867,23 @@ export async function ensureAppRunner(
     existingServiceSummary = undefined;
   }
 
-  const existingService =
+  let existingService =
     existingServiceSummary &&
     (await describeService(options.region, existingServiceSummary.ServiceArn));
 
   if (!existingService || existingServiceSummary?.Status === "DELETED") {
-    await createAppRunnerService(options);
+    existingService = await createAppRunnerService(options);
   } else {
     await updateAppRunnerService(options, existingService);
   }
+  await setLogGroupRetentionPolicy(
+    options.region,
+    `/aws/apprunner/${existingService.ServiceName}/${existingService.ServiceId}/application`,
+    options.logRetentionInDays
+  );
+  await setLogGroupRetentionPolicy(
+    options.region,
+    `/aws/apprunner/${existingService.ServiceName}/${existingService.ServiceId}/service`,
+    options.logRetentionInDays
+  );
 }

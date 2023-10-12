@@ -18,6 +18,7 @@ import {
   describeService,
   listLetsGoAppRunnerServices,
 } from "../aws/apprunner";
+import { describeLogGroups } from "../aws/cloudwatch";
 import { getLambda, listEventSourceMappings } from "../aws/lambda";
 import { describeQueue } from "../aws/sqs";
 import { listLetsGoQueues } from "@letsgo/queue";
@@ -33,6 +34,7 @@ import {
 } from "@aws-sdk/client-lambda";
 import { TableDescription } from "@aws-sdk/client-dynamodb";
 import { get } from "https";
+import { LogGroup } from "aws-sdk/clients/cloudwatchlogs";
 
 const AllArtifacts = ["all", "api", "web", "db", "worker"];
 
@@ -40,6 +42,7 @@ interface AppRunnerStatus {
   apprunner?: Service;
   autoScalingConfiguration?: AutoScalingConfiguration;
   customDomains: CustomDomain[];
+  logGroups: LogGroup[];
   health?: string | Error;
 }
 
@@ -50,11 +53,8 @@ interface ErrorStatus {
 interface WorkerStatus {
   lambda?: GetFunctionCommandOutput | null;
   sqs?: { [key: string]: string } | { error: string } | ErrorStatus | null;
-  eventMapping?:
-    | EventSourceMappingConfiguration
-    | { error: string }
-    | ErrorStatus
-    | null;
+  eventMapping?: EventSourceMappingConfiguration | ErrorStatus | null;
+  logGroup?: LogGroup;
 }
 
 interface Status {
@@ -98,7 +98,9 @@ export async function getAppRunnerStatus(
     region,
     services[0].ServiceArn || ""
   );
-  return { apprunner, autoScalingConfiguration, customDomains };
+  const logGroupNamePrefix = `/aws/apprunner/${services[0].ServiceName}/${services[0].ServiceId}/`;
+  const logGroups = await describeLogGroups(region, logGroupNamePrefix);
+  return { apprunner, autoScalingConfiguration, customDomains, logGroups };
 }
 
 async function getDbStatus(
@@ -120,8 +122,12 @@ async function getWorkerStatus(
     region,
     functionName
   );
+  let logGroup: LogGroup | undefined;
   if (lambda) {
     delete (lambda as any).$metadata;
+    const logGroupNamePrefix = `/aws/lambda/${functionName}`;
+    const logGroups = await describeLogGroups(region, logGroupNamePrefix);
+    logGroup = logGroups[0];
   } else {
     lambda = null;
   }
@@ -151,7 +157,9 @@ async function getWorkerStatus(
       eventMapping = eventSourceMappings[0];
     }
   }
-  return lambda || sqs || eventMapping ? { lambda, sqs, eventMapping } : null;
+  return lambda || sqs || eventMapping
+    ? { lambda, sqs, eventMapping, logGroup }
+    : null;
 }
 
 function printLine(key: string, value: string) {
@@ -197,6 +205,25 @@ async function checkHealth(
       resolve(undefined);
     }
   });
+}
+
+function getMB(bytes: number) {
+  return `${Math.round((bytes / 1024 / 1024) * 1000) / 1000}`;
+}
+
+function printLogGroups(logGroups: LogGroup[]) {
+  const getLogGroupLine = (logGroup: LogGroup) =>
+    logGroup
+      ? `${logGroup.logGroupName} (${getMB(logGroup.storedBytes || 0)} MB, ${
+          logGroup.retentionInDays
+            ? `${logGroup.retentionInDays} days retention`
+            : "never expires"
+        })`
+      : "None";
+  printLine("LogGroups", getLogGroupLine(logGroups[0]));
+  for (let i = 1; i < logGroups.length; i++) {
+    printLine("", getLogGroupLine(logGroups[i]));
+  }
 }
 
 function printAppRunnerStatus(
@@ -276,6 +303,7 @@ function printAppRunnerStatus(
         ""
     );
     printLine("Updated", `${status.apprunner?.UpdatedAt}`);
+    printLogGroups(status.logGroups);
   }
 }
 
@@ -314,6 +342,7 @@ function printWorkerStatus(status: WorkerStatus | null | undefined) {
         "Updated",
         `${new Date(status.lambda?.Configuration?.LastModified as string)}`
       );
+      printLogGroups(status.logGroup ? [status.logGroup] : []);
     }
     if (!status.sqs) {
       console.log(`${chalk.bold("  SQS")}: ${chalk.red("Not found")}`);

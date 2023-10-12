@@ -151,6 +151,10 @@ async function deployAppRunner(
       unhealthyThreshold:
         +config[settings.defaultConfig.healthUnhealthyThreshold[0]],
     },
+    logRetentionInDays: settings.getLogRetentionInDays(
+      options.region,
+      options.deployment
+    ),
     logger,
   });
 }

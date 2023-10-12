@@ -14,6 +14,7 @@ import {
   UpdateEventSourceMappingCommand,
   GetEventSourceMappingCommand,
 } from "@aws-sdk/client-lambda";
+import { setLogGroupRetentionPolicy } from "./cloudwatch";
 import { Logger } from "../commands/defaults";
 import { WorkerSettings } from "@letsgo/constants";
 import { LetsGoDeploymentConfig } from "./ssm";
@@ -22,7 +23,6 @@ import { getEcrRepositoryArn } from "./ecr";
 import { getOneLetsGoQueue, getQueueArnFromQueueUrl } from "./sqs";
 import { getTagsAsObject } from "./defaults";
 import chalk from "chalk";
-import { get } from "http";
 
 const MaxFunctionWaitTime = 60 * 5; // 5 minutes
 const MaxEventSourceMappingWaitTime = 60 * 5; // 5 minutes
@@ -302,7 +302,7 @@ export async function createLambda(
   config: LetsGoDeploymentConfig,
   imageTag: string,
   logger: Logger
-): Promise<void> {
+): Promise<GetFunctionCommandOutput> {
   const FunctionName = settings.getLambdaFunctionName(deployment);
   logger(`creating worker...`, "aws:lambda");
   const lambda = getLambdaClient(region);
@@ -377,6 +377,7 @@ export async function createLambda(
   );
 
   logger(`worker created`, "aws:lambda");
+  return func;
 }
 
 export async function updateLambda(
@@ -586,7 +587,7 @@ export async function ensureLambda(
 ): Promise<void> {
   const functionName = settings.getLambdaFunctionName(deployment);
   logger(`ensuring lambda function ${functionName} is set up...`, "aws:lambda");
-  const worker = await getLambda(region, functionName);
+  let worker = await getLambda(region, functionName);
   if (worker) {
     await updateLambda(
       region,
@@ -598,8 +599,20 @@ export async function ensureLambda(
       logger
     );
   } else {
-    await createLambda(region, deployment, settings, config, imageTag, logger);
+    worker = await createLambda(
+      region,
+      deployment,
+      settings,
+      config,
+      imageTag,
+      logger
+    );
   }
+  await setLogGroupRetentionPolicy(
+    region,
+    `/aws/lambda/${functionName}`,
+    settings.getLogRetentionInDays(region, deployment)
+  );
 }
 
 export async function deleteLambda(

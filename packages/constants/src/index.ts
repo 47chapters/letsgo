@@ -80,6 +80,7 @@ export interface AppRunnerSettings {
   getLocalRepositoryName: (deployment: string) => string;
   getAppRunnerServiceName: (deployment: string) => string;
   getAppRunnerAutoScalingConfigurationName: (deployment: string) => string;
+  getLogRetentionInDays: (region: string, deployment: string) => number;
   serviceUrlConfigKey: string;
   defaultConfig: AppRunnerSettingsDefaultConfig;
 }
@@ -170,6 +171,7 @@ const createAppRunnerConfiguration = (componentName: string) => ({
     `${VendorPrefix}-${deployment}-${componentName}`,
   getAppRunnerAutoScalingConfigurationName: (deployment: string) =>
     `${VendorPrefix}-${deployment}-${componentName}`,
+  getLogRetentionInDays: (region: string, deployment: string) => 30,
 });
 
 export const ApiConfiguration: AppRunnerSettings = {
@@ -251,6 +253,7 @@ export interface WorkerSettings {
   getEcrRepositoryName: (deployment: string) => string;
   getLocalRepositoryName: (deployment: string) => string;
   getLambdaFunctionName: (deployment: string) => string;
+  getLogRetentionInDays: (region: string, deployment: string) => number;
   defaultConfig: WorkerSettingsDefaultConfig;
 }
 
@@ -317,6 +320,7 @@ export const WorkerConfiguration: WorkerSettings = {
     `${VendorPrefix}-${WorkerName}`,
   getLambdaFunctionName: (deployment: string) =>
     `${VendorPrefix}-${deployment}-${WorkerName}`,
+  getLogRetentionInDays: (region: string, deployment: string) => 30,
   defaultConfig: {
     messageRetentionPeriod: [
       ConfigSettings.WorkerMessageRetentionPeriod,
