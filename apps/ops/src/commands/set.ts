@@ -34,7 +34,7 @@ program
     if (options.stdin) {
       if (key) {
         console.log(
-          chalk.red("If '--stdin' is specified, the arguent must be omitted")
+          chalk.red("If '--stdin' is specified, the argument must be omitted")
         );
         process.exit(1);
       }

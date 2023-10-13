@@ -138,13 +138,19 @@ export async function listItems<T extends DBItem>(
     TableName,
     ExpressionAttributeValues: {
       ":category": { S: category },
-      ":keyPrefix": { S: keyPrefix },
+      ...(keyPrefix.length > 0 ? { ":keyPrefix": { S: keyPrefix } } : {}),
     },
-    ExpressionAttributeNames: {
-      "#key": "key",
-    },
+    ...(keyPrefix.length > 0
+      ? {
+          ExpressionAttributeNames: {
+            "#key": "key",
+          },
+        }
+      : {}),
     KeyConditionExpression:
-      "category = :category AND begins_with(#key, :keyPrefix)",
+      keyPrefix.length > 0
+        ? "category = :category AND begins_with(#key, :keyPrefix)"
+        : "category = :category",
     ...{
       ConsistentRead: !!options?.consistentRead,
       Limit: options?.limit,

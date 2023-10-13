@@ -11,6 +11,7 @@ import stop from "./commands/stop";
 import start from "./commands/start";
 import restart from "./commands/restart";
 import domain from "./commands/domain";
+import db from "./commands/db";
 
 const program = new Command();
 
@@ -29,6 +30,7 @@ program
   .addCommand(stop)
   .addCommand(start)
   .addCommand(restart)
-  .addCommand(domain);
+  .addCommand(domain)
+  .addCommand(db);
 
 program.parse();
