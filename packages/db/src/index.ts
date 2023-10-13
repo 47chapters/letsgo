@@ -13,8 +13,8 @@ import {
   DBConfiguration,
 } from "@letsgo/constants";
 
-let tableName: string;
-let client: DynamoDBClient;
+const tableNames: Record<string, string> = {};
+const clients: Record<string, DynamoDBClient> = {};
 
 class HttpError extends Error {
   statusCode: number;
@@ -24,23 +24,12 @@ class HttpError extends Error {
   }
 }
 
-async function getTableName(): Promise<string> {
-  if (!tableName) {
-    tableName = DBConfiguration.getTableName(DefaultDeployment);
-  }
-  return tableName;
+export interface DeploymentOptions {
+  region?: string;
+  deployment?: string;
 }
 
-async function getClient(): Promise<DynamoDBClient> {
-  if (!client) {
-    client = new DynamoDBClient({
-      region: DefaultRegion,
-    });
-  }
-  return client;
-}
-
-export interface GetItemOptions {
+export interface GetItemOptions extends DeploymentOptions {
   consistentRead?: boolean;
 }
 
@@ -61,13 +50,31 @@ export interface ListItemsResult<T extends DBItem> {
   nextToken?: string;
 }
 
+async function getTableName(options?: DeploymentOptions): Promise<string> {
+  const deployment = options?.deployment || DefaultDeployment;
+  if (!tableNames[deployment]) {
+    tableNames[deployment] = DBConfiguration.getTableName(deployment);
+  }
+  return tableNames[deployment];
+}
+
+async function getClient(options?: DeploymentOptions): Promise<DynamoDBClient> {
+  const region = options?.region || DefaultRegion;
+  if (!clients[region]) {
+    clients[region] = new DynamoDBClient({
+      region: DefaultRegion,
+    });
+  }
+  return clients[region];
+}
+
 export async function getItem<T extends DBItem>(
   category: string,
   key: string,
   options?: GetItemOptions
 ): Promise<T | undefined> {
-  const client = await getClient();
-  const TableName = await getTableName();
+  const client = await getClient(options);
+  const TableName = await getTableName(options);
   const getCommand = new GetItemCommand({
     TableName,
     Key: marshall({ category, key }),
@@ -82,9 +89,12 @@ export async function getItem<T extends DBItem>(
   }
 }
 
-export async function putItem<T extends DBItem>(item: T): Promise<void> {
-  const client = await getClient();
-  const TableName = await getTableName();
+export async function putItem<T extends DBItem>(
+  item: T,
+  options?: DeploymentOptions
+): Promise<void> {
+  const client = await getClient(options);
+  const TableName = await getTableName(options);
   const putCommand = new PutItemCommand({
     TableName,
     Item: marshall(item, { removeUndefinedValues: true }),
@@ -92,9 +102,13 @@ export async function putItem<T extends DBItem>(item: T): Promise<void> {
   await client.send(putCommand);
 }
 
-export async function deleteItem(category: string, key: string): Promise<void> {
-  const client = await getClient();
-  const TableName = await getTableName();
+export async function deleteItem(
+  category: string,
+  key: string,
+  options?: DeploymentOptions
+): Promise<void> {
+  const client = await getClient(options);
+  const TableName = await getTableName(options);
   const deleteItem = new DeleteItemCommand({
     TableName,
     Key: marshall({ category, key }),
@@ -118,8 +132,8 @@ export async function listItems<T extends DBItem>(
       400
     );
   }
-  const client = await getClient();
-  const TableName = await getTableName();
+  const client = await getClient(options);
+  const TableName = await getTableName(options);
   const queryCommand = new QueryCommand({
     TableName,
     ExpressionAttributeValues: {
