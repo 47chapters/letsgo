@@ -32,6 +32,8 @@ import {
 import { ensureDynamo } from "../aws/dynamodb";
 import { ensureQueue } from "../aws/sqs";
 import { ensureLambda } from "../aws/lambda";
+import { createIssuer, getActiveIssuer } from "@letsgo/trust";
+import { create } from "domain";
 
 const AllArtifacts = ["all", "api", "web", "db", "worker"];
 
@@ -160,12 +162,24 @@ async function deployAppRunner(
 }
 
 async function deployDb(options: any, settings: DBSettings) {
-  await ensureDynamo(
+  const logger = createLogger(
+    "aws:dynamodb",
     options.region,
-    options.deployment,
-    settings,
-    createLogger("aws:dynamodb", options.region, options.deployment)
+    options.deployment
   );
+  await ensureDynamo(options.region, options.deployment, settings, logger);
+  // Ensure active issuer is present in the database
+  const activeIssuer = await getActiveIssuer(options);
+  if (!activeIssuer) {
+    logger(`creating PKI issuer and setting it as active`);
+    await createIssuer(true, options);
+  } else {
+    logger(
+      `active PKI issuer ${activeIssuer.key} already exists, ${chalk.yellow(
+        "no changes made"
+      )}`
+    );
+  }
 }
 
 async function deployWorker(options: any, settings: WorkerSettings) {

@@ -1,3 +1,0 @@
-yarn run v1.21.1
-$ /Users/tomek/projects/letsgo/node_modules/.bin/ops get -o env ops set -s -d stage
-info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.

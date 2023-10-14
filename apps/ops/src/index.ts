@@ -12,6 +12,8 @@ import start from "./commands/start";
 import restart from "./commands/restart";
 import domain from "./commands/domain";
 import db from "./commands/db";
+import issuer from "./commands/issuer";
+import jwt from "./commands/jwt";
 
 const program = new Command();
 
@@ -31,6 +33,8 @@ program
   .addCommand(start)
   .addCommand(restart)
   .addCommand(domain)
-  .addCommand(db);
+  .addCommand(db)
+  .addCommand(issuer)
+  .addCommand(jwt);
 
 program.parse();
