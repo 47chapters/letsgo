@@ -6,7 +6,7 @@ const DefaultExpiry = "8h";
 
 interface CreateJwtOptions {
   issuer: PkiIssuer;
-  audience: string[];
+  audience: string;
   expiresIn?: string;
 }
 
@@ -32,7 +32,7 @@ export async function verifyJwt(
   region: string,
   deployment: string,
   token: string,
-  audience: string[]
+  audience: string
 ): Promise<Jwt | undefined> {
   const decodedJwt = decode(token, { json: true, complete: true });
   if (!decodedJwt) {

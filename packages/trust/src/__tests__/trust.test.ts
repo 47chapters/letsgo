@@ -24,7 +24,7 @@ describe("trust", () => {
   it("createJwt returns JWT", async () => {
     const token = await createJwt({
       issuer,
-      audience: ["test"],
+      audience: "test",
       expiresIn: "1h",
     });
     expect(token).toBeDefined();
@@ -32,7 +32,7 @@ describe("trust", () => {
     expect(decodedJwt).toBeDefined();
     expect((decodedJwt?.payload as JwtPayload).iss).toBe(issuer.key);
     expect((decodedJwt?.payload as JwtPayload).sub).toBe(issuer.key);
-    expect((decodedJwt?.payload as JwtPayload).aud).toEqual(["test"]);
+    expect((decodedJwt?.payload as JwtPayload).aud).toBe("test");
     expect((decodedJwt?.payload as JwtPayload).exp).toBeLessThanOrEqual(
       Math.floor(Date.now() / 1000) + 3600
     );
@@ -44,19 +44,19 @@ describe("trust", () => {
   it("verifyJwt succeeds with JWT created with createJwt", async () => {
     const token = await createJwt({
       issuer,
-      audience: ["test"],
+      audience: "test",
       expiresIn: "1h",
     });
     const decodedJwt = await verifyJwt(
       DefaultRegion,
       DefaultDeployment,
       token,
-      ["test"]
+      "test"
     );
     expect(decodedJwt).toBeDefined();
     expect((decodedJwt?.payload as JwtPayload).iss).toBe(issuer.key);
     expect((decodedJwt?.payload as JwtPayload).sub).toBe(issuer.key);
-    expect((decodedJwt?.payload as JwtPayload).aud).toEqual(["test"]);
+    expect((decodedJwt?.payload as JwtPayload).aud).toBe("test");
     expect((decodedJwt?.payload as JwtPayload).exp).toBeLessThanOrEqual(
       Math.floor(Date.now() / 1000) + 3600
     );
@@ -68,14 +68,14 @@ describe("trust", () => {
   it("verifyJwt fails with wrong audience", async () => {
     const token = await createJwt({
       issuer,
-      audience: ["test1"],
+      audience: "test1",
       expiresIn: "1h",
     });
     const decodedJwt = await verifyJwt(
       DefaultRegion,
       DefaultDeployment,
       token,
-      ["test2"]
+      "test2"
     );
     expect(decodedJwt).toBeUndefined();
   });
@@ -83,7 +83,7 @@ describe("trust", () => {
   it("verifyJwt fails with expired token", async () => {
     const token = await createJwt({
       issuer,
-      audience: ["test"],
+      audience: "test",
       expiresIn: "1",
     });
     await new Promise((resolve) => setTimeout(resolve, 1500));
@@ -91,7 +91,7 @@ describe("trust", () => {
       DefaultRegion,
       DefaultDeployment,
       token,
-      ["test"]
+      "test"
     );
     expect(decodedJwt).toBeUndefined();
   });
@@ -100,7 +100,7 @@ describe("trust", () => {
     const issuer1 = { ...issuer, kid: "idontexist" };
     const token = await createJwt({
       issuer: issuer1,
-      audience: ["test"],
+      audience: "test",
       expiresIn: "1",
     });
     await new Promise((resolve) => setTimeout(resolve, 1500));
@@ -108,7 +108,7 @@ describe("trust", () => {
       DefaultRegion,
       DefaultDeployment,
       token,
-      ["test"]
+      "test"
     );
     expect(decodedJwt).toBeUndefined();
   });
@@ -117,7 +117,7 @@ describe("trust", () => {
     const issuer1 = { ...issuer, key: "idontexist" };
     const token = await createJwt({
       issuer: issuer1,
-      audience: ["test"],
+      audience: "test",
       expiresIn: "1",
     });
     await new Promise((resolve) => setTimeout(resolve, 1500));
@@ -125,7 +125,7 @@ describe("trust", () => {
       DefaultRegion,
       DefaultDeployment,
       token,
-      ["test"]
+      "test"
     );
     expect(decodedJwt).toBeUndefined();
   });

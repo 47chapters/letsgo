@@ -2,6 +2,7 @@ export const VendorPrefix = "letsgo";
 export const ConfigRegion = "us-west-2";
 export const DefaultRegion = process.env.AWS_REGION || "us-west-2";
 export const DefaultDeployment = process.env.LETSGO_DEPLOYMENT || "main";
+export const StaticJwtAudience = `${VendorPrefix}:service`;
 
 export const TagKeys = {
   LetsGoVersion: "LetsGoVersion",
@@ -12,6 +13,7 @@ export const TagKeys = {
 };
 
 export const ConfigSettings = {
+  ApiAppRunnerAudience: "LETSGO_API_AUDIENCE",
   ApiAppRunnerUrl: "LETSGO_API_URL",
   ApiAppRunnerMinSize: "LETSGO_API_APPRUNNER_MIN_SIZE",
   ApiAppRunnerMaxSize: "LETSGO_API_APPRUNNER_MAX_SIZE",
@@ -201,6 +203,7 @@ export const WebConfiguration: AppRunnerSettings = {
   ...createAppRunnerConfiguration("web"),
   serviceUrlConfigKey: ConfigSettings.WebAppRunnerUrl,
   defaultConfig: {
+    audience: [ConfigSettings.ApiAppRunnerAudience, StaticJwtAudience],
     minSize: [ConfigSettings.WebAppRunnerMinSize, "1"],
     maxSize: [ConfigSettings.WebAppRunnerMaxSize, "10"],
     maxConcurrency: [ConfigSettings.WebAppRunnerMaxConcurrency, "100"],

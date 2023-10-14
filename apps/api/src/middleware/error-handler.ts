@@ -7,9 +7,11 @@ export const errorHandler: ErrorRequestHandler = (
   next
 ) => {
   const status = error.statusCode || error.status || 500;
-  console.log(
-    `EXPRESS PIPELINE ERROR: HTTP ${status} ${error.stack || error.message}`
-  );
+  if (status >= 500) {
+    console.log(
+      `EXPRESS PIPELINE ERROR: HTTP ${status} ${error.stack || error.message}`
+    );
+  }
   response.status(status).json({
     statusCode: status,
     message: status < 500 ? error.message : "Internal Server Error",

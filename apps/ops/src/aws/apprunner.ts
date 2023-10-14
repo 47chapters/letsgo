@@ -30,9 +30,12 @@ import { getConfig, SetConfigValueCallback } from "./ssm";
 import chalk from "chalk";
 import { getEcrRepositoryArn } from "./ecr";
 import { Logger } from "../commands/defaults";
-import { AppRunnerSettings, TagKeys } from "@letsgo/constants";
-import e from "express";
-import { settings } from "cluster";
+import {
+  ApiConfiguration,
+  AppRunnerSettings,
+  ConfigSettings,
+  TagKeys,
+} from "@letsgo/constants";
 
 const MaxWaitTimeForAppRunnerCreate = 60 * 15;
 const MaxWaitTimeForAppRunnerUpdate = 60 * 15;
@@ -478,17 +481,36 @@ async function updateAppRunnerService(
     (existingService.SourceConfiguration?.ImageRepository?.ImageIdentifier ||
       "") !== `${ecrRepositoryUrl}:${options.imageTag}`;
 
+  // Add LETSGO_API_URL to environment variables if absent in SSM
+  const desiredConfig =
+    (await getConfig(options.region, options.deployment, true))[
+      options.region
+    ]?.[options.deployment] || {};
+  let extraEnvionmentVariables: Record<string, string> | undefined = undefined;
+  if (
+    !desiredConfig[ConfigSettings.ApiAppRunnerUrl] &&
+    options.component === ApiConfiguration.Name
+  ) {
+    const customDomains = await describeCustomDomains(
+      options.region,
+      existingService.ServiceArn || ""
+    );
+    const serviceUrl =
+      customDomains.length > 0
+        ? customDomains[0].DomainName
+        : existingService.ServiceUrl;
+    extraEnvionmentVariables = {
+      [ConfigSettings.ApiAppRunnerUrl]: `https://${serviceUrl}`,
+    };
+  }
   // Check if config need to be updated
   const currentConfigKeys = Object.keys(
     existingService.SourceConfiguration?.ImageRepository?.ImageConfiguration
       ?.RuntimeEnvironmentSecrets || {}
   );
-  const desiredConfig =
-    (await getConfig(options.region, options.deployment, true))[
-      options.region
-    ]?.[options.deployment] || {};
   const desiredConfigKeys = Object.keys(desiredConfig);
   const configNeedsUpdate =
+    extraEnvionmentVariables !== undefined ||
     desiredConfigKeys.find(
       (key) =>
         !currentConfigKeys.includes(key) &&
@@ -542,6 +564,7 @@ async function updateAppRunnerService(
           ImageConfiguration: {
             RuntimeEnvironmentSecrets: desiredConfig,
             RuntimeEnvironmentVariables: {
+              ...extraEnvionmentVariables,
               LETSGO_IMAGE_TAG: options.imageTag,
               LETSGO_DEPLOYMENT: options.deployment,
               LETSGO_UPDATED_AT: updatedAt,
