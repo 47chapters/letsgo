@@ -4,7 +4,12 @@ import {
   DefaultDeployment,
   ApiConfiguration,
 } from "@letsgo/constants";
-import { createJwt } from "@letsgo/trust";
+import {
+  createJwt,
+  getActiveIssuer,
+  getIssuer,
+  isPkiIssuer,
+} from "@letsgo/trust";
 import chalk from "chalk";
 import {
   describeCustomDomains,
@@ -68,10 +73,24 @@ program
           }
         });
       }
+      const activeIssuer = issuer
+        ? await getIssuer(issuer, options)
+        : await getActiveIssuer(options);
+      if (!activeIssuer) {
+        throw new Error(
+          `${
+            issuer ? "Specified" : "Active"
+          } issuer not found. You can create a new PKI issuer using 'yarm ops issuer add --pki-create'`
+        );
+      }
+      if (!isPkiIssuer(activeIssuer)) {
+        throw new Error(`Issuer ${activeIssuer.key} is not a PKI issuer.`);
+      }
+
       const jwt = await createJwt({
-        ...options,
-        iss: issuer,
-        exp: options.expiresIn,
+        issuer: activeIssuer,
+        audience: options.aud,
+        expiresIn: options.expiresIn,
       });
       console.log(jwt);
     } catch (e: any) {
