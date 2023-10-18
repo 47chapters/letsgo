@@ -23,6 +23,7 @@ import { getEcrRepositoryArn } from "./ecr";
 import { getOneLetsGoQueue, getQueueArnFromQueueUrl } from "./sqs";
 import { getTagsAsObject } from "./defaults";
 import chalk from "chalk";
+import { ServiceUrls, getServiceUrlEnvironmentVariables } from "./apprunner";
 
 const MaxFunctionWaitTime = 60 * 5; // 5 minutes
 const MaxEventSourceMappingWaitTime = 60 * 5; // 5 minutes
@@ -583,6 +584,7 @@ export async function ensureLambda(
   settings: WorkerSettings,
   config: LetsGoDeploymentConfig,
   imageTag: string,
+  serviceUrls: ServiceUrls,
   logger: Logger
 ): Promise<void> {
   const functionName = settings.getLambdaFunctionName(deployment);
@@ -594,7 +596,7 @@ export async function ensureLambda(
       deployment,
       worker,
       settings,
-      config,
+      { ...getServiceUrlEnvironmentVariables(serviceUrls), ...config },
       imageTag,
       logger
     );
@@ -603,7 +605,7 @@ export async function ensureLambda(
       region,
       deployment,
       settings,
-      config,
+      { ...getServiceUrlEnvironmentVariables(serviceUrls), ...config },
       imageTag,
       logger
     );

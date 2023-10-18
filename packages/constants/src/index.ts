@@ -1,3 +1,5 @@
+import { randomBytes } from "crypto";
+
 export const VendorPrefix = "letsgo";
 export const ConfigRegion = "us-west-2";
 export const DefaultRegion = process.env.AWS_REGION || "us-west-2";
@@ -49,6 +51,13 @@ export const ConfigSettings = {
   WorkerFunctionTimeout: "LETSGO_WORKER_FUNCTION_TIMEOUT",
   WorkerFunctionMemory: "LETSGO_WORKER_MEMORY",
   WorkerFunctionEphemeralStorage: "LETSGO_WORKER_EPHEMERAL_STORAGE",
+  Auth0Secret: "AUTH_SECRET",
+  Auth0BaseUrl: "AUTH0_BASE_URL",
+  Auth0IssuerBaseUrl: "AUTH0_ISSUER_BASE_URL",
+  Auth0ClientId: "AUTH0_CLIENT_ID",
+  Auth0ClientSecret: "AUTH0_CLIENT_SECRET",
+  Auth0Audience: "AUTH0_AUDIENCE",
+  Auth0Scope: "AUTH0_SCOPE",
 };
 
 export interface DefaultConfig {
@@ -180,6 +189,7 @@ export const ApiConfiguration: AppRunnerSettings = {
   ...createAppRunnerConfiguration("api"),
   serviceUrlConfigKey: ConfigSettings.ApiAppRunnerUrl,
   defaultConfig: {
+    audience: [ConfigSettings.ApiAppRunnerAudience, StaticJwtAudience],
     minSize: [ConfigSettings.ApiAppRunnerMinSize, "1"],
     maxSize: [ConfigSettings.ApiAppRunnerMaxSize, "10"],
     maxConcurrency: [ConfigSettings.ApiAppRunnerMaxConcurrency, "100"],
@@ -203,7 +213,6 @@ export const WebConfiguration: AppRunnerSettings = {
   ...createAppRunnerConfiguration("web"),
   serviceUrlConfigKey: ConfigSettings.WebAppRunnerUrl,
   defaultConfig: {
-    audience: [ConfigSettings.ApiAppRunnerAudience, StaticJwtAudience],
     minSize: [ConfigSettings.WebAppRunnerMinSize, "1"],
     maxSize: [ConfigSettings.WebAppRunnerMaxSize, "10"],
     maxConcurrency: [ConfigSettings.WebAppRunnerMaxConcurrency, "100"],
@@ -220,6 +229,12 @@ export const WebConfiguration: AppRunnerSettings = {
       ConfigSettings.WebAppRunnerHealthUnhealthyThreshold,
       "5",
     ],
+    auth0Audience: [ConfigSettings.Auth0Audience, StaticJwtAudience],
+    auth0Scope: [
+      ConfigSettings.Auth0Scope,
+      "openid profile email offline_access",
+    ],
+    auth0Secret: [ConfigSettings.Auth0Secret, randomBytes(32).toString("hex")],
   },
 };
 

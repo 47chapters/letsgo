@@ -23,6 +23,7 @@ import {
   CustomDomain,
   AssociateCustomDomainCommand,
   DisassociateCustomDomainCommand,
+  Tag,
 } from "@aws-sdk/client-apprunner";
 import { setLogGroupRetentionPolicy } from "./cloudwatch";
 import { getTags } from "./defaults";
@@ -35,6 +36,7 @@ import {
   AppRunnerSettings,
   ConfigSettings,
   TagKeys,
+  WebConfiguration,
 } from "@letsgo/constants";
 
 const MaxWaitTimeForAppRunnerCreate = 60 * 15;
@@ -47,6 +49,37 @@ function getAppRunnerClient(region: string) {
     apiVersion,
     region,
   });
+}
+
+export interface ServiceUrls {
+  [component: string]: string;
+}
+
+export async function getServiceUrls(
+  region: string,
+  deployment: string
+): Promise<ServiceUrls> {
+  const services = await listLetsGoAppRunnerServices(region, deployment);
+  const urls: ServiceUrls = {};
+  for (const component of [ApiConfiguration.Name, WebConfiguration.Name]) {
+    const service = services.find((service) =>
+      service.Tags?.find(
+        (tag) => tag.Key === TagKeys.LetsGoComponent && tag.Value === component
+      )
+    );
+    if (service) {
+      const customDomains = await describeCustomDomains(
+        region,
+        service.ServiceArn || ""
+      );
+      const serviceUrl =
+        customDomains.length > 0
+          ? customDomains[0].DomainName
+          : service.ServiceUrl;
+      urls[component] = `https://${serviceUrl}`;
+    }
+  }
+  return urls;
 }
 
 export async function enableOrDisableService(
@@ -170,6 +203,7 @@ export interface EnsureAppRunnerOptions {
   ignoreConfigKeys: string[];
   logRetentionInDays: number;
   logger: Logger;
+  serviceUrls: ServiceUrls;
 }
 
 export async function deleteUnusedAutoScalingConfigurations(
@@ -408,6 +442,16 @@ export async function removeCustomDomain(
   await apprunner.send(removeCommand);
 }
 
+export function getServiceUrlEnvironmentVariables(serviceUrls: ServiceUrls): {
+  [key: string]: string;
+} {
+  return {
+    [ConfigSettings.ApiAppRunnerUrl]: serviceUrls[ApiConfiguration.Name],
+    [ConfigSettings.WebAppRunnerUrl]: serviceUrls[WebConfiguration.Name],
+    [ConfigSettings.Auth0BaseUrl]: serviceUrls[WebConfiguration.Name],
+  };
+}
+
 async function updateAppRunnerService(
   options: EnsureAppRunnerOptions,
   existingService: Service
@@ -481,36 +525,25 @@ async function updateAppRunnerService(
     (existingService.SourceConfiguration?.ImageRepository?.ImageIdentifier ||
       "") !== `${ecrRepositoryUrl}:${options.imageTag}`;
 
-  // Add LETSGO_API_URL to environment variables if absent in SSM
+  // Check if config need to be updated
+  const desiredServiceUrlEnvironmentVariables =
+    getServiceUrlEnvironmentVariables(options.serviceUrls);
+  const desiredServiceUrlEnvironmentVariablesKeys = Object.keys(
+    desiredServiceUrlEnvironmentVariables
+  );
   const desiredConfig =
     (await getConfig(options.region, options.deployment, true))[
       options.region
     ]?.[options.deployment] || {};
-  let extraEnvionmentVariables: Record<string, string> | undefined = undefined;
-  if (
-    !desiredConfig[ConfigSettings.ApiAppRunnerUrl] &&
-    options.component === ApiConfiguration.Name
-  ) {
-    const customDomains = await describeCustomDomains(
-      options.region,
-      existingService.ServiceArn || ""
-    );
-    const serviceUrl =
-      customDomains.length > 0
-        ? customDomains[0].DomainName
-        : existingService.ServiceUrl;
-    extraEnvionmentVariables = {
-      [ConfigSettings.ApiAppRunnerUrl]: `https://${serviceUrl}`,
-    };
-  }
-  // Check if config need to be updated
   const currentConfigKeys = Object.keys(
     existingService.SourceConfiguration?.ImageRepository?.ImageConfiguration
       ?.RuntimeEnvironmentSecrets || {}
   );
+  const currentEnvironmentVariables =
+    existingService.SourceConfiguration?.ImageRepository?.ImageConfiguration
+      ?.RuntimeEnvironmentVariables || {};
   const desiredConfigKeys = Object.keys(desiredConfig);
   const configNeedsUpdate =
-    extraEnvionmentVariables !== undefined ||
     desiredConfigKeys.find(
       (key) =>
         !currentConfigKeys.includes(key) &&
@@ -520,6 +553,11 @@ async function updateAppRunnerService(
       (key) =>
         !desiredConfigKeys.includes(key) &&
         !options.ignoreConfigKeys.includes(key)
+    ) !== undefined ||
+    desiredServiceUrlEnvironmentVariablesKeys.find(
+      (name) =>
+        currentEnvironmentVariables[name] !==
+        desiredServiceUrlEnvironmentVariables[name]
     ) !== undefined;
 
   // Update plan
@@ -564,12 +602,12 @@ async function updateAppRunnerService(
           ImageConfiguration: {
             RuntimeEnvironmentSecrets: desiredConfig,
             RuntimeEnvironmentVariables: {
-              ...extraEnvionmentVariables,
               LETSGO_IMAGE_TAG: options.imageTag,
               LETSGO_DEPLOYMENT: options.deployment,
               LETSGO_UPDATED_AT: updatedAt,
               // Workaround for a Next.js issue. See https://github.com/vercel/next.js/issues/49777
               HOSTNAME: "0.0.0.0",
+              ...desiredServiceUrlEnvironmentVariables,
             },
           },
         },
@@ -665,6 +703,8 @@ async function createAppRunnerService(
 
   // Create AppRunner Service
   options.logger(`creating ${options.component} service...`);
+  const desiredServiceUrlEnvironmentVariables =
+    getServiceUrlEnvironmentVariables(options.serviceUrls);
   const createServiceCommand = new CreateServiceCommand({
     ServiceName: options.appRunnerServiceName,
     SourceConfiguration: {
@@ -682,6 +722,7 @@ async function createAppRunnerService(
             LETSGO_UPDATED_AT: new Date().toISOString(),
             // Workaround for a Next.js issue. See https://github.com/vercel/next.js/issues/49777
             HOSTNAME: "0.0.0.0",
+            ...desiredServiceUrlEnvironmentVariables,
           },
         },
       },
@@ -788,14 +829,18 @@ export async function deleteAppRunnerService(
   }
 }
 
+export interface ServiceSummaryWithTags extends ServiceSummary {
+  Tags?: Tag[];
+}
+
 export async function listLetsGoAppRunnerServices(
   region: string,
   deployment?: string,
   component?: string
-): Promise<ServiceSummary[]> {
+): Promise<ServiceSummaryWithTags[]> {
   const apprunner = getAppRunnerClient(region);
   const listInput: ListServicesCommandInput = {};
-  const services: ServiceSummary[] = [];
+  const services: ServiceSummaryWithTags[] = [];
   while (true) {
     const result = await apprunner.send(new ListServicesCommand(listInput));
     for (const service of result.ServiceSummaryList || []) {
@@ -815,7 +860,7 @@ export async function listLetsGoAppRunnerServices(
         (!deployment || deployment === deploymentValue) &&
         (!component || component === componentValue)
       ) {
-        services.push(service);
+        services.push({ ...service, Tags: tagsResult.Tags });
       }
     }
     if (!result.NextToken) {

@@ -7,7 +7,7 @@ import {
 } from "../aws/iam";
 import { getAccountId } from "../aws/sts";
 import { ensureRepository, ensureImage } from "../aws/ecr";
-import { ensureAppRunner } from "../aws/apprunner";
+import { ServiceUrls, ensureAppRunner, getServiceUrls } from "../aws/apprunner";
 import chalk from "chalk";
 import { createLogger, getArtifacts } from "./defaults";
 import {
@@ -57,6 +57,7 @@ const program = new Command();
 async function deployAppRunner(
   options: any,
   imageTag: string,
+  serviceUrls: ServiceUrls,
   settings: AppRunnerSettings
 ): Promise<void> {
   if (!imageTag) {
@@ -158,6 +159,7 @@ async function deployAppRunner(
       options.deployment
     ),
     logger,
+    serviceUrls,
   });
 }
 
@@ -182,7 +184,11 @@ async function deployDb(options: any, settings: DBSettings) {
   }
 }
 
-async function deployWorker(options: any, settings: WorkerSettings) {
+async function deployWorker(
+  options: any,
+  serviceUrls: ServiceUrls,
+  settings: WorkerSettings
+) {
   if (!options.workerTag) {
     console.log(
       chalk.red(
@@ -256,6 +262,7 @@ async function deployWorker(options: any, settings: WorkerSettings) {
     settings,
     config,
     options.workerTag,
+    serviceUrls,
     logger
   );
 }
@@ -306,14 +313,36 @@ program
     if (artifacts.db) {
       await deployDb(options, DBConfiguration);
     }
-    if (artifacts.worker) {
-      await deployWorker(options, WorkerConfiguration);
-    }
     if (artifacts.api) {
-      await deployAppRunner(options, options.apiTag, ApiConfiguration);
+      const serviceUrls = await getServiceUrls(
+        options.region,
+        options.deployment
+      );
+      await deployAppRunner(
+        options,
+        options.apiTag,
+        serviceUrls,
+        ApiConfiguration
+      );
+    }
+    if (artifacts.worker) {
+      const serviceUrls = await getServiceUrls(
+        options.region,
+        options.deployment
+      );
+      await deployWorker(options, serviceUrls, WorkerConfiguration);
     }
     if (artifacts.web) {
-      await deployAppRunner(options, options.webTag, WebConfiguration);
+      const serviceUrls = await getServiceUrls(
+        options.region,
+        options.deployment
+      );
+      await deployAppRunner(
+        options,
+        options.webTag,
+        serviceUrls,
+        WebConfiguration
+      );
     }
     console.log(
       `Deployed: ${chalk.bold(Object.keys(artifacts).sort().join(", "))}`
