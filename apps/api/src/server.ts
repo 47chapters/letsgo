@@ -1,23 +1,25 @@
 import { json, urlencoded } from "body-parser";
 import express from "express";
-import morgan from "morgan";
 import cors from "cors";
 import { errorHandler } from "./middleware/error-handler";
+import { logger } from "./middleware/logger";
 import inventorySample from "./routes/inventory-sample";
 import { healthHandler } from "./routes/health";
 import { noCache } from "./middleware/noCache";
 import { authenticate } from "./middleware/authenticate";
+import { meHandler } from "./routes/me";
 
 export const createServer = () => {
   const app = express();
   app
     .disable("x-powered-by")
-    .use(morgan("dev"))
+    .use(logger("dev"))
     .use(urlencoded({ extended: true }))
     .use(json())
     .use(cors());
 
   app.get("/v1/health", noCache, healthHandler);
+  app.get("/v1/me", noCache, authenticate(), meHandler);
 
   // TODO: this is a sample API you want to remove from you app.
   // Note the use of the noCache and authenticate middleware.

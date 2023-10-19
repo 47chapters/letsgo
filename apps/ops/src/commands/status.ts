@@ -26,6 +26,7 @@ import { getTable } from "../aws/dynamodb";
 import {
   AutoScalingConfiguration,
   CustomDomain,
+  CustomDomainAssociationStatus,
   Service,
 } from "@aws-sdk/client-apprunner";
 import {
@@ -261,7 +262,8 @@ function printAppRunnerStatus(
     if (status.customDomains.length === 1) {
       const customDomain = status.customDomains[0];
       const domainColor =
-        customDomain.Status === "active"
+        customDomain.Status?.toLowerCase() ===
+        CustomDomainAssociationStatus.ACTIVE.toLowerCase()
           ? chalk.green
           : customDomain.Status?.match(/failed/)
           ? chalk.red

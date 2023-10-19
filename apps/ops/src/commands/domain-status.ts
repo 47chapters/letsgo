@@ -7,7 +7,10 @@ import {
 } from "@letsgo/constants";
 import { getAppRunnerStatus, isErrorStatus } from "./status";
 import chalk from "chalk";
-import { CustomDomain } from "@aws-sdk/client-apprunner";
+import {
+  CustomDomain,
+  CustomDomainAssociationStatus,
+} from "@aws-sdk/client-apprunner";
 
 const AllServiceArtifacts = ["api", "web"];
 
@@ -133,7 +136,8 @@ program
         status.apprunner?.ServiceUrl || ""
       );
       if (
-        status.customDomains[0].Status === "pending_certificate_dns_validation"
+        status.customDomains[0].Status?.toLowerCase() ===
+        CustomDomainAssociationStatus.PENDING_CERTIFICATE_DNS_VALIDATION.toLowerCase()
       ) {
         console.log();
         console.log(

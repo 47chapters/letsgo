@@ -24,6 +24,7 @@ import {
   AssociateCustomDomainCommand,
   DisassociateCustomDomainCommand,
   Tag,
+  HealthCheckProtocol,
 } from "@aws-sdk/client-apprunner";
 import { setLogGroupRetentionPolicy } from "./cloudwatch";
 import { getTags } from "./defaults";
@@ -221,7 +222,10 @@ export async function deleteUnusedAutoScalingConfigurations(
     );
     for (const revision of listResult.AutoScalingConfigurationSummaryList ||
       []) {
-      if (!revision.HasAssociatedService && revision.Status === "active") {
+      if (
+        !revision.HasAssociatedService &&
+        revision?.Status?.toLowerCase() === "active"
+      ) {
         logger(
           `deleting unused AutoScalingConfiguration ${revision.AutoScalingConfigurationArn}...`
         );
@@ -354,7 +358,7 @@ function getAutoScalingSettings(options: EnsureAppRunnerOptions) {
 
 function getHealthCheckSettings(options: EnsureAppRunnerOptions) {
   return {
-    Protocol: "HTTP",
+    Protocol: HealthCheckProtocol.HTTP,
     Path: options.healthCheck.path,
     Interval: options.healthCheck.interval,
     Timeout: options.healthCheck.timeout,

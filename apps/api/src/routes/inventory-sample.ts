@@ -259,16 +259,20 @@ router.delete("/store/:storeId/product/:productId", async (req, res, next) => {
 });
 
 // Get inventory report for a store, scheduled as an asynchronous job delegated to the worker component
-router.post("/store/:storeId/report", async (req, res, next) => {
-  try {
-    const result = await enqueue({
-      type: "report",
-      storeId: req.params.storeId,
-    });
-    res.status(201).json({ reportId: result.messageId });
-  } catch (e) {
-    next(e);
+router.post(
+  "/store/:storeId/report",
+  ensureStoreExists,
+  async (req, res, next) => {
+    try {
+      const result = await enqueue({
+        type: "report",
+        storeId: req.params.storeId,
+      });
+      res.status(201).json({ reportId: result.messageId });
+    } catch (e) {
+      next(e);
+    }
   }
-});
+);
 
 export default router;

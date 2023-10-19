@@ -4,6 +4,7 @@ import {
   TagQueueCommand,
   SetQueueAttributesCommand,
   DeleteQueueCommand,
+  QueueAttributeName,
 } from "@aws-sdk/client-sqs";
 import { Logger } from "../commands/defaults";
 import { getTagsAsObject } from "./defaults";
@@ -93,7 +94,10 @@ export async function createQueue(
   logger(`creating queue ${QueueName}...`, "aws:sqs");
   const createCommand = new CreateQueueCommand({
     QueueName,
-    Attributes: getQueueuAttributes(settings, config),
+    Attributes: getQueueuAttributes(settings, config) as Record<
+      QueueAttributeName,
+      string
+    >,
   });
   const createResult = await sqs.send(createCommand);
   const tagCommand = new TagQueueCommand({
@@ -124,7 +128,7 @@ export async function updateQueue(
     logger(`updating queue attributes ${needsUpdate.join(", ")}...`, "aws:sqs");
     const updateCommand = new SetQueueAttributesCommand({
       QueueUrl: queueUrl,
-      Attributes: desiredAttrbutes,
+      Attributes: desiredAttrbutes as Record<QueueAttributeName, string>,
     });
     await sqs.send(updateCommand);
     const tagCommand = new TagQueueCommand({
