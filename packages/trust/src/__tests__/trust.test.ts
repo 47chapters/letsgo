@@ -1,5 +1,9 @@
 import "dotenv/config";
-import { DefaultRegion, DefaultDeployment } from "@letsgo/constants";
+import {
+  DefaultRegion,
+  DefaultDeployment,
+  StaticJwtAudience,
+} from "@letsgo/constants";
 import {
   getActiveIssuer,
   isPkiIssuer,
@@ -60,6 +64,44 @@ describe("trust", () => {
     expect((decodedJwt?.payload as JwtPayload).exp).toBeLessThanOrEqual(
       Math.floor(Date.now() / 1000) + 3600
     );
+    expect(decodedJwt?.header.alg).toBe("RS256");
+    expect(decodedJwt?.header.kid).toBe(issuer.kid);
+    expect(decodedJwt?.header.typ).toBe("JWT");
+  });
+
+  it("verifyJwt succeeds with JWT created with createJwt using all defaults", async () => {
+    const token = await createJwt();
+    const decodedJwt = await verifyJwt(
+      DefaultRegion,
+      DefaultDeployment,
+      token,
+      StaticJwtAudience
+    );
+    expect(decodedJwt).toBeDefined();
+    expect((decodedJwt?.payload as JwtPayload).iss).toBe(issuer.key);
+    expect((decodedJwt?.payload as JwtPayload).sub).toBe(issuer.key);
+    expect((decodedJwt?.payload as JwtPayload).aud).toBe(StaticJwtAudience);
+    expect((decodedJwt?.payload as JwtPayload).exp).toBeLessThanOrEqual(
+      Math.floor(Date.now() / 1000) + 3600 * 8
+    );
+    expect(decodedJwt?.header.alg).toBe("RS256");
+    expect(decodedJwt?.header.kid).toBe(issuer.kid);
+    expect(decodedJwt?.header.typ).toBe("JWT");
+  });
+
+  it("verifyJwt succeeds with non-expiring JWT created with createJwt", async () => {
+    const token = await createJwt({ expiresIn: "0" });
+    const decodedJwt = await verifyJwt(
+      DefaultRegion,
+      DefaultDeployment,
+      token,
+      StaticJwtAudience
+    );
+    expect(decodedJwt).toBeDefined();
+    expect((decodedJwt?.payload as JwtPayload).iss).toBe(issuer.key);
+    expect((decodedJwt?.payload as JwtPayload).sub).toBe(issuer.key);
+    expect((decodedJwt?.payload as JwtPayload).aud).toBe(StaticJwtAudience);
+    expect((decodedJwt?.payload as JwtPayload).exp).toBeUndefined();
     expect(decodedJwt?.header.alg).toBe("RS256");
     expect(decodedJwt?.header.kid).toBe(issuer.kid);
     expect(decodedJwt?.header.typ).toBe("JWT");

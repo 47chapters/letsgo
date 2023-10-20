@@ -465,6 +465,25 @@ export async function updateLambda(
         ImageUri,
       });
       await lambda.send(updateImageCommand);
+      const func = await waitForLambda(
+        region,
+        FunctionName,
+        MaxFunctionWaitTime,
+        false,
+        logger
+      );
+      if (!func) {
+        logger(
+          chalk.red(
+            `function image was updated but function did not reach the Active state within ${MaxFunctionWaitTime} seconds`
+          )
+        );
+        logger(
+          chalk.red(
+            `rerun the command to ensure the function is up to date or check the status in AWS`
+          )
+        );
+      }
     }
   }
   if (configNeedsUpdate || environmentNeedsUpdate) {
