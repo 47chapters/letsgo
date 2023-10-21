@@ -1,4 +1,4 @@
-import { verifyJwt } from "@letsgo/trust";
+import { Identity, verifyJwt, serializeIdentity } from "@letsgo/trust";
 import {
   DefaultRegion,
   DefaultDeployment,
@@ -6,7 +6,7 @@ import {
 } from "@letsgo/constants";
 import { RequestHandler, Request } from "express";
 import createError from "http-errors";
-import { Jwt } from "jsonwebtoken";
+import { Jwt, JwtPayload } from "jsonwebtoken";
 
 /**
  * Audience is required to verify JWTs. We use a logical audience value (letsgo:service by default)
@@ -20,7 +20,8 @@ const audience = process.env.LETSGO_API_AUDIENCE || StaticJwtAudience;
 console.log("AUDIENCE SET TO", audience);
 
 export interface LetsGoUser {
-  userId: string;
+  identityId: string;
+  identity: Identity;
   jwt: string;
   decodedJwt: Jwt;
 }
@@ -59,8 +60,13 @@ export function authenticate(): RequestHandler {
         return;
       }
       if (decodedJwt) {
+        const identity: Identity = {
+          iss: (decodedJwt.payload as JwtPayload).iss as string,
+          sub: (decodedJwt.payload as JwtPayload).sub as string,
+        };
         (request as AuthenticatedRequest).user = {
-          userId: (decodedJwt.payload.sub as string) || "",
+          identityId: serializeIdentity(identity),
+          identity,
           jwt: token,
           decodedJwt,
         };

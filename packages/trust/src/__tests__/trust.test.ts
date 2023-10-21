@@ -10,6 +10,8 @@ import {
   createJwt,
   PkiIssuer,
   verifyJwt,
+  serializeIdentity,
+  deserializeIdentity,
 } from "..";
 import { JwtPayload, decode } from "jsonwebtoken";
 
@@ -18,6 +20,17 @@ let issuer: PkiIssuer;
 describe("trust", () => {
   beforeAll(async () => {
     issuer = (await getActiveIssuer()) as PkiIssuer;
+  });
+
+  it("serializeIdentity roundtrips through deserializeIdentity", async () => {
+    const identity = {
+      iss: "iss-test-1",
+      sub: "sub-test-1",
+    };
+    const serialized = serializeIdentity(identity);
+    expect(serialized).toBeDefined();
+    const deserialized = deserializeIdentity(serialized);
+    expect(deserialized).toMatchObject(identity);
   });
 
   it("getActiveIssuer returns a PKI issuer", async () => {

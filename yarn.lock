@@ -2203,6 +2203,11 @@
   dependencies:
     "@types/superagent" "*"
 
+"@types/uuid@^9.0.6":
+  version "9.0.6"
+  resolved "https://registry.yarnpkg.com/@types/uuid/-/uuid-9.0.6.tgz#c91ae743d8344a54b2b0c691195f5ff5265f6dfb"
+  integrity sha512-BT2Krtx4xaO6iwzwMFUYvWBWkV2pr37zD68Vmp1CDV196MzczBRxuEpD6Pr395HAgebC/co7hOphs53r8V7jew==
+
 "@types/yargs-parser@*":
   version "21.0.2"
   resolved "https://registry.yarnpkg.com/@types/yargs-parser/-/yargs-parser-21.0.2.tgz#7bd04c5da378496ef1695a1008bf8f71847a8b8b"
@@ -7342,6 +7347,11 @@ union-value@^1.0.0:
     is-extendable "^0.1.1"
     set-value "^2.0.1"
 
+unique-names-generator@^4.7.1:
+  version "4.7.1"
+  resolved "https://registry.yarnpkg.com/unique-names-generator/-/unique-names-generator-4.7.1.tgz#966407b12ba97f618928f77322cfac8c80df5597"
+  integrity sha512-lMx9dX+KRmG8sq6gulYYpKWZc9RlGsgBR6aoO8Qsm3qvkSJ+3rAymr+TnV8EDMrIrwuFJ4kruzMWM/OpYzPoow==
+
 universalify@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/universalify/-/universalify-0.2.0.tgz#6451760566fa857534745ab1dde952d1b1761be0"
@@ -7412,6 +7422,11 @@ uuid@^8.3.0, uuid@^8.3.2:
   version "8.3.2"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-8.3.2.tgz#80d5b5ced271bb9af6c445f21a1a04c606cefbe2"
   integrity sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==
+
+uuid@^9.0.1:
+  version "9.0.1"
+  resolved "https://registry.yarnpkg.com/uuid/-/uuid-9.0.1.tgz#e188d4c8853cc722220392c424cd637f32293f30"
+  integrity sha512-b+1eJOlsR9K8HJpow9Ok3fiWOWSIcIzXodvv0rQjVoOVNpWMpxf1wZNpt4y9h10odCNrqnYp1OBzRktckBe3sA==
 
 v8-compile-cache@^2.0.3:
   version "2.4.0"

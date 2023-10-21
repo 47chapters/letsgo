@@ -17,6 +17,7 @@
   "dependencies": {
     "@letsgo/db": "*",
     "@letsgo/queue": "*",
+    "@letsgo/tenant": "*",
     "@letsgo/trust": "*",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
@@ -24,7 +25,8 @@
     "express": "^4.17.1",
     "http-errors": "^2.0.0",
     "logger": "*",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "unique-names-generator": "^4.7.1"
   },
   "devDependencies": {
     "@types/body-parser": "^1.19.0",
