@@ -1,9 +1,12 @@
-import { getAccessToken } from "@auth0/nextjs-auth0";
+import {
+  withPageAuthRequired,
+  getAccessToken,
+  getSession,
+} from "@auth0/nextjs-auth0";
 import { Suspense } from "react";
 
 async function Me() {
   const { accessToken } = await getAccessToken();
-
   const url = `${process.env["LETSGO_API_URL"]}/v1/me`;
   const authorization = `Bearer ${accessToken}`;
   const result = await fetch(url, {
@@ -27,17 +30,35 @@ async function Me() {
   );
 }
 
-export default async function Profile() {
+async function User() {
+  const session = await getSession();
   return (
     <div>
-      <p>Your identity:</p>
-      {/* @ts-expect-error Server Component */}
-      <Suspense fallback={<div>Loading...</div>}>
-        {/* @ts-expect-error Server Component */}
-        <Me />
-      </Suspense>
+      <pre>{JSON.stringify(session?.user, null, 2)}</pre>
     </div>
   );
 }
+
+export default withPageAuthRequired(
+  async function Profile() {
+    return (
+      <div>
+        <p>Response from HTTP GET {process.env["LETSGO_API_URL"]}/v1/me:</p>
+        {/* @ts-expect-error Server Component */}
+        <Suspense fallback={<div>Loading...</div>}>
+          {/* @ts-expect-error Server Component */}
+          <Me />
+        </Suspense>
+        <p>Logged in user profile:</p>
+        {/* @ts-expect-error Server Component */}
+        <Suspense fallback={<div>Loading...</div>}>
+          {/* @ts-expect-error Server Component */}
+          <User />
+        </Suspense>
+      </div>
+    );
+  },
+  { returnTo: "/manage/profile" }
+);
 
 export const dynamic = "force-dynamic";

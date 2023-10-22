@@ -1,5 +1,6 @@
 "use client";
 
+import { useUser } from "@auth0/nextjs-auth0/client";
 import useSWR from "swr";
 
 function Me() {
@@ -35,11 +36,30 @@ function Me() {
   );
 }
 
+function User() {
+  const { user, error, isLoading } = useUser();
+  if (error) {
+    throw error;
+  }
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  return (
+    <div>
+      <pre>{JSON.stringify(user, null, 2)}</pre>
+    </div>
+  );
+}
+
 export default function Profile() {
   return (
     <div>
-      <p>Your identity:</p>
+      <p>Response from HTTP GET /api/proxy/v1/me:</p>
       <Me />
+      <p>Logged in user profile:</p>
+      <User />
     </div>
   );
 }
