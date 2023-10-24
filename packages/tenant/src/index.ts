@@ -13,7 +13,20 @@ import {
   putItem,
 } from "@letsgo/db";
 import { v4 as uuidv4 } from "uuid";
-import { String } from "aws-sdk/clients/acm";
+import {
+  uniqueNamesGenerator,
+  adjectives,
+  colors,
+  animals,
+  Config,
+} from "unique-names-generator";
+
+const nameGeneratorConfig: Config = {
+  dictionaries: [colors, animals],
+  separator: " ",
+  style: "capital",
+  length: 2,
+};
 
 export const TenantCategory = `${VendorPrefix}-tenant`;
 export const TenantIdentityCategory = `${VendorPrefix}-tenant-identity`;
@@ -52,14 +65,14 @@ export function serializeIdentityTenantKey(
   return `/${serializeIdentity(identity)}/${tenantId}`;
 }
 
-export function deserializeIdentityTenantKey(key: string): [Identity, String] {
+export function deserializeIdentityTenantKey(key: string): [Identity, string] {
   const [_, identity, tenantId] = key.split("/");
   return [deserializeIdentity(identity), tenantId];
 }
 
 export interface CreateTenantOptions extends DeploymentOptions {
   creator: Identity;
-  displayName: string;
+  displayName?: string;
 }
 
 export async function createTenant(
@@ -70,7 +83,8 @@ export async function createTenant(
     category: TenantCategory,
     key: tenantId,
     tenantId,
-    displayName: options.displayName,
+    displayName:
+      options.displayName || uniqueNamesGenerator(nameGeneratorConfig),
     createdAt: new Date().toISOString(),
     createdBy: options.creator,
     updatedAt: new Date().toISOString(),

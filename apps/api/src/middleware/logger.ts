@@ -4,7 +4,7 @@ let skipping = false;
 
 /**
  * Prevent logging of successful /v1/health requests after the first one.
- * This is to reduce noise and size of the Cloud Watch logs.
+ * This is to reduce noise in the logs and the size of the Cloud Watch logs.
  */
 export const logger = (format: string) =>
   morgan(format, {

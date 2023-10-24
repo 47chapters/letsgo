@@ -4,10 +4,11 @@ import {
   getSession,
 } from "@auth0/nextjs-auth0";
 import { Suspense } from "react";
+import { getApiUrl } from "../../../components/common";
 
 async function Me() {
   const { accessToken } = await getAccessToken();
-  const url = `${process.env["LETSGO_API_URL"]}/v1/me`;
+  const url = getApiUrl(`/v1/me`);
   const authorization = `Bearer ${accessToken}`;
   const result = await fetch(url, {
     headers: {
@@ -43,7 +44,7 @@ export default withPageAuthRequired(
   async function Profile() {
     return (
       <div>
-        <p>Response from HTTP GET {process.env["LETSGO_API_URL"]}/v1/me:</p>
+        <p>Response from HTTP GET {getApiUrl(`/v1/me`)}:</p>
         {/* @ts-expect-error Server Component */}
         <Suspense fallback={<div>Loading...</div>}>
           {/* @ts-expect-error Server Component */}

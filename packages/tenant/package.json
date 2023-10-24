@@ -36,6 +36,7 @@
     "@letsgo/db": "*",
     "@letsgo/trust": "*",
     "jsonwebtoken": "^9.0.2",
+    "unique-names-generator": "^4.7.1",
     "uuid": "^9.0.1"
   }
 }

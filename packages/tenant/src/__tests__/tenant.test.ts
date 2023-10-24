@@ -226,8 +226,8 @@ describe("tenant", () => {
     tenants = await getTenantsOfIdentity({ identity: identity2 });
     expect(tenants).toBeDefined();
     expect(tenants.length).toBe(2);
-    expect(tenants[0]).toMatchObject(tenant1);
-    expect(tenants[1]).toMatchObject(tenant2);
+    expect(tenants).toContainEqual(tenant1);
+    expect(tenants).toContainEqual(tenant2);
   });
 
   it("createTenant/removeIdentityFromTenant/getTenantsOfIdentity/getIdentitiesOfTenant works", async () => {

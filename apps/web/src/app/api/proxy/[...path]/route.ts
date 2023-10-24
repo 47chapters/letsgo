@@ -12,11 +12,13 @@
 
 import {
   getAccessToken,
-  // getSession,
+  getSession,
+  updateSession,
   withApiAuthRequired,
 } from "@auth0/nextjs-auth0";
 import { AppRouteHandlerFnContext } from "@auth0/nextjs-auth0/dist/helpers/with-api-auth-required";
 import { NextRequest, NextResponse } from "next/server";
+import { sortTenants } from "../../../../components/common";
 
 const methods: {
   [method: string]: { proxyRequestBody: boolean; proxyResponseBody: boolean };
@@ -79,9 +81,8 @@ const proxy = withApiAuthRequired(async function proxy(
         `Supported methods are: ${Object.keys(methods).join(", ")}.`
     );
   }
-  const apiUrl = `${apiBaseUrl}/${(
-    (ctx["params"]?.path as string[]) || []
-  ).join("/")}${req.nextUrl.search}`;
+  const apiPath = ((ctx["params"]?.path as string[]) || []).join("/");
+  const apiUrl = `${apiBaseUrl}/${apiPath}${req.nextUrl.search}`;
   let requestBody: any = undefined;
   if (method.proxyRequestBody) {
     try {
@@ -95,8 +96,6 @@ const proxy = withApiAuthRequired(async function proxy(
   }
   const accessTokenResponse = new NextResponse();
   const { accessToken } = await getAccessToken(req, accessTokenResponse);
-  // const session = await getSession();
-  // console.log(session);
   const authorization = `Bearer ${accessToken}`;
   let responseBody: any = undefined;
   let apiResponse: Response;
@@ -136,9 +135,28 @@ const proxy = withApiAuthRequired(async function proxy(
     status: apiResponse.status,
   };
 
-  return responseBody !== undefined
-    ? NextResponse.json(responseBody, responseInit)
-    : new NextResponse(undefined, responseInit);
+  const res =
+    responseBody !== undefined
+      ? NextResponse.json(responseBody, responseInit)
+      : new NextResponse(undefined, responseInit);
+
+  if (
+    apiPath === "v1/tenant" &&
+    req.method.toUpperCase() === "POST" &&
+    apiResponse.status === 200 &&
+    responseBody
+  ) {
+    // The logged in user created a new tenant. Add it to the list of tenants in the user profile in the session
+    const session = await getSession(req, res);
+    if (session) {
+      const tenants = session.user.tenants || [];
+      tenants.push(responseBody);
+      session.user.tenants = sortTenants(tenants);
+      await updateSession(req, res, session);
+    }
+  }
+
+  return res;
 });
 
 export const GET = proxy;

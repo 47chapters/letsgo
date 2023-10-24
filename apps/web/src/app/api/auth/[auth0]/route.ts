@@ -5,6 +5,8 @@ import {
   handleCallback,
 } from "@auth0/nextjs-auth0";
 import { NextRequest } from "next/server";
+import { getApiUrl, sortTenants } from "../../../../components/common";
+import { Tenant } from "@letsgo/tenant";
 
 /**
  * Aftet the OAuth callback has processed, call the API server's GET /v1/me endpoint with the accessToken
@@ -15,7 +17,7 @@ const enhanceSessionWithTenancyInformation: AfterCallback = async (
   session: Session
 ): Promise<Session> => {
   const accessToken = session.accessToken;
-  const url = `${process.env["LETSGO_API_URL"]}/v1/me`;
+  const url = getApiUrl(`/v1/me`);
   const authorization = `Bearer ${accessToken}`;
 
   try {
@@ -33,6 +35,9 @@ const enhanceSessionWithTenancyInformation: AfterCallback = async (
 
     const me = await result.json();
     session.user = { ...session.user, ...me };
+    if (session.user.tenants) {
+      session.user.tenants = sortTenants(session.user.tenants as Tenant[]);
+    }
   } catch (e: any) {
     console.log(
       `ERROR GETTING TENANT INFORMATION FOR LOGGED IN USER FROM ${url}:`,

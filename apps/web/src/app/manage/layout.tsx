@@ -1,6 +1,7 @@
 "use client";
 
 import { useUser } from "@auth0/nextjs-auth0/client";
+import { TenantSelector } from "../../components/TenantSelector";
 
 export default function ManageLayout({
   children,
@@ -10,13 +11,15 @@ export default function ManageLayout({
   const { user, error, isLoading } = useUser();
 
   if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error.message}</div>;
+  if (error) throw error;
 
   if (user) {
     return (
       <div>
         <div>
-          Welcome {user.name}! <a href="/api/auth/logout">Logout</a>
+          Welcome {user.name} • Tenants: <TenantSelector allowCreate={true} />{" "}
+          •&nbsp;
+          <a href="/api/auth/logout">Logout</a>
         </div>
         <div>{children}</div>
       </div>

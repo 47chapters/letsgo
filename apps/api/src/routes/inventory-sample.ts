@@ -98,7 +98,7 @@ const ensureProductExists = async (
 };
 
 // List all stores
-router.get("/store", async (req, res, next) => {
+router.get("/", async (req, res, next) => {
   try {
     const dbResult = await listItems(StoreCategory, "/", {
       nextToken: req.query.nextToken as string,
@@ -111,7 +111,7 @@ router.get("/store", async (req, res, next) => {
 });
 
 // Create store
-router.post("/store", async (req, res, next) => {
+router.post("/", async (req, res, next) => {
   try {
     const storeId = createId();
     await putItem({
@@ -127,7 +127,7 @@ router.post("/store", async (req, res, next) => {
 
 // Read store
 router.get(
-  "/store/:storeId",
+  "/:storeId",
   ensureStoreExists,
   async (req: InventoryRequest, res) => {
     res.json(convertDbStoreSchemaToApiSchema(req.store));
@@ -135,7 +135,7 @@ router.get(
 );
 
 // Update store
-router.put("/store/:storeId", ensureStoreExists, async (req, res, next) => {
+router.put("/:storeId", ensureStoreExists, async (req, res, next) => {
   try {
     await putItem({
       ...req.body,
@@ -149,7 +149,7 @@ router.put("/store/:storeId", ensureStoreExists, async (req, res, next) => {
 });
 
 // Delete store
-router.delete("/store/:storeId", async (req, res, next) => {
+router.delete("/:storeId", async (req, res, next) => {
   try {
     // Delete all products in the store
     let nextToken: string | undefined;
@@ -176,48 +176,40 @@ router.delete("/store/:storeId", async (req, res, next) => {
 });
 
 // List all products in a store
-router.get(
-  "/store/:storeId/product",
-  ensureStoreExists,
-  async (req, res, next) => {
-    try {
-      const dbResult = await listItems(
-        ProductCategory,
-        getProductKey(req.params.storeId),
-        {
-          nextToken: req.query.nextToken as string,
-        }
-      );
-      const products = dbResult.items.map(convertDbProductSchemaToApiSchema);
-      res.json({ products, nextToken: dbResult.nextToken });
-    } catch (e) {
-      next(e);
-    }
+router.get("/:storeId/product", ensureStoreExists, async (req, res, next) => {
+  try {
+    const dbResult = await listItems(
+      ProductCategory,
+      getProductKey(req.params.storeId),
+      {
+        nextToken: req.query.nextToken as string,
+      }
+    );
+    const products = dbResult.items.map(convertDbProductSchemaToApiSchema);
+    res.json({ products, nextToken: dbResult.nextToken });
+  } catch (e) {
+    next(e);
   }
-);
+});
 
 // Create a product in a store
-router.post(
-  "/store/:storeId/product",
-  ensureStoreExists,
-  async (req, res, next) => {
-    try {
-      const productId = createId();
-      await putItem({
-        ...req.body,
-        category: ProductCategory,
-        key: getProductKey(req.params.storeId, productId),
-      });
-      res.json({ ...req.body, productId });
-    } catch (e) {
-      next(e);
-    }
+router.post("/:storeId/product", ensureStoreExists, async (req, res, next) => {
+  try {
+    const productId = createId();
+    await putItem({
+      ...req.body,
+      category: ProductCategory,
+      key: getProductKey(req.params.storeId, productId),
+    });
+    res.json({ ...req.body, productId });
+  } catch (e) {
+    next(e);
   }
-);
+});
 
 // Read a product in a store
 router.get(
-  "/store/:storeId/product/:productId",
+  "/:storeId/product/:productId",
   ensureStoreExists,
   ensureProductExists,
   async (req: InventoryRequest, res) => {
@@ -227,7 +219,7 @@ router.get(
 
 // Update a product in a store
 router.put(
-  "/store/:storeId/product/:productId",
+  "/:storeId/product/:productId",
   ensureStoreExists,
   ensureProductExists,
   async (req: InventoryRequest, res, next) => {
@@ -245,7 +237,7 @@ router.put(
 );
 
 // Delete a product in a store
-router.delete("/store/:storeId/product/:productId", async (req, res, next) => {
+router.delete("/:storeId/product/:productId", async (req, res, next) => {
   try {
     await deleteItem(
       ProductCategory,
@@ -259,7 +251,7 @@ router.delete("/store/:storeId/product/:productId", async (req, res, next) => {
 });
 
 // Get inventory report for a store, scheduled as an asynchronous job delegated to the worker component
-router.post("/store/:storeId/report", async (req, res, next) => {
+router.post("/:storeId/report", async (req, res, next) => {
   try {
     const result = await enqueue({
       type: "report",
