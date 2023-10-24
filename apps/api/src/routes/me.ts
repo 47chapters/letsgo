@@ -1,7 +1,7 @@
 import { RequestHandler } from "express";
 import { AuthenticatedRequest } from "../middleware/authenticate";
 import { getTenantsOfIdentity, createTenant } from "@letsgo/tenant";
-import { pruneResponse } from "./tenant";
+import { pruneResponse } from "./common";
 
 export const meHandler: RequestHandler = async (req, res, next) => {
   try {

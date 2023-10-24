@@ -2,7 +2,8 @@
 
 import useSWR from "swr";
 import { useTenant } from "./TenantProvider";
-import { ChangeEventHandler, useCallback, useState } from "react";
+import { useCallback, useState } from "react";
+import { useRouter } from "next/navigation";
 
 const createValue = "create";
 
@@ -11,9 +12,10 @@ export interface TenantSelectorProps {
 }
 
 export function TenantSelector({ allowCreate = false }: TenantSelectorProps) {
-  let { isLoading, error, currentTenantId, tenants, setCurrentTenantId } =
+  const { isLoading, error, currentTenantId, tenants, setCurrentTenantId } =
     useTenant();
   const [creating, setCreating] = useState(false);
+  const router = useRouter();
 
   const { isLoading: createTenantIsLoading, error: createTenantError } = useSWR(
     creating ? "/api/proxy/v1/tenant" : null,
@@ -32,8 +34,9 @@ export function TenantSelector({ allowCreate = false }: TenantSelectorProps) {
       const newTenant = await result.json();
 
       if (tenants) {
-        await setCurrentTenantId(newTenant.tenantId);
+        await setCurrentTenantId(newTenant.tenantId, true);
         setCreating(false);
+        router.push(`/manage/tenant/${newTenant.tenantId}/settings`);
       }
 
       return newTenant;
@@ -41,14 +44,15 @@ export function TenantSelector({ allowCreate = false }: TenantSelectorProps) {
   );
 
   const handleTenantChange = useCallback(
-    (async (e) => {
+    async (e: any) => {
       const tenantId = e.target.value;
       if (tenantId === createValue) {
         setCreating(true);
       } else {
         setCurrentTenantId(tenantId);
+        router.push(`/manage/tenant/${tenantId}/settings`);
       }
-    }) as ChangeEventHandler<HTMLSelectElement>,
+    },
     [setCurrentTenantId]
   );
 

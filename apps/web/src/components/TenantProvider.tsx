@@ -11,14 +11,17 @@ import React, {
   useMemo,
   useState,
 } from "react";
-import { loadCurrentTenant, saveCurrentTenant } from "./common";
+import { loadCurrentTenant, saveCurrentTenant } from "./common-client";
 
 export type TenantContext = {
   currentTenantId?: string;
   tenants?: Tenant[];
   error?: Error;
   isLoading: boolean;
-  setCurrentTenantId: (tenantId?: string) => void;
+  setCurrentTenantId: (
+    tenantId?: string,
+    refreshTenantListFromSession?: boolean
+  ) => void;
 };
 
 const missingTenantProvider = "You forgot to wrap your app in <TenantProvider>";
@@ -63,13 +66,19 @@ export function TenantProvider({
   let { currentTenantId } = state;
 
   const setCurrentTenantId = useCallback(
-    async (tenantId?: string): Promise<void> => {
-      // A call to checkSession is needed for the UserProvider to pick up the new list of tenants from the session.
-      await checkSession();
-      saveCurrentTenant(tenantId);
-      setState((state) => ({ ...state, currentTenantId: tenantId }));
+    async (
+      tenantId?: string,
+      refreshTenantListFromSession?: boolean
+    ): Promise<void> => {
+      if (tenantId !== currentTenantId) {
+        // A call to checkSession is needed for the UserProvider to refresh
+        // the list of tenants from the session, in case a new tenant was created by the user.
+        refreshTenantListFromSession && (await checkSession());
+        saveCurrentTenant(tenantId);
+        setState((state) => ({ ...state, currentTenantId: tenantId }));
+      }
     },
-    []
+    [checkSession, currentTenantId]
   );
 
   // This logic needs to run within a useEffect hook because it depends on local storage
@@ -81,19 +90,18 @@ export function TenantProvider({
       if (!tenants.find((tenant) => tenant.tenantId === currentTenantId)) {
         // The current tenant is not in the list of user's tenants. Set it to the saved tenant
         // or use the first tenant from the list if the saved tenant is not on it.
-        currentTenantId = tenants.find(
+        const newTenantId = tenants.find(
           (tenant) => tenant.tenantId === savedCurrentTenantId
         )
           ? savedCurrentTenantId
           : tenants[0]?.tenantId;
-        setCurrentTenantId(currentTenantId);
+        setCurrentTenantId(newTenantId);
       }
     } else {
       // The user has not been loaded yet - set current tenant to undefined but do not touch the saved tenant
-      currentTenantId = undefined;
-      setState((state) => ({ ...state, currentTenantId }));
+      setState((state) => ({ ...state, currentTenantId: undefined }));
     }
-  }, [user]);
+  }, [user, currentTenantId, setCurrentTenantId]);
 
   const value = useMemo(
     () => ({
@@ -103,7 +111,7 @@ export function TenantProvider({
       tenants: user?.tenants as Tenant[],
       setCurrentTenantId,
     }),
-    [isLoading, error, currentTenantId, setCurrentTenantId]
+    [isLoading, error, currentTenantId, setCurrentTenantId, user?.tenants]
   );
 
   return (

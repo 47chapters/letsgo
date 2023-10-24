@@ -46,6 +46,13 @@ export interface Tenant extends DBItem {
   deletedBy?: Identity;
 }
 
+export function serializeTenantIdentityIdKey(
+  tenantId: string,
+  identityId: string
+) {
+  return `/${tenantId}/${identityId}`;
+}
+
 export function serializeTenantIdentityKey(
   tenantId: string,
   identity: Identity
@@ -214,6 +221,22 @@ export async function getIdentitiesOfTenant(
     nextToken = result.nextToken;
   } while (nextToken);
   return identities;
+}
+
+export interface IsIdentityInTenantOptions extends DeploymentOptions {
+  tenantId: string;
+  identityId: string;
+}
+
+export async function isIdentityInTenant(
+  options: IsIdentityInTenantOptions
+): Promise<boolean> {
+  const result = await getItem(
+    TenantIdentityCategory,
+    serializeTenantIdentityIdKey(options.tenantId, options.identityId),
+    options
+  );
+  return !!result;
 }
 
 export interface AddIdentityToTenantOptions extends DeploymentOptions {

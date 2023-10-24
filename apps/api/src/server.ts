@@ -9,6 +9,7 @@ import { noCache } from "./middleware/noCache";
 import { authenticate } from "./middleware/authenticate";
 import { meHandler } from "./routes/me";
 import tenantRouter from "./routes/tenant";
+import identityRouter from "./routes/identity";
 
 export const createServer = () => {
   const app = express();
@@ -22,6 +23,7 @@ export const createServer = () => {
   app.get("/v1/health", noCache, healthHandler);
   app.get("/v1/me", noCache, authenticate(), meHandler);
   app.use("/v1/tenant", noCache, authenticate(), tenantRouter);
+  app.use("/v1/identity", noCache, authenticate(), identityRouter);
 
   // TODO: this is a sample API you want to remove from you app.
   // Note the use of the noCache and authenticate middleware.

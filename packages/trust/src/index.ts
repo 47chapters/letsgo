@@ -1,6 +1,7 @@
 export * from "./issuer";
 export * from "./jwt";
 export * from "./keyResolver";
+export * from "./identity";
 
 const IdentityIdPrefix = "idn";
 
