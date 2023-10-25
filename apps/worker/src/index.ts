@@ -1,4 +1,4 @@
-import { SQSBatchResponse, SQSEvent, SQSHandler } from "aws-lambda";
+import { Context, SQSBatchResponse, SQSEvent, SQSHandler } from "aws-lambda";
 
 // Uncomment as necessary to access the DB:
 // import { getItem, putItem, deleteItem, listItems } from "@letsgo/db";

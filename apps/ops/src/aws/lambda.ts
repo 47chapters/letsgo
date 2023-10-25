@@ -48,15 +48,18 @@ async function waitForLambda(
   while (true) {
     const result = await getLambda(region, functionName);
     const state = result?.Configuration?.State;
-    logger(`${clock}s function state: ${state}`);
-    if (state === "Active") {
+    const lastUpdateStatus = result?.Configuration?.LastUpdateStatus;
+    logger(
+      `${clock}s function state: ${state}, lastUpdateStatus: ${lastUpdateStatus}`
+    );
+    if (state === "Active" && lastUpdateStatus === "Successful") {
       return result;
-    } else if (state !== "Pending") {
+    } else if (state !== "Pending" && lastUpdateStatus !== "InProgress") {
       logger(
         chalk.red(
           `failure ${
             isCreating ? "creating" : "updating"
-          } ${functionName} function: unexpected function state ${state}`
+          } ${functionName} function: unexpected function state '${state}' or lastUpdateStatus '${lastUpdateStatus}'`
         ),
         "aws:lambda"
       );
