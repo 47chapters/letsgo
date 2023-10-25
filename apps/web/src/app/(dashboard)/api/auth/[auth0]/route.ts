@@ -6,7 +6,7 @@ import {
 } from "@auth0/nextjs-auth0";
 import { serializeIdentity } from "@letsgo/trust";
 import { NextRequest } from "next/server";
-import { apiRequest, getApiUrl } from "../../../../components/common-server";
+import { apiRequest, getApiUrl } from "../../../../../components/common-server";
 import jwt from "jsonwebtoken";
 
 /**

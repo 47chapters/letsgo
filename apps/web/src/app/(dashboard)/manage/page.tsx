@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { useTenant } from "../../components/TenantProvider";
+import { useTenant } from "../../../components/TenantProvider";
 
 function ResolveTenant() {
   const router = useRouter();

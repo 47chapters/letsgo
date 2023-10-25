@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { useTenant } from "../../../components/TenantProvider";
+import { useTenant } from "../../../../components/TenantProvider";
 
 export default function CheckAccessToTenant({
   children,

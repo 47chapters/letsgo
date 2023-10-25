@@ -1,7 +1,7 @@
 "use client";
 
 import { useUser } from "@auth0/nextjs-auth0/client";
-import { useApi } from "../../../components/common-client";
+import { useApi } from "../../../../components/common-client";
 import { GetMeResponse } from "@letsgo/types";
 
 function Me() {

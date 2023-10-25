@@ -18,7 +18,7 @@ import {
 } from "@auth0/nextjs-auth0";
 import { AppRouteHandlerFnContext } from "@auth0/nextjs-auth0/dist/helpers/with-api-auth-required";
 import { NextRequest, NextResponse } from "next/server";
-import { sortTenants } from "../../../../components/common";
+import { sortTenants } from "../../../../../components/common";
 
 const methods: {
   [method: string]: { proxyRequestBody: boolean; proxyResponseBody: boolean };

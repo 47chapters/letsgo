@@ -4,7 +4,7 @@ import { useUser } from "@auth0/nextjs-auth0/client";
 import { Invitation } from "@letsgo/tenant";
 import { GetInvitationsResponse, GetTenantUsersResponse } from "@letsgo/types";
 import { CSSProperties, useEffect, useState } from "react";
-import { useApi, useApiMutate } from "../../../../components/common-client";
+import { useApi, useApiMutate } from "../../../../../components/common-client";
 
 const style: CSSProperties = {
   border: "1px solid black",

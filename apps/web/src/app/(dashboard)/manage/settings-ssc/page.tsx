@@ -1,6 +1,6 @@
 import { withPageAuthRequired, getSession } from "@auth0/nextjs-auth0";
 import { Suspense } from "react";
-import { getApiUrl, apiRequest } from "../../../components/common-server";
+import { getApiUrl, apiRequest } from "../../../../components/common-server";
 
 async function Me() {
   const me = await apiRequest({

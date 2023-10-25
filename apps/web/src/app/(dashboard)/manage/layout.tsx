@@ -1,8 +1,8 @@
 "use client";
 
 import { useUser } from "@auth0/nextjs-auth0/client";
-import { TenantSelector } from "../../components/TenantSelector";
-import { TenantProvider } from "../../components/TenantProvider";
+import { TenantSelector } from "../../../components/TenantSelector";
+import { TenantProvider } from "../../../components/TenantProvider";
 import Link from "next/link";
 
 export default function ManageLayout({
@@ -19,10 +19,10 @@ export default function ManageLayout({
     return (
       <TenantProvider>
         <div>
-          Welcome {user.name} • Tenants: <TenantSelector allowCreate={true} /> •{" "}
+          Welcome {user.name} • Tenant: <TenantSelector allowCreate={true} /> •{" "}
           <Link href="/manage/settings">Profile</Link> •{" "}
           <Link href="/manage">Team</Link> •{" "}
-          <a href="/api/auth/logout">Logout</a>
+          <a href="/api/auth/logout?returnTo=/">Logout</a>
         </div>
         <div>{children}</div>
       </TenantProvider>
