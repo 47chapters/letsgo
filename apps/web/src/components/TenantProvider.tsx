@@ -7,21 +7,19 @@ import React, {
   createContext,
   useCallback,
   useContext,
-  useEffect,
   useMemo,
   useState,
 } from "react";
-import { loadCurrentTenant, saveCurrentTenant } from "./common-client";
+import { loadCurrentTenant, saveCurrentTenant, useApi } from "./common-client";
+import { GetMeResponse } from "@letsgo/types";
 
 export type TenantContext = {
   currentTenantId?: string;
   tenants?: Tenant[];
   error?: Error;
   isLoading: boolean;
-  setCurrentTenantId: (
-    tenantId?: string,
-    refreshTenantListFromSession?: boolean
-  ) => void;
+  setCurrentTenantId: (tenantId?: string) => Promise<void>;
+  refreshTenants: () => Promise<void>;
 };
 
 const missingTenantProvider = "You forgot to wrap your app in <TenantProvider>";
@@ -42,6 +40,9 @@ export const TenantContext = createContext<TenantContext>({
   setCurrentTenantId: (): never => {
     throw new Error(missingTenantProvider);
   },
+  refreshTenants: (): never => {
+    throw new Error(missingTenantProvider);
+  },
 });
 
 export type UseTenant = () => TenantContext;
@@ -53,65 +54,80 @@ type TenantProviderState = {
   currentTenantId?: string;
 };
 
-export type TenantProviderProps = React.PropsWithChildren<{}>;
+export type TenantProviderProps = React.PropsWithChildren<{
+  noTenantProvisioning?: boolean;
+}>;
 
 export function TenantProvider({
   children,
+  noTenantProvisioning = false,
 }: TenantProviderProps): ReactElement<TenantContext> {
-  const { isLoading, error, user, checkSession } = useUser();
+  const { isLoading: isUserLoading, error: userError, user } = useUser();
 
   const [state, setState] = useState<TenantProviderState>({
     currentTenantId: undefined,
   });
   let { currentTenantId } = state;
 
+  const {
+    isLoading: isMeLoading,
+    error: meError,
+    data: me,
+    mutate: refreshTenants,
+  } = useApi<GetMeResponse>({
+    path: user
+      ? `/v1/me${noTenantProvisioning ? "?noTenantProvisioning" : ""}`
+      : null,
+    afterSuccess: async (me) => {
+      const savedCurrentTenantId = loadCurrentTenant() || undefined;
+      const tenants = me?.tenants as Tenant[];
+      if (tenants?.length > 0) {
+        if (!tenants.find((tenant) => tenant.tenantId === currentTenantId)) {
+          // The current tenant is not in the list of user's tenants. Set it to the saved tenant
+          // or use the first tenant from the list if the saved tenant is not on it.
+          const newTenantId = tenants.find(
+            (tenant) => tenant.tenantId === savedCurrentTenantId
+          )
+            ? savedCurrentTenantId
+            : tenants[0].tenantId;
+          setCurrentTenantId(newTenantId);
+        }
+      } else {
+        // The user has no tenants. Clear the current tenant.
+        setState((state) => ({ ...state, currentTenantId: undefined }));
+      }
+    },
+  });
+
   const setCurrentTenantId = useCallback(
-    async (
-      tenantId?: string,
-      refreshTenantListFromSession?: boolean
-    ): Promise<void> => {
+    async (tenantId?: string): Promise<void> => {
       if (tenantId !== currentTenantId) {
-        // A call to checkSession is needed for the UserProvider to refresh
-        // the list of tenants from the session, in case a new tenant was created by the user.
-        refreshTenantListFromSession && (await checkSession());
         saveCurrentTenant(tenantId);
         setState((state) => ({ ...state, currentTenantId: tenantId }));
       }
     },
-    [checkSession, currentTenantId]
+    [currentTenantId]
   );
-
-  // This logic needs to run within a useEffect hook because it depends on local storage
-  // which is not accessible from server components.
-  useEffect(() => {
-    const savedCurrentTenantId = loadCurrentTenant() || undefined;
-    const tenants = user?.tenants as Tenant[];
-    if (tenants) {
-      if (!tenants.find((tenant) => tenant.tenantId === currentTenantId)) {
-        // The current tenant is not in the list of user's tenants. Set it to the saved tenant
-        // or use the first tenant from the list if the saved tenant is not on it.
-        const newTenantId = tenants.find(
-          (tenant) => tenant.tenantId === savedCurrentTenantId
-        )
-          ? savedCurrentTenantId
-          : tenants[0]?.tenantId;
-        setCurrentTenantId(newTenantId);
-      }
-    } else {
-      // The user has not been loaded yet - set current tenant to undefined but do not touch the saved tenant
-      setState((state) => ({ ...state, currentTenantId: undefined }));
-    }
-  }, [user, currentTenantId, setCurrentTenantId]);
 
   const value = useMemo(
     () => ({
-      isLoading,
-      error,
+      isLoading: isMeLoading || isUserLoading,
+      error: meError || userError,
       currentTenantId,
-      tenants: user?.tenants as Tenant[],
+      tenants: me?.tenants as Tenant[],
       setCurrentTenantId,
+      refreshTenants,
     }),
-    [isLoading, error, currentTenantId, setCurrentTenantId, user?.tenants]
+    [
+      isMeLoading,
+      isUserLoading,
+      userError,
+      meError,
+      currentTenantId,
+      setCurrentTenantId,
+      refreshTenants,
+      me?.tenants,
+    ]
   );
 
   return (

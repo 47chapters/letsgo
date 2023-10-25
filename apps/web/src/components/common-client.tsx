@@ -18,12 +18,12 @@ export function saveCurrentTenant(tenant?: string) {
   }
 }
 
-export interface UseApiOptions {
+export interface UseApiOptions<T> {
   path?: string | null;
-  noResponse?: boolean;
+  afterSuccess?: (result?: T) => Promise<void> | void;
 }
 
-export function useApi<T>(options: UseApiOptions) {
+export function useApi<T>(options: UseApiOptions<T>) {
   const { isLoading, error, data, mutate } = useSWR(
     options.path ? `/api/proxy${options.path}` : null,
     async (url) => {
@@ -35,7 +35,23 @@ export function useApi<T>(options: UseApiOptions) {
         );
       }
 
-      return options.noResponse ? undefined : result.json();
+      const text = await result.text();
+      let output: T | undefined = undefined;
+      if (text?.length > 0) {
+        try {
+          output = JSON.parse(text) as T;
+        } catch (e: any) {
+          throw new Error(
+            `Failed to parse the response of HTTP GET ${url} as JSON: ${e.message}`
+          );
+        }
+      }
+
+      if (options.afterSuccess) {
+        await options.afterSuccess(output);
+      }
+
+      return output;
     }
   );
   return { isLoading, error, data, mutate } as {
@@ -46,14 +62,13 @@ export function useApi<T>(options: UseApiOptions) {
   };
 }
 
-export interface UseApiMutateOptions {
+export interface UseApiMutateOptions<T> {
   path: string;
   method: string;
-  noResponse?: boolean;
-  afterSuccess?: () => void;
+  afterSuccess?: (result?: T) => Promise<void> | void;
 }
 
-export function useApiMutate<T>(options: UseApiMutateOptions) {
+export function useApiMutate<T>(options: UseApiMutateOptions<T>) {
   const { isMutating, error, data, trigger } = useSWRMutate(
     `/api/proxy${options.path}`,
     async (url, { arg }: { arg: any }) => {
@@ -78,10 +93,20 @@ export function useApiMutate<T>(options: UseApiMutateOptions) {
         );
       }
 
-      const output = options.noResponse ? undefined : result.json();
+      const text = await result.text();
+      let output: T | undefined = undefined;
+      if (text?.length > 0) {
+        try {
+          output = JSON.parse(text) as T;
+        } catch (e: any) {
+          throw new Error(
+            `Failed to parse the response of HTTP ${options.method} ${url} as JSON: ${e.message}`
+          );
+        }
+      }
 
       if (options.afterSuccess) {
-        options.afterSuccess();
+        await options.afterSuccess(output);
       }
 
       return output;

@@ -1,9 +1,10 @@
 "use client";
 
-import useSWR from "swr";
 import { useTenant } from "./TenantProvider";
 import { useCallback, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useApiMutate } from "./common-client";
+import { Tenant } from "@letsgo/tenant";
 
 const createValue = "create";
 
@@ -12,59 +13,53 @@ export interface TenantSelectorProps {
 }
 
 export function TenantSelector({ allowCreate = false }: TenantSelectorProps) {
-  const { isLoading, error, currentTenantId, tenants, setCurrentTenantId } =
-    useTenant();
-  const [creating, setCreating] = useState(false);
+  const {
+    isLoading: isTenantLoading,
+    error: tenantsError,
+    currentTenantId,
+    tenants,
+    setCurrentTenantId,
+    refreshTenants,
+  } = useTenant();
   const router = useRouter();
-
-  const { isLoading: createTenantIsLoading, error: createTenantError } = useSWR(
-    creating ? "/api/proxy/v1/tenant" : null,
-    async (url: string) => {
-      const result = await fetch(url, {
-        method: "POST",
-        body: JSON.stringify({}),
-      });
-
-      if (!result.ok) {
-        throw new Error(
-          `Failed to create a new tenant with HTTP POST ${url}: HTTP ${result.status} ${result.statusText}`
-        );
+  const {
+    isMutating: isCreatingTenant,
+    error: errorCreatingTenant,
+    trigger: createTenant,
+    data: newTenant,
+  } = useApiMutate<Tenant>({
+    path: `/v1/tenant`,
+    method: "POST",
+    afterSuccess: async (newTenant) => {
+      if (newTenant) {
+        await refreshTenants();
+        setCurrentTenantId(newTenant.tenantId);
+        router.push(`/manage/${newTenant.tenantId}/settings`);
       }
-
-      const newTenant = await result.json();
-
-      if (tenants) {
-        await setCurrentTenantId(newTenant.tenantId, true);
-        setCreating(false);
-        router.push(`/manage/tenant/${newTenant.tenantId}/settings`);
-      }
-
-      return newTenant;
-    }
-  );
+    },
+  });
 
   const handleTenantChange = useCallback(
     async (e: any) => {
       const tenantId = e.target.value;
       if (tenantId === createValue) {
-        setCreating(true);
+        createTenant();
       } else {
         setCurrentTenantId(tenantId);
-        router.push(`/manage/tenant/${tenantId}/settings`);
+        router.push(`/manage/${tenantId}/settings`);
       }
     },
-    [setCurrentTenantId]
+    [setCurrentTenantId, createTenant, router]
   );
 
-  if (createTenantError || error) {
-    throw createTenantError || error;
-  }
+  const error = tenantsError || errorCreatingTenant;
+  if (error) throw error;
 
-  if (isLoading) {
+  if (isTenantLoading) {
     return <span>Loading...</span>;
   }
 
-  if (createTenantIsLoading) {
+  if (isCreatingTenant) {
     return <span>Creating...</span>;
   }
 

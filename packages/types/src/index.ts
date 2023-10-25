@@ -1,4 +1,5 @@
-import { Invitation } from "@letsgo/tenant";
+import { Invitation, Tenant } from "@letsgo/tenant";
+import { Identity } from "@letsgo/trust";
 
 export interface GetTenantUsersResponse {
   identities: {
@@ -23,4 +24,10 @@ export interface GetTenantUsersResponse {
 
 export interface GetInvitationsResponse {
   invitations: Invitation[];
+}
+
+export interface GetMeResponse {
+  identityId: string;
+  identity: Identity;
+  tenants: Tenant[];
 }

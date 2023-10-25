@@ -2,6 +2,8 @@
 
 import { useUser } from "@auth0/nextjs-auth0/client";
 import { TenantSelector } from "../../components/TenantSelector";
+import { TenantProvider } from "../../components/TenantProvider";
+import Link from "next/link";
 
 export default function ManageLayout({
   children,
@@ -15,24 +17,22 @@ export default function ManageLayout({
 
   if (user) {
     return (
-      <div>
+      <TenantProvider>
         <div>
-          Welcome {user.name} • Tenants: <TenantSelector allowCreate={true} />{" "}
-          •&nbsp;
+          Welcome {user.name} • Tenants: <TenantSelector allowCreate={true} /> •{" "}
+          <Link href="/manage/settings">Profile</Link> •{" "}
+          <Link href="/manage">Team</Link> •{" "}
           <a href="/api/auth/logout">Logout</a>
         </div>
         <div>{children}</div>
-      </div>
+      </TenantProvider>
     );
   }
 
-  return (
-    <a
-      href={`/api/auth/login?returnTo=${window.location.pathname}${
-        window.location.search || ""
-      }${window.location.hash || ""}`}
-    >
-      Login
-    </a>
-  );
+  // User is not logged in - redirect to the login page
+  window.location.href = `/api/auth/login?returnTo=${window.location.pathname}${
+    window.location.search || ""
+  }${window.location.hash || ""}`;
+
+  return <></>;
 }

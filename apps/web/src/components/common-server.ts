@@ -4,7 +4,6 @@ export interface ApiRequestOptions {
   path: string;
   method?: string;
   body?: any;
-  noResponse?: boolean;
   accessToken?: string;
 }
 
@@ -45,9 +44,10 @@ export async function apiRequest(
     );
   }
 
-  if (options.noResponse) {
-    return;
+  const text = await result.text();
+  if (text?.length > 0) {
+    return JSON.parse(text);
   } else {
-    return await result.json();
+    return undefined;
   }
 }

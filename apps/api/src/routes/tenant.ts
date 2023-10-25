@@ -7,13 +7,18 @@ import {
   getInvitation,
   getInvitations,
   getTenant,
+  removeIdentityFromTenant,
 } from "@letsgo/tenant";
 import { Router } from "express";
 import { AuthenticatedRequest } from "../middleware/authenticate";
 import validateSchema from "../middleware/validateSchema";
 import postTenant from "../schema/postTenant";
 import { authorizeTenant } from "../middleware/authorizeTenant";
-import { getIdentity, serializeIdentity } from "@letsgo/trust";
+import {
+  deserializeIdentity,
+  getIdentity,
+  serializeIdentity,
+} from "@letsgo/trust";
 import { pruneResponse } from "./common";
 import { GetInvitationsResponse, GetTenantUsersResponse } from "@letsgo/types";
 import { InvitationTtl } from "@letsgo/constants";
@@ -63,6 +68,37 @@ router.get("/:tenantId/user", authorizeTenant(), async (req, res, next) => {
     next(e);
   }
 });
+
+// Remove an identity from tenant
+router.delete(
+  "/:tenantId/user/:identityId",
+  authorizeTenant(),
+  async (req, res, next) => {
+    try {
+      const response = await getIdentitiesOfTenant({
+        tenantId: req.params.tenantId,
+      });
+      if (
+        !response.find((i) => serializeIdentity(i) === req.params.identityId)
+      ) {
+        next(createError(404, "Identity not found"));
+        return;
+      }
+      if (response.length === 1) {
+        next(createError(400, "Cannot remove the last identity from a tenant"));
+        return;
+      }
+      const identity = deserializeIdentity(req.params.identityId);
+      await removeIdentityFromTenant({
+        tenantId: req.params.tenantId,
+        identity,
+      });
+      res.status(204).send();
+    } catch (e) {
+      next(e);
+    }
+  }
+);
 
 // Create an invitation to join the tenant
 router.post(
@@ -125,15 +161,18 @@ router.post(
   async (req, res, next) => {
     try {
       const request = req as unknown as AuthenticatedRequest;
+      console.log("POST ACCEPT", { params: req.params, user: request.user });
       const invitation = await getInvitation({
         tenantId: req.params.tenantId,
         invitationId: req.params.invitationId,
       });
+      console.log("INVITATION", invitation);
       if (!invitation) {
         next(createError(404, "Invitation not found or expired"));
         return;
       }
       const tenant = await getTenant({ tenantId: req.params.tenantId });
+      console.log("TENANT", tenant);
       if (!tenant) {
         next(createError(404, "Tenant not found"));
         return;

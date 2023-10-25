@@ -40,7 +40,7 @@ program
       nextToken: options.nextToken,
     });
     if (options.output === "json") {
-      console.log(result);
+      console.log(JSON.stringify(result, null, 2));
     } else {
       if (result.items.length === 0) {
         console.log(chalk.yellow("No matching items found"));

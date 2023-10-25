@@ -4,7 +4,7 @@ import { useUser } from "@auth0/nextjs-auth0/client";
 import { Invitation } from "@letsgo/tenant";
 import { GetInvitationsResponse, GetTenantUsersResponse } from "@letsgo/types";
 import { CSSProperties, useEffect, useState } from "react";
-import { useApi, useApiMutate } from "../../../../../components/common-client";
+import { useApi, useApiMutate } from "../../../../components/common-client";
 
 const style: CSSProperties = {
   border: "1px solid black",
@@ -18,14 +18,39 @@ interface TeamMembersProps {
 
 function TeamMembers({ tenantId }: TeamMembersProps) {
   const { isLoading: isUserLoading, error: userError, user } = useUser();
-  const { isLoading, error, data } = useApi<GetTenantUsersResponse>({
+  const {
+    isLoading: isUsersLoading,
+    error: usersError,
+    data,
+    mutate: refreshUsers,
+  } = useApi<GetTenantUsersResponse>({
     path: `/v1/tenant/${tenantId}/user?details`,
   });
+  const [deleteIdentityId, setDeleteIdentityId] = useState<string | null>(null);
+  const {
+    isMutating: isDeletingIdentity,
+    error: errorDeletingIdentity,
+    trigger: deleteIdentity,
+  } = useApiMutate<any>({
+    path: `/v1/tenant/${tenantId}/user/${deleteIdentityId}`,
+    method: "DELETE",
+    afterSuccess: refreshUsers,
+  });
 
-  if (isLoading || isUserLoading) return <div>Loading...</div>;
-  if (error || userError) throw error || userError;
+  useEffect(() => {
+    if (deleteIdentityId) {
+      deleteIdentity();
+      setDeleteIdentityId(null);
+    }
+  }, [deleteIdentity, deleteIdentityId]);
 
-  const handleRemove = (identityId: string) => async () => {};
+  if (isUsersLoading || isUserLoading) return <div>Loading...</div>;
+  const error = usersError || errorDeletingIdentity || userError;
+  if (error) throw error;
+
+  const handleRemove = (identityId: string) => async () => {
+    setDeleteIdentityId(identityId);
+  };
 
   return (
     <table style={style}>
@@ -49,14 +74,16 @@ function TeamMembers({ tenantId }: TeamMembersProps) {
             <td style={style}>{identity.iss}</td>
             <td style={style}>{identity.sub}</td>
             <td style={style}>
-              {/** Do not allow the removal of the last member of a tenant */}
-              {(data?.identities || []).length > 1 ? (
-                <button onClick={handleRemove(identity.identityId)}>
-                  Remove
-                </button>
-              ) : (
-                <span>&nbsp;</span>
-              )}
+              {/** Do not allow the removal of self */}
+              <button
+                disabled={
+                  user?.identityId === identity.identityId ||
+                  deleteIdentityId === identity.identityId
+                }
+                onClick={handleRemove(identity.identityId)}
+              >
+                Remove
+              </button>
             </td>
           </tr>
         ))}
@@ -97,7 +124,6 @@ function Invitations({ tenantId }: InvitationsProps) {
   } = useApiMutate<any>({
     path: `/v1/tenant/${tenantId}/invitation/${deleteInvitationId}`,
     method: "DELETE",
-    noResponse: true,
     afterSuccess: refreshInvitations,
   });
 
@@ -106,7 +132,7 @@ function Invitations({ tenantId }: InvitationsProps) {
       deleteInvitation();
       setDeleteInvitationId(null);
     }
-  }, [deleteInvitationId]);
+  }, [deleteInvitation, deleteInvitationId]);
 
   if (isLoadingInvitations) return <div>Loading...</div>;
   const error =
@@ -126,35 +152,43 @@ function Invitations({ tenantId }: InvitationsProps) {
   const invitationsComponent = !invitations?.length ? (
     <div>No active invitations.</div>
   ) : (
-    <table style={style}>
-      <thead>
-        <tr>
-          <th style={style}>Url</th>
-          <th style={style}>Created</th>
-          <th style={style}>Expires</th>
-          <th style={style}>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        {(invitations || []).map((invitation) => (
-          <tr key={invitation.invitationId} style={style}>
-            <td style={style}>
-              {window.location.origin}/join/{tenantId}/{invitation.invitationId}
-            </td>
-            <td style={style}>{new Date(invitation.createdAt).toString()}</td>
-            <td style={style}>{new Date(invitation.expiresAt).toString()}</td>
-            <td style={style}>
-              <button
-                disabled={isDeletingInvitation}
-                onClick={handleRemove(invitation.invitationId)}
-              >
-                Revoke
-              </button>
-            </td>
+    <div>
+      <table style={style}>
+        <thead>
+          <tr>
+            <th style={style}>Url</th>
+            <th style={style}>Created</th>
+            <th style={style}>Expires</th>
+            <th style={style}>Action</th>
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {(invitations || []).map((invitation) => (
+            <tr key={invitation.invitationId} style={style}>
+              <td style={style}>
+                {window.location.origin}/join/{tenantId}/
+                {invitation.invitationId}
+              </td>
+              <td style={style}>{new Date(invitation.createdAt).toString()}</td>
+              <td style={style}>{new Date(invitation.expiresAt).toString()}</td>
+              <td style={style}>
+                <button
+                  disabled={isDeletingInvitation}
+                  onClick={handleRemove(invitation.invitationId)}
+                >
+                  Revoke
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <p>
+        NOTE: Invitation URLs are tenant-specific, confidential, can be used by
+        anyone, and expire after 24h. Send them to the intended recipient using
+        a trusted channel, e.g. e-mail.
+      </p>
+    </div>
   );
 
   return (
