@@ -5,6 +5,7 @@ export const ConfigRegion = "us-west-2";
 export const DefaultRegion = process.env.AWS_REGION || "us-west-2";
 export const DefaultDeployment = process.env.LETSGO_DEPLOYMENT || "main";
 export const StaticJwtAudience = `${VendorPrefix}:service`;
+export const InvitationTtl = 60 * 60 * 24; // 24h
 
 export const TagKeys = {
   LetsGoVersion: "LetsGoVersion",

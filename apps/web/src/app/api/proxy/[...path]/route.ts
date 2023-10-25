@@ -86,7 +86,10 @@ const proxy = withApiAuthRequired(async function proxy(
   let requestBody: any = undefined;
   if (method.proxyRequestBody) {
     try {
-      requestBody = await req.json();
+      const text = await req.text();
+      if (text.length > 0) {
+        requestBody = JSON.parse(text);
+      }
     } catch (e: any) {
       return createError(
         400,

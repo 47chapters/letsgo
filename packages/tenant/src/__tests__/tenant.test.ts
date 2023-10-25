@@ -15,6 +15,10 @@ import {
   getTenantsOfIdentity,
   addIdentityToTenant,
   removeIdentityFromTenant,
+  createInvitation,
+  getInvitation,
+  deleteInvitation,
+  getInvitations,
 } from "..";
 import { Identity } from "@letsgo/trust";
 import { deleteItem } from "@letsgo/db";
@@ -57,6 +61,15 @@ describe("tenant", () => {
       )
     );
     tenantsToDelete = [];
+    const invitations = await getInvitations({ tenantId: tenant1 });
+    await Promise.all(
+      invitations.map((invitation) =>
+        deleteInvitation({
+          tenantId: tenant1,
+          invitationId: invitation.invitationId,
+        })
+      )
+    );
   });
 
   it("serializeIdentityTenantKey roundtrips through deserializeIdentityTenantKey", async () => {
@@ -75,7 +88,7 @@ describe("tenant", () => {
 
   it("createTenant/getTenant works", async () => {
     const tenant = await createTenant({
-      creator: identity1,
+      createdBy: identity1,
       displayName: "test",
     });
     tenantsToDelete.push(tenant.tenantId);
@@ -93,7 +106,7 @@ describe("tenant", () => {
 
   it("createTenant/deleteTenant/getTenant returns undefined", async () => {
     const tenant = await createTenant({
-      creator: identity1,
+      createdBy: identity1,
       displayName: "test",
     });
     tenantsToDelete.push(tenant.tenantId);
@@ -108,7 +121,7 @@ describe("tenant", () => {
 
   it("createTenant/deleteTenant/getTenant(true) returns deleted tenant", async () => {
     const tenant = await createTenant({
-      creator: identity1,
+      createdBy: identity1,
       displayName: "test",
     });
     tenantsToDelete.push(tenant.tenantId);
@@ -129,7 +142,7 @@ describe("tenant", () => {
 
   it("createTenant/putTenant/getTenant works", async () => {
     const tenant = await createTenant({
-      creator: identity1,
+      createdBy: identity1,
       displayName: "test",
     });
     tenantsToDelete.push(tenant.tenantId);
@@ -154,7 +167,7 @@ describe("tenant", () => {
 
   it("createTenant/getTenantsOfIdentity works", async () => {
     const tenant = await createTenant({
-      creator: identity1,
+      createdBy: identity1,
       displayName: "test",
     });
     tenantsToDelete.push(tenant.tenantId);
@@ -166,7 +179,7 @@ describe("tenant", () => {
 
   it("createTenant/getIdentitiesOfTenant works", async () => {
     const tenant = await createTenant({
-      creator: identity2,
+      createdBy: identity2,
       displayName: "test",
     });
     tenantsToDelete.push(tenant.tenantId);
@@ -178,7 +191,7 @@ describe("tenant", () => {
 
   it("createTenant/addIdentityToTenant/getIdentitiesOfTenant works", async () => {
     const tenant = await createTenant({
-      creator: identity1,
+      createdBy: identity1,
       displayName: "test",
     });
     tenantsToDelete.push(tenant.tenantId);
@@ -195,12 +208,12 @@ describe("tenant", () => {
 
   it("createTenant/addIdentityToTenant/getTenantsOfIdentity/getIdentitiesOfTenant works", async () => {
     const tenant1 = await createTenant({
-      creator: identity1,
+      createdBy: identity1,
       displayName: "test",
     });
     tenantsToDelete.push(tenant1.tenantId);
     const tenant2 = await createTenant({
-      creator: identity2,
+      createdBy: identity2,
       displayName: "test",
     });
     tenantsToDelete.push(tenant2.tenantId);
@@ -232,7 +245,7 @@ describe("tenant", () => {
 
   it("createTenant/removeIdentityFromTenant/getTenantsOfIdentity/getIdentitiesOfTenant works", async () => {
     const tenant1 = await createTenant({
-      creator: identity1,
+      createdBy: identity1,
       displayName: "test",
     });
     tenantsToDelete.push(tenant1.tenantId);
@@ -252,7 +265,7 @@ describe("tenant", () => {
 
   it("createTenant/deleteTenant/getTenantsOfIdentity/getIdentitiesOfTenant works", async () => {
     const tenant1 = await createTenant({
-      creator: identity1,
+      createdBy: identity1,
       displayName: "test",
     });
     tenantsToDelete.push(tenant1.tenantId);
@@ -276,5 +289,71 @@ describe("tenant", () => {
     expect(tenants).toBeDefined();
     expect(tenants.length).toBe(1);
     expect(tenants[0]).toMatchObject(deletedTenant as any);
+  });
+
+  it("createInvitation/getInvitation works", async () => {
+    const invitation = await createInvitation({
+      createdBy: identity1,
+      tenantId: tenant1,
+      ttl: Math.floor(Date.now() / 1000) + 3600,
+    });
+    expect(invitation).toBeDefined();
+    expect(invitation.createdBy).toMatchObject(identity1);
+    expect(invitation.createdAt).toBeDefined();
+    expect(invitation.ttl).toBeGreaterThan(Math.floor(Date.now() / 1000));
+    const invitation2 = await getInvitation({
+      tenantId: tenant1,
+      invitationId: invitation.invitationId,
+    });
+    expect(invitation2).toMatchObject(invitation);
+  });
+
+  it("createInvitation/getInvitations works", async () => {
+    const invitation1 = await createInvitation({
+      createdBy: identity1,
+      tenantId: tenant1,
+      ttl: Math.floor(Date.now() / 1000) + 3600,
+    });
+    const invitation2 = await createInvitation({
+      createdBy: identity1,
+      tenantId: tenant1,
+      ttl: Math.floor(Date.now() / 1000) + 3600,
+    });
+    const invitations = await getInvitations({ tenantId: tenant1 });
+    expect(invitations).toBeDefined();
+    expect(invitations.length).toBe(2);
+    expect(invitations).toContainEqual(invitation1);
+    expect(invitations).toContainEqual(invitation2);
+  });
+
+  it("createInvitation/deleteInvitation/getInvitation works", async () => {
+    const invitation = await createInvitation({
+      createdBy: identity1,
+      tenantId: tenant1,
+      ttl: Math.floor(Date.now() / 1000) + 3600,
+    });
+    await deleteInvitation({
+      tenantId: tenant1,
+      invitationId: invitation.invitationId,
+    });
+    const invitation2 = await getInvitation({
+      tenantId: tenant1,
+      invitationId: invitation.invitationId,
+    });
+    expect(invitation2).toBeUndefined();
+  });
+
+  it("createInvitation/getInvitation of an expired invitation works", async () => {
+    const invitation = await createInvitation({
+      createdBy: identity1,
+      tenantId: tenant1,
+      ttl: Math.floor(Date.now() / 1000),
+    });
+    await new Promise((resolve) => setTimeout(resolve, 500));
+    const invitation2 = await getInvitation({
+      tenantId: tenant1,
+      invitationId: invitation.invitationId,
+    });
+    expect(invitation2).toBeUndefined();
   });
 });

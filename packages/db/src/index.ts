@@ -159,9 +159,12 @@ export async function listItems<T extends DBItem>(
   });
   const queryCommandResult = await client.send(queryCommand);
   const result = {
-    items: (queryCommandResult.Items || []).map(
-      (item) => unmarshall(item) as T
-    ),
+    items: (queryCommandResult.Items || [])
+      .map((item) => unmarshall(item) as T)
+      .filter(
+        (item) =>
+          item.ttl === undefined || item.ttl >= Math.floor(Date.now() / 1000)
+      ),
     nextToken:
       queryCommandResult.LastEvaluatedKey &&
       Buffer.from(JSON.stringify(queryCommandResult.LastEvaluatedKey)).toString(

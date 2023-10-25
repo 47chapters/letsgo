@@ -31,9 +31,13 @@ const nameGeneratorConfig: Config = {
 export const TenantCategory = `${VendorPrefix}-tenant`;
 export const TenantIdentityCategory = `${VendorPrefix}-tenant-identity`;
 export const IdentityTenantCategory = `${VendorPrefix}-identity-tenant`;
+export const InvitationCategory = `${VendorPrefix}-invitation`;
 const TenantIdPrefix = "ten";
+const InvitationIdPrefix = "inv";
 
 const createTenantId = () => `${TenantIdPrefix}-${uuidv4().replace(/-/g, "")}`;
+const createInvitationId = () =>
+  `${InvitationIdPrefix}-${uuidv4().replace(/-/g, "")}`;
 
 export interface Tenant extends DBItem {
   tenantId: string;
@@ -44,6 +48,18 @@ export interface Tenant extends DBItem {
   updatedBy: Identity;
   deletedAt?: string;
   deletedBy?: Identity;
+}
+
+export interface Invitation extends DBItem {
+  invitationId: string;
+  createdBy: Identity;
+  createdAt: string;
+  expiresAt: string;
+  ttl: number;
+}
+
+export function serializeInvitationKey(tenantId: string, invitationId: string) {
+  return `/${tenantId}/${invitationId}`;
 }
 
 export function serializeTenantIdentityIdKey(
@@ -77,8 +93,83 @@ export function deserializeIdentityTenantKey(key: string): [Identity, string] {
   return [deserializeIdentity(identity), tenantId];
 }
 
+export interface CreateInvitationOptions extends DeploymentOptions {
+  createdBy: Identity;
+  tenantId: string;
+  ttl: number;
+}
+
+export async function createInvitation(
+  options: CreateInvitationOptions
+): Promise<Invitation> {
+  const invitationId = createInvitationId();
+  const invitation: Invitation = {
+    category: InvitationCategory,
+    key: serializeInvitationKey(options.tenantId, invitationId),
+    invitationId,
+    ttl: options.ttl,
+    createdAt: new Date().toISOString(),
+    createdBy: options.createdBy,
+    expiresAt: new Date(options.ttl * 1000).toISOString(),
+  };
+  await putItem(invitation, options);
+  return invitation;
+}
+
+export interface GetInvitationOptions extends DeploymentOptions {
+  tenantId: string;
+  invitationId: string;
+}
+
+export async function getInvitation(
+  options: GetInvitationOptions
+): Promise<Invitation | undefined> {
+  const result = await getItem<Invitation>(
+    InvitationCategory,
+    serializeInvitationKey(options.tenantId, options.invitationId),
+    options
+  );
+  return result;
+}
+
+export interface DeleteInvitationOptions extends DeploymentOptions {
+  tenantId: string;
+  invitationId: string;
+}
+
+export async function deleteInvitation(
+  options: DeleteInvitationOptions
+): Promise<void> {
+  const result = await deleteItem(
+    InvitationCategory,
+    serializeInvitationKey(options.tenantId, options.invitationId),
+    options
+  );
+}
+
+export interface GetInvitationsOptions extends DeploymentOptions {
+  tenantId: string;
+}
+
+export async function getInvitations(
+  options: GetInvitationsOptions
+): Promise<Invitation[]> {
+  let invitations: Invitation[] = [];
+  let nextToken: string | undefined;
+  do {
+    const result = await listItems(
+      InvitationCategory,
+      `/${options.tenantId}/`,
+      { ...options, nextToken }
+    );
+    invitations = invitations.concat(result.items as Invitation[]);
+    nextToken = result.nextToken;
+  } while (nextToken);
+  return invitations;
+}
+
 export interface CreateTenantOptions extends DeploymentOptions {
-  creator: Identity;
+  createdBy: Identity;
   displayName?: string;
 }
 
@@ -93,18 +184,18 @@ export async function createTenant(
     displayName:
       options.displayName || uniqueNamesGenerator(nameGeneratorConfig),
     createdAt: new Date().toISOString(),
-    createdBy: options.creator,
+    createdBy: options.createdBy,
     updatedAt: new Date().toISOString(),
-    updatedBy: options.creator,
+    updatedBy: options.createdBy,
   };
   await putItem(tenant, options);
   await putItem({
     category: TenantIdentityCategory,
-    key: serializeTenantIdentityKey(tenantId, options.creator),
+    key: serializeTenantIdentityKey(tenantId, options.createdBy),
   });
   await putItem({
     category: IdentityTenantCategory,
-    key: serializeIdentityTenantKey(options.creator, tenantId),
+    key: serializeIdentityTenantKey(options.createdBy, tenantId),
   });
   return tenant;
 }

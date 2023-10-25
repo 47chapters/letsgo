@@ -18,6 +18,9 @@
   "jest": {
     "preset": "jest-presets/jest/node"
   },
+  "dependencies": {
+    "@letsgo/tenant": "*"
+  },
   "devDependencies": {
     "@types/jest": "^26.0.22",
     "eslint": "^7.32.0",
