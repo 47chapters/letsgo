@@ -4,6 +4,7 @@ import { useUser } from "@auth0/nextjs-auth0/client";
 import { TenantSelector } from "../../../components/TenantSelector";
 import { TenantProvider } from "../../../components/TenantProvider";
 import Link from "next/link";
+import Navbar from "../../../components/Navbar";
 
 export default function ManageLayout({
   children,
@@ -18,12 +19,15 @@ export default function ManageLayout({
   if (user) {
     return (
       <TenantProvider>
-        <div>
-          Welcome {user.name} • Tenant: <TenantSelector allowCreate={true} /> •{" "}
-          <Link href="/manage/settings">Profile</Link> •{" "}
-          <Link href="/manage">Team</Link> •{" "}
-          <a href="/api/auth/logout?returnTo=/">Logout</a>
-        </div>
+        <Navbar>
+          <div>
+            <Link href="/">Home</Link> • Tenant:{" "}
+            <TenantSelector allowCreate={true} /> •{" "}
+            <Link href="/manage/settings">{user?.name || "Profile"}</Link> •{" "}
+            <Link href="/manage">Team</Link> •{" "}
+            <a href="/api/auth/logout?returnTo=/">Logout</a>
+          </div>
+        </Navbar>
         <div>{children}</div>
       </TenantProvider>
     );
