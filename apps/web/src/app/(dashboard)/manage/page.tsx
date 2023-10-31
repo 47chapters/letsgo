@@ -6,13 +6,13 @@ import { useTenant } from "../../../components/TenantProvider";
 
 function ResolveTenant() {
   const router = useRouter();
-  const { error, currentTenantId } = useTenant();
+  const { error, currentTenant } = useTenant();
 
   useEffect(() => {
-    if (currentTenantId) {
-      router.replace(`/manage/${currentTenantId}/settings`);
+    if (currentTenant) {
+      router.replace(`/manage/${currentTenant.tenantId}/settings`);
     }
-  }, [currentTenantId, router]);
+  }, [currentTenant, router]);
 
   if (error) throw error;
 

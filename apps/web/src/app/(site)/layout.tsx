@@ -17,6 +17,12 @@ export default function SiteLayout({
         <div>
           <Link href="/">Home</Link> • <Link href="/pricing">Pricing</Link> • 
           <a href="/manage">{user ? "Manage" : "Login"}</a>
+          {user && (
+            <span>
+              {" "}
+              • <a href="/api/auth/logout?returnTo=/">Logout</a>
+            </span>
+          )}
         </div>
       </Navbar>
       {children}

@@ -1,5 +1,5 @@
 {
-  "name": "@letsgo/tenant",
+  "name": "@letsgo/stripe",
   "version": "0.0.0",
   "private": true,
   "main": "./dist/index.js",
@@ -22,6 +22,7 @@
     "@types/dotenv": "^8.2.0",
     "@types/jest": "^26.0.22",
     "@types/jsonwebtoken": "^9.0.3",
+    "@types/stripe": "^8.0.417",
     "@types/uuid": "^9.0.6",
     "dotenv": "^16.3.1",
     "eslint": "^7.32.0",
@@ -33,11 +34,8 @@
   },
   "dependencies": {
     "@letsgo/constants": "*",
-    "@letsgo/db": "*",
-    "@letsgo/trust": "*",
-    "@letsgo/pricing": "*",
-    "@letsgo/stripe": "*",
     "jsonwebtoken": "^9.0.2",
+    "stripe": "^14.2.0",
     "unique-names-generator": "^4.7.1",
     "uuid": "^9.0.1"
   }

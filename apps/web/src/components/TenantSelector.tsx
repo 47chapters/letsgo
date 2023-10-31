@@ -16,9 +16,8 @@ export function TenantSelector({ allowCreate = false }: TenantSelectorProps) {
   const {
     isLoading: isTenantLoading,
     error: tenantsError,
-    currentTenantId,
+    currentTenant,
     tenants,
-    setCurrentTenantId,
     refreshTenants,
   } = useTenant();
   const router = useRouter();
@@ -33,7 +32,6 @@ export function TenantSelector({ allowCreate = false }: TenantSelectorProps) {
     afterSuccess: async (newTenant) => {
       if (newTenant) {
         await refreshTenants();
-        setCurrentTenantId(newTenant.tenantId);
         router.push(`/manage/${newTenant.tenantId}/settings`);
       }
     },
@@ -45,11 +43,10 @@ export function TenantSelector({ allowCreate = false }: TenantSelectorProps) {
       if (tenantId === createValue) {
         createTenant();
       } else {
-        setCurrentTenantId(tenantId);
         router.push(`/manage/${tenantId}/settings`);
       }
     },
-    [setCurrentTenantId, createTenant, router]
+    [createTenant, router]
   );
 
   const error = tenantsError || errorCreatingTenant;
@@ -65,7 +62,7 @@ export function TenantSelector({ allowCreate = false }: TenantSelectorProps) {
 
   if (tenants) {
     return (
-      <select value={currentTenantId} onChange={handleTenantChange}>
+      <select value={currentTenant?.tenantId} onChange={handleTenantChange}>
         {tenants.map((tenant) => (
           <option value={tenant.tenantId} key={tenant.tenantId}>
             {tenant.displayName}

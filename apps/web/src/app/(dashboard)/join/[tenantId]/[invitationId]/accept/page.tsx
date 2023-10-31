@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { useApiMutate } from "../../../../../../components/common-client";
 import { useEffect, useState } from "react";
 import { useTenant } from "../../../../../../components/TenantProvider";
+import { getTenant } from "@letsgo/tenant";
 
 export default function Join({
   params: { tenantId, invitationId },
@@ -14,7 +15,8 @@ export default function Join({
     isLoading: isLoadingTenants,
     error: tenantError,
     refreshTenants,
-    setCurrentTenantId,
+    getTenant: getTenantFromTenants,
+    setCurrentTenant,
   } = useTenant();
   const router = useRouter();
   const {
@@ -27,8 +29,10 @@ export default function Join({
     afterSuccess: async () => {
       setInvitationAccepted(true);
       await refreshTenants();
-      setCurrentTenantId(tenantId);
-      router.replace(`/manage/${tenantId}/settings`);
+      // const newTenant = getTenantFromTenants(tenantId);
+      // setCurrentTenant(newTenant);
+      window.location.href = `/manage/${tenantId}/settings`;
+      // router.replace(`/manage/${tenantId}/settings`);
     },
   });
   const [invitationAccepted, setInvitationAccepted] = useState(false);

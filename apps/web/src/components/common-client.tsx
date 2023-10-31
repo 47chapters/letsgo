@@ -5,6 +5,10 @@ import useSWRMutate from "swr/mutation";
 
 const CurrentTenantKey = "LetsGoCurrentTenant";
 
+export function createAbsoluteUrl(relativeUrl: string) {
+  return `${window.location.protocol}//${window.location.host}${relativeUrl}`;
+}
+
 export function loadCurrentTenant(): string | undefined {
   const currentTenant = localStorage.getItem(CurrentTenantKey) || undefined;
   return currentTenant;
@@ -16,6 +20,28 @@ export function saveCurrentTenant(tenant?: string) {
   } else {
     localStorage.setItem(CurrentTenantKey, tenant);
   }
+}
+
+async function createResultNotOkError(
+  method: string,
+  url: string,
+  result: Response
+) {
+  let details: string | undefined = undefined;
+  try {
+    details = await result.text();
+    const json = JSON.parse(details);
+    if (json.message) {
+      details = json.message;
+    }
+  } catch (e) {
+    // Ignore
+  }
+  return new Error(
+    `Failed to fetch HTTP ${method} ${url}: HTTP ${result.status} ${
+      result.statusText
+    }${(details && `. Details: ${details}`) || ""}`
+  );
 }
 
 export interface UseApiOptions<T> {
@@ -30,9 +56,7 @@ export function useApi<T>(options: UseApiOptions<T>) {
       const result = await fetch(url);
 
       if (!result.ok) {
-        throw new Error(
-          `Failed to fetch HTTP GET ${url}: HTTP ${result.status} ${result.statusText}`
-        );
+        throw await createResultNotOkError("GET", url, result);
       }
 
       const text = await result.text();
@@ -88,9 +112,7 @@ export function useApiMutate<T>(options: UseApiMutateOptions<T>) {
       );
 
       if (!result.ok) {
-        throw new Error(
-          `Failed to fetch HTTP ${options.method} ${url}: HTTP ${result.status} ${result.statusText}`
-        );
+        throw await createResultNotOkError(options.method, url, result);
       }
 
       const text = await result.text();

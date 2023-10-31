@@ -102,16 +102,24 @@ const proxy = withApiAuthRequired(async function proxy(
   const authorization = `Bearer ${accessToken}`;
   let responseBody: any = undefined;
   let apiResponse: Response;
-  try {
-    apiResponse = await fetch(apiUrl, {
-      method: req.method,
-      headers: { ...req.headers, authorization },
+  const fetchOptions = {
+    method: req.method,
+    headers: {
+      ...req.headers,
+      authorization,
       ...(requestBody !== undefined
-        ? { body: JSON.stringify(requestBody) }
+        ? { "Content-Type": "application/json" }
         : {}),
-    });
+    },
+    ...(requestBody !== undefined ? { body: JSON.stringify(requestBody) } : {}),
+    redirect: "manual",
+  };
+  try {
+    /* @ts-ignore */
+    apiResponse = await fetch(apiUrl, fetchOptions);
 
-    if (method.proxyResponseBody) {
+    // console.log("PROXY RESPONSE", JSON.stringify(apiResponse, null, 2));
+    if (method.proxyResponseBody && apiResponse.status !== 302) {
       let responseText: string;
       try {
         responseText = await apiResponse.text();
@@ -133,8 +141,11 @@ const proxy = withApiAuthRequired(async function proxy(
     );
   }
 
-  const responseInit = {
-    headers: { ...accessTokenResponse.headers, ...apiResponse.headers },
+  const headers = new Headers();
+  accessTokenResponse.headers.forEach((value, key) => headers.set(key, value));
+  apiResponse.headers.forEach((value, key) => headers.set(key, value));
+  const responseInit: ResponseInit = {
+    headers,
     status: apiResponse.status,
   };
 
@@ -142,22 +153,6 @@ const proxy = withApiAuthRequired(async function proxy(
     responseBody !== undefined
       ? NextResponse.json(responseBody, responseInit)
       : new NextResponse(undefined, responseInit);
-
-  if (
-    apiPath === "v1/tenant" &&
-    req.method.toUpperCase() === "POST" &&
-    apiResponse.status === 200 &&
-    responseBody
-  ) {
-    // The logged in user created a new tenant. Add it to the list of tenants in the user profile in the session
-    const session = await getSession(req, res);
-    if (session) {
-      const tenants = session.user.tenants || [];
-      tenants.push(responseBody);
-      session.user.tenants = sortTenants(tenants);
-      await updateSession(req, res, session);
-    }
-  }
 
   return res;
 });

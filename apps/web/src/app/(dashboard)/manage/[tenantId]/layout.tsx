@@ -10,22 +10,29 @@ export default function CheckAccessToTenant({
   children: React.ReactNode;
   params: { tenantId: string };
 }) {
-  const { isLoading, error, tenants, currentTenantId, setCurrentTenantId } =
-    useTenant();
+  const {
+    isLoading,
+    error,
+    tenants,
+    currentTenant,
+    getTenant,
+    setCurrentTenant,
+  } = useTenant();
 
   useEffect(() => {
     if (tenants) {
-      if (!tenants.find((tenant) => tenant.tenantId === params.tenantId)) {
+      const tenant = getTenant(params.tenantId);
+      if (!tenant) {
         throw new Error(`You don't have access to tenant ${params.tenantId}`);
       }
-      setCurrentTenantId(params.tenantId);
+      setCurrentTenant(tenant);
     }
-  }, [tenants, params.tenantId, setCurrentTenantId]);
+  }, [tenants, params.tenantId, setCurrentTenant, getTenant]);
 
   if (isLoading) return <div>Loading...</div>;
   if (error) throw error;
 
-  return currentTenantId === params.tenantId ? (
+  return currentTenant?.tenantId === params.tenantId ? (
     <div>{children}</div>
   ) : (
     <div>Loading...</div>

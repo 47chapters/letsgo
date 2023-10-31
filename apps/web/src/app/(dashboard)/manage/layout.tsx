@@ -18,18 +18,18 @@ export default function ManageLayout({
 
   if (user) {
     return (
-      <TenantProvider>
+      <div>
         <Navbar>
           <div>
             <Link href="/">Home</Link> • Tenant:{" "}
             <TenantSelector allowCreate={true} /> •{" "}
             <Link href="/manage/settings">{user?.name || "Profile"}</Link> •{" "}
-            <Link href="/manage">Team</Link> •{" "}
+            <Link href="/manage">Tenant</Link> •{" "}
             <a href="/api/auth/logout?returnTo=/">Logout</a>
           </div>
         </Navbar>
         <div>{children}</div>
-      </TenantProvider>
+      </div>
     );
   }
 

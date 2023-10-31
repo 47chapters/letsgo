@@ -1,8 +1,15 @@
 import { RequestHandler } from "express";
 import { AuthenticatedRequest } from "../middleware/authenticate";
-import { getTenantsOfIdentity, createTenant } from "@letsgo/tenant";
+import {
+  getTenantsOfIdentity,
+  createTenant,
+  Tenant,
+  reconcileSubscriptionStatus,
+  putTenant,
+} from "@letsgo/tenant";
 import { pruneResponse } from "./common";
 import { GetMeResponse } from "@letsgo/types";
+import { getSubscription } from "@letsgo/stripe";
 
 export const meHandler: RequestHandler = async (req, res, next) => {
   try {
@@ -18,7 +25,19 @@ export const meHandler: RequestHandler = async (req, res, next) => {
       });
       tenants.push(pruneResponse(tenant));
     } else {
-      tenants = tenants.map(pruneResponse);
+      // Update Stripe subscription status
+      const reconciledTenants: Tenant[] = [];
+      for (const tenant of tenants) {
+        const updatedTenant = await reconcileSubscriptionStatus(
+          tenant,
+          request.user.identity
+        );
+        if (updatedTenant) {
+          await putTenant(updatedTenant);
+        }
+        reconciledTenants.push(updatedTenant || tenant);
+      }
+      tenants = reconciledTenants.map(pruneResponse);
     }
     const body: GetMeResponse = {
       identityId: request.user.identityId,

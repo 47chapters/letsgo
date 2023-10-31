@@ -31,3 +31,20 @@ export interface GetMeResponse {
   identity: Identity;
   tenants: Tenant[];
 }
+
+export interface PostPlanRequest {
+  planId: string;
+  email?: string;
+  name?: string;
+}
+
+export interface PostPlanResponse {
+  subscriptionId: string;
+  clientSecret: string;
+  publicKey: string;
+}
+
+export interface PostPaymentMethodResponse {
+  clientSecret: string;
+  publicKey: string;
+}

@@ -10,6 +10,7 @@ import { authenticate } from "./middleware/authenticate";
 import { meHandler } from "./routes/me";
 import tenantRouter from "./routes/tenant";
 import identityRouter from "./routes/identity";
+import stripeRouter from "./routes/stripe";
 
 export const createServer = () => {
   const app = express();
@@ -22,6 +23,7 @@ export const createServer = () => {
 
   app.get("/v1/health", noCache, healthHandler);
   app.get("/v1/me", noCache, authenticate(), meHandler);
+  app.use("/v1/stripe", noCache, stripeRouter);
   app.use("/v1/tenant", noCache, authenticate(), tenantRouter);
   app.use("/v1/identity", noCache, authenticate(), identityRouter);
 

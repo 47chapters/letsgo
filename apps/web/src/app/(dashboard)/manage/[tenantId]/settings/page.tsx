@@ -5,12 +5,76 @@ import { Invitation } from "@letsgo/tenant";
 import { GetInvitationsResponse, GetTenantUsersResponse } from "@letsgo/types";
 import { CSSProperties, useEffect, useState } from "react";
 import { useApi, useApiMutate } from "../../../../../components/common-client";
+import { useTenant } from "../../../../../components/TenantProvider";
+import { get } from "http";
+import { getPlan } from "@letsgo/pricing";
+import { useRouter } from "next/navigation";
 
 const style: CSSProperties = {
   border: "1px solid black",
   borderCollapse: "collapse",
   padding: "0.5em",
 };
+
+interface AccountProps {
+  tenantId: string;
+}
+
+function Account({ tenantId }: AccountProps) {
+  const router = useRouter();
+  const { isLoading, error, currentTenant } = useTenant();
+
+  if (isLoading) return <div>Loading...</div>;
+  if (error) throw error;
+
+  const plan = getPlan(currentTenant?.plan.planId || "");
+  const isStripePlan = plan?.usesStripe;
+
+  const handleChangePlan = async () => {
+    router.push(`/manage/${tenantId}/newplan`);
+  };
+
+  const handleChangePaymentMethod = async () => {
+    router.push(`/manage/${tenantId}/paymentmethod`);
+  };
+
+  return (
+    <div>
+      <p>
+        Your current subscription plan is:{" "}
+        <b>{plan ? `${plan.name} (${plan.price})` : "Unknown"}</b>
+      </p>
+      {isStripePlan && currentTenant?.plan.stripeSubscription && (
+        <p>
+          Billing status: <b>{currentTenant.plan.stripeSubscription.status}</b>{" "}
+          {currentTenant.plan.stripeSubscription.card && (
+            <span>
+              ({currentTenant.plan.stripeSubscription.card.brand} ••••{" "}
+              {currentTenant.plan.stripeSubscription.card.last4})
+            </span>
+          )}
+        </p>
+      )}
+      {isStripePlan &&
+        currentTenant?.plan.stripeSubscription?.currentPeriodEnd && (
+          <p>
+            Current period ends:{" "}
+            <b>
+              {new Date(
+                currentTenant?.plan.stripeSubscription?.currentPeriodEnd
+              ).toDateString()}
+            </b>
+          </p>
+        )}
+      <button onClick={handleChangePlan}>Change plan</button>{" "}
+      {plan?.usesStripe && (
+        <button onClick={handleChangePaymentMethod}>
+          Change payment method
+        </button>
+      )}
+    </div>
+  );
+}
 
 interface TeamMembersProps {
   tenantId: string;
@@ -206,9 +270,12 @@ export default function Team({ params }: { params: { tenantId: string } }) {
   const tenantId = params.tenantId as string;
   return (
     <div>
-      <p>Team members:</p>
+      <h1>Tenant</h1>
+      <h3>Account</h3>
+      <Account tenantId={tenantId} />
+      <h3>Team members</h3>
       <TeamMembers tenantId={tenantId} />
-      <p>Invitations:</p>
+      <h3>Invitations</h3>
       <Invitations tenantId={tenantId} />
     </div>
   );

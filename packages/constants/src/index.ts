@@ -6,6 +6,10 @@ export const DefaultRegion = process.env.AWS_REGION || "us-west-2";
 export const DefaultDeployment = process.env.LETSGO_DEPLOYMENT || "main";
 export const StaticJwtAudience = `${VendorPrefix}:service`;
 export const InvitationTtl = 60 * 60 * 24; // 24h
+export const StripeApiVersion = "2023-10-16";
+export const StripeTenantIdMetadataKey = `${VendorPrefix}-tenantId`;
+export const StripeIdentityIdMetadataKey = `${VendorPrefix}-identityId`;
+export const StripePlanIdMetadataKey = `${VendorPrefix}-planId`;
 
 export const TagKeys = {
   LetsGoVersion: "LetsGoVersion",

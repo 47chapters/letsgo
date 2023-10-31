@@ -14,18 +14,19 @@ import { loadCurrentTenant, saveCurrentTenant, useApi } from "./common-client";
 import { GetMeResponse } from "@letsgo/types";
 
 export type TenantContext = {
-  currentTenantId?: string;
+  currentTenant?: Tenant;
   tenants?: Tenant[];
   error?: Error;
   isLoading: boolean;
-  setCurrentTenantId: (tenantId?: string) => Promise<void>;
+  setCurrentTenant: (tenant?: Tenant) => void;
+  getTenant: (tenantId: string) => Tenant | undefined;
   refreshTenants: () => Promise<void>;
 };
 
 const missingTenantProvider = "You forgot to wrap your app in <TenantProvider>";
 
 export const TenantContext = createContext<TenantContext>({
-  get currentTenantId(): never {
+  get currentTenant(): never {
     throw new Error(missingTenantProvider);
   },
   get tenants(): never {
@@ -37,7 +38,10 @@ export const TenantContext = createContext<TenantContext>({
   get isLoading(): never {
     throw new Error(missingTenantProvider);
   },
-  setCurrentTenantId: (): never => {
+  setCurrentTenant: (): never => {
+    throw new Error(missingTenantProvider);
+  },
+  getTenant: (): never => {
     throw new Error(missingTenantProvider);
   },
   refreshTenants: (): never => {
@@ -51,7 +55,7 @@ export const useTenant: UseTenant = () =>
   useContext<TenantContext>(TenantContext);
 
 type TenantProviderState = {
-  currentTenantId?: string;
+  currentTenant?: Tenant;
 };
 
 export type TenantProviderProps = React.PropsWithChildren<{
@@ -65,9 +69,9 @@ export function TenantProvider({
   const { isLoading: isUserLoading, error: userError, user } = useUser();
 
   const [state, setState] = useState<TenantProviderState>({
-    currentTenantId: undefined,
+    currentTenant: undefined,
   });
-  let { currentTenantId } = state;
+  let { currentTenant } = state;
 
   const {
     isLoading: isMeLoading,
@@ -82,40 +86,55 @@ export function TenantProvider({
       const savedCurrentTenantId = loadCurrentTenant() || undefined;
       const tenants = me?.tenants as Tenant[];
       if (tenants?.length > 0) {
-        if (!tenants.find((tenant) => tenant.tenantId === currentTenantId)) {
+        if (
+          !tenants.find((tenant) => tenant.tenantId === currentTenant?.tenantId)
+        ) {
           // The current tenant is not in the list of user's tenants. Set it to the saved tenant
           // or use the first tenant from the list if the saved tenant is not on it.
-          const newTenantId = tenants.find(
-            (tenant) => tenant.tenantId === savedCurrentTenantId
-          )
-            ? savedCurrentTenantId
-            : tenants[0].tenantId;
-          setCurrentTenantId(newTenantId);
+          const newTenant =
+            tenants.find(
+              (tenant) => tenant.tenantId === savedCurrentTenantId
+            ) || tenants[0];
+          setState((state) => ({ ...state, currentTenant: newTenant }));
         }
       } else {
         // The user has no tenants. Clear the current tenant.
-        setState((state) => ({ ...state, currentTenantId: undefined }));
+        setState((state) => ({ ...state, currentTenant: undefined }));
       }
     },
   });
 
-  const setCurrentTenantId = useCallback(
-    async (tenantId?: string): Promise<void> => {
-      if (tenantId !== currentTenantId) {
-        saveCurrentTenant(tenantId);
-        setState((state) => ({ ...state, currentTenantId: tenantId }));
+  const setCurrentTenant = useCallback(
+    (tenant?: Tenant) => {
+      if (tenant !== currentTenant) {
+        if (!me?.tenants) {
+          throw new Error("Tenants not yet loaded");
+        }
+        if (tenant && !me?.tenants?.includes(tenant)) {
+          throw new Error(`You don't have access to tenant ${tenant.tenantId}`);
+        }
+        saveCurrentTenant(tenant?.tenantId);
+        setState((state) => ({ ...state, currentTenant: tenant }));
       }
     },
-    [currentTenantId]
+    [currentTenant, me?.tenants]
+  );
+
+  const getTenant = useCallback(
+    (tenantId: string): Tenant | undefined => {
+      return me?.tenants?.find((t) => t.tenantId === tenantId);
+    },
+    [me?.tenants]
   );
 
   const value = useMemo(
     () => ({
       isLoading: isMeLoading || isUserLoading,
       error: meError || userError,
-      currentTenantId,
+      currentTenant,
       tenants: me?.tenants as Tenant[],
-      setCurrentTenantId,
+      setCurrentTenant,
+      getTenant,
       refreshTenants,
     }),
     [
@@ -123,8 +142,9 @@ export function TenantProvider({
       isUserLoading,
       userError,
       meError,
-      currentTenantId,
-      setCurrentTenantId,
+      currentTenant,
+      setCurrentTenant,
+      getTenant,
       refreshTenants,
       me?.tenants,
     ]

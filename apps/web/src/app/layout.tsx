@@ -1,4 +1,5 @@
 import { UserProvider } from "@auth0/nextjs-auth0/client";
+import { TenantProvider } from "../components/TenantProvider";
 
 export default function RootLayout({
   children,
@@ -8,7 +9,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <UserProvider>
-        <body>{children}</body>
+        <TenantProvider>
+          <body>{children}</body>
+        </TenantProvider>
       </UserProvider>
     </html>
   );

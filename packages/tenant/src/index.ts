@@ -15,11 +15,12 @@ import {
 import { v4 as uuidv4 } from "uuid";
 import {
   uniqueNamesGenerator,
-  adjectives,
   colors,
   animals,
   Config,
 } from "unique-names-generator";
+import { DefaultPlanId } from "@letsgo/pricing";
+import { getSubscription, CardInfo } from "@letsgo/stripe";
 
 const nameGeneratorConfig: Config = {
   dictionaries: [colors, animals],
@@ -39,6 +40,24 @@ const createTenantId = () => `${TenantIdPrefix}-${uuidv4().replace(/-/g, "")}`;
 const createInvitationId = () =>
   `${InvitationIdPrefix}-${uuidv4().replace(/-/g, "")}`;
 
+export interface SubscriptionPlanChange {
+  timestamp: string;
+  updatedBy: Identity;
+  newPlanId: string | null;
+}
+
+export interface SubscriptionPlan {
+  planId: string;
+  stripeCustomerId?: string;
+  stripeSubscription?: {
+    subscriptionId: string;
+    status: string;
+    currentPeriodEnd: string;
+    card?: CardInfo;
+  };
+  changes: SubscriptionPlanChange[];
+}
+
 export interface Tenant extends DBItem {
   tenantId: string;
   displayName: string;
@@ -48,6 +67,7 @@ export interface Tenant extends DBItem {
   updatedBy: Identity;
   deletedAt?: string;
   deletedBy?: Identity;
+  plan: SubscriptionPlan;
 }
 
 export interface Invitation extends DBItem {
@@ -93,10 +113,60 @@ export function deserializeIdentityTenantKey(key: string): [Identity, string] {
   return [deserializeIdentity(identity), tenantId];
 }
 
+export function setNewPlan(tenant: Tenant, planId: string, identity: Identity) {
+  tenant.plan.planId = planId;
+  tenant.plan.changes.push({
+    timestamp: new Date().toISOString(),
+    updatedBy: identity,
+    newPlanId: planId,
+  });
+}
+
 export interface CreateInvitationOptions extends DeploymentOptions {
   createdBy: Identity;
   tenantId: string;
   ttl: number;
+}
+
+export async function reconcileSubscriptionStatus(
+  tenant: Tenant,
+  identity: Identity
+): Promise<Tenant | undefined> {
+  if (tenant.plan.stripeSubscription) {
+    const subscription = await getSubscription(
+      tenant.plan.stripeSubscription.subscriptionId
+    );
+    if (
+      !subscription ||
+      ((tenant.plan.stripeSubscription.status !== subscription.status ||
+        tenant.plan.planId !== subscription.planId ||
+        tenant.plan.stripeSubscription.card?.last4 !==
+          subscription.card?.last4 ||
+        tenant.plan.stripeSubscription.card?.brand !==
+          subscription.card?.brand) &&
+        subscription.status !== "incomplete")
+    ) {
+      const newTenant = { ...tenant };
+      if (
+        !subscription ||
+        subscription.status === "canceled" ||
+        subscription.status === "incomplete_expired"
+      ) {
+        newTenant.plan.stripeSubscription = undefined;
+        setNewPlan(newTenant, DefaultPlanId, identity);
+      } else {
+        newTenant.plan.stripeSubscription = {
+          subscriptionId: tenant.plan.stripeSubscription.subscriptionId,
+          status: subscription.status,
+          currentPeriodEnd: subscription.currentPeriodEnd,
+          card: subscription.card,
+        };
+        setNewPlan(newTenant, subscription.planId, identity);
+      }
+      return newTenant;
+    }
+  }
+  return undefined;
 }
 
 export async function createInvitation(
@@ -187,6 +257,16 @@ export async function createTenant(
     createdBy: options.createdBy,
     updatedAt: new Date().toISOString(),
     updatedBy: options.createdBy,
+    plan: {
+      planId: DefaultPlanId,
+      changes: [
+        {
+          timestamp: new Date().toISOString(),
+          updatedBy: options.createdBy,
+          newPlanId: DefaultPlanId,
+        },
+      ],
+    },
   };
   await putItem(tenant, options);
   await putItem({
@@ -222,6 +302,7 @@ export interface PutTenantOptions extends DeploymentOptions {
   tenantId: string;
   displayName?: string;
   updatedBy: Identity;
+  plan?: SubscriptionPlan;
 }
 
 export async function putTenant(options: PutTenantOptions): Promise<Tenant> {
@@ -232,6 +313,7 @@ export async function putTenant(options: PutTenantOptions): Promise<Tenant> {
   const updated = {
     ...existing,
     displayName: options.displayName || existing.displayName,
+    plan: options.plan || existing.plan,
     updatedBy: options.updatedBy,
     updatedAt: new Date().toISOString(),
   };

@@ -23,6 +23,7 @@ export default function validateSchemaFactory(options: ValidateSchemaOptions) {
       let result = (options as any)[p].validate((req as any)[p]);
       if (result.error) {
         const detail = result.error.details[0];
+        console.log("SCHEMA VALIDATION ERROR", { body: req.body });
         return next(
           createError(400, `${detail.path.join(".")}: ${detail.message}`)
         );
