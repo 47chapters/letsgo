@@ -89,12 +89,16 @@ export function useApi<T>(options: UseApiOptions<T>) {
 export interface UseApiMutateOptions<T> {
   path: string;
   method: string;
+  unauthenticated?: boolean;
   afterSuccess?: (result?: T) => Promise<void> | void;
 }
 
 export function useApiMutate<T>(options: UseApiMutateOptions<T>) {
+  const key = `/api/${
+    options.unauthenticated ? "unauthenticated-proxy" : "proxy"
+  }${options.path}`;
   const { isMutating, error, data, trigger } = useSWRMutate(
-    `/api/proxy${options.path}`,
+    key,
     async (url, { arg }: { arg: any }) => {
       const result = await fetch(
         url,

@@ -1,15 +1,14 @@
+import {
+  Tenant,
+  createTenant,
+  getTenantsOfIdentity,
+  putTenant,
+  reconcileSubscriptionStatus,
+} from "@letsgo/tenant";
+import { GetMeResponse } from "@letsgo/types";
 import { RequestHandler } from "express";
 import { AuthenticatedRequest } from "../middleware/authenticate";
-import {
-  getTenantsOfIdentity,
-  createTenant,
-  Tenant,
-  reconcileSubscriptionStatus,
-  putTenant,
-} from "@letsgo/tenant";
 import { pruneResponse } from "./common";
-import { GetMeResponse } from "@letsgo/types";
-import { getSubscription } from "@letsgo/stripe";
 
 export const meHandler: RequestHandler = async (req, res, next) => {
   try {

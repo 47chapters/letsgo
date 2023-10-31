@@ -25,6 +25,7 @@ export default function ManageLayout({
             <TenantSelector allowCreate={true} /> •{" "}
             <Link href="/manage/settings">{user?.name || "Profile"}</Link> •{" "}
             <Link href="/manage">Tenant</Link> •{" "}
+            <Link href="/contact">Contact</Link> •{" "}
             <a href="/api/auth/logout?returnTo=/">Logout</a>
           </div>
         </Navbar>

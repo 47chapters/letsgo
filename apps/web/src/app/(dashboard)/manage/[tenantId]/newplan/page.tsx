@@ -16,9 +16,7 @@ function ChangePlan({ params }: { params: { tenantId: string } }) {
       router.push(
         `${plan.actionUrl}?planId=${encodeURIComponent(
           plan.planId
-        )}&from=/manage/${currentTenant?.tenantId}/newplan&tenantId=${
-          currentTenant?.tenantId
-        }`
+        )}&from=/manage/${currentTenant?.tenantId}/newplan`
       );
     } else {
       window.location.href = `/manage/newplan/${encodeURIComponent(

@@ -11,6 +11,7 @@ import { meHandler } from "./routes/me";
 import tenantRouter from "./routes/tenant";
 import identityRouter from "./routes/identity";
 import stripeRouter from "./routes/stripe";
+import contactRouter from "./routes/contact";
 
 export const createServer = () => {
   const app = express();
@@ -26,6 +27,7 @@ export const createServer = () => {
   app.use("/v1/stripe", noCache, stripeRouter);
   app.use("/v1/tenant", noCache, authenticate(), tenantRouter);
   app.use("/v1/identity", noCache, authenticate(), identityRouter);
+  app.use("/v1/contact", noCache, contactRouter);
 
   // TODO: this is a sample API you want to remove from you app.
   // Note the use of the noCache and authenticate middleware.

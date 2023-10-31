@@ -20,6 +20,16 @@ const Schema = {
       })
       .unknown(true),
   },
+  postContact: {
+    body: Joi.object().keys({
+      name: Joi.string().required(),
+      email: Joi.string().required(),
+      message: Joi.string().required(),
+      query: Joi.object().keys().unknown(true),
+      tenantId: Joi.string(),
+      identityId: Joi.string(),
+    }),
+  },
 };
 
 export default Schema;

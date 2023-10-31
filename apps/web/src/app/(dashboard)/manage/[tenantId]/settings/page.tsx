@@ -6,7 +6,6 @@ import { GetInvitationsResponse, GetTenantUsersResponse } from "@letsgo/types";
 import { CSSProperties, useEffect, useState } from "react";
 import { useApi, useApiMutate } from "../../../../../components/common-client";
 import { useTenant } from "../../../../../components/TenantProvider";
-import { get } from "http";
 import { getPlan } from "@letsgo/pricing";
 import { useRouter } from "next/navigation";
 
