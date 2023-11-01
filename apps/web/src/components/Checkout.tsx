@@ -44,7 +44,7 @@ function Checkout({ tenantId, title, mode }: CheckoutProps) {
             elements,
             confirmParams: {
               return_url: createAbsoluteUrl(
-                `/manage/${tenantId}/paymentmethod`
+                `/api/proxy/v1/tenant/${tenantId}/paymentmethod`
               ),
             },
           });

@@ -22,7 +22,6 @@
     "@types/dotenv": "^8.2.0",
     "@types/jest": "^26.0.22",
     "@types/jsonwebtoken": "^9.0.3",
-    "@types/stripe": "^8.0.417",
     "@types/uuid": "^9.0.6",
     "dotenv": "^16.3.1",
     "eslint": "^7.32.0",
