@@ -3,7 +3,6 @@ import express from "express";
 import cors from "cors";
 import { errorHandler } from "./middleware/error-handler";
 import { logger } from "./middleware/logger";
-import inventoryRouter from "./routes/inventory-sample";
 import { healthHandler } from "./routes/health";
 import { noCache } from "./middleware/noCache";
 import { authenticate } from "./middleware/authenticate";
@@ -29,13 +28,6 @@ export const createServer = () => {
   app.use("/v1/identity", noCache, authenticate(), identityRouter);
   app.use("/v1/contact", noCache, contactRouter);
 
-  // TODO: this is a sample API you want to remove from you app.
-  // Note the use of the noCache and authenticate middleware.
-  // You can call these sample endpoints by adding a trusted JWT token to the Authorization header, e.g.:
-  // curl http://localhost:3001/v1/store -H "Authorization: Bearer $(yarn -s ops jwt)"
-  app.use("/v1/store", noCache, authenticate(), inventoryRouter);
-
-  // Default error handler
   app.use(errorHandler);
 
   return app;

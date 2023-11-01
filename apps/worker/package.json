@@ -18,7 +18,9 @@
   "dependencies": {
     "@letsgo/db": "*",
     "@letsgo/queue": "*",
-    "@letsgo/trust": "*"
+    "@letsgo/types": "*",
+    "@letsgo/trust": "*",
+    "@letsgo/slack": "*"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.123",

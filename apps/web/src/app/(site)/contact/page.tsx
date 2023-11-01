@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { useTenant } from "../../../components/TenantProvider";
 import { useApiMutate } from "../../../components/common-client";
+import { ContactMessagePayload } from "@letsgo/types";
 
 interface ContactParams {
   email: string;
@@ -51,11 +52,12 @@ export default function Contact() {
   if (isSubmitting) return <div>Submitting...</div>;
 
   const handleSubmit = () => {
-    const payload = {
+    const payload: ContactMessagePayload = {
       ...params,
       query: Object.fromEntries(query.entries()),
       tenantId: currentTenant?.tenantId,
-      identityId: user?.identityId,
+      identityId: user?.identityId as string,
+      timestamp: new Date().toISOString(),
     };
     submitContact(payload);
   };

@@ -48,3 +48,40 @@ export interface PostPaymentMethodResponse {
   clientSecret: string;
   publicKey: string;
 }
+
+export enum MessageType {
+  Contact = "letsgo:contact", // Contact form submission
+  Stripe = "letsgo:stripe", // Stripe webhook
+  TenantNew = "letsgo:tenant:new", // New tenant created
+}
+
+export interface Message {
+  type: MessageType | string;
+  payload: any;
+}
+
+export interface ContactMessagePayload {
+  email: string;
+  name: string;
+  message: string;
+  timestamp: string;
+  query: {
+    [key: string]: string;
+  };
+  tenantId?: string;
+  identityId?: string;
+}
+
+export interface ContactMessage extends Message {
+  type: MessageType.Contact;
+  payload: ContactMessagePayload;
+}
+
+export interface TenantNewMessagePayload {
+  tenant: Tenant;
+}
+
+export interface TenantNewMessage extends Message {
+  type: MessageType.TenantNew;
+  payload: TenantNewMessagePayload;
+}

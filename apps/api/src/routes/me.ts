@@ -5,10 +5,11 @@ import {
   putTenant,
   reconcileSubscriptionStatus,
 } from "@letsgo/tenant";
-import { GetMeResponse } from "@letsgo/types";
+import { GetMeResponse, MessageType, TenantNewMessage } from "@letsgo/types";
 import { RequestHandler } from "express";
 import { AuthenticatedRequest } from "../middleware/authenticate";
 import { pruneResponse } from "./common";
+import { enqueue } from "@letsgo/queue";
 
 export const meHandler: RequestHandler = async (req, res, next) => {
   try {
@@ -22,6 +23,11 @@ export const meHandler: RequestHandler = async (req, res, next) => {
       const tenant = await createTenant({
         createdBy: request.user.identity,
       });
+      // Enqueue worker job to do any additional asynchronous work related to tenant provisioning
+      await enqueue({
+        type: MessageType.TenantNew,
+        payload: { tenant },
+      } as TenantNewMessage);
       tenants.push(pruneResponse(tenant));
     } else {
       // Update Stripe subscription status

@@ -26,7 +26,12 @@ import {
   getIdentity,
   serializeIdentity,
 } from "@letsgo/trust";
-import { GetInvitationsResponse, GetTenantUsersResponse } from "@letsgo/types";
+import {
+  GetInvitationsResponse,
+  GetTenantUsersResponse,
+  MessageType,
+  TenantNewMessage,
+} from "@letsgo/types";
 import { Router } from "express";
 import createError from "http-errors";
 import { AuthenticatedRequest } from "../middleware/authenticate";
@@ -34,6 +39,7 @@ import { authorizeTenant } from "../middleware/authorizeTenant";
 import validateSchema from "../middleware/validateSchema";
 import Schema from "../schema";
 import { createAbsoluteWebUrl, pruneResponse } from "./common";
+import { enqueue } from "@letsgo/queue";
 
 const router = Router();
 
@@ -45,6 +51,12 @@ router.post("/", validateSchema(Schema.postTenant), async (req, res, next) => {
       createdBy: request.user.identity,
       displayName: req.body.displayName,
     });
+    // Enqueue worker job to do any additional asynchronous work related to tenant provisioning
+    await enqueue({
+      type: MessageType.TenantNew,
+      payload: { tenant },
+    } as TenantNewMessage);
+
     res.json(pruneResponse(tenant));
   } catch (e) {
     next(e);

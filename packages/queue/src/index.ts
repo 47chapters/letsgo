@@ -6,6 +6,7 @@ import {
   SendMessageCommand,
 } from "@aws-sdk/client-sqs";
 import { DefaultRegion, DefaultDeployment, TagKeys } from "@letsgo/constants";
+import { Message } from "@letsgo/types";
 import http from "http";
 
 const apiVersion = "2012-11-05";
@@ -97,7 +98,7 @@ function getLocalQueueUrl(): string | undefined {
 }
 
 async function enqueueAWS(
-  message: any,
+  message: Message,
   options?: EnqueueOptions
 ): Promise<EnqueueResult> {
   const QueueUrl = await getQueueUrl();
@@ -116,7 +117,7 @@ async function enqueueAWS(
 const createId = () => Math.random().toString(36).substring(2, 15);
 
 async function enqueueLocal(
-  message: any,
+  message: Message,
   options?: EnqueueOptions
 ): Promise<EnqueueResult> {
   const serializedMessage = JSON.stringify(message);
@@ -141,14 +142,27 @@ async function enqueueLocal(
       },
     ],
   };
-  http
-    .request(getLocalQueueUrl() as string, { method: "POST" })
-    .end(JSON.stringify(payload));
+  await new Promise((resolve, reject) => {
+    const req = http
+      .request(getLocalQueueUrl() as string, { method: "POST" }, (res) => {
+        if (res.statusCode !== 201) {
+          return reject(
+            new Error(
+              `Unexpected status code ${res.statusCode} from local queue.`
+            )
+          );
+        }
+        res.on("data", () => {});
+        res.on("end", () => resolve(undefined));
+      })
+      .end(JSON.stringify(payload));
+    req.on("error", reject);
+  });
   return { messageId: payload.Records[0].messageId };
 }
 
 export async function enqueue(
-  message: any,
+  message: Message,
   options?: EnqueueOptions
 ): Promise<EnqueueResult> {
   return getLocalQueueUrl()

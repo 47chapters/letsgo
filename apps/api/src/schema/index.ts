@@ -28,6 +28,7 @@ const Schema = {
       query: Joi.object().keys().unknown(true),
       tenantId: Joi.string(),
       identityId: Joi.string(),
+      timestamp: Joi.string(),
     }),
   },
 };

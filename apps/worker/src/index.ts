@@ -1,41 +1,94 @@
-import { Context, SQSBatchResponse, SQSEvent, SQSHandler } from "aws-lambda";
+import { Message } from "@letsgo/types";
+import {
+  Context,
+  SQSBatchResponse,
+  SQSEvent,
+  SQSHandler,
+  SQSRecord,
+} from "aws-lambda";
+import { MessageHandler, handlers } from "./handlers";
+import { sendSlackMessage } from "@letsgo/slack";
 
 // Uncomment as necessary to access the DB:
 // import { getItem, putItem, deleteItem, listItems } from "@letsgo/db";
 
-// Uncomment to access the API
-import { getAccessToken } from "./api";
-
 // Uncomment to access the queue
 // import { enqueue } from "@letsgo/queue";
 
-export const handler: SQSHandler = async (event: SQSEvent, context) => {
-  console.log(
-    `Worker received ${event?.Records?.length} message${
-      event?.Records?.length === 1 ? "" : "s"
-    }`
+// Uncomment as necessary to access the API:
+// import { getAccessToken } from "./api";
+
+const unrecognizedMessageTypeHandler: MessageHandler = async (
+  message,
+  event,
+  context
+) => {
+  console.log("UNSUPPORTED MESSAGE TYPE", message);
+  await sendSlackMessage(
+    `:warning: Worker received an unsupported message type: ${message.type}`
   );
+  throw new Error(`Unsupported message type: ${message.type}`);
 
   /**
    * Example of calling the API from the worker
    */
-  const accessToken = await getAccessToken();
-  const url = `${process.env.LETSGO_API_URL}/v1/me`;
-  const authorization = `Bearer ${accessToken}`;
-  const apiResult = await fetch(url, { headers: { authorization } });
-  if (!apiResult.ok) {
-    throw new Error(
-      `API call failed: HTTP ${apiResult.status} ${apiResult.statusText}`
+  // const accessToken = await getAccessToken();
+  // const url = `${process.env.LETSGO_API_URL}/v1/me`;
+  // const authorization = `Bearer ${accessToken}`;
+  // const apiResult = await fetch(url, { headers: { authorization } });
+  // if (!apiResult.ok) {
+  //   throw new Error(
+  //     `API call failed: HTTP ${apiResult.status} ${apiResult.statusText}`
+  //   );
+  // }
+  // const me = await apiResult.json();
+  // console.log("API call succeeded:", me);
+};
+
+const processRecord = async (
+  record: SQSRecord,
+  event: SQSEvent,
+  context: Context
+) => {
+  let message: Message;
+  try {
+    message = JSON.parse(record.body) as Message;
+  } catch (e: any) {
+    return new Promise((_, reject) =>
+      reject(new Error("Message body cannot be parsed as JSON"))
     );
   }
-  const me = await apiResult.json();
-  console.log("API call succeeded:", me);
+  const handler = handlers[message.type] || unrecognizedMessageTypeHandler;
+  return handler(message, event, context);
+};
 
+export const handler: SQSHandler = async (event: SQSEvent, context) => {
+  console.log(
+    `WORKER RECEIVED ${event?.Records?.length} MESSAGE${
+      event?.Records?.length === 1 ? "" : "S"
+    }`
+  );
+
+  const records = event?.Records || [];
+  const results = await Promise.allSettled(
+    records.map((record) => processRecord(record, event, context))
+  );
   const response: SQSBatchResponse = {
-    // on success:
     batchItemFailures: [],
-    // on error:
-    // batchItemFailures: [{ itemIdentifier: event.Records[0].messageId }],
   };
+  results.forEach((result, index) => {
+    if (result.status === "rejected") {
+      response.batchItemFailures.push({
+        itemIdentifier: event.Records[index].messageId,
+      });
+    }
+  });
+
+  console.log(
+    `WORKER RESPONSE: ${
+      event?.Records?.length - response.batchItemFailures.length
+    } SUCCESS, ${response.batchItemFailures.length} FAILURE`
+  );
+
   return response;
 };
