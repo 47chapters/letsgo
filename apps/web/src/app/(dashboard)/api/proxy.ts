@@ -116,13 +116,28 @@ export default function proxyFactory(options: ProxyOptions) {
         ? { body: JSON.stringify(requestBody) }
         : {}),
       redirect: "manual",
+      mode: "cors",
     };
     try {
+      // console.log(
+      //   "PROXY UPSTREAM REQUEST",
+      //   JSON.stringify({ apiUrl, fetchOptions }, null, 2)
+      // );
       /* @ts-ignore */
       apiResponse = await fetch(apiUrl, fetchOptions);
 
-      // console.log("PROXY RESPONSE", JSON.stringify(apiResponse, null, 2));
-      if (method.proxyResponseBody && apiResponse.status !== 302) {
+      // console.log(
+      //   "PROXY UPSTREAM RESPONSE",
+      //   JSON.stringify(
+      //     {
+      //       status: apiResponse.status,
+      //       headers: Object.fromEntries(apiResponse.headers.entries()),
+      //     },
+      //     null,
+      //     2
+      //   )
+      // );
+      if (method.proxyResponseBody && apiResponse.status != 302) {
         let responseText: string;
         try {
           responseText = await apiResponse.text();
@@ -150,17 +165,27 @@ export default function proxyFactory(options: ProxyOptions) {
         headers.set(key, value)
       );
     }
-    apiResponse.headers.forEach((value, key) => headers.set(key, value));
+    apiResponse.headers.forEach((value, key) => {
+      // If we don't intend to proxy the response body, do not propagate the Content-* response headers.
+      // This is the case with HTTP 302 responses.
+      if (responseBody || !/^content-/i.test(key)) {
+        headers.set(key, value);
+      }
+    });
     const responseInit: ResponseInit = {
-      headers,
+      headers: Object.fromEntries(headers.entries()),
       status: apiResponse.status,
     };
 
+    // console.log(
+    //   "PROXY DOWNSTREAM RESPONSE",
+    //   JSON.stringify({ responseBody, responseInit }, null, 2)
+    // );
     const res =
       responseBody !== undefined
         ? NextResponse.json(responseBody, responseInit)
         : new NextResponse(undefined, responseInit);
-
+    // console.log("ACTUALLY SENDING RESPONSE");
     return res;
   };
 }
