@@ -1,4 +1,4 @@
-import { json, urlencoded } from "body-parser";
+import { json, urlencoded, raw } from "body-parser";
 import express from "express";
 import cors from "cors";
 import { errorHandler } from "./middleware/error-handler";
@@ -14,16 +14,17 @@ import contactRouter from "./routes/contact";
 
 export const createServer = () => {
   const app = express();
+  app.disable("x-powered-by").use(logger("dev"));
+
+  app.use("/v1/stripe", stripeRouter);
+
   app
-    .disable("x-powered-by")
-    .use(logger("dev"))
     .use(urlencoded({ extended: true }))
     .use(json())
     .use(cors());
 
   app.get("/v1/health", noCache, healthHandler);
   app.get("/v1/me", noCache, authenticate(), meHandler);
-  app.use("/v1/stripe", noCache, stripeRouter);
   app.use("/v1/tenant", noCache, authenticate(), tenantRouter);
   app.use("/v1/identity", noCache, authenticate(), identityRouter);
   app.use("/v1/contact", noCache, contactRouter);

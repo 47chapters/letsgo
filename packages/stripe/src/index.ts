@@ -10,6 +10,7 @@ export interface StripeConfiguration {
   stripeMode: "LIVE" | "TEST";
   secretKey: string;
   publicKey: string;
+  webhookKey: string;
 }
 
 function getStripeMode() {
@@ -30,8 +31,15 @@ export function getStripeConfiguration(): StripeConfiguration {
       publicKey: process.env[
         `LETSGO_STRIPE_${stripeMode}_PUBLIC_KEY`
       ] as string,
+      webhookKey: process.env[
+        `LETSGO_STRIPE_${stripeMode}_WEBHOOK_KEY`
+      ] as string,
     };
-    if (!stripeConfiguration.secretKey || !stripeConfiguration.publicKey) {
+    if (
+      !stripeConfiguration.secretKey ||
+      !stripeConfiguration.publicKey ||
+      !stripeConfiguration.webhookKey
+    ) {
       throw new Error("Stripe is not configured");
     }
   }
@@ -50,6 +58,24 @@ function getStripeClient(): Stripe {
 }
 
 export const StripeConfiguration = getStripeConfiguration();
+
+export interface ValidateWebhookEventOptions {
+  body: Buffer;
+  signature: string;
+}
+
+export async function validateWebhookEvent(
+  options: ValidateWebhookEventOptions
+): Promise<Stripe.Event> {
+  const stripe = getStripeClient();
+  const webhookKey = getStripeConfiguration().webhookKey;
+  const event = stripe.webhooks.constructEvent(
+    options.body,
+    options.signature,
+    webhookKey
+  );
+  return event;
+}
 
 export interface CreateCustomerOptions {
   tenantId: string;

@@ -1,8 +1,8 @@
-import { ContactMessage } from "@letsgo/types";
+import { ContactMessage, Message } from "@letsgo/types";
 import { MessageHandler } from "./index";
 import { sendSlackMessage } from "@letsgo/slack";
 
-export const contactHandler: MessageHandler = async (
+export const contactHandler: MessageHandler<Message> = async (
   message,
   event,
   context

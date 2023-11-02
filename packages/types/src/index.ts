@@ -96,3 +96,11 @@ export interface TenantDeletedMessage extends Message {
   type: MessageType.TenantDeleted;
   payload: TenantDeletedMessagePayload;
 }
+
+export interface StripeMessage extends Message {
+  type: MessageType.Stripe;
+  payload: {
+    type: string;
+    [key: string]: any;
+  };
+}

@@ -1,9 +1,9 @@
-import { TenantNewMessage } from "@letsgo/types";
+import { Message, TenantNewMessage } from "@letsgo/types";
 import { MessageHandler } from "./index";
 import { sendSlackMessage } from "@letsgo/slack";
 import { serializeIdentity } from "@letsgo/trust";
 
-export const tenantNewHandler: MessageHandler = async (
+export const tenantNewHandler: MessageHandler<Message> = async (
   message,
   event,
   context

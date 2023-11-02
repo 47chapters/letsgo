@@ -20,7 +20,8 @@
     "@letsgo/queue": "*",
     "@letsgo/types": "*",
     "@letsgo/trust": "*",
-    "@letsgo/slack": "*"
+    "@letsgo/slack": "*",
+    "stripe": "^14.2.0"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.123",

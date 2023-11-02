@@ -6,8 +6,7 @@ import {
   SQSHandler,
   SQSRecord,
 } from "aws-lambda";
-import { MessageHandler, handlers } from "./handlers";
-import { sendSlackMessage } from "@letsgo/slack";
+import { handlers, unrecognizedMessageTypeHandler } from "./handlers";
 
 // Uncomment as necessary to access the DB:
 // import { getItem, putItem, deleteItem, listItems } from "@letsgo/db";
@@ -18,32 +17,20 @@ import { sendSlackMessage } from "@letsgo/slack";
 // Uncomment as necessary to access the API:
 // import { getAccessToken } from "./api";
 
-const unrecognizedMessageTypeHandler: MessageHandler = async (
-  message,
-  event,
-  context
-) => {
-  console.log("UNSUPPORTED MESSAGE TYPE", message);
-  await sendSlackMessage(
-    `:warning: Worker received an unsupported message type: ${message.type}`
-  );
-  throw new Error(`Unsupported message type: ${message.type}`);
-
-  /**
-   * Example of calling the API from the worker
-   */
-  // const accessToken = await getAccessToken();
-  // const url = `${process.env.LETSGO_API_URL}/v1/me`;
-  // const authorization = `Bearer ${accessToken}`;
-  // const apiResult = await fetch(url, { headers: { authorization } });
-  // if (!apiResult.ok) {
-  //   throw new Error(
-  //     `API call failed: HTTP ${apiResult.status} ${apiResult.statusText}`
-  //   );
-  // }
-  // const me = await apiResult.json();
-  // console.log("API call succeeded:", me);
-};
+/**
+ * Example of calling the API from the worker
+ */
+// const accessToken = await getAccessToken();
+// const url = `${process.env.LETSGO_API_URL}/v1/me`;
+// const authorization = `Bearer ${accessToken}`;
+// const apiResult = await fetch(url, { headers: { authorization } });
+// if (!apiResult.ok) {
+//   throw new Error(
+//     `API call failed: HTTP ${apiResult.status} ${apiResult.statusText}`
+//   );
+// }
+// const me = await apiResult.json();
+// console.log("API call succeeded:", me);
 
 const processRecord = async (
   record: SQSRecord,
