@@ -53,6 +53,7 @@ export enum MessageType {
   Contact = "letsgo:contact", // Contact form submission
   Stripe = "letsgo:stripe", // Stripe webhook
   TenantNew = "letsgo:tenant:new", // New tenant created
+  TenantDeleted = "letsgo:tenant:deleted", // Tenant deleted
 }
 
 export interface Message {
@@ -84,4 +85,14 @@ export interface TenantNewMessagePayload {
 export interface TenantNewMessage extends Message {
   type: MessageType.TenantNew;
   payload: TenantNewMessagePayload;
+}
+
+export interface TenantDeletedMessagePayload {
+  tenant: Tenant;
+  cancelledPlanId: string;
+}
+
+export interface TenantDeletedMessage extends Message {
+  type: MessageType.TenantDeleted;
+  payload: TenantDeletedMessagePayload;
 }

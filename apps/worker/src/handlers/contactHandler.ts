@@ -9,7 +9,7 @@ export const contactHandler: MessageHandler = async (
 ) => {
   const contact = (message as ContactMessage).payload;
 
-  console.log("CONTACT FORM SUBMISSION:", message);
+  console.log("CONTACT FORM SUBMISSION", message);
 
   const text = [
     `:wave: New contact form submission`,
@@ -18,10 +18,10 @@ export const contactHandler: MessageHandler = async (
     `*Timestamp:* ${contact.timestamp}`,
   ];
   if (contact.tenantId) {
-    text.push(`*Tenant ID:* ${contact.tenantId}`);
+    text.push(`*Tenant Id:* ${contact.tenantId}`);
   }
   if (contact.identityId) {
-    text.push(`*Identity ID:* ${contact.identityId}`);
+    text.push(`*Identity Id:* ${contact.identityId}`);
   }
   Object.entries(contact.query).forEach(([key, value]) => {
     text.push(`*${key}:* ${value}`);

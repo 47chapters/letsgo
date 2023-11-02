@@ -21,9 +21,28 @@ interface AccountProps {
 
 function Account({ tenantId }: AccountProps) {
   const router = useRouter();
-  const { isLoading, error, currentTenant } = useTenant();
+  const {
+    isLoading,
+    error: tenantError,
+    currentTenant,
+    refreshTenants,
+  } = useTenant();
+  const [confirmDeleteTenant, setConfirmDeleteTenant] = useState(false);
+  const {
+    isMutating: isDeletingTenant,
+    error: errorDeletingTenant,
+    trigger: deleteTenant,
+  } = useApiMutate<void>({
+    path: `/v1/tenant/${tenantId}`,
+    method: "DELETE",
+    afterSuccess: async () => {
+      window.location.href = "/manage";
+    },
+  });
 
   if (isLoading) return <div>Loading...</div>;
+  if (isDeletingTenant) return <div>Deleting...</div>;
+  const error = tenantError || errorDeletingTenant;
   if (error) throw error;
 
   const plan = getPlan(currentTenant?.plan.planId || "");
@@ -35,6 +54,14 @@ function Account({ tenantId }: AccountProps) {
 
   const handleChangePaymentMethod = async () => {
     router.push(`/manage/${tenantId}/paymentmethod`);
+  };
+
+  const handleDelete = async () => {
+    if (!confirmDeleteTenant) {
+      setConfirmDeleteTenant(true);
+    } else {
+      deleteTenant();
+    }
   };
 
   return (
@@ -65,11 +92,29 @@ function Account({ tenantId }: AccountProps) {
             </b>
           </p>
         )}
-      <button onClick={handleChangePlan}>Change plan</button>{" "}
-      {plan?.usesStripe && (
-        <button onClick={handleChangePaymentMethod}>
-          Change payment method
-        </button>
+      {!confirmDeleteTenant && (
+        <span>
+          <button onClick={handleChangePlan}>Change plan</button>{" "}
+          {plan?.usesStripe && (
+            <span>
+              <button onClick={handleChangePaymentMethod}>
+                Change payment method
+              </button>{" "}
+            </span>
+          )}
+        </span>
+      )}
+      {confirmDeleteTenant && (
+        <p style={{ color: "red" }}>
+          Do you really want to delete the tenant and all its data? It cannot be
+          undone.
+        </p>
+      )}
+      <button onClick={handleDelete}>
+        {confirmDeleteTenant ? "Yes" : "Delete tenant"}
+      </button>{" "}
+      {confirmDeleteTenant && (
+        <button onClick={() => setConfirmDeleteTenant(false)}>No</button>
       )}
     </div>
   );

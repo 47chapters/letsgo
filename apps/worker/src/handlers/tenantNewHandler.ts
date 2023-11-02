@@ -10,10 +10,10 @@ export const tenantNewHandler: MessageHandler = async (
 ) => {
   const tenant = (message as TenantNewMessage).payload.tenant;
 
-  console.log("NEW TENANT", tenant);
+  console.log("NEW TENANT", JSON.stringify(tenant, null, 2));
 
   const text = [
-    `:rocket: New tenant created`,
+    `:rocket: Tenant created`,
     `*Tenant Id:* ${tenant.tenantId}`,
     `*Name:* ${tenant.displayName}`,
     `*Plan Id:* ${tenant.plan.planId}`,

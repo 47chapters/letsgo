@@ -1,5 +1,5 @@
 import { InvitationTtl } from "@letsgo/constants";
-import { getPlan } from "@letsgo/pricing";
+import { DefaultPlanId, getPlan } from "@letsgo/pricing";
 import {
   cancelSubscription,
   completePaymentSetup,
@@ -13,6 +13,7 @@ import {
   createInvitation,
   createTenant,
   deleteInvitation,
+  deleteTenant,
   getIdentitiesOfTenant,
   getInvitation,
   getInvitations,
@@ -30,6 +31,7 @@ import {
   GetInvitationsResponse,
   GetTenantUsersResponse,
   MessageType,
+  TenantDeletedMessage,
   TenantNewMessage,
 } from "@letsgo/types";
 import { Router } from "express";
@@ -58,6 +60,50 @@ router.post("/", validateSchema(Schema.postTenant), async (req, res, next) => {
     } as TenantNewMessage);
 
     res.json(pruneResponse(tenant));
+  } catch (e) {
+    next(e);
+  }
+});
+
+// Delete tenant
+router.delete("/:tenantId", authorizeTenant(), async (req, res, next) => {
+  try {
+    const request = req as AuthenticatedRequest;
+    const tenant = await getTenant({ tenantId: req.params.tenantId });
+    if (!tenant) {
+      next(createError(404, "Tenant not found"));
+      return;
+    }
+
+    const plan = getPlan(tenant.plan.planId);
+    if (plan?.usesStripe && tenant.plan.stripeSubscription) {
+      // Before deleting the tenant, cancel the Stripe subscription and put the tenant on the default
+      // plan in case it is ever undeleted
+      const response = await cancelSubscription({
+        subscriptionId: tenant.plan.stripeSubscription.subscriptionId,
+        identityId: request.user.identityId,
+      });
+      // changes to existing Stripe subscriptions are immediate
+      setNewPlan(tenant, DefaultPlanId, request.user.identity);
+      delete tenant.plan.stripeSubscription;
+      await putTenant(tenant);
+    }
+
+    const deletedTenant = await deleteTenant({
+      tenantId: req.params.tenantId,
+      deletedBy: request.user.identity,
+    });
+
+    // Enqueue worker job to do any additional asynchronous work related to tenant deletion
+    await enqueue({
+      type: MessageType.TenantDeleted,
+      payload: {
+        tenant: deletedTenant,
+        cancelledPlanId: plan?.planId || tenant.plan.planId,
+      },
+    } as TenantDeletedMessage);
+
+    res.status(204).send();
   } catch (e) {
     next(e);
   }
