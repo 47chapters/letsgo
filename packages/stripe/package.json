@@ -20,6 +20,7 @@
   },
   "devDependencies": {
     "@types/dotenv": "^8.2.0",
+    "@types/http-errors": "^2.0.2",
     "@types/jest": "^26.0.22",
     "@types/jsonwebtoken": "^9.0.3",
     "@types/uuid": "^9.0.6",
@@ -33,6 +34,7 @@
   },
   "dependencies": {
     "@letsgo/constants": "*",
+    "http-errors": "^2.0.0",
     "jsonwebtoken": "^9.0.2",
     "stripe": "^14.2.0",
     "unique-names-generator": "^4.7.1",

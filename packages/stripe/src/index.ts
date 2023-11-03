@@ -5,6 +5,7 @@ import {
   StripeIdentityIdMetadataKey,
   StripePlanIdMetadataKey,
 } from "@letsgo/constants";
+import createError from "http-errors";
 
 export interface StripeConfiguration {
   stripeMode: "LIVE" | "TEST";
@@ -23,6 +24,23 @@ let stripeConfiguration: StripeConfiguration;
 export function getStripeConfiguration(): StripeConfiguration {
   if (!stripeConfiguration) {
     const stripeMode = getStripeMode();
+    const requiredEnvVars = [
+      "LETSGO_STRIPE_LIVE_MODE",
+      `LETSGO_STRIPE_${stripeMode}_SECRET_KEY`,
+      `LETSGO_STRIPE_${stripeMode}_PUBLIC_KEY`,
+      `LETSGO_STRIPE_${stripeMode}_WEBHOOK_KEY`,
+    ];
+    const missingEnvVars = requiredEnvVars.filter(
+      (envVar) => !process.env[envVar]
+    );
+    if (missingEnvVars.length > 0) {
+      throw createError(
+        418,
+        `Stripe is not configured in the API component. Missing required environment variables: ${missingEnvVars.join(
+          ", "
+        )}.`
+      );
+    }
     stripeConfiguration = {
       stripeMode,
       secretKey: process.env[
@@ -35,13 +53,6 @@ export function getStripeConfiguration(): StripeConfiguration {
         `LETSGO_STRIPE_${stripeMode}_WEBHOOK_KEY`
       ] as string,
     };
-    if (
-      !stripeConfiguration.secretKey ||
-      !stripeConfiguration.publicKey ||
-      !stripeConfiguration.webhookKey
-    ) {
-      throw new Error("Stripe is not configured");
-    }
   }
   return stripeConfiguration;
 }
@@ -56,8 +67,6 @@ function getStripeClient(): Stripe {
   }
   return stripeClient;
 }
-
-export const StripeConfiguration = getStripeConfiguration();
 
 export interface ValidateWebhookEventOptions {
   body: Buffer;
