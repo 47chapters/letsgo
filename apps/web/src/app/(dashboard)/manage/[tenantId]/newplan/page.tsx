@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { PlanSelector } from "../../../../../components/PlanSelector";
 import { useTenant } from "../../../../../components/TenantProvider";
 
-function ChangePlan({ params }: { params: { tenantId: string } }) {
+function ChooseNewPlan({ params }: { params: { tenantId: string } }) {
   const router = useRouter();
   const { error, currentTenant } = useTenant();
 
@@ -41,4 +41,4 @@ function ChangePlan({ params }: { params: { tenantId: string } }) {
   return <div>Loading...</div>;
 }
 
-export default ChangePlan;
+export default ChooseNewPlan;

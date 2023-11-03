@@ -2,7 +2,11 @@
 
 import { useRouter } from "next/navigation";
 
-function ProcessingPaymentUpdate({ params }: { params: { tenantId: string } }) {
+function ProcessingPaymentMethodUpdate({
+  params,
+}: {
+  params: { tenantId: string };
+}) {
   const router = useRouter();
 
   const handleClick = () => {
@@ -20,4 +24,4 @@ function ProcessingPaymentUpdate({ params }: { params: { tenantId: string } }) {
   );
 }
 
-export default ProcessingPaymentUpdate;
+export default ProcessingPaymentMethodUpdate;

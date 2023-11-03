@@ -12,7 +12,7 @@ import { useApiMutate } from "../../../../../../components/common-client";
 
 const EmailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
 
-function ResolveTenantForNewPlan({
+function SwitchPlans({
   params,
 }: {
   params: { tenantId: string; planId: string };
@@ -50,6 +50,8 @@ function ResolveTenantForNewPlan({
   if (error) throw error;
 
   if (planResponse) {
+    // New plan requires payment information - collect it using Stripe.
+    // On successful completion, Stripe will redirect the browser to /manage/:tenantId/settings.
     return (
       <StripeElements
         publicKey={planResponse.publicKey}
@@ -63,6 +65,7 @@ function ResolveTenantForNewPlan({
       </StripeElements>
     );
   } else if (currentTenant && user) {
+    // Present the details of the intended plan switch and confirm the user wants to proceed
     const currentPlan = getPlan(currentTenant.plan.planId);
     if (!currentPlan) {
       throw new Error(
@@ -142,4 +145,4 @@ function ResolveTenantForNewPlan({
   return <div>Loading...</div>;
 }
 
-export default ResolveTenantForNewPlan;
+export default SwitchPlans;

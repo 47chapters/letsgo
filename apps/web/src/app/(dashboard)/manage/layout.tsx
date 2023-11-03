@@ -1,10 +1,9 @@
 "use client";
 
 import { useUser } from "@auth0/nextjs-auth0/client";
-import { TenantSelector } from "../../../components/TenantSelector";
-import { TenantProvider } from "../../../components/TenantProvider";
 import Link from "next/link";
 import Navbar from "../../../components/Navbar";
+import { TenantSelector } from "../../../components/TenantSelector";
 
 export default function ManageLayout({
   children,
