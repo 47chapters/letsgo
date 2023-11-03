@@ -63,6 +63,13 @@ export const ConfigSettings = {
   Auth0ClientSecret: "AUTH0_CLIENT_SECRET",
   Auth0Audience: "AUTH0_AUDIENCE",
   Auth0Scope: "AUTH0_SCOPE",
+  StripeLiveMode: "LETSGO_STRIPE_LIVE_MODE",
+  StripeTestPublicKey: "LETSGO_STRIPE_TEST_PUBLIC_KEY",
+  StripeTestSecretKey: "LETSGO_STRIPE_TEST_SECRET_KEY",
+  StripeTestWebhookKey: "LETSGO_STRIPE_TEST_WEBHOOK_KEY",
+  StripeLivePublicKey: "LETSGO_STRIPE_LIVE_PUBLIC_KEY",
+  StripeLiveSecretKey: "LETSGO_STRIPE_LIVE_SECRET_KEY",
+  StripeLiveWebhookKey: "LETSGO_STRIPE_LIVE_WEBHOOK_KEY",
 };
 
 export interface DefaultConfig {
