@@ -33,7 +33,6 @@ import { ensureDynamo } from "../aws/dynamodb";
 import { ensureQueue } from "../aws/sqs";
 import { ensureLambda } from "../aws/lambda";
 import { createIssuer, getActiveIssuer } from "@letsgo/trust";
-import { create } from "domain";
 
 const AllArtifacts = ["all", "api", "web", "db", "worker"];
 

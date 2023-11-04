@@ -1,7 +1,6 @@
 import { randomBytes } from "crypto";
 
 export const VendorPrefix = "letsgo";
-export const ConfigRegion = "us-west-2";
 export const DefaultRegion = process.env.AWS_REGION || "us-west-2";
 export const DefaultDeployment = process.env.LETSGO_DEPLOYMENT || "main";
 export const StaticJwtAudience = `${VendorPrefix}:service`;
@@ -70,6 +69,7 @@ export const ConfigSettings = {
   StripeLivePublicKey: "LETSGO_STRIPE_LIVE_PUBLIC_KEY",
   StripeLiveSecretKey: "LETSGO_STRIPE_LIVE_SECRET_KEY",
   StripeLiveWebhookKey: "LETSGO_STRIPE_LIVE_WEBHOOK_KEY",
+  SlackUrl: "LETSGO_SLACK_URL",
 };
 
 export interface DefaultConfig {
@@ -125,7 +125,7 @@ const createAppRunnerConfiguration = (componentName: string) => ({
         Effect: "Allow",
         Action: ["ssm:GetParameters"],
         Resource: [
-          `arn:aws:ssm:${ConfigRegion}:${accountId}:parameter/${VendorPrefix}/${region}/${deployment}/*`,
+          `arn:aws:ssm:${region}:${accountId}:parameter/${VendorPrefix}/${deployment}/*`,
         ],
       },
       {

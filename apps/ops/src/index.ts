@@ -1,9 +1,7 @@
 #!/usr/bin/env node
 
 import { Command } from "commander";
-import ls from "./commands/ls";
-import get from "./commands/get";
-import set from "./commands/set";
+import config from "./commands/config";
 import rm from "./commands/rm";
 import deploy from "./commands/deploy";
 import status from "./commands/status";
@@ -23,9 +21,7 @@ program
   .description(
     "DevOps tool for LetsGo - set up and manage your deployments in AWS."
   )
-  .addCommand(ls)
-  .addCommand(get)
-  .addCommand(set)
+  .addCommand(config)
   .addCommand(rm)
   .addCommand(deploy)
   .addCommand(status)

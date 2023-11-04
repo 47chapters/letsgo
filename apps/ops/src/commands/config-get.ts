@@ -21,11 +21,11 @@ program
   )
   .action(async (key, options) => {
     const config = await getConfig(options.region, options.deployment);
-    const deploymentConfig = config[options.region]?.[options.deployment];
+    const deploymentConfig = config[options.deployment];
     if (deploymentConfig === undefined) {
       console.log(
         chalk.red(`Configuration for deployment`),
-        chalk.bold(`${options.region}/${options.deployment}`),
+        chalk.bold(`${options.deployment}`),
         chalk.red(`not found.`)
       );
       process.exit(1);
@@ -39,7 +39,7 @@ program
     if (filteredConfig === undefined) {
       console.log(
         chalk.red(`Configuration key`),
-        chalk.bold(`${options.region}/${options.deployment}/${key}`),
+        chalk.bold(`${options.deployment}/${key}`),
         chalk.red(`not found.`)
       );
       process.exit(1);
@@ -51,8 +51,7 @@ program
       if (!key && options.output === "text") {
         console.log(
           chalk.green(`Configuration of deployment`),
-          chalk.bold(`${options.region}/${options.deployment}`) +
-            chalk.green(`:`)
+          chalk.bold(`${options.deployment}`) + chalk.green(`:`)
         );
       }
       if (key && options.output === "text") {

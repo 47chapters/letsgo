@@ -537,8 +537,8 @@ async function updateAppRunnerService(
   );
   const desiredConfig =
     (await getConfig(options.region, options.deployment, true))[
-      options.region
-    ]?.[options.deployment] || {};
+      options.deployment
+    ] || {};
   const currentConfigKeys = Object.keys(
     existingService.SourceConfiguration?.ImageRepository?.ImageConfiguration
       ?.RuntimeEnvironmentSecrets || {}
@@ -718,8 +718,8 @@ async function createAppRunnerService(
         ImageConfiguration: {
           RuntimeEnvironmentSecrets:
             (await getConfig(options.region, options.deployment, true))[
-              options.region
-            ]?.[options.deployment] || {},
+              options.deployment
+            ] || {},
           RuntimeEnvironmentVariables: {
             LETSGO_IMAGE_TAG: options.imageTag,
             LETSGO_DEPLOYMENT: options.deployment,
