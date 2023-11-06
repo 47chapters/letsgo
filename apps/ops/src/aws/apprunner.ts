@@ -28,7 +28,7 @@ import {
 } from "@aws-sdk/client-apprunner";
 import { setLogGroupRetentionPolicy } from "./cloudwatch";
 import { getTags } from "./defaults";
-import { getConfig, SetConfigValueCallback } from "./ssm";
+import { getConfig } from "./ssm";
 import chalk from "chalk";
 import { getEcrRepositoryArn } from "./ecr";
 import { Logger } from "../commands/defaults";
@@ -192,7 +192,6 @@ export interface EnsureAppRunnerOptions {
   deployment: string;
   component: string;
   ecrRepositoryName: string;
-  setAppRunnerUrl: SetConfigValueCallback;
   imageTag: string;
   autoScalingConfigurationName: string;
   autoScaling: AutoScalingSettings;
@@ -755,11 +754,6 @@ async function createAppRunnerService(
     },
   });
   const createServiceResult = await apprunner.send(createServiceCommand);
-  await options.setAppRunnerUrl(
-    createServiceResult.Service?.ServiceUrl
-      ? `https://${createServiceResult.Service?.ServiceUrl}`
-      : ""
-  );
   const service = await waitForAppRunnerService(
     options.region,
     options.component,

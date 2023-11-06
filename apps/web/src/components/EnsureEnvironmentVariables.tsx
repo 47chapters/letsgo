@@ -37,7 +37,7 @@ function EnsureEnvironmentVariables({
         </p>
         <p>
           If you are running in AWS, you can set them using the{" "}
-          <code>yarn ops set</code> command prior to running{" "}
+          <code>yarn ops config set</code> command prior to running{" "}
           <code>yarn ops deploy</code>.{" "}
         </p>
       </div>

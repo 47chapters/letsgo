@@ -6,7 +6,6 @@ import {
   DeleteRepositoryCommand,
 } from "@aws-sdk/client-ecr";
 import { getTags } from "./defaults";
-import { SetConfigValueCallback } from "./ssm";
 import { spawn } from "child_process";
 import { getAccountId } from "./sts";
 import { Logger } from "../commands/defaults";

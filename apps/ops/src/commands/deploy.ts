@@ -23,12 +23,7 @@ import {
 } from "@letsgo/constants";
 import { join } from "path";
 import { readFileSync } from "fs";
-import {
-  LetsGoDeploymentConfig,
-  ensureDefaultConfig,
-  SetConfigValueCallback,
-  setConfigValue,
-} from "../aws/ssm";
+import { LetsGoDeploymentConfig, ensureDefaultConfig } from "../aws/ssm";
 import { ensureDynamo } from "../aws/dynamodb";
 import { ensureQueue } from "../aws/sqs";
 import { ensureLambda } from "../aws/lambda";
@@ -84,12 +79,6 @@ async function deployAppRunner(
     options.deployment,
     settings.defaultConfig
   )) as LetsGoDeploymentConfig;
-  const createSetConfigValueCallback =
-    (key: string): SetConfigValueCallback =>
-    async (value: string) => {
-      await setConfigValue(options.region, options.deployment, key, value);
-      config[key] = value;
-    };
   // Ensure IAM role is configured
   const roleName = settings.getRoleName(options.region, options.deployment);
   logger("ensuring IAM role is configured", "aws:iam");
@@ -131,7 +120,6 @@ async function deployAppRunner(
     component: settings.Name,
     ecrRepositoryName: settings.getEcrRepositoryName(options.deployment),
     ignoreConfigKeys: [settings.serviceUrlConfigKey],
-    setAppRunnerUrl: createSetConfigValueCallback(settings.serviceUrlConfigKey),
     imageTag: imageTag,
     autoScalingConfigurationName:
       settings.getAppRunnerAutoScalingConfigurationName(options.deployment),

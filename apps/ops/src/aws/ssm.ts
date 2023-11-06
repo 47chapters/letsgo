@@ -19,8 +19,6 @@ export interface LetsGoConfig {
   [deployment: string]: LetsGoDeploymentConfig;
 }
 
-export type SetConfigValueCallback = (value: string) => Promise<void>;
-
 function getSSMClient(region: string) {
   return new SSMClient({
     apiVersion,
@@ -169,7 +167,7 @@ export async function deleteConfig(
 ): Promise<string[]> {
   const ssm = getSSMClient(region);
   // Delete all configuration parameters for the specified deployment
-  const config = await getConfig(deployment);
+  const config = await getConfig(region, deployment);
   const AllNames: string[] = Object.keys(config[deployment] || {}).map((key) =>
     getConfigKey(deployment, key)
   );
