@@ -64,4 +64,4 @@ Finally, navigate to the Web component's Url in the browser, and notice how the 
 
 <img width="912" alt="image" src="https://github.com/tjanczuk/letsgo/assets/822369/6aab4476-4d16-4ab4-97c4-211a80017266">
 
-You have just successfully re-deployed your stack with a simple local modification to AWS. In the next step, you are going to [set up authentication with Auth0]() to enable authenticating users of your app and secure access to the dashboard section of the _web_ component and to the _API_ component.
+You have just successfully re-deployed your stack with a simple local modification to AWS. In the next step, you are going to [set up authentication with Auth0](setting-up-authentication-with-auth0.md) to enable authenticating users of your app and secure access to the dashboard section of the _web_ component and to the _API_ component.
