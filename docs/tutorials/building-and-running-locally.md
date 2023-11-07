@@ -21,6 +21,8 @@ cp apps/api/.env /apps/worker/.env
 cp apps/api/.env /apps/web/.env.local
 ```
 
+Later on, when you integrate Auth0 and Stripe into your app, you will add to those local configuration files. But for now, the configuration above is sufficient.
+
 ### Run components locally
 
 To run the _web_, _api_, and _worker_ locally, use this command:
@@ -31,7 +33,7 @@ yarn dev
 
 This will spawn a number of processes, one for each of the _web_, _api_, and _worker_ components of the stack and one for each of their dependencies. These processes watch the local file system for changes and rebuild and restart components as changes are made.
 
-### Validate the local stack is running
+### Validate the local stack
 
 First, call the health endpoint of the local _api_ component:
 
@@ -50,12 +52,12 @@ Well done, you are now running the LetsGo stack locally!
 
 ### Make a code change
 
-Open `apps/web/src/app/(site)/page.tsx` file in your code editor. Modify the `The Service` string to `Hello, world!`. Save the file. You just made a change in the _web_ component of your app.
+Open `apps/web/src/app/(site)/page.tsx` file in your code editor. Change the `The Service` string to `Hello, world!`. Save the file. You just made a change in the _web_ component of your app.
 
-Go back to the browser window showing `http://localhost:3000` and observe the change had an immediate effect:
+Go back to the browser window for `http://localhost:3000` and observe the change had an immediate effect:
 
 <img width="912" alt="image" src="https://github.com/tjanczuk/letsgo/assets/822369/e6a77a14-f8f0-414c-9cb7-28214ae6f2d4">
 
 To reduce the development lifecycle, the LetsGo local development environment detects any changes in the files you make, recompiles the dependencies, and restarts the services as necesary for you. This applies equally to the _web_, _api_, and _worker_ components.
 
-Congratulations! You now know how to run your LetsGo app locally and quickly cycle through changes. Now that you made and tested those changes locally, it is time to redeploy the new version of you app into the cloud. The [Re-depoloying to AWS](re-deploying-to-aws.md) tutorial will show you how.
+Congratulations! You can now run your LetsGo app locally and quickly cycle through changes as you develop your app. Once you are happy with the changes you made locally, it is time to redeploy the new version of you app to AWS. The [re-depoloying to AWS](re-deploying-to-aws.md) tutorial will show you how.
