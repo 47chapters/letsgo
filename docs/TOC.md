@@ -5,12 +5,12 @@ Tutorials
 &nbsp;&nbsp;&nbsp;&nbsp;[First deployment to AWS](tutorials/first-deployment-to-aws.md)  
 &nbsp;&nbsp;&nbsp;&nbsp;[Building and running locally](tutorials/building-and-running-locally.md)  
 &nbsp;&nbsp;&nbsp;&nbsp;[Re-deploying to AWS](tutorials/re-deploying-to-aws.md)  
-&nbsp;&nbsp;&nbsp;&nbsp;[Setting up authentication with Auth0]()  
+&nbsp;&nbsp;&nbsp;&nbsp;[Setting up authentication with Auth0](tutorials/setting-up-authentication-with-auth0.md)  
 &nbsp;&nbsp;&nbsp;&nbsp;Setting up payments with Stripe  
-&nbsp;&nbsp;&nbsp;&nbsp;Setting up a custom domain  
+&nbsp;&nbsp;&nbsp;&nbsp;Configuring a custom domain  
 How-Tos  
 &nbsp;&nbsp;&nbsp;&nbsp;Use this repository [and the LetsGo CLI] to start your startup  
-&nbsp;&nbsp;&nbsp;&nbsp;Organize the develoment lifecycle
+&nbsp;&nbsp;&nbsp;&nbsp;Organize the develoment lifecycle  
 &nbsp;&nbsp;&nbsp;&nbsp;Run the stack locally  
 &nbsp;&nbsp;&nbsp;&nbsp;Run tests  
 &nbsp;&nbsp;&nbsp;&nbsp;Develop the front-end  
@@ -33,7 +33,7 @@ How-Tos
 &nbsp;&nbsp;&nbsp;&nbsp;Manage authentication and Auth0 integration  
 &nbsp;&nbsp;&nbsp;&nbsp;Send notifications to Slack  
 &nbsp;&nbsp;&nbsp;&nbsp;Manage scalability  
-Background Concepts
+Background Concepts  
 &nbsp;&nbsp;&nbsp;&nbsp;Why LetsGo?  
 &nbsp;&nbsp;&nbsp;&nbsp;Architecture  
 &nbsp;&nbsp;&nbsp;&nbsp;What is provided and what is not  

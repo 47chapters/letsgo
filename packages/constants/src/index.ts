@@ -55,7 +55,7 @@ export const ConfigSettings = {
   WorkerFunctionTimeout: "LETSGO_WORKER_FUNCTION_TIMEOUT",
   WorkerFunctionMemory: "LETSGO_WORKER_MEMORY",
   WorkerFunctionEphemeralStorage: "LETSGO_WORKER_EPHEMERAL_STORAGE",
-  Auth0Secret: "AUTH_SECRET",
+  Auth0Secret: "AUTH0_SECRET",
   Auth0BaseUrl: "AUTH0_BASE_URL",
   Auth0IssuerBaseUrl: "AUTH0_ISSUER_BASE_URL",
   Auth0ClientId: "AUTH0_CLIENT_ID",
