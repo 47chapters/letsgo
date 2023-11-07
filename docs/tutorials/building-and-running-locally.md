@@ -1,10 +1,10 @@
 ## Building and running locally
 
-In this tutorial, you will run the LetsGo stack locally as you normally would during active development of your app. Upon completion, you will have the web, API, and worker components running locally against a database deployed in the cloud, and you will understand how to efficiently make and test code changes:
+In this tutorial, you will run the LetsGo stack locally as you normally would during active development of your app. Upon completion, you will have the _web_, _API_, and _worker_ components running locally against a database deployed in the cloud, and you will understand how to efficiently make and test code changes:
 
 <img width="914" alt="image" src="https://github.com/tjanczuk/letsgo/assets/822369/c76e6c20-faeb-471e-9c00-7e7684875aa5">
 
-This tutorial assumes you have already completed the [first deployment to AWS](first-deployment-to-aws). In partcular, the database component must already exist in AWS. All file directory references in this tutorial are relative to _the letsgo directory_, which is the directory where the LetsGo project was cloned to.
+This tutorial assumes you have already completed the [first deployment to AWS](first-deployment-to-aws.md). In partcular, the _database_ component must already exist in AWS. All file directory references in this tutorial are relative to the _letsgo_ directory, which is the directory where the LetsGo project was cloned to.
 
 ### Configure components to run locally
 
@@ -23,7 +23,7 @@ cp apps/api/.env /apps/web/.env.local
 
 ### Run components locally
 
-To run the web, api, and worker locally, use this command:
+To run the _web_, _api_, and _worker_ locally, use this command:
 
 ```bash
 yarn dev
@@ -40,7 +40,7 @@ $ curl http://localhost:3001/v1/health
 {"ok":true,"imageTag":"unknown","updatedAt":"unknown"}
 ```
 
-Notice the endpoint returns HTTP 200, which means it is healthy. The JSON output indicates it is not running any Docker image - simply because it is running directly as a Node.js process on your development machine.
+Notice the endpoint returns HTTP 200, which means it is healthy. The JSON response body indicates it is not running any Docker image - simply because the _api_ component is running as a plain Node.js process on your development machine.
 
 Next, navigate the browser to `http://localhost:3000`, which is the locally running _web_ component:
 

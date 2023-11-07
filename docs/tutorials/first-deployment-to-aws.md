@@ -1,12 +1,12 @@
 ## First deployment to AWS
 
-In this tutorial, you will make the first deployment of the LetsGo stack to your own AWS account. Upon completion, you will have the web and API components available on publicly accessible, secure URLs, and the worker and database components wired up and ready to use:
+In this tutorial, you will make the first deployment of the LetsGo stack to your own AWS account. Upon completion, you will have the _web_ and _API_ components available on publicly accessible, secure URLs, and the _worker_ and _database_ components wired up and ready to use:
 
 <img width="846" alt="image" src="https://github.com/tjanczuk/letsgo/assets/822369/cf6a5118-943e-4c1b-ae61-dda43ab9ffab">
 
 You will also have your local environment prepared for further development. This tutorial does not integrate Auth0 or Stripe - you will do this in separate tutorials.
 
-_NOTE_ This tutorial will deploy several artifacts to your AWS account. The cost of keeping them idle for a day is about $0.70 (that's 70 cents). It is easy to remove all of them when you are done.
+**NOTE** This tutorial will deploy several artifacts to your AWS account. The cost of keeping them idle for a day is about $0.70 (that's 70 cents). It is easy to remove all of them when you are done.
 
 ### Prerequisities
 
