@@ -1,10 +1,10 @@
 ## Setting up authentication with Auth0
 
-In this tutorial, you will integrate with Auth0 to authenticate users of your app. You will use authentication to secure the dashboard portion of your _web_ component as well as the endpoints of the _api_ component. To do this, you will first configure Auth0, then make and test changes to your app locally, and finally re-deploy the secured application to AWS. Upon completion, you will be able to log in to the dashboard portion of your _web_ component using your Google Account:
+In this tutorial, you will integrate with Auth0 to authenticate users of your app. You will use authentication to secure the dashboard portion of your _web_ component as well as the HTTP endpoints of the _api_ component. To do this, you will first configure Auth0, then make changes to your app and test it locally, and finally re-deploy the secured application to AWS. Upon completion, you will be able to log in to the dashboard portion of your _web_ component using your Google Account:
 
 <img width="1312" alt="image" src="https://github.com/tjanczuk/letsgo/assets/822369/4d36bb48-5463-4d1b-af0d-6bbbbc7771fd">
 
-This tutorial assumes you have already made the [first deployment of your application to AWS](first-deployment-to-aws.md), and then completed one full development cycle including [re-deploying of your application to AWS](re-deploying-to-aws.md).
+This tutorial assumes you have already made the [first deployment of your application to AWS](first-deployment-to-aws.md), and then completed one full development cycle including [re-deploying your application to AWS](re-deploying-to-aws.md). Let's get started!
 
 ### Get the public URL of your web application
 
@@ -39,7 +39,7 @@ Once the Auth0 API is created, go to its settings, turn on _Allow Offline Access
 
 ### Create the Auth0 application
 
-Next in the Auth0 management portal, go to the _Applications / Applications_ section and create a new application. Give it a _Name_ you like and choose _Regular Web Application_ for the application type.
+Next, in the Auth0 management portal, go to the _Applications / Applications_ section and create a new application. Give it a _Name_ you like and choose _Regular Web Application_ for the application type.
 
 <img width="1312" alt="image" src="https://github.com/tjanczuk/letsgo/assets/822369/48939550-3376-4a77-83d0-da3e5f9a483e">
 
@@ -110,11 +110,11 @@ Then navigate to `http://localhost:3000` in the browser and click the _Login_ li
 
 <img width="1312" alt="image" src="https://github.com/tjanczuk/letsgo/assets/822369/4d36bb48-5463-4d1b-af0d-6bbbbc7771fd">
 
-From here, you can choose to log in using your Google Account, or choose _Sign up_ to create a new username and password for your app. After successful login, you will be redirected back to your locally running application. You will see a page that is part of the management dashboard of your application only available to authenticated users. The page allows you to manage certain settings of tenant of your application that was created when you first logged in to it:
+From here, you can choose to log in using your Google Account, or choose _Sign up_ to create a new username and password for your app. After a successful login, you will be redirected back to your locally running application. You will see a page that is part of the management dashboard of your application only available to authenticated users. The page allows you to manage certain settings of the tenant of your application which was created when you first logged in:
 
 <img width="1312" alt="image" src="https://github.com/tjanczuk/letsgo/assets/822369/1d1e0fa8-e7b7-4e00-a6e1-405617461ea2">
 
-Now that you have authentication working correctly locally, you will configure and re-deploy your app in AWS to make it publicly available.
+Now that you have authentication working locally, you will configure and re-deploy your app to AWS.
 
 ### Configure Auth0 in AWS and re-deploy the app
 
@@ -138,7 +138,7 @@ Once the deployment command completed, navigate the browser to the public URL of
 
 ### Test API authentication
 
-At this point, the _API_ component of your app can also leverage the trust relationship with Auth0 to authenticate API callers. To demonstrate it, we will call a secure API endpoint of your app with and without an access token issued by Auth0.
+At this point, the _API_ component of your app can also leverage the trust relationship with Auth0 to authenticate callers. To demonstrate it, we will call a secure API endpoint of your app with and without an access token issued by Auth0.
 
 First, start your application locally unless it is already running:
 
@@ -155,7 +155,7 @@ $ curl http://localhost:3001/v1/me
 
 Notice how the call was rejected with an HTTP 401 response.
 
-Now, let's get the access token we can use. Go to the Auth0 management portal, navigate to _Applications / APIs_, locate the Auth0 API your have previously created and enter it, go to the _Test_ tab, and locate the _Sending the token to the API_ section at the bottom. You should see a `curl` command similar to this:
+Now, let's get the access token we can use. Go to the Auth0 management portal, navigate to _Applications / APIs_, locate the Auth0 API you have previously created and enter it, go to the _Test_ tab, and locate the _Sending the token to the API_ section at the bottom. You should see a template of a `curl` command similar to this:
 
 ```text
 curl --request GET \
@@ -163,11 +163,11 @@ curl --request GET \
   --header 'authorization: Bearer eyJhbGciOiJSUzI1NiIsIn....8qXcLuBk9hdb1RFdQ'
 ```
 
-The `ey...` string in the `authorization` header will be quite a bit longer. It is your access token issued by Auth0. Copy and modify the command by replacing `http://path_to_your_api/` with `http://localhost:3000/v1/me`, then execute the command:
+The `ey...` string in the `authorization` header will be quite a bit longer. It is your access token issued by Auth0. Copy and modify the command by replacing `http://path_to_your_api/` with `http://localhost:3001/v1/me`, then execute the command:
 
 ```bash
 $ curl --request GET \
->   --url https://localhost:3000/v1/me \
+>   --url https://localhost:3001/v1/me \
 >   --header 'authorization: Bearer eyJhbGciOi...31JX_NE2nAzwI2zyvW8qXcLuBk9hdb1RFdQ'
 ```
 
@@ -212,10 +212,10 @@ You will see output simiar to this:
 }
 ```
 
-It indicates the API call was successful. The access token presented was trusted by the API, and in the JSON response the `/v1/me` endpoint returned information about the tenants of your app the caller has permissions to.
+The HTTP 200 response indicates the API call was successful. The access token presented was trusted by the API. In the JSON response the `/v1/me` endpoint returns information about the tenants of your app the caller has permissions to.
 
-You can try issuing the same request to the public _API_ endpoint of your app, which you can get a Url of by running `yarn ops status -a api`.
+You can try issuing the same request to the public _API_ endpoint of your app, which you can get by running `yarn ops status -a api`.
 
-Congratulations! You have successfully secured access to your _web_ and _API_ using Auth0. Users of your app will need to log in to your dashboard using Auth0, and they will need to obtain an access token from Auth0 in order to call the APIs.
+Congratulations! You have successfully secured access to your _web_ and _API_ components using Auth0. Users of your app will need to log in to your dashboard using Auth0, and they will need to obtain an access token from Auth0 in order to call the HTTP APIs.
 
-From here, you can choose to [integrate Stripe]() to offer paid subscriptions, or [configure up a custom domain]() for your app.
+From here, you can choose to [integrate Stripe]() to offer paid subscriptions, or [configure a custom domain]() for your app.
