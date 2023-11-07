@@ -8,7 +8,7 @@
 
 ## Building and running locally
 
-## Making a change and re-deploying
+## Re-deploying to AWS
 
 ## Setting up authentication with Auth0
 

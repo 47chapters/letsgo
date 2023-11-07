@@ -53,7 +53,7 @@ The version and platform may be different on your system.
 
 #### Docker
 
-You must have Docker installed on your system. Follow the [Docker installation instructions](https://docs.docker.com/engine/install/) to complete this step. When you are done, you should be able to runthe following:
+You must have Docker installed on your system. Follow the [Docker installation instructions](https://docs.docker.com/engine/install/) to complete this step. When you are done, you should be able to run the following:
 
 ```bash
 $ docker -v
@@ -158,6 +158,8 @@ Api
 ```
 
 The output contains a report about the status of the web, API, worker, and database components of your deployment. In the _Web_ and _Api_ sections, locate the _Url_ property. They are the public HTTPS URLs for the web and API components, respectively.
+
+### Validate deployment
 
 Now, call the health endpoint of the API component with _curl_. The endpoint is the combination of the API's Url with the `/v1/health` path, e.g.:
 

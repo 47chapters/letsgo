@@ -11,7 +11,7 @@
     "buildx": "turbo run buildx",
     "deploy": "turbo run deploy",
     "clean": "turbo run clean",
-    "dev": "turbo run dev",
+    "dev": "turbo run dev --concurrency=25",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "lint": "turbo run lint",
     "test": "turbo run test"
