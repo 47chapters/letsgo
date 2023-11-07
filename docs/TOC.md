@@ -4,7 +4,7 @@
 
 # Tutorials
 
-## Your first deployment to AWS
+## First deployment to AWS
 
 ## Building and running locally
 
