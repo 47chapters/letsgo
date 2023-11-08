@@ -6,7 +6,7 @@ Tutorials
 &nbsp;&nbsp;&nbsp;&nbsp;[Building and running locally](tutorials/building-and-running-locally.md)  
 &nbsp;&nbsp;&nbsp;&nbsp;[Re-deploying to AWS](tutorials/re-deploying-to-aws.md)  
 &nbsp;&nbsp;&nbsp;&nbsp;[Setting up authentication with Auth0](tutorials/setting-up-authentication-with-auth0.md)  
-&nbsp;&nbsp;&nbsp;&nbsp;Setting up payments with Stripe  
+&nbsp;&nbsp;&nbsp;&nbsp;[Setting up payments with Stripe](tutorials/setting-up-payments-with-stripe.md)  
 &nbsp;&nbsp;&nbsp;&nbsp;Configuring a custom domain  
 How-Tos  
 &nbsp;&nbsp;&nbsp;&nbsp;Use this repository [and the LetsGo CLI] to start your startup  
