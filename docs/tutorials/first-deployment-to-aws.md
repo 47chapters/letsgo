@@ -62,7 +62,7 @@ Docker version 24.0.6, build ed223bc
 
 The version and build may be different on your system.
 
-### AWS CLI
+#### AWS CLI
 
 LetsGo requires that you have an Amazon Web Service (AWS) account and are able to access it using the AWS CLI installed locally.
 
