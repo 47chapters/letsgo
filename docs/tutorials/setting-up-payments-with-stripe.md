@@ -18,14 +18,14 @@ We will be using Stripe CLI to tunnel webhook events related to payment and subs
 
 ### Collect the API keys from Stripe
 
-For the purpose of this tutorial, we will rely solely on Stripe's test mode intended for development and testing. Stripe's test mode has its own set of API keys separate from production. You will need three keys: _publishabe key_, _secret key_, and the _webhook signing secret_.
+For the purpose of this tutorial, we will use exclusively Stripe's test mode intended for development and testing. Stripe's test mode has its own set of API keys separate from production. You will need three keys: _publishable key_, _secret key_, and the _webhook signing secret_.
 
 You can access the _publishable key_ and _secret key_ for the Stripe's test mode from [Test Mode API Keys](https://dashboard.stripe.com/test/apikeys) section of the Stripe dashboard.
 
 To access the _webhook signing secret_, you must first register a new webhook endpoint with Stripe:
 
 1. Determine the base URL of your _API_ server running in AWS by executing `yarn ops status -a api`. The _Url_ property contains the _API_ base URL.
-1. Go to [Test Mode Webhooks](https://dashboard.stripe.com/test/webhooks) of the Stripe's dashboard and choose _Add endpoint_ in the _Hosted endpoints_ section.
+1. Go to the [Test Mode Webhooks](https://dashboard.stripe.com/test/webhooks) page of the Stripe's dashboard and choose _Add endpoint_ in the _Hosted endpoints_ section.
 1. In _Endpoint URL_, enter `{base-url}/v1/stripe/webhook`, where `{base-url}` is the _API_ base url you determined above.
 1. Click _Select events_ and check the checkbox next to _select all events_. Then click _Add events_.
 1. Back on the previous screen, click _Add endpoint_.
@@ -78,7 +78,7 @@ yarn ops deploy -a api
 
 ### Determine your subscription plans
 
-Inspect the [packages/procing/src/index.ts](../../packages/pricing/src/index.ts) file and locate the `Plans` export:
+Inspect the [packages/pricing/src/index.ts](../../packages/pricing/src/index.ts) file and locate the `Plans` export:
 
 ```typescript
 export const Plans: Plan[] = [
@@ -167,7 +167,7 @@ First, run the application locally with:
 yarn dev
 ```
 
-The, navigate to `http://localhost:3000` in the browser, and click on the _Pricing_ link in the navbar. You should see your pricing page, driven by the content of the [packages/pricing/src/index.ts](../../packages/pricing/src/index.ts) file:
+Then, navigate to `http://localhost:3000` in the browser, and click on the _Pricing_ link in the navbar. You should see your pricing page, driven by the content of the [packages/pricing/src/index.ts](../../packages/pricing/src/index.ts) file:
 
 <img width="1312" alt="image" src="https://github.com/tjanczuk/letsgo/assets/822369/741a7dee-5309-4692-8ea3-920ddcad0bf7">
 
@@ -187,13 +187,13 @@ After a successful charge of $90 to the fake credit card, you will be redirected
 
 <img width="1312" alt="image" src="https://github.com/tjanczuk/letsgo/assets/822369/cbf127bc-7a22-4c2e-b6cb-891fdc4472a8">
 
-You can also initiate a change of the subscription plan or an update of the payment method on file from this screen.
+From the tenant settings screen, you can also initiate a change of the subscription plan or an update of the payment method on file.
 
 ### Test the plan change flow in AWS
 
 Now let's go through the flow of changing the subscription plan using the version of your app deployed to AWS.
 
-First find out the URL of you website by running:
+First, find out the URL of you website by running:
 
 ```bash
 yarn ops status -a web
@@ -203,7 +203,7 @@ Navigate in the browser to the URL returned as the _Url_ property from the comma
 
 <img width="1312" alt="image" src="https://github.com/tjanczuk/letsgo/assets/822369/92b6517c-c836-4796-9d18-eca1a52894e7">
 
-Notice your tenant is already on the _Business_ plan. This is because the local and cloud versions of the applications are sharing the database running in the cloud, and the same Stripe subscription.
+Notice your tenant is already on the _Business_ plan. This is because the local and cloud versions of the application are sharing the database running in the cloud, and the same Stripe subscription.
 
 Click _Change plans_ to be brought to a new plan selection page:
 
@@ -225,10 +225,10 @@ Navigate to the [Test Mode Subscription Page](https://dashboard.stripe.com/test/
 
 <img width="1268" alt="image" src="https://github.com/tjanczuk/letsgo/assets/822369/5a710ec1-af5c-45da-89f2-842220a1399a">
 
-When you enter into subscription details, you can see inspect a lot of details about this subscription that goes beyond the scope of this tutorial. One aspect to highlight here is the _Metadata_ section:
+When you click into subscription details, you can inspect many aspects of this subscription which go beyond the scope of this tutorial. One element to highlight here is the _Metadata_ section:
 
 <img width="1312" alt="image" src="https://github.com/tjanczuk/letsgo/assets/822369/6bfe9aef-005c-49a6-995b-c401743b6a9e">
 
 Notice it contains the LetsGo _tenantId_ this subscription belongs to, the LetsGo _planId_, as well as the _identityId_ of the user who activated this subscription. This _identityId_ can be traced back to a specific Auth0 user.
 
-Congratulations! You have successfully integrated Stripe into your app and are ready to present your customers with subscription-based pricing model. With authentication and payments set up, one other tutorial to explore is related to [configuring a custom domain](configuring-custom-domain.md) for your _web_ and _API_ components.
+Congratulations! You have successfully integrated Stripe into your app and are ready to present your customers with a subscription-based pricing model. With authentication and payments set up, one other tutorial to explore is related to [configuring a custom domain](configuring-custom-domain.md) for your _web_ and _API_ components.
