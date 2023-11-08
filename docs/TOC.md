@@ -9,8 +9,7 @@ Overview
 &nbsp;&nbsp;&nbsp;&nbsp;[Setting up payments with Stripe](tutorials/setting-up-payments-with-stripe.md)  
 &nbsp;&nbsp;&nbsp;&nbsp;[Configuring a custom domain](tutorials/configuring-custom-domain.md)  
 How-Tos  
-&nbsp;&nbsp;&nbsp;&nbsp;Use this repository [and the LetsGo CLI] to start your startup  
-&nbsp;&nbsp;&nbsp;&nbsp;Organize the develoment lifecycle  
+&nbsp;&nbsp;&nbsp;&nbsp;[How to use LetsGo?](how-to/how-to-use-letsgo.md)  
 &nbsp;&nbsp;&nbsp;&nbsp;Run the stack locally  
 &nbsp;&nbsp;&nbsp;&nbsp;Run tests  
 &nbsp;&nbsp;&nbsp;&nbsp;Develop the front-end  
