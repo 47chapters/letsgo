@@ -22,6 +22,8 @@ For the purpose of this tutorial, we will use exclusively Stripe's test mode int
 
 You can access the _publishable key_ and _secret key_ for the Stripe's test mode from [Test Mode API Keys](https://dashboard.stripe.com/test/apikeys) section of the Stripe dashboard.
 
+### Registering a Stripe webhook
+
 To access the _webhook signing secret_, you must first register a new webhook endpoint with Stripe:
 
 1. Determine the base URL of your _API_ server running in AWS by executing `yarn ops status -a api`. The _Url_ property contains the _API_ base URL.
@@ -30,7 +32,6 @@ To access the _webhook signing secret_, you must first register a new webhook en
 1. Click _Select events_ and check the checkbox next to _select all events_. Then click _Add events_.
 1. Back on the previous screen, click _Add endpoint_.
 1. You will now see a page with the status of the endpoint. Click _Reveal_ under _Signing secret_. Take note of this _webhook signing secret_, its value starts with `whsec_`.
-1. Click on the three dots next to the endpoint name, and choose _Disable..._, then confirm the choice. While we are testing webhooks locally, we don't want the cloud endpoint to be called as well with the same events.
 
 ### Configure Stripe in the local environment
 
