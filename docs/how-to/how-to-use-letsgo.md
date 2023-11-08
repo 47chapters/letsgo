@@ -48,3 +48,7 @@ yarn ops deploy")
 
   sg1 --> sg2
 ```
+
+The [First deployment to AWS](../tutorials/first-deployment-to-aws.md) tutorial covers the _Clone the repo_, _Install dependencies_, and _First deployment_ steps. The [Setting up authentication with Auth0](../tutorials/setting-up-authentication-with-auth0.md) shows how to integrate Auth0, and [Setting up payments with Stripe](../tutorials/setting-up-payments-with-stripe.md) walks you through integration with Stripe. Finally, [Configuring a custom domain](../tutorials/configuring-custom-domain.md) shows you how to host LetsGo in AWS using your own domain name.
+
+The [Develop the front-end](./develop-the-frontend.md), [Develop the API](./develop-the-api.md), and [Develop the worker](./develop-the-worker.md) provide a good start point for writing code specific to your application. There are also many more specific [How-to](../TOC.md) topics. The [Building and running locally](../tutorials/building-and-running-locally.md) tutorial show you how to run and test your app on your devevelopment machine. The [Re-deploying to AWS](../tutorials/re-deploying-to-aws.md) walks you through the deployment of the local changes you made to AWS.
