@@ -10,15 +10,15 @@ Now, let's get paid!
 
 ### Sign up to Stripe
 
-We are going to be using Stripe as the payment processing and subscription management platform. If you don't have a Stripe account, you can create one [here](https://dashboard.stripe.com/register).
+We are using Stripe as the payment processing and subscription management platform. If you don't have a Stripe account, you can create one [here](https://dashboard.stripe.com/register).
 
 ### Install Stripe CLI
 
-We will be using Stripe CLI to tunnel webhook events related to payment and subscription lifecycle to your locally running application. Follow the instructions [here](https://stripe.com/docs/stripe-cli) to install and setup the Stripe CLI.
+We use Stripe CLI to tunnel webhook events related to payment and subscription lifecycle to your locally running application. Follow the instructions [here](https://stripe.com/docs/stripe-cli) to install and setup the Stripe CLI.
 
 ### Collect the API keys from Stripe
 
-For the purpose of this tutorial, we will use exclusively Stripe's test mode intended for development and testing. Stripe's test mode has its own set of API keys separate from production. You will need three keys: _publishable key_, _secret key_, and the _webhook signing secret_.
+For the purpose of this tutorial, we exclusively use Stripe's test mode intended for development and testing. Stripe's test mode does not affect the flow of actual money, and has its own set of API keys separate from production. You will need three keys: _publishable key_, _secret key_, and the _webhook signing secret_.
 
 You can access the _publishable key_ and _secret key_ for the Stripe's test mode from [Test Mode API Keys](https://dashboard.stripe.com/test/apikeys) section of the Stripe dashboard.
 
@@ -35,7 +35,7 @@ To access the _webhook signing secret_, you must first register a new webhook en
 
 ### Configure Stripe in the local environment
 
-When running your app locally, we will be receiving Stripe webhooks using a tunnel established with the Stripe CLI. This tunnel uses a different _webhook signing secret_ than the secret collected for the public webhook endpoint in the previous step. To obtain the Stripe CLI _webhook signing secret_, run the following command:
+When running your app locally, we will be receiving Stripe webhooks generated in the cloud using a tunnel established with the Stripe CLI. This tunnel uses a different _webhook signing secret_ than the secret collected for the public webhook endpoint in the previous step. To obtain the Stripe CLI _webhook signing secret_, run the following command:
 
 ```bash
 stripe listen --print-secret
@@ -58,7 +58,7 @@ Remember to substitute the _publishable key_, _secret key_, and the _webhook sig
 
 ### Configure Stripe in AWS
 
-Run the following commands to configure Stripe for the deployment of your app in AWS:
+Run the following commands to configure Stripe for the deployed version of your app in AWS:
 
 ```bash
 yarn ops config set LETSGO_STRIPE_LIVE_MODE=0
@@ -67,7 +67,7 @@ yarn ops config set LETSGO_STRIPE_TEST_SECRET_KEY={secret-key}
 yarn ops config set LETSGO_STRIPE_TEST_WEBHOOK_KEY={cloud-webhook-signing-secret}
 ```
 
-Remember to substitute the _publishable key_, _secret key_, and the _webhook signing secret_ obtained when adding a webhook endpoint in the Stripe dashboard for `{publishable-key}`, `{secret-key}`, and `{cloud-webhook-signing-secret}`, respectively.
+Remember to substitute the _publishable key_, _secret key_, and the _webhook signing secret_ obtained when adding a webhook endpoint in the Stripe dashboard for `{publishable-key}`, `{secret-key}`, and `{cloud-webhook-signing-secret}`, respectively. The `{cloud-webhook-signing-secret}` is the _webhook signing secret_ obtain when [registering a Stipe webook](#registering-a-stripe-webhook) previously.
 
 For those configuration changes to take effect, you need to re-deploy your application with:
 
@@ -75,7 +75,7 @@ For those configuration changes to take effect, you need to re-deploy your appli
 yarn ops deploy -a api
 ```
 
-**NOTE** It is sufficient to only deploy the _API_ component as this is where the new Stripe settings are used.
+**NOTE** It is sufficient to only deploy the _API_ component as this is the only place where the new Stripe settings are used.
 
 ### Determine your subscription plans
 
@@ -136,7 +136,7 @@ export const Plans: Plan[] = [
 ];
 ```
 
-This is where your application defines the pricing plans that show up on the pricing page and your customers can choose from. There are four pricing plans above, but only two of them, marked with `usesStripe: true`, have their billing automated through Stripe. One is a _Starter_ plan for $10/month, the other a _Business_ plan for $90/month. We won't be modifying this pricing structure in this tutorial. Instead, take note of the `planId` values for the two plans (`starter` and `business`, respectively) as we will need them to configure corresponding concepts in Stripe.
+This is where your application defines the pricing plans that show up on the `/pricing` page and your customers can choose from. There are four pricing plans above, but only two of them, marked with `usesStripe: true`, have their billing automated through Stripe. One is a _Starter_ plan for $10/month, the other a _Business_ plan for $90/month. We won't be modifying this pricing structure in this tutorial. Instead, take note of the `planId` values for the two plans (`starter` and `business`, respectively) as we will need them to configure corresponding concepts in Stripe.
 
 ### Configure products and prices in Stripe
 
@@ -182,7 +182,7 @@ Either way, click on the _Get Started_ or _Select_ button for the _Business_ pla
 
 <img width="1312" alt="image" src="https://github.com/tjanczuk/letsgo/assets/822369/862b57eb-136f-4b96-be68-620e8a2620bf">
 
-Since you are using Stripe's test mode, we will use a fake credit card information. Enter _5555 5555 5555 4444_ as the credit card number, some future date for validity, _123_ for CCV, and 98053 for the ZIP code (if the country is set to US). Click _Submit_.
+Since you are using Stripe's test mode, we will use a fake credit card information. Enter _5555 5555 5555 4444_ as the credit card number, some future date for expiration, _123_ for SVC, and 98053 for the ZIP code (if the country is set to US). Click _Submit_.
 
 After a successful charge of $90 to the fake credit card, you will be redirected to the tenant settings page of the dashboard. The page shows the current plan, payment status, payment method, and the billing cycle:
 
@@ -190,11 +190,11 @@ After a successful charge of $90 to the fake credit card, you will be redirected
 
 From the tenant settings screen, you can also initiate a change of the subscription plan or an update of the payment method on file.
 
-### Test the plan change flow in AWS
+### Test the subscription plan change flow in AWS
 
-Now let's go through the flow of changing the subscription plan using the version of your app deployed to AWS.
+Now let's go through the flow of changing the subscription plan using your app deployed to AWS.
 
-First, find out the URL of you website by running:
+First, find out the public URL of you website by running:
 
 ```bash
 yarn ops status -a web
@@ -206,7 +206,7 @@ Navigate in the browser to the URL returned as the _Url_ property from the comma
 
 Notice your tenant is already on the _Business_ plan. This is because the local and cloud versions of the application are sharing the database running in the cloud, and the same Stripe subscription.
 
-Click _Change plans_ to be brought to a new plan selection page:
+Click _Change plan_ to be brought to a new plan selection page:
 
 <img width="1312" alt="image" src="https://github.com/tjanczuk/letsgo/assets/822369/d83f260e-674c-4b07-a3e5-d01a094f2f52">
 
@@ -218,7 +218,7 @@ Once you confirm the switch, you will be brought back to the tenant settings pag
 
 <img width="1312" alt="image" src="https://github.com/tjanczuk/letsgo/assets/822369/ad1db25e-6829-4db5-85ae-ff3611618d13">
 
-Notice you were not asked for payment information in this process. This is because Stripe already has your payment information if you are switching from one paid plan to another.
+Notice you were not asked for payment information in this process. This is because Stripe already has your payment information on file if you are switching from one paid plan to another.
 
 ### Confirm the subscription status in Stripe
 

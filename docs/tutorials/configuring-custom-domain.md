@@ -18,7 +18,7 @@ The _web_ and _API_ components of your app will be running on distinct domain na
 
 Before continuing, decide what domain names will be used for the the _web_ and _API_ components. For illustration purposes, this tutorial will assume you are using `contoso.com` for your _web_ component, and `api.contoso.com` for the _API_.
 
-### Configure the custom domain for the _web_ component
+### Configure the custom domain for the _web_ and _API_ components
 
 Start by setting up a custom domain name for the _web_ component by running:
 
@@ -54,7 +54,7 @@ The output of these commands lists a number of required DNS records and will loo
 ...
 ```
 
-You must now manually create these entries in your domain registrar to complete the set up of a custom domain. This process is specific to the domain registrar you are using. For example, here is the process for [Namecheap](https://www.namecheap.com/support/knowledgebase/article.aspx/767/10/how-to-change-dns-for-a-domain/), and here for [GoDaddy](https://www.godaddy.com/help/manage-dns-records-680). Other domain registrars will have similar instructions.
+You must now manually create these entries in your domain registrar to complete the set up of custom domains. This process is specific to the domain registrar you are using. For example, here is the process for [Namecheap](https://www.namecheap.com/support/knowledgebase/article.aspx/767/10/how-to-change-dns-for-a-domain/), and here for [GoDaddy](https://www.godaddy.com/help/manage-dns-records-680). Other domain registrars will have similar instructions.
 
 **NOTE** Some domain name registrars have restrictions on the length of keys or values of the DNS records which may prevent you from setting up the required DNS records. As a workaround, you can set up a [Cloudflare](https://cloudflare.com) account and move the management of DNS records for your custom domain there by using Cloudflare's nameservers with your custom domain in your domain registrar.
 
@@ -95,7 +95,7 @@ The output of the commands will look similar to this:
   Status         PENDING_VALIDATION
 ```
 
-As long as the _Status_ on the second line is different than `active`, your custom domain is not yet set up correctly. In the example output above the status is `pending_certificate_dns_validation`, which means the system was not yet able to confirm the DNS records were set up as required.
+As long as the _Status_ on the second line is different than `active`, your custom domain is not yet set up correctly. In the example output above the status is `pending_certificate_dns_validation`, which means the system was not yet able to confirm the DNS records were set up as required. This is _usually_ because of the lag in DNS record propagation and caching. Get a coffee and keep checking.
 
 When you run the `yarn ops domain status ...` command and the output shows `active` in the top _Status_ line, your custom domain name has been configured correctly, for example:
 

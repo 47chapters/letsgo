@@ -1,8 +1,8 @@
 ## Tutorials
 
-There are six tutorials in total, and it takes a focused workday to run through all of them.
+LetsGo has six tutorials in total, and it takes a focused workday to run through all of them.
 
-If you are faster, take off early, beacuse you earned it: you saved yourself or your company a few months of work.
+If you are faster (you are a 10x developer), take off early, beacuse you earned it: you saved yourself or your company a few months of work.
 
 The recommended sequence of the tutorials to follow is this:
 
@@ -16,4 +16,4 @@ After that, you can decide what's more important to you:
 [Setting up payments with Stripe](tutorials/setting-up-payments-with-stripe.md)  
 [Configuring a custom domain](tutorials/configuring-custom-domain.md)
 
-Get a coffee. Ready, set, go!
+Ready, set, go!
