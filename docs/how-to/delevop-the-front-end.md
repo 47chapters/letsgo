@@ -117,4 +117,28 @@ LetsGo recommends you [implement all your server side application logic in the _
 
 To facilitate calling the endpoints of the _API_ component from the browser, LetsGo boilerplate provides two [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes): `app/web/src/app/(dashboard)/api/proxy/[...path]`, and `app/web/src/app/(dashboard)/api/unauthenticated-proxy/[...path]`. These Next.js's endpoints simply proxy incoming requests to the _API_ component. In addition, the first of those routes adds a JWT access token of the currently logged in user to the upstream requests to the _API_ component. This removes the need for this access tokens to be handled by the browser, which increases security.
 
-This is the end to end flow of the recommended way of calling _API_ endpoints from the client code running in the browser:
+This is the end to end flow of the recommended way of calling **authenticated** _API_ endpoints from the client code running in the browser:
+
+```mermaid
+sequenceDiagram
+  participant B as Browser
+  participant N as Next.js server
+  participant S as API server
+  B-->>N: POST /api/proxy/foo/bar<br/>Cookie: {auth0-cookie}
+  N-->>S: POST /foo/bar<br/>Authorization: Bearer {accessToken}
+  S-->>N: HTTP 200 {JSON}
+  N-->>B: HTTP 200 {JSON}
+```
+
+This is the end to end flow of the recommended way of calling **unauthenticated** _API_ endpoints from the client code running in the browser:
+
+```mermaid
+sequenceDiagram
+  participant B as Browser
+  participant N as Next.js server
+  participant S as API server
+  B-->>N: POST /api/unauthenticated-proxy/v1/health
+  N-->>S: POST /v1/health
+  S-->>N: HTTP 200 {JSON}
+  N-->>B: HTTP 200 {JSON}
+```
