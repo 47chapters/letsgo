@@ -43,7 +43,7 @@ Next, in the Auth0 management portal, go to the _Applications / Applications_ se
 
 <img width="1312" alt="image" src="https://github.com/tjanczuk/letsgo/assets/822369/48939550-3376-4a77-83d0-da3e5f9a483e">
 
-Once the Auth0 application is created, go to its settings, find the _Basic Information_ section, and take note of the following values: _Domain_, _Client ID_, and _Client Secret_. We will be using them later when configuring your application.
+Once the Auth0 application has been created, go to its settings, find the _Basic Information_ section, and take note of the following values: _Domain_, _Client ID_, and _Client Secret_. We will be using them later when configuring your LetsGo application.
 
 <img width="1413" alt="image" src="https://github.com/tjanczuk/letsgo/assets/822369/364e02a4-b6c7-4836-83dd-972611694856">
 
@@ -60,7 +60,7 @@ On the same settings page, find the _Application URIs_ section, and make the fol
 
 Scroll down the page and _Save_ the changes.
 
-While you are at the bottom of the page, expand _Advanced Settings_, go to the _Endpoints_ tab, and take note of the _JSON Web Key Set_ value. It will look similar to `https://goletsgo.us.auth0.com/.well-known/jwks.json`. We will be using this URL in next steps when instructing your application to trust Auth0 as an authentication provider.
+While you are at the bottom of the page, expand _Advanced Settings_, go to the _Endpoints_ tab, and take note of the _JSON Web Key Set_ value. It will look similar to `https://goletsgo.us.auth0.com/.well-known/jwks.json`. We will be using this URL in next steps when instructing your LetsGo application to trust Auth0 as an authentication provider.
 
 ### Configure Auth0 in the local environment
 
@@ -171,7 +171,7 @@ $ curl --request GET \
 >   --header 'authorization: Bearer eyJhbGciOi...31JX_NE2nAzwI2zyvW8qXcLuBk9hdb1RFdQ'
 ```
 
-You will see output simiar to this:
+You will see the output simiar to this:
 
 ```json
 {
@@ -218,4 +218,4 @@ You can try issuing the same request to the public _API_ endpoint of your app, w
 
 Congratulations! You have successfully secured access to your _web_ and _API_ components using Auth0. Users of your app will need to log in to your dashboard using Auth0, and they will need to obtain an access token from Auth0 in order to call the HTTP APIs.
 
-From here, you can choose to [integrate Stripe]() to offer paid subscriptions, or [configure a custom domain]() for your app.
+From here, you can choose to [integrate Stripe](./setting-up-payments-with-stripe.md) to offer paid subscriptions, or [configure a custom domain](./configuring-custom-domain.md) for your app.
