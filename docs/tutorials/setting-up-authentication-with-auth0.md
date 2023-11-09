@@ -69,7 +69,7 @@ Add the following environment variables to the `apps/web/.env.local` file in you
 ```bash
 cat >> apps/web/.env.local <<EOF
 AUTH0_ISSUER_BASE_URL=https://{auth0-domain}
-AUTH0_CLIENT_ID={auth-client-id}
+AUTH0_CLIENT_ID={auth0-client-id}
 AUTH0_CLIENT_SECRET={auth0-client-secret}
 AUTH0_SECRET={auth0-secret}
 AUTH0_AUDIENCE=letsgo:service

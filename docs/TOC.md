@@ -10,7 +10,7 @@ Overview
 &nbsp;&nbsp;&nbsp;&nbsp;[Configuring a custom domain](tutorials/configuring-custom-domain.md)  
 How-Tos  
 &nbsp;&nbsp;&nbsp;&nbsp;[How to use LetsGo?](how-to/how-to-use-letsgo.md)  
-&nbsp;&nbsp;&nbsp;&nbsp;Run the stack locally  
+&nbsp;&nbsp;&nbsp;&nbsp;[Run locally](how-to/run-locally.md)  
 &nbsp;&nbsp;&nbsp;&nbsp;Run tests  
 &nbsp;&nbsp;&nbsp;&nbsp;Develop the front-end  
 &nbsp;&nbsp;&nbsp;&nbsp;Develop the API  
@@ -19,7 +19,6 @@ How-Tos
 &nbsp;&nbsp;&nbsp;&nbsp;Access data in the database from the CLI  
 &nbsp;&nbsp;&nbsp;&nbsp;Manage configuration  
 &nbsp;&nbsp;&nbsp;&nbsp;Manage multiple deployments  
-&nbsp;&nbsp;&nbsp;&nbsp;Manage production and stage environments  
 &nbsp;&nbsp;&nbsp;&nbsp;Manage trust and authentication  
 &nbsp;&nbsp;&nbsp;&nbsp;Secure APIs  
 &nbsp;&nbsp;&nbsp;&nbsp;Create access tokens for testing  
