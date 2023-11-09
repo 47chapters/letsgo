@@ -137,8 +137,8 @@ sequenceDiagram
   participant B as Browser
   participant N as Next.js server
   participant S as API server
-  B-->>N: POST /api/unauthenticated-proxy/v1/health
-  N-->>S: POST /v1/health
+  B-->>N: GET /api/unauthenticated-proxy/v1/health
+  N-->>S: GET /v1/health
   S-->>N: HTTP 200 {JSON}
   N-->>B: HTTP 200 {JSON}
 ```
@@ -220,7 +220,7 @@ export function MyComponent() {
 
 ### Use the `useApiMutate` hook to make HTTP POST/PUT/DELETE requests to the _API_
 
-LetsGo provides the `useApi` hook to facilitate making HTTP GET requests to the _API_ via the `/api/proxy/[...path]` or `/api/unauthentiated-proxy/[...path]` API routes. The hook is a thin wrapper around [useSWRMutate](https://swr.vercel.app/).
+LetsGo provides the `useApiMutate` hook to facilitate making HTTP POST/PUT/DELETE requests to the _API_ via the `/api/proxy/[...path]` or `/api/unauthentiated-proxy/[...path]` API routes. The hook is a thin wrapper around [useSWRMutate](https://swr.vercel.app/).
 
 The code to make an **authenticated** HTTP POST call to the _API_ to create a new tenant looks like this:
 
@@ -263,7 +263,7 @@ export function MyComponent() {
 }
 ```
 
-Similar to the `useApi` hook, the `useApiMutate` allows making **unauthenticatd** class to the _API_, for example:
+Similar to the `useApi` hook, the `useApiMutate` allows making **unauthenticatd** calls to the _API_, for example:
 
 ```ts
 export function MyComponent() {
