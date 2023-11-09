@@ -46,13 +46,18 @@ async function createResultNotOkError(
 
 export interface UseApiOptions<T> {
   path?: string | null;
+  unauthenticated?: boolean;
   afterSuccess?: (result?: T) => Promise<void> | void;
 }
 
 export function useApi<T>(options: UseApiOptions<T>) {
   const { isLoading, error, data, mutate } = useSWR(
-    options.path ? `/api/proxy${options.path}` : null,
-    async (url) => {
+    options.path
+      ? `/api/${options.unauthenticated ? "unauthenticated-proxy" : "proxy"}${
+          options.path
+        }`
+      : null,
+    async (url: string) => {
       const result = await fetch(url);
 
       if (!result.ok) {

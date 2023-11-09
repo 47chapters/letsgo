@@ -25,7 +25,7 @@ The _web_ component code resides in the `app/web` directory. Here are the key su
 - `app/web/src/components` contains reusable React components that implement the LetsGo boilerplate logic. These are implemented in plain HTML and are meant to be refactored using the React UI framework of your choice.
 - `app/web/src/app` is the root directory of the [Next.js's App Router]().
 
-The subdirectory tree below `app/web/src/app` reflects the routing paths of the React app itself. The LetsGo boilerplate organizees the font-end into two main logical areas:
+The subdirectory tree below `app/web/src/app` reflects the routing paths of the React app itself. The LetsGo boilerplate organizes the font-end into two logical areas:
 
 - `app/web/src/app/(site)` contains your public website (landing pages, pricing pages, contact form etc).
 - `app/web/src/app/(dashboard)` contains the management dashboard for your customers. This part of the website requires user authentication.
@@ -37,14 +37,14 @@ These are the individual pages included in the LetsGo boilerplate:
 - `app/web/src/app/(site)/contact` the contact form. See [Process the contact form](./process-the-contact-form.md) for details.
 - `app/web/src/app/(dashboard)/manage` the root path of the management dashboard. The `layout.tsx` in this location enforces user authentication for all subordinate paths.
 - `app/web/src/app/(dashboard)/manage/settings` management of settings specific to the logged in user.
-- `app/web/src/app/(dashboard)/manage/[tenantId]/settings` management of settings specific to a particular tenant of your app. This is where subscriptions, billing, and team membership is managed. Read more about how [tenants and user](../backgound/tenants-and-users.md) are related.
+- `app/web/src/app/(dashboard)/manage/[tenantId]/settings` management of settings specific to a particular tenant of your app. This is where subscriptions, billing, and team membership is managed. Read more about how [tenants and users](../backgound/tenants-and-users.md) are related.
 - `app/web/src/app/(dashboard)/manage/[tenantId]/newplan` selection of a new subscription plan for an existing tenant.
 - `app/web/src/app/(dashboard)/manage/[tenantId]/newplan/[planId]` confirmation of the intention to change to a new subscription plan for an existing tenant.
 - `app/web/src/app/(dashboard)/manage/[tenantId]/paymentmethod` updating the payment method for a paid Stripe subscription of an existing tenant.
 - `app/web/src/app/(dashboard)/manage/[tenantId]/paymentmethod/processing` (rarely used) confirmation of a payment processing that requires a prolonged validation on the Stripe side.
 - `app/web/src/app/(dashboard)/join/[tenantId]/[invitationId]` allows users to join a tenant using an invitation link.
 
-In addition to the routes that serve UI, LetsGo also includes two [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes):
+In addition to the routes that serve UI, LetsGo includes three [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes):
 
 - `app/web/src/app/(dashboard)/api/auth` is used by Auth0 to support user login and logout.
 - `app/web/src/app/(dashboard)/api/proxy` is used to make authenticated API requests to the _API_ component.
@@ -113,9 +113,9 @@ export function MyComponent() {
 
 ### Server logic and calling the APIs
 
-LetsGo recommends you [implement all your server side application logic in the _API_ component](./develop-the-api.md). While Next.js supports simple server side endpoints using [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes), LetsGo recommends you don't use this feature to avoid the fragmentation or duplication of your server side logic between the _web_ and _API_ components, and to allow the _web_ component to run with limited permissions.
+LetsGo recommends you [implement all your server side application logic in the _API_ component](./develop-the-api.md) and provides two React hooks to make it easy: `useApi` and `useApiMutate`. While Next.js supports simple server side endpoints using [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes), LetsGo recommends you don't use this feature to avoid the fragmentation or duplication of your server side logic between the _web_ and _API_ components, and to allow the _web_ component to run with limited permissions.
 
-To facilitate calling the endpoints of the _API_ component from the browser, LetsGo boilerplate provides two [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes): `app/web/src/app/(dashboard)/api/proxy/[...path]`, and `app/web/src/app/(dashboard)/api/unauthenticated-proxy/[...path]`. These Next.js's endpoints simply proxy incoming requests to the _API_ component. In addition, the first of those routes adds a JWT access token of the currently logged in user to the upstream requests to the _API_ component. This removes the need for this access tokens to be handled by the browser, which increases security.
+To facilitate calling the endpoints of the _API_ component from the browser, LetsGo boilerplate provides two [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes): `app/web/src/app/(dashboard)/api/proxy/[...path]`, and `app/web/src/app/(dashboard)/api/unauthenticated-proxy/[...path]`. These Next.js's endpoints simply proxy incoming requests to the _API_ component. In addition, the first of these routes adds a JWT access token of the currently logged in user to the upstream requests to the _API_ component. This removes the need for the access tokens to be handled by the browser, which increases security.
 
 This is the end to end flow of the recommended way of calling **authenticated** _API_ endpoints from the client code running in the browser:
 
@@ -141,4 +141,153 @@ sequenceDiagram
   N-->>S: POST /v1/health
   S-->>N: HTTP 200 {JSON}
   N-->>B: HTTP 200 {JSON}
+```
+
+### Use the `useApi` hook to make HTTP GET requests to the _API_
+
+LetsGo provides the `useApi` hook to facilitate making HTTP GET requests to the _API_ via the `/api/proxy/[...path]` or `/api/unauthentiated-proxy/[...path]` API routes. The hook is a thin wrapper around [useSWR](https://swr.vercel.app/).
+
+The code to make an **authenticated** HTTP GET call to the _API_ looks like this:
+
+```tsx
+"use client";
+
+import { GetMeResponse } from "@letsgo/types";
+import { useApi } from "components/common-client";
+
+export function MyComponent() {
+  const { isLoading, error, data } = useApi<GetMeResponse>({
+    path: `/v1/me`, // the path to an HTTP GET endpoint exposed by the API server
+  });
+  if (isLoading) return <div>Loading...</div>;
+  if (error) throw error;
+
+  return (
+    <div>
+      <pre>{JSON.stringify(data, null, 2)}</pre>
+    </div>
+  );
+}
+```
+
+The code to make an **unauthenticated** HTTP GET call to the _API_ looks very similar:
+
+```tsx
+"use client";
+
+import { useApi } from "components/common-client";
+
+interface GetHealthResult {
+  ok: boolean;
+  imageTag: string;
+  updatedAt: string;
+}
+
+export function MyComponent() {
+  const { isLoading, error, data } = useApi<GetHealthResult>({
+    path: `/v1/health`, // the path to an HTTP GET endpoint exposed by the API server
+    unauthenticated: true, // do not attach the access token to the API request
+  });
+  if (isLoading) return <div>Loading...</div>;
+  if (error) throw error;
+
+  return (
+    <div>
+      <pre>{JSON.stringify(data, null, 2)}</pre>
+    </div>
+  );
+}
+```
+
+The `useApi` hook allows you to specify an `afterSuccess` callback, which is called immediately after a successful response to the HTTP GET request is received. It is a convenient place to trigger any client-side modifications of state, for example:
+
+```ts
+export function MyComponent() {
+  const [isPayingCustomer, setIsPayingCustomer] = useState<boolean | undefined>(
+    undefined
+  );
+  const { isLoading, error, data } = useApi<GetMeResponse>({
+    path: `/v1/me`,
+    afterSuccess: async (me) => {
+      const paying =
+        me.tenants[0]?.plan.stripeSubscription?.status === "active";
+      setIsPayingCustomer(paying);
+    },
+  });
+  // ...
+}
+```
+
+### Use the `useApiMutate` hook to make HTTP POST/PUT/DELETE requests to the _API_
+
+LetsGo provides the `useApi` hook to facilitate making HTTP GET requests to the _API_ via the `/api/proxy/[...path]` or `/api/unauthentiated-proxy/[...path]` API routes. The hook is a thin wrapper around [useSWRMutate](https://swr.vercel.app/).
+
+The code to make an **authenticated** HTTP POST call to the _API_ to create a new tenant looks like this:
+
+```tsx
+"use client";
+
+import { Tenant } from "@letsgo/tenant";
+import { useApiMutate } from "components/common-client";
+
+export function MyComponent() {
+  const {
+    isMutating: isCreatingNewTenant,
+    error: errorCreatingNewTenant,
+    data: newTenant,
+    trigger: createNewTenant,
+  } = useApiMutate<Tenant>({
+    path: "/v1/tenant", // the path to an HTTP POST endpoint exposed by the API server that creates new tenants
+    method: "POST",
+  });
+
+  if (isCreatingNewTenant) return <div>Creating tenant...</div>;
+  if (errorCreatingNewTenant) throw errorCreatingNewTenant;
+
+  if (newTenant) {
+    return (
+      <div>
+        New tenant created:
+        <pre>{JSON.stringify(newTenant, null, 2)}</pre>
+      </div>
+    );
+  } else {
+    const handleCreate = () => {
+      // The data passed to the createNewTenant becomes the HTTP POST request body
+      createNewTenant({
+        displayName: "Fluffy crocodile",
+      });
+    };
+    return <button onClick={handleCreate}>Create new tenant</button>;
+  }
+}
+```
+
+Similar to the `useApi` hook, the `useApiMutate` allows making **unauthenticatd** class to the _API_, for example:
+
+```ts
+export function MyComponent() {
+  const { isMutating, error, data, trigger } = useApiMutate<Tenant>({
+    path: "/v1/contact", // Submit a contact form
+    method: "POST",
+    unauthenticated: true, // do not attach the access token to the API request
+  });
+  // ...
+}
+```
+
+The `useApiMutate` also supports the `afterSuccess` callback:
+
+```ts
+export function MyComponent() {
+  const { showBanner, setShowBanner } = useState(false);
+  const { isMutating, error, data, trigger } = useApiMutate<Tenant>({
+    path: "/v1/tenant", // Create new tenant
+    method: "POST",
+    afterSuccess: async (data) => {
+      setShowBanner(true);
+    },
+  });
+  // ...
+}
 ```
