@@ -1,6 +1,6 @@
 ## Run locally
 
-During active development, running the components of your application locally is key to speeding up the change-build-run development cycle. LetsGo makes it easy to run the _web_, _API_, and _worker_ components which together make up all of the code of you application on your development machine against a DynamoDB database running in AWS:
+During active development, running the components of your application locally is key to speeding up the change-build-run development cycle. LetsGo makes it easy to run the _web_, _API_, and _worker_ components on your development machine against a DynamoDB database running in AWS:
 
 <img width="914" alt="image" src="https://github.com/tjanczuk/letsgo/assets/822369/c76e6c20-faeb-471e-9c00-7e7684875aa5">
 
