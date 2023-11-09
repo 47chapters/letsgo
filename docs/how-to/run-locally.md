@@ -8,9 +8,9 @@ This article assumes your app has already been [integrated with Auth0 for authen
 
 ### Prerequisities
 
-Before you can run your app locally, you must make sure that the DynamoDB database aleady exists in the cloud, and that the local components are configured.
+Before you can run your app locally, you must make sure that the DynamoDB database already exists in the cloud, and that the local components are configured.
 
-If you have already integrated your app with [Stripe](../tutorials/setting-up-payments-with-stripe.md) or [Auth0](../tutorials/setting-up-authentication-with-auth0.md), the DynamoDB database has already been created in the course of the many deployments to AWS. For completeness, however, the simplest way to ensure that the DynamoDB database exists is to [make a deployment of your entire app to AWS](../tutorials/first-deployment-to-aws.md).
+If you have integrated your app with [Stripe](../tutorials/setting-up-payments-with-stripe.md) or [Auth0](../tutorials/setting-up-authentication-with-auth0.md), the DynamoDB database has already been created in the course of the many deployments to AWS. For completeness, however, the simplest way to ensure that the DynamoDB database exists is to [make a deployment of your entire app to AWS](../tutorials/first-deployment-to-aws.md).
 
 Each of the _web_, _API_, and _worker_ components requires different configuration settings to run locally. They are described in the following sections.
 
@@ -32,7 +32,7 @@ AUTH0_CLIENT_SECRET={auth0-client-secret}
 AUTH0_SECRET={auth0-secret}
 ```
 
-The placeholder values for the last three `AUTH0_*` settings have been establishted when you [integrated with Auth0 to enable authentication](../tutorials/setting-up-authentication-with-auth0.md).
+The placeholder values for the last three `AUTH0_*` settings have been established when you [integrated with Auth0 to enable authentication](../tutorials/setting-up-authentication-with-auth0.md).
 
 #### The _API_ component
 
@@ -80,7 +80,7 @@ LETSGO_API_URL=http://localhost:3001
 LETSGO_LOCAL_QUEUE_URL=http://localhost:3002
 ```
 
-These settings allow the code you write in the _worker_ component to call the _API_ endpoints as well as enqueue new, asynchronous work items for itself using the [@letsgo/queue](../reference/letsgo-queue.md) package.
+These settings allow the code you write in the _worker_ component to call the _API_ endpoints as well as enqueue new, asynchronous work for itself using the [@letsgo/queue](../reference/letsgo-queue.md) package.
 
 In some situations, the worker may need to call Stripe using the [@letsgo/stripe](../reference/letsgo-stripe.md) package. In this case, you must provide the same set of Stripe-related configuration settings to the _worker_ as you did for the _API_ component. In the most general case:
 
@@ -118,9 +118,10 @@ yarn dev
 
 This will:
 
+- Rebuild anythng that needs rebuilding.
 - Run the _web_ component as a plain Node.js HTTP server listening on http://localhost:3000. You can navigate to it in the browser.
 - Run the _API_ component as a plain Node.js HTTP server listening on http://localhost:3001. You can call `curl http://localhost:3001/v1/health` to get the health information.
-- Run the _worker_ component as a plain Node.js HTTP server listening on http://localhost:3002. You can use the [@letsgo/queue](../reference/letsgo-queue.md) package to enqueue work for it from the code of the _API_ or _worker_ component.
+- Run the _worker_ component as a plain Node.js HTTP server listening on http://localhost:3002. You can use the [@letsgo/queue](../reference/letsgo-queue.md) package to enqueue work for it from the code of the _API_ or _worker_ components.
 - Watch for any changes in the file system of these components _and its dependencies_, and rebuild and restart the components as necessary.
 - For the _web_ component, the _fast refresh_ mechanims is used that immediately reflects any changes in the code of the _web_ component without the need to refresh the browser window.
 
@@ -128,7 +129,7 @@ This will:
 
 ### Run individual components
 
-Instead of running _web_, _API_, and _worker_ components at once using `yarn dev`, you can run components individually. To do this, go to the `apps/web`, `apps/api`, or `apps/worker` directory, and run `yarn dev` from there.
+Instead of running _web_, _API_, and _worker_ components at once using `yarn dev` from the root directory of your project, you can run components individually. To do this, go to the `apps/web`, `apps/api`, or `apps/worker` directory, and run `yarn dev` from there to start the respective component.
 
 The reason you may prefer this method is to isolate the console output of the individual components into separate terminal windows for readability.
 
