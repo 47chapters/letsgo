@@ -17,6 +17,7 @@ How-Tos
 &nbsp;&nbsp;&nbsp;&nbsp;Develop the worker  
 &nbsp;&nbsp;&nbsp;&nbsp;Access data in the database from code  
 &nbsp;&nbsp;&nbsp;&nbsp;Access data in the database from the CLI  
+&nbsp;&nbsp;&nbsp;&nbsp;Process the contact form  
 &nbsp;&nbsp;&nbsp;&nbsp;Manage configuration  
 &nbsp;&nbsp;&nbsp;&nbsp;Manage multiple deployments  
 &nbsp;&nbsp;&nbsp;&nbsp;Manage trust and authentication  
