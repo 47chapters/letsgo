@@ -10,7 +10,7 @@ This article assumes your app has already been [integrated with Auth0 for authen
 
 Before you can run your app locally, you must make sure that the DynamoDB database already exists in the cloud, and that the local components are configured.
 
-If you have integrated your app with [Stripe](../tutorials/setting-up-payments-with-stripe.md) or [Auth0](../tutorials/setting-up-authentication-with-auth0.md), the DynamoDB database has already been created in the course of the many deployments to AWS. For completeness, however, the simplest way to ensure that the DynamoDB database exists is to [make a deployment of your entire app to AWS](../tutorials/first-deployment-to-aws.md).
+If you have integrated your app with [Stripe](../tutorials/setting-up-payments-with-stripe.md) or [Auth0](../tutorials/setting-up-authentication-with-auth0.md), the DynamoDB database has already been created in the course of the many deployments to AWS. For completeness, however, the simplest way to ensure that the DynamoDB database exists is to make the [first deployment to AWS](../tutorials/first-deployment-to-aws.md).
 
 Each of the _web_, _API_, and _worker_ components requires different configuration settings to run locally. They are described in the following sections.
 
