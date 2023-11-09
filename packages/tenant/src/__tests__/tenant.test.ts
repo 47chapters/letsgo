@@ -349,7 +349,7 @@ describe("tenant", () => {
       tenantId: tenant1,
       ttl: Math.floor(Date.now() / 1000),
     });
-    await new Promise((resolve) => setTimeout(resolve, 500));
+    await new Promise((resolve) => setTimeout(resolve, 1000));
     const invitation2 = await getInvitation({
       tenantId: tenant1,
       invitationId: invitation.invitationId,

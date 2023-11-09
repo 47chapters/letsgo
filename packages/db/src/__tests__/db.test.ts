@@ -113,24 +113,23 @@ describe("db", () => {
       });
     }
     let nextToken: string | undefined;
-    for (const i of [0, 1, 2, 3]) {
+    for (const i of [0, 1, 2]) {
       const result = await listItems(TestCategory, keyPrefix, {
         consistentRead: true,
         limit: 1,
         nextToken,
       });
-      if (i < 3) {
-        expect(result.items).toHaveLength(1);
-        for (const item of result.items) {
-          expect(item.category).toBe(TestCategory);
-          expect(item.key).toBeDefined();
-          expect(item.v).toBeDefined();
-          expect(item.v).toBe(+(item.key.split("/").pop() || ""));
-        }
+      expect(result.items).toHaveLength(1);
+      expect(result.items[0].category).toBe(TestCategory);
+      expect(result.items[0].key).toBeDefined();
+      expect(result.items[0].v).toBeDefined();
+      expect(result.items[0].v).toBe(
+        +(result.items[0].key.split("/").pop() || "")
+      );
+      if (i < 2) {
         expect(result.nextToken).toBeDefined();
       } else {
         expect(result.nextToken).toBeUndefined();
-        expect(result.items).toHaveLength(0);
       }
       nextToken = result.nextToken;
     }

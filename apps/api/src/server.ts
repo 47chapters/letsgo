@@ -1,4 +1,4 @@
-import { json, urlencoded, raw } from "body-parser";
+import { json, urlencoded } from "body-parser";
 import express from "express";
 import cors from "cors";
 import { errorHandler } from "./middleware/error-handler";
