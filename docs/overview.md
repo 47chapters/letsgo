@@ -8,7 +8,7 @@ You are running lean in the race with time to hang the shingle. You cut the prod
 
 Sounds familiar? Does it have to be this way? Can you start your startup on a solid foundation _without_ spending the time building it?
 
-This is where LetsGo comes in. It provides a boilerplate architecture and tooling that will put your startup on a solid foundation from day one. It will cut months of work leading to the launch, while allowing you to focus on the essence of your product. The day you let the fist customer in, you have no technical debt. As you grow, you can continue focusing your resources on what matters most: your customers and your product.
+This is where LetsGo comes in. It provides the boilerplate architecture and the tooling that will put your startup on a solid foundation from day one. It will cut months of work leading to the launch, while allowing you to focus on the essence of your product. The day you let the fist customer in, you have no technical debt. As you grow, you can continue focusing your resources on what matters most: your customers and your product.
 
 <img width="837" alt="image" src="https://github.com/tjanczuk/letsgo/assets/822369/f7fe2317-d7de-4698-b093-416a52a1a145">
 
