@@ -1,6 +1,6 @@
 ## Develop the worker
 
-The _worker_ component of the LetsGo boilerplate supports executing asynchronous work in the background, outside of the lifespan of an HTTP request. This work may include processing Stripe events delivered via a webhook, processing contact form submissions on the _web_, or other work that is specific to your application.
+The _worker_ component of the LetsGo boilerplate supports executing asynchronous work in the background, outside of the lifespan of an HTTP request. This work may include processing Stripe events delivered via a webhook, processing contact form submissions from the _web_ component, or other work that is specific to your application.
 
 <img width="836" alt="image" src="https://github.com/tjanczuk/letsgo/assets/822369/835f7840-da4a-4c2e-bd1a-50864fb60c47">
 
@@ -10,11 +10,11 @@ This article assumes you have [integrated with Stripe to process payments](../tu
 
 The _worker_ component is an [AWS Lambda handler](https://docs.aws.amazon.com/lambda/latest/dg/typescript-handler.html) implemented in [TypeScript](https://www.typescriptlang.org/).
 
-The boilerplate LetsGo _worker_ implementation provides a a simple message routing mechanism based on the `type` property of the message the handler receives to process. The scaffolding breaks down the routing logic all the way to the specific Stripe events generated in the lifecycle of a Stripe subscription, but leaves the processing of those events unimplemented. You need to add custom processing logic to the Stripe events that are relevant to your application.
+The boilerplate LetsGo _worker_ implementation provides a simple message routing mechanism based on the `type` property of the received message. The scaffolding breaks down the routing logic all the way to the specific Stripe events generated in the lifecycle of a Stripe subscription, but leaves the processing logic of those events unimplemented. You need to add custom processing logic to the Stripe events that are relevant to your application.
 
 In the course of development of your app, you may be adding support for custom message types to the worker.
 
-When you [deploy your app to AWS](../tutorials/first-deployment-to-aws.md), the _worker_ component is packaged as a [Docker](https://www.docker.com/) image and deployed as an [AWS Lambda function](https://aws.amazon.com/pm/lambda). In addition, there is an [AWS SQS Simple Queue](https://aws.amazon.com/sqs/) in front of the Lambda function. New messages, regardless of their source, are first enqeued in SQS, and from there picked up for processing by a [Lambda Event Source Mapping](https://docs.aws.amazon.com/lambda/latest/dg/with-sqs.html). This mechanism supports throttling and error handling of message processing.
+When you [deploy your app to AWS](../tutorials/first-deployment-to-aws.md), the _worker_ component is packaged as a [Docker](https://www.docker.com/) image and deployed as an [AWS Lambda function](https://aws.amazon.com/pm/lambda). In addition, there is an [AWS SQS Standard Queue](https://aws.amazon.com/sqs/) in front of the Lambda function. New messages, regardless of their source, are first enqeued in SQS, and from there picked up for processing by a [Lambda Event Source Mapping](https://docs.aws.amazon.com/lambda/latest/dg/with-sqs.html) which invokes the Lambda handler function. This mechanism supports throttling and error handling of message processing.
 
 When [running locally](./run-locally.md), the _worker_ component is hosted as a plain [Node.js](https://nodejs.org/) HTTP server on `http://localhost:3002`. Unlike in the cloud, there is no queue in front of the _worker_ component when running locally. Any messages "enqueued" for the worker using the [@letsgo/queue](../reference/letsgo-queue.md) package will be immediately passed to the worker to process. This means there is no fidelity with any of the scalability/throttling/failure behaviors you would expect if the queue were present. In particular, messages that fail during processing are dumped as opposed to being re-tried or sent to a dead letter queue.
 
@@ -70,7 +70,7 @@ export interface OrderNewMessage extends Message {
 }
 ```
 
-Next, add a new `apps/worker/handlers/newOrderHandler.ts` file to the worker that implements the handler for the new message type, e.g.:
+Next, add a new `apps/worker/handlers/orderNewHandler.ts` file to the worker that implements the handler for the new message type, e.g.:
 
 ```typescript
 import { OrderNewMessage, Message } from "@letsgo/types";
@@ -182,7 +182,7 @@ export const myMessageHandler: MessageHandler<Message> = async (
 };
 ```
 
-You can leave the calls to `sendSlackMessage` in code - they become a no-op if the `LETSGO_SLACK_URL` variable is not defined in the environemnt.
+You can leave the calls to `sendSlackMessage` in the code - they become a no-op if the `LETSGO_SLACK_URL` variable is not defined in the environment.
 
 ### Related topics
 
