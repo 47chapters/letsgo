@@ -2,6 +2,8 @@ You have a great idea and you are starting a startup that will change the world.
 
 You are running lean in the race with time to hang the shingle. You cut the product scope to the bare minimum of the MVP. Even so, a lot of work remains. You start to cut corners where possible. A one-off, manual deployment of your app to AWS. Pricing page with fake signup buttons just to see if people click. Running async work in the web tier on a shoestring. The day you are ready for the first customer, you already have a mountain of technical debt. That debt will take ages to address once the engine is running. And it will compete for your time with all the product work your customers expect.
 
+![image](https://github.com/tjanczuk/letsgo/assets/822369/86a44b85-00da-49a7-b91f-7bc71d4406b1)
+
 Sounds familiar? Does it have to be this way? Can you start your startup on a solid foundation _without_ spending the time building it?
 
 This is where LetsGo comes in. It provides a boilerplate architecture and tooling that will put your startup on a solid foundation from day one. It will cut months of work leading to the launch, while allowing you to focus on the essence of your product. The day you let the fist customer in, you have no technical debt. As you grow, you can continue focusing your resources on what matters most: your customers and your product.
