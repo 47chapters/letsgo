@@ -18,6 +18,10 @@ When [running locally](./run-locally.md), the _API_ component is hosted as a pla
 
 When you [deploy your app to AWS](../tutorials/first-deployment-to-aws.md), the _API_ component is packaged as a [Docker](https://www.docker.com/) image and deployed using [AWS App Runner](https://aws.amazon.com/apprunner/).
 
+### Location
+
+The _API_ code is located in the `apps/api` directory.
+
 ### APIs provided by LetsGo
 
 LetsGo boilerplate comes with the following APIs.
@@ -137,5 +141,5 @@ The way `validateSchema()` is configured in the example above, the request must 
 
 [Enqueue asynchronous work](./enqueue-asynchronous-work.md)  
 [Access data in the database from code](./access-data-in-the-database-from-code.md)  
-[Develop the front-end](./delevop-the-front-end.md)  
+[Develop the frontend](./develop-the-frontend.md)  
 [Develop the worker](./develop-the-worker.md)

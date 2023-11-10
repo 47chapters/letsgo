@@ -8,30 +8,6 @@ import {
 } from "aws-lambda";
 import { handlers, unrecognizedMessageTypeHandler } from "./handlers";
 
-// Uncomment as necessary to access the DB:
-// import { getItem, putItem, deleteItem, listItems } from "@letsgo/db";
-
-// Uncomment to access the queue
-// import { enqueue } from "@letsgo/queue";
-
-// Uncomment as necessary to access the API:
-// import { getAccessToken } from "./api";
-
-/**
- * Example of calling the API from the worker
- */
-// const accessToken = await getAccessToken();
-// const url = `${process.env.LETSGO_API_URL}/v1/me`;
-// const authorization = `Bearer ${accessToken}`;
-// const apiResult = await fetch(url, { headers: { authorization } });
-// if (!apiResult.ok) {
-//   throw new Error(
-//     `API call failed: HTTP ${apiResult.status} ${apiResult.statusText}`
-//   );
-// }
-// const me = await apiResult.json();
-// console.log("API call succeeded:", me);
-
 const processRecord = async (
   record: SQSRecord,
   event: SQSEvent,
