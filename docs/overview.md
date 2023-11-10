@@ -23,7 +23,7 @@ LetsGo does it by providing a prescriptive architecture implemented with a moder
 - A set of modern yet robust technologies including Next.js and Node.js that **make your days exciting and the nights boring**.
 - LetGo is **OSS under MIT**, so there is no vendor lock-in and you can always see what makes it tick.
 
-LetsGo isn't for everybody. Not all apps have the shape that fits LetsGo architecture. The choice of technologies does not make the cut for all scenarios. Yet this architecture and tech stack works for 80% of the products out there.
+LetsGo isn't for everybody. Not all apps have the shape that fits LetsGo architecture. The choice of technologies does not make the cut for all scenarios. Yet this architecture and tech stack works for the 80% of the products out there.
 
 Is LetsGo for you? The best way to find out is to go over the tutorials, starting from [Your first deployment to AWS](tutorials/first-deployment-to-aws.md). You may find that by spending an hour you saved yourself a few months of work.
 
