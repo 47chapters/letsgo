@@ -166,20 +166,15 @@ Notice how in the `listItems` calls above the second parameter is a _prefix_ of 
 The LetsGo database can automatically expire items that are stored. This is done by specifying a special `ttl` property with the number of seconds after which the item should be removed:
 
 ```typescript
-const order: Order = {
-  category: "order",
-  key: "ord-123",
-  orderId: "ord-123",
-  customerId: "cus-456",
-  total: 12,
-  items: ["cat", "dog"],
+await putItem({
+  category: "session",
+  key: "ses-123",
+  accessToken: "ey...",
   ttl: 3600,
-};
-
-await putItem(order);
+});
 ```
 
-In the example above, the order stored in the database will disappear after 1 hour.
+In the example above, the session stored in the database will disappear after 1 hour.
 
 ## Related topics
 
