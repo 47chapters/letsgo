@@ -8,7 +8,7 @@ This is where LetsGo comes in. It provides a boilerplate architecture and toolin
 
 <img width="837" alt="image" src="https://github.com/tjanczuk/letsgo/assets/822369/f7fe2317-d7de-4698-b093-416a52a1a145">
 
-LetsGo does it by providing a prescriptive architecture implemented with a modern set of technologies and a robust operational tooling. On day one you get more than most startups build in the first year or two of existence. This is what LetsGo provides you:
+LetsGo does it by providing a prescriptive architecture implemented with a modern set of technologies and a robust operational tooling. On day one you get more than most startups build in the first year or two of existence. This is what LetsGo provides you with:
 
 - An application architecture with a **web, HTTP API, worker, and a database components**, all wired up and ready to go.
 - A **devops CLI** that helps you set up CI/CD and manage several deployments of your app in AWS to help you segregate your production and development workloads or to support dedicated deployments for your customers.
