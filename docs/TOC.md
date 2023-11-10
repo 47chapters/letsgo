@@ -16,7 +16,7 @@ How-Tos
 &nbsp;&nbsp;&nbsp;&nbsp;[Develop the API](how-to/develop-the-api.md)  
 &nbsp;&nbsp;&nbsp;&nbsp;[Develop the worker](how-to/develop-the-worker.md)  
 &nbsp;&nbsp;&nbsp;&nbsp;[Enqueue asynchronous work](how-to/enqueue-asynchronous-work.md)  
-&nbsp;&nbsp;&nbsp;&nbsp;Access data in the database from code  
+&nbsp;&nbsp;&nbsp;&nbsp;[Access data in the database from code](how-to/access-data-in-the-database-from-code.md)  
 &nbsp;&nbsp;&nbsp;&nbsp;Access data in the database from the CLI  
 &nbsp;&nbsp;&nbsp;&nbsp;Process the contact form  
 &nbsp;&nbsp;&nbsp;&nbsp;Manage configuration  
@@ -39,6 +39,7 @@ Background Concepts
 &nbsp;&nbsp;&nbsp;&nbsp;What is provided and what is not  
 &nbsp;&nbsp;&nbsp;&nbsp;Technology choices  
 &nbsp;&nbsp;&nbsp;&nbsp;Tenants and users  
+&nbsp;&nbsp;&nbsp;&nbsp;Data model  
 &nbsp;&nbsp;&nbsp;&nbsp;Authentication, authorization, and Auth0 integration  
 &nbsp;&nbsp;&nbsp;&nbsp;Pricing models and Stripe integration  
 &nbsp;&nbsp;&nbsp;&nbsp;DevOps and development lifecycle  
