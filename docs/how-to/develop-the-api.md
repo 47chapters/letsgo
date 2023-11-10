@@ -1,6 +1,6 @@
 ## Develop the API
 
-The _API_ component of the LetsGo boilerplate implements the HTTP APIs your application exposes. This includes APIs that are consumed from the _web_ component, as well as APIs designed to be called directly from your customer or partner applications.
+The _API_ component of the LetsGo boilerplate implements the HTTP APIs your application exposes. This includes APIs that are consumed from the _web_ component, as well as APIs designed to be called by your customer or partner applications.
 
 <img width="831" alt="image" src="https://github.com/tjanczuk/letsgo/assets/822369/e6787a3a-a1f6-47be-bf95-d19166494b67">
 
@@ -8,11 +8,11 @@ This article assumes you have [integrated with Auth0 to enable user authenticati
 
 ### Technology
 
-The _API_ component is an [Espress](https://expressjs.com/) server implemented in [TypeScript](https://www.typescriptlang.org/).
+The _API_ component is an [Express](https://expressjs.com/) server implemented in [TypeScript](https://www.typescriptlang.org/).
 
 The boilerplate LetsGo provides includes endpoints required for tenant and user management, support for managing the lifecycle of Stripe subscriptions, including processing of Stripe webhooks, and support for contact form submissions from the _web_ component.
 
-In the course of development of your app, you be adding new routes to the server to expose the HTTP APIs specific to your application.
+In the course of development of your app, you will be adding new routes to the server to expose the HTTP APIs specific to your application.
 
 When [running locally](./run-locally.md), the _API_ component is hosted as a plain [Node.js](https://nodejs.org/) http server on `http://localhost:3001`.
 
@@ -36,7 +36,7 @@ Tenant management:
 
 - `POST /v1/tenant` - creates a new tenant.
 - `DELETE /v1/tenant/:tenantId` - soft-deletes a tenant.
-- `GET /v1/tenant/:tenantId/user` - get all users authorize to manage the tenant.
+- `GET /v1/tenant/:tenantId/user` - get all users authorized to manage the tenant.
 - `DELETE /v1/tenant/:tenantId/user/:identityId` - remove a user from a tenant.
 - `POST /v1/tenant/:tenantId/invitation` - create an invitation to join a tenant.
 - `GET /v1/tenant/:tenantId/invitation` - get all active invitations to join a tenant.
@@ -71,11 +71,11 @@ route.get(`/v1/foo/bar`, authenticate(), async (req, res, next) => {
 });
 ```
 
-The `authenticate()` middleware rejects the request with HTTP 401 if the access token is missing, not trusted, or otherwise invalid. Othwerwise it adds the `req.user` property to the request.
+The `authenticate()` middleware rejects the request with HTTP 401 if the access token is missing, not trusted, or otherwise invalid. Otherwise, it adds the `req.user` property to the request.
 
 ### The `authorizeTenant()` middleware
 
-LetsGo not provide an generic authorization model for your application. However, the `authorizeTenant()` middleware can be used to check if the caller has the permissions to manage a particular tenant. The middleware can only be used on routes that have `:tenantId` as one of the path segments, which means they represent an operation that is specific to a particular tenant. The `authorizeTenant()` middleware can only used when preceeded by the `authenticate()` middleware:
+LetsGo does not prescribe any specific authorization model for your application. However, the `authorizeTenant()` middleware can be used to check if the caller has the permissions to manage a particular tenant. The middleware can only be used on routes that have `:tenantId` as one of the path segments, which means they represent an operation that is specific to a particular tenant. The `authorizeTenant()` middleware can only be used when preceeded by the `authenticate()` middleware:
 
 ```ts
 import { authenticate, AuthenticatedRequest } from "./middleware/authenticate";
@@ -137,5 +137,5 @@ The way `validateSchema()` is configured in the example above, the request must 
 
 [Enqueue asynchronous work](./enqueue-asynchronous-work.md)  
 [Access data in the database from code](./access-data-in-the-database-from-code.md)  
-[Develop the front-end](./delevop-the-front-end.md)
+[Develop the front-end](./delevop-the-front-end.md)  
 [Develop the worker](./develop-the-worker.md)
