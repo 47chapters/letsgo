@@ -178,8 +178,8 @@ In the example above, the session stored in the database will disappear after 1 
 
 ## Related topics
 
-[Data model](../backgound/data-model.md)
-[Access data in the database from the CLI](./access-data-in-the-database-from-the-cli.md)
+[Data model](../backgound/data-model.md)  
+[Access data in the database from the CLI](./access-data-in-the-database-from-the-cli.md)  
 [Enqueue asynchronous work](./enqueue-asynchronous-work.md)  
 [Develop the api](./develop-the-api.md)  
 [Develop the worker](./develop-the-worker.md)
