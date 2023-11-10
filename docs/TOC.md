@@ -15,7 +15,7 @@ How-Tos
 &nbsp;&nbsp;&nbsp;&nbsp;[Develop the frontend](how-to/develop-the-frontend.md)  
 &nbsp;&nbsp;&nbsp;&nbsp;[Develop the API](how-to/develop-the-api.md)  
 &nbsp;&nbsp;&nbsp;&nbsp;[Develop the worker](how-to/develop-the-worker.md)  
-&nbsp;&nbsp;&nbsp;&nbsp;Enqueue asynchronous work  
+&nbsp;&nbsp;&nbsp;&nbsp;[Enqueue asynchronous work](how-to/enqueue-asynchronous-work.md)  
 &nbsp;&nbsp;&nbsp;&nbsp;Access data in the database from code  
 &nbsp;&nbsp;&nbsp;&nbsp;Access data in the database from the CLI  
 &nbsp;&nbsp;&nbsp;&nbsp;Process the contact form  
