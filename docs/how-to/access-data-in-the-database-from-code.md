@@ -1,6 +1,6 @@
 ## Access data in the database from code
 
-LetsGo provides the `@letsgo/db` package in `packages/db` directory to facilitate accessing [data in the database](../backgound/data-model.md). It offers basic CRUD operations as well as listing of items in the database. If you need more advanced constructs, you will need to add new functions to the package.
+LetsGo provides the `@letsgo/db` package in the `packages/db` directory to facilitate accessing [data in the database](../backgound/data-model.md). It offers basic CRUD operations as well as listing of items in the database. If you need more advanced constructs, you will need to add new functions to the package.
 
 <img width="844" alt="image" src="https://github.com/tjanczuk/letsgo/assets/822369/490eda3c-e494-4958-9749-252c8ed8fe31">
 
@@ -131,9 +131,9 @@ console.log("ORDERS", result.items);
 
 ### Modeling is-part-of relationships
 
-In application data modelling it is very common to encouter one-to-many or many-to-many relationships between entities. For example, in the [LetsGo tenancy model](../backgound/tenants-and-users.md) there is a many-to-many relationship between tenants and users of the system.
+In application data modelling it is very common to encounter one-to-many or many-to-many relationships between entities. For example, in the [LetsGo tenancy model](../backgound/tenants-and-users.md) there is a many-to-many relationship between tenants and users of the system.
 
-One useful pattern for representing such relationships in the LetsGo database is using hierarchical `key` properties.
+One useful pattern for representing such relationships in the LetsGo database is through the use of hierarchical `key` properties.
 
 Consider there are two users in the system: `usr-1`, `usr-2`, and two tenants: `ten-1`, `ten-2`. Let's then assume that `usr-1` has access to both tenants, and `usr-2` only to `ten-2`.
 
@@ -160,6 +160,26 @@ const usersWithAccessToTen1 = await listItems<any>("tenant-user", "/ten-1/");
 ```
 
 Notice how in the `listItems` calls above the second parameter is a _prefix_ of a hierarchical `key`.
+
+### Automatic expiry
+
+The LetsGo database can automatically expire items that are stored. This is done by specifying a special `ttl` property with the number of seconds after which the item should be removed:
+
+```typescript
+const order: Order = {
+  category: "order",
+  key: "ord-123",
+  orderId: "ord-123",
+  customerId: "cus-456",
+  total: 12,
+  items: ["cat", "dog"],
+  ttl: 3600,
+};
+
+await putItem(order);
+```
+
+In the example above, the order stored in the database will disappear after 1 hour.
 
 ## Related topics
 
