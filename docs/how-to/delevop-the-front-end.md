@@ -12,7 +12,7 @@ The _web_ component is a [Next.js](https://nextjs.org/) application implemented 
 
 The boilerplate LetsGo provides does not rely on any specific React UI framework. All components are implemented in plain HTML with minimal inline styling. The focus is on designing the right routing structure and logic with the expectation you will bring your own UI framework to create a branded experience.
 
-When [running locally](./run-locally.md), the _web_ component is hosted as a plain [Node.js]() http server on `http://localhost:3000`.
+When [running locally](./run-locally.md), the _web_ component is hosted as a plain [Node.js](https://nodejs.org/) http server on `http://localhost:3000`.
 
 When you [deploy your app to AWS](../tutorials/first-deployment-to-aws.md), the _web_ component is packaged as a [Docker](https://www.docker.com/) image and deployed using [AWS App Runner](https://aws.amazon.com/apprunner/).
 

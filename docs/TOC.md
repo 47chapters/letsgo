@@ -13,7 +13,7 @@ How-Tos
 &nbsp;&nbsp;&nbsp;&nbsp;[Run locally](how-to/run-locally.md)  
 &nbsp;&nbsp;&nbsp;&nbsp;[Run tests](how-to/run-tests.md)  
 &nbsp;&nbsp;&nbsp;&nbsp;[Develop the front-end](how-to/delevop-the-front-end.md)  
-&nbsp;&nbsp;&nbsp;&nbsp;Develop the API  
+&nbsp;&nbsp;&nbsp;&nbsp;[Develop the API](how-to/develop-the-api.md)  
 &nbsp;&nbsp;&nbsp;&nbsp;Develop the worker  
 &nbsp;&nbsp;&nbsp;&nbsp;Access data in the database from code  
 &nbsp;&nbsp;&nbsp;&nbsp;Access data in the database from the CLI  
