@@ -12,7 +12,7 @@ How-Tos
 &nbsp;&nbsp;&nbsp;&nbsp;[How to use LetsGo?](how-to/how-to-use-letsgo.md)  
 &nbsp;&nbsp;&nbsp;&nbsp;[Run locally](how-to/run-locally.md)  
 &nbsp;&nbsp;&nbsp;&nbsp;[Run tests](how-to/run-tests.md)  
-&nbsp;&nbsp;&nbsp;&nbsp;Develop the front-end  
+&nbsp;&nbsp;&nbsp;&nbsp;[Develop the front-end](how-to/delevop-the-front-end.md)  
 &nbsp;&nbsp;&nbsp;&nbsp;Develop the API  
 &nbsp;&nbsp;&nbsp;&nbsp;Develop the worker  
 &nbsp;&nbsp;&nbsp;&nbsp;Access data in the database from code  
