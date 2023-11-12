@@ -176,10 +176,14 @@ await putItem({
 
 In the example above, the session stored in the database will disappear after 1 hour.
 
-## Related topics
+### Access data using the LetsGo CLI
+
+The [LetsGo CLI](../reference/letsgo-cli.md) supports the `yarn ops db` command which is a wrapper around the `@letsgo/db` package. You can use this CLI command to manipulate data in the database from the command line and from scripts.
+
+### Related topics
 
 [Data model](../backgound/data-model.md)  
-[Access data in the database from the CLI](./access-data-in-the-database-from-the-cli.md)  
+[LetsGo CLI](../reference/letsgo-cli.md)  
 [Enqueue asynchronous work](./enqueue-asynchronous-work.md)  
 [Develop the api](./develop-the-api.md)  
 [Develop the worker](./develop-the-worker.md)

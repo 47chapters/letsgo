@@ -292,7 +292,7 @@ export function MyComponent() {
 }
 ```
 
-## Related topics
+### Related topics
 
 [Develop the api](./develop-the-api.md)  
 [Develop the worker](./develop-the-worker.md)

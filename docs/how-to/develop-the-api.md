@@ -137,7 +137,7 @@ route.post(
 
 The way `validateSchema()` is configured in the example above, the request must have a `newTaxRate` property in the body, may have a string `reason` property, the query parameter `responseType` must be present and set to either `short` or `full`, and the `transaction-id` request header must be present with the value matching the provided regex. If any of these conditions are not met, the request is rejected with an HTTP 400 response.
 
-## Related topics
+### Related topics
 
 [Enqueue asynchronous work](./enqueue-asynchronous-work.md)  
 [Access data in the database from code](./access-data-in-the-database-from-code.md)  

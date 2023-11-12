@@ -17,7 +17,6 @@ How-Tos
 &nbsp;&nbsp;&nbsp;&nbsp;[Develop the worker](how-to/develop-the-worker.md)  
 &nbsp;&nbsp;&nbsp;&nbsp;[Enqueue asynchronous work](how-to/enqueue-asynchronous-work.md)  
 &nbsp;&nbsp;&nbsp;&nbsp;[Access data in the database from code](how-to/access-data-in-the-database-from-code.md)  
-&nbsp;&nbsp;&nbsp;&nbsp;Access data in the database from the CLI  
 &nbsp;&nbsp;&nbsp;&nbsp;Process the contact form  
 &nbsp;&nbsp;&nbsp;&nbsp;Manage configuration  
 &nbsp;&nbsp;&nbsp;&nbsp;Manage multiple deployments  
@@ -50,7 +49,7 @@ Reference
 &nbsp;&nbsp;&nbsp;&nbsp;/apps/web  
 &nbsp;&nbsp;&nbsp;&nbsp;/apps/api  
 &nbsp;&nbsp;&nbsp;&nbsp;/apps/worker  
-&nbsp;&nbsp;&nbsp;&nbsp;/apps/ops  
+&nbsp;&nbsp;&nbsp;&nbsp;LetsGo CLI (yarn ops)
 &nbsp;&nbsp;&nbsp;&nbsp;@letsgo/constants  
 &nbsp;&nbsp;&nbsp;&nbsp;@letsgo/db  
 &nbsp;&nbsp;&nbsp;&nbsp;@letsgo/pricing  
