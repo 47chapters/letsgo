@@ -17,7 +17,7 @@ How-Tos
 &nbsp;&nbsp;&nbsp;&nbsp;[Develop the worker](how-to/develop-the-worker.md)  
 &nbsp;&nbsp;&nbsp;&nbsp;[Enqueue asynchronous work](how-to/enqueue-asynchronous-work.md)  
 &nbsp;&nbsp;&nbsp;&nbsp;[Access data in the database from code](how-to/access-data-in-the-database-from-code.md)  
-&nbsp;&nbsp;&nbsp;&nbsp;Process the contact form  
+&nbsp;&nbsp;&nbsp;&nbsp;[Process the contact form](how-to/process-the-contact-form.md)  
 &nbsp;&nbsp;&nbsp;&nbsp;Manage configuration  
 &nbsp;&nbsp;&nbsp;&nbsp;Manage multiple deployments  
 &nbsp;&nbsp;&nbsp;&nbsp;Manage trust and authentication  
