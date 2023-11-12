@@ -1,8 +1,8 @@
 ## LetsGo - a Shoppify of software startups
 
-You have a great idea and you are starting a startup that will change the world.
+You have a great idea that will change the world.
 
-You are running lean in the race with time to hang the shingle. You cut the product scope to the bare minimum of the MVP. Even so, a lot of work remains. You start to cut corners where possible. A one-off, manual deployment of your app to AWS. Pricing page with fake signup buttons just to see if people click. Running async work in the web tier on a shoestring. The day you are ready for the first customer, you already have a mountain of technical debt. That debt will take ages to address once the engine is running. And it will compete for your time with all the product work your customers expect. Meanwhite, the competition that works _smarter_ will leave you in the dust.
+Time to market is key. You are running lean. MVP is your middle name. Even so, tons of work remain. You start to cut corners. A one-off, manual deployment to AWS. Freemium only, fake signup buttons. Running async work in the web tier. Then, the the first customer comes. Hurray! Yet, a mountain of technical debt remains. It takes months to address once the engine is running. Months you don't have. Customers demand features. Support clamors for help. Sales sells stuff you don't have. Marketing is a galaxy far, far, away. Meanwhile, the competition that works _smarter_ leaves you in the dust. So does your spouse and your dog.
 
 ![image](https://github.com/tjanczuk/letsgo/assets/822369/86a44b85-00da-49a7-b91f-7bc71d4406b1)
 
