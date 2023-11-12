@@ -18,6 +18,19 @@ When the contact form is used from an authenticated context (i.e. when a user is
 
 When the form is submitted, the data is first sent from the _web_ component to the _API_ component using the `POST /v1/contact` endpoint, and then enqueued for asynchronous processing by the _worker_ as the `letsgo:contact` message type. The worker dispatches the processing of the message to the [apps/worker/src/handlers/contactHandler.ts](../../apps/worker/src/handlers/contactHandler.ts).
 
+```mermaid
+sequenceDiagram
+  participant B as Browser<br>/contact
+  participant N as Next.js server
+  participant S as API server
+  participant W as Worker
+  B-->>N: POST /api/proxy/v1/contact
+  N-->>S: POST /v1/contact
+  S-->>W: enqueue({ type: 'letsgo:contact', ... })
+  S-->>N: HTTP 201
+  N-->>B: HTTP 201
+```
+
 The default implementation of the `contactHandler.ts` sends a formatted message to Slack, as long as the [Slack notifications are enabled](./develop-the-worker.md#increasing-visibility-with-slack-notifications).
 
 ### Implement custom contact form processing logic
