@@ -100,6 +100,14 @@ route.post(
 
 The `authorizeTenant()` middleware rejects the request with an HTTP 403 if the authenticated user making the call does not have permissions to manage the tenant identified by the `:tenantId` from the request path.
 
+The tenant permission check can be optionally turned off if the caller presents a token issued by one of the [built-in issuers](./manage-trust-and-authentication.md) with:
+
+```typescript
+authorizeTenant({ allowBuiltInIssuer: true });
+```
+
+This is useful if you intend the API to be called from [within the _worker_ component](./develop-the-worker.md) or using ad-hoc access tokens created using `yarn ops jwt`. However, bear in mind that it also greatly expands the class of callers who are authorized to use this API.
+
 ### The `validateSchema()` middleware
 
 LetsGo uses [Joi](https://joi.dev/) to validate the schema of the requests. The `validateSchema()` middleware is a wrapper around Joi that allows for validation of the request body, query parameters, and request headers.
