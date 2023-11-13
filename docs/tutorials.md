@@ -1,8 +1,6 @@
 ## Tutorials
 
-LetsGo has six tutorials in total, and it takes a focused workday to run through all of them.
-
-If you are faster (you are a 10x developer), take off early, beacuse you earned it: you saved yourself or your company a few months of work.
+LetsGo has six tutorials in total, and it takes a few hours to run through all of them.
 
 The recommended sequence of the tutorials to follow is this:
 
