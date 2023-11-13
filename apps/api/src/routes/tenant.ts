@@ -66,53 +66,57 @@ router.post("/", validateSchema(Schema.postTenant), async (req, res, next) => {
 });
 
 // Delete tenant
-router.delete("/:tenantId", authorizeTenant(), async (req, res, next) => {
-  try {
-    const request = req as AuthenticatedRequest;
-    const tenant = await getTenant({ tenantId: req.params.tenantId });
-    if (!tenant) {
-      next(createError(404, "Tenant not found"));
-      return;
-    }
+router.delete(
+  "/:tenantId",
+  authorizeTenant({ authorizeBuiltInIssuer: true }),
+  async (req, res, next) => {
+    try {
+      const request = req as AuthenticatedRequest;
+      const tenant = await getTenant({ tenantId: req.params.tenantId });
+      if (!tenant) {
+        next(createError(404, "Tenant not found"));
+        return;
+      }
 
-    const plan = getPlan(tenant.plan.planId);
-    if (plan?.usesStripe && tenant.plan.stripeSubscription) {
-      // Before deleting the tenant, cancel the Stripe subscription and put the tenant on the default
-      // plan in case it is ever undeleted
-      const response = await cancelSubscription({
-        subscriptionId: tenant.plan.stripeSubscription.subscriptionId,
-        identityId: request.user.identityId,
+      const plan = getPlan(tenant.plan.planId);
+      if (plan?.usesStripe && tenant.plan.stripeSubscription) {
+        // Before deleting the tenant, cancel the Stripe subscription and put the tenant on the default
+        // plan in case it is ever undeleted
+        const response = await cancelSubscription({
+          subscriptionId: tenant.plan.stripeSubscription.subscriptionId,
+          identityId: request.user.identityId,
+        });
+        // changes to existing Stripe subscriptions are immediate
+        setNewPlan(tenant, DefaultPlanId, request.user.identity);
+        delete tenant.plan.stripeSubscription;
+        await putTenant(tenant);
+      }
+
+      const deletedTenant = await deleteTenant({
+        tenantId: req.params.tenantId,
+        deletedBy: request.user.identity,
       });
-      // changes to existing Stripe subscriptions are immediate
-      setNewPlan(tenant, DefaultPlanId, request.user.identity);
-      delete tenant.plan.stripeSubscription;
-      await putTenant(tenant);
+
+      // Enqueue worker job to do any additional asynchronous work related to tenant deletion
+      await enqueue({
+        type: MessageType.TenantDeleted,
+        payload: {
+          tenant: deletedTenant,
+          cancelledPlanId: plan?.planId || tenant.plan.planId,
+        },
+      } as TenantDeletedMessage);
+
+      res.status(204).send();
+    } catch (e) {
+      next(e);
     }
-
-    const deletedTenant = await deleteTenant({
-      tenantId: req.params.tenantId,
-      deletedBy: request.user.identity,
-    });
-
-    // Enqueue worker job to do any additional asynchronous work related to tenant deletion
-    await enqueue({
-      type: MessageType.TenantDeleted,
-      payload: {
-        tenant: deletedTenant,
-        cancelledPlanId: plan?.planId || tenant.plan.planId,
-      },
-    } as TenantDeletedMessage);
-
-    res.status(204).send();
-  } catch (e) {
-    next(e);
   }
-});
+);
 
 // Initiate change of the tenant's payment method
 router.post(
   "/:tenantId/paymentmethod",
-  authorizeTenant(),
+  authorizeTenant({ authorizeBuiltInIssuer: true }),
   async (req, res, next) => {
     try {
       const { tenantId } = req.params;
@@ -155,7 +159,7 @@ router.post(
 // payment intent setup flow (started in the HTTP POST to the same URL) is completed.
 router.get(
   "/:tenantId/paymentmethod",
-  authorizeTenant(),
+  authorizeTenant({ authorizeBuiltInIssuer: true }),
   validateSchema(Schema.getPaymentMethod),
   async (req, res, next) => {
     try {
@@ -229,7 +233,7 @@ router.get(
 // Initiate change of the tenant's plan
 router.post(
   "/:tenantId/plan",
-  authorizeTenant(),
+  authorizeTenant({ authorizeBuiltInIssuer: true }),
   validateSchema(Schema.postPlan),
   async (req, res, next) => {
     try {
@@ -333,34 +337,38 @@ router.post(
 );
 
 // Get all identities associated with a tenant
-router.get("/:tenantId/user", authorizeTenant(), async (req, res, next) => {
-  const { details } = req.query;
-  try {
-    const response = await getIdentitiesOfTenant({
-      tenantId: req.params.tenantId,
-    });
-    const identities: any[] = response.map((i) => ({
-      ...i,
-      identityId: serializeIdentity(i),
-    }));
-    if (details !== undefined) {
-      for (const identity of identities) {
-        identity.user = (
-          await getIdentity({ identityId: identity.identityId })
-        )?.user;
+router.get(
+  "/:tenantId/user",
+  authorizeTenant({ authorizeBuiltInIssuer: true }),
+  async (req, res, next) => {
+    const { details } = req.query;
+    try {
+      const response = await getIdentitiesOfTenant({
+        tenantId: req.params.tenantId,
+      });
+      const identities: any[] = response.map((i) => ({
+        ...i,
+        identityId: serializeIdentity(i),
+      }));
+      if (details !== undefined) {
+        for (const identity of identities) {
+          identity.user = (
+            await getIdentity({ identityId: identity.identityId })
+          )?.user;
+        }
       }
+      const body: GetTenantUsersResponse = { identities };
+      res.json(body);
+    } catch (e) {
+      next(e);
     }
-    const body: GetTenantUsersResponse = { identities };
-    res.json(body);
-  } catch (e) {
-    next(e);
   }
-});
+);
 
 // Remove an identity from tenant
 router.delete(
   "/:tenantId/user/:identityId",
-  authorizeTenant(),
+  authorizeTenant({ authorizeBuiltInIssuer: true }),
   async (req, res, next) => {
     try {
       const response = await getIdentitiesOfTenant({
@@ -391,7 +399,7 @@ router.delete(
 // Create an invitation to join the tenant
 router.post(
   "/:tenantId/invitation",
-  authorizeTenant(),
+  authorizeTenant({ authorizeBuiltInIssuer: true }),
   async (req, res, next) => {
     try {
       const request = req as AuthenticatedRequest;
@@ -410,7 +418,7 @@ router.post(
 // Get active invitations to join the tenant
 router.get(
   "/:tenantId/invitation",
-  authorizeTenant(),
+  authorizeTenant({ authorizeBuiltInIssuer: true }),
   async (req, res, next) => {
     try {
       const invitations = await getInvitations({
@@ -429,7 +437,7 @@ router.get(
 // Delete invitation to join a tenant
 router.delete(
   "/:tenantId/invitation/:invitationId",
-  authorizeTenant(),
+  authorizeTenant({ authorizeBuiltInIssuer: true }),
   async (req, res, next) => {
     try {
       await deleteInvitation({

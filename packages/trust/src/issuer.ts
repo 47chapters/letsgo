@@ -51,6 +51,9 @@ export function isPkiIssuer(issuer: any): issuer is PkiIssuer {
 export const getPkiIss = (issuer: PkiCredentials) =>
   `${VendorPrefix}:${issuer.kid}`;
 
+export const isBuiltInIssuer = (iss: string) =>
+  iss.startsWith(`${VendorPrefix}:`);
+
 async function createPkiCredentials(): Promise<PkiCredentials> {
   return new Promise((resolve, reject) => {
     const privateKeyEncoding: any = {

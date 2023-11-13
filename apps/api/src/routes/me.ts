@@ -10,11 +10,18 @@ import { RequestHandler } from "express";
 import { AuthenticatedRequest } from "../middleware/authenticate";
 import { pruneResponse } from "./common";
 import { enqueue } from "@letsgo/queue";
+import { isBuiltInIssuer } from "@letsgo/trust";
+import { JwtPayload } from "jsonwebtoken";
 
 export const meHandler: RequestHandler = async (req, res, next) => {
   try {
     const request = req as AuthenticatedRequest;
-    const noTenantProvisioning = req.query.noTenantProvisioning !== undefined;
+    const noTenantProvisioning =
+      req.query.noTenantProvisioning !== undefined ||
+      // Do not provision tenants for built-in issuers
+      isBuiltInIssuer(
+        (request.user?.decodedJwt?.payload as JwtPayload).iss || ""
+      );
     let tenants = await getTenantsOfIdentity({
       identity: request.user.identity,
     });
