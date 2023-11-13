@@ -16,7 +16,7 @@ GET /v1/me
 Authorization: Bearer ey....
 ```
 
-The model LetsGo is based on requires that the access token:
+The LetsGo model requires that the access token:
 
 1. Is in [JWT](https://datatracker.ietf.org/doc/html/rfc7519) format.
 1. Is signed by an issuer that is trusted.
@@ -76,13 +76,17 @@ You can conveniently generate such access tokens on the fly when making HTTP cal
 curl http://localhost:3001/v1/foo/bar -H "Authorization: Bearer $(yarn -s ops jwt)"
 ```
 
-You can also create those access tokens in code using the `getAccessToken` function exposed by the `@letsgo/trust` package:
+You can also create those access tokens in code using the `createJwt` function exposed by the `@letsgo/trust` package:
 
 ```typescript
-import { getAccessToken } from "@letsgo/trust";
+import { createJwt } from "@letsgo/trust";
 
-const accessToken = await getAccessToken();
+const accessToken = await createJwt();
 ```
+
+### Audience
+
+For the access token to be trusted, the `aud` claim must match the value that your deployment expects. LetsGo uses a logical audience of `letsgo:service` by default. You can change this value to be something else using the `LETSGO_API_AUDIENCE` configuration property for the _API_ component, and the `AUTH0_AUDIENCE` configuration property for the _web_ component (assuming you have [configured Auth0 as your trusted issuer](../tutorials/setting-up-authentication-with-auth0.md)).
 
 ### Authorization
 
