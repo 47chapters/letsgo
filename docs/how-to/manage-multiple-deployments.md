@@ -8,7 +8,7 @@ You can maintain multiple deployments of this stack in the same or different reg
 
 There are two primary scenarios targeted with the support for multiple deployments:
 
-1. Separating your production/development deployments. You can choose to run _prod_ and _stage_ deployments, or even have a seprate deployment for individual developers on your team.
+1. Separating your production/development workloads. You can choose to run _prod_ and _stage_ deployments, or even have a seprate deployment for individual developers on your team.
 1. Providing your customers with dedicated deployments. You can run those deployments on your AWS account or on your customer's AWS account as long as you have access to it.
 
 In either scenario, the LetsGo CLI provides a consistent and repeatable mechanism to manage the configuraiton and the lifecycle of the deployment.
@@ -29,7 +29,7 @@ The cost to maintain an idle deployment varies by AWS region, but is in the $20/
 
 ### Managing multiple deployments on the same AWS account
 
-Each [LetsGo CLI](../reference/letsgo-cli.md) command accepts two options: `-r, --region`, and `-d, --deployment`, which allow you to specify the AWS region and LetsGo deployment name this command applies to.
+Each [LetsGo CLI](../reference/letsgo-cli.md) command accepts two options: `-r, --region`, and `-d, --deployment`, which allow you to specify the AWS region and LetsGo deployment name this command applies to. The default deployment name is `main` (unless overriden by the `LETSGO_DEPLOYMENT` environment variable), and the default region is `us-west-2` (unless overriden by the `AWS_REGION` environment variable).
 
 For example, to deploy a new stack called `stage` in the default region, you would call:
 
@@ -37,7 +37,7 @@ For example, to deploy a new stack called `stage` in the default region, you wou
 yarn ops deploy -a all -d stage
 ```
 
-To deploy a new stack for the a new developer on your team in `us-east-1`` region, you could call:
+To deploy a new stack for the a new developer on your team in the `us-east-1` region, you could call:
 
 ```bash
 yarn ops deploy -a all -r us-east-1 -d dev-emma
@@ -45,9 +45,9 @@ yarn ops deploy -a all -r us-east-1 -d dev-emma
 
 ### Managing multiple deployments across AWS accounts
 
-The [LetsGo CLI](../reference/letsgo-cli.md) does not give you a first class support for specifying AWS accounts to use. Instead, it relies on the default AWS account configured at the AWS SDK level, which is the same as the default AWS account you configure for use by the [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html#cli-configure-files-using-profiles).
+The [LetsGo CLI](../reference/letsgo-cli.md) does not provide a first class support for specifying AWS accounts. Instead, it relies on the default AWS account configured at the AWS SDK level, which is the same as the default AWS account you configure for use by the [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html#cli-configure-files-using-profiles).
 
-If you want to operate on different AWS accounts using a single LetsGo installation on your machine, define an [AWS named profile](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html#cli-configure-files-using-profiles) for each of the accounts using AWS CLI configuration file, and then use the `AWS_PROFILE` environment variable to select the profile you want when running a LetsGo CLI command, e.g.:
+If you want to operate on several AWS accounts using a single LetsGo installation on your machine, define an [AWS CLI named profile](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html#cli-configure-files-using-profiles) for each of the accounts using AWS CLI configuration file, and then use the `AWS_PROFILE` environment variable to select the profile you want when running a LetsGo CLI command, e.g.:
 
 ```bash
 AWS_PROFILE=customer17 yarn ops deploy -a all
