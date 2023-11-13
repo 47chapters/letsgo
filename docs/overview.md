@@ -1,6 +1,6 @@
 ## LetsGo - a Shoppify of software startups
 
-You have an idea that will change the world. Time to market is key. You are running lean. MVP is your middle name. Even so, tons of work remain. You start to cut corners. A one-off, manual deployment to the cloud. Freemium only, fake signup buttons. Running async work in the web tier. Then, the the first customer comes. Hurray! Yet, a mountain of technical debt remains. It takes months to address once the engine is running. Months you don't have. Customers demand features. Support clamors for help. Sales sells stuff you don't have. Marketing is in a galaxy far, far, away. Meanwhile, the competitor who works _smarter_ leaves you in the dust. So does your spouse and your dog.
+You have an idea that will change the world. Time to market is key. You are running lean. MVP is your middle name. Even so, tons of work remain. You start to cut corners. A one-off, manual deployment to the cloud. Freemium only, fake signup buttons. Running async work in the web tier. Then, the the first customer comes. And the next. And next. Hurray! Yet, a mountain of technical debt remains. It takes months to address once the engine is running. Months you don't have. Customers demand features. Support clamors for help. Sales sells stuff you don't have. Marketing is in a galaxy far, far, away. Meanwhile, the competitor who works _smarter_ leaves you in the dust. So does your spouse and your dog.
 
 ![image](https://github.com/tjanczuk/letsgo/assets/822369/86a44b85-00da-49a7-b91f-7bc71d4406b1)
 

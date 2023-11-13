@@ -34,7 +34,7 @@ AUTH0_SECRET={auth0-secret}
 
 The placeholder values for the last three `AUTH0_*` settings have been established when you [integrated with Auth0 to enable authentication](../tutorials/setting-up-authentication-with-auth0.md).
 
-#### The _API_ component
+#### The _API_ configuration
 
 Create the `apps/api/.env` file with the following configuration settings:
 
@@ -69,7 +69,7 @@ LETSGO_STRIPE_LIVE_WEBHOOK_KEY={live-mode-cli-webhook-signing-secret}
 
 Notice the addition of the three configuraiton settings with live mode keys for Stripe: `LETSGO_STRIPE_LIVE_*`. In addition, notice the `LETSGO_STRIPE_LIVE_MODE=1` entry. Setting `LETSGO_STRIPE_LIVE_MODE` to `1` causes the _API_ component to use the Stripe live mode keys from the `LETSGO_STRIPE_LIVE_*` properties. If `LETSGO_STRIPE_LIVE_MODE` is set to any value other than `1` or not set at all, the test mode Stripe keys from the `LETSGO_STRIPE_TEST_*` properties are used instead.
 
-#### The _worker_ component
+#### The _worker_ configuration
 
 Create the `apps/worker/.env` file with the following configuration settings:
 
