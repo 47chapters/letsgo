@@ -19,7 +19,7 @@ How-Tos
 &nbsp;&nbsp;&nbsp;&nbsp;[Access data in the database from code](how-to/access-data-in-the-database-from-code.md)  
 &nbsp;&nbsp;&nbsp;&nbsp;[Process the contact form](how-to/process-the-contact-form.md)  
 &nbsp;&nbsp;&nbsp;&nbsp;[Manage configuration](how-to/manage-configuration.md)  
-&nbsp;&nbsp;&nbsp;&nbsp;Manage multiple deployments  
+&nbsp;&nbsp;&nbsp;&nbsp;[Manage multiple deployments](how-to/manage-multiple-deployments.md)  
 &nbsp;&nbsp;&nbsp;&nbsp;Manage trust and authentication  
 &nbsp;&nbsp;&nbsp;&nbsp;Secure APIs  
 &nbsp;&nbsp;&nbsp;&nbsp;Create access tokens for testing  
