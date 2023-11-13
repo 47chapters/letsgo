@@ -21,12 +21,7 @@ How-Tos
 &nbsp;&nbsp;&nbsp;&nbsp;[Manage configuration](how-to/manage-configuration.md)  
 &nbsp;&nbsp;&nbsp;&nbsp;[Manage multiple deployments](how-to/manage-multiple-deployments.md)  
 &nbsp;&nbsp;&nbsp;&nbsp;[Manage trust and authentication](how-to/manage-trust-and-authentication.md)  
-&nbsp;&nbsp;&nbsp;&nbsp;Secure APIs  
-&nbsp;&nbsp;&nbsp;&nbsp;Create access tokens for testing  
-&nbsp;&nbsp;&nbsp;&nbsp;Create API keys for tenants  
-&nbsp;&nbsp;&nbsp;&nbsp;Manage a custom domain  
-&nbsp;&nbsp;&nbsp;&nbsp;Get deployment status  
-&nbsp;&nbsp;&nbsp;&nbsp;Inspect the database  
+&nbsp;&nbsp;&nbsp;&nbsp;[Get deployment status](how-to/get-deployment-status.md)  
 &nbsp;&nbsp;&nbsp;&nbsp;Manage the pricing model and Stripe integration  
 &nbsp;&nbsp;&nbsp;&nbsp;Implement Stripe webhooks  
 &nbsp;&nbsp;&nbsp;&nbsp;Manage authentication and Auth0 integration  
