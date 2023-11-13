@@ -41,7 +41,7 @@ Refer to [@letsgo/constants](../reference/letsgo-constants.md) for a complete li
 
 ### Managing configuration of several deployments in AWS
 
-You can [manage multiple deployments](./manage-multiple-deployments.md) of the LetsGo stack in AWS. Each deployment has its own set of configuration settings in AWS. All of the `yarn ops config` subcommands take `-d, --deployment` option which allows you to specify the name of the deployment for the command. For example, to set the memory size of the _API_ process for the deployment `stage`, you can call:
+You can [manage multiple deployments](./manage-multiple-deployments.md) of the LetsGo stack in AWS. Each deployment has its own set of configuration settings. All of the `yarn ops config` subcommands take `-d, --deployment` option which allows you to specify the name of the deployment for the command. For example, to set the memory size of the _API_ process for the deployment `stage`, you can call:
 
 ```bash
 yarn ops config set LETSGO_API_APPRUNNER_MEMORY=2048 -d stage
@@ -55,7 +55,7 @@ yarn ops deploy -a api -d stage
 
 ### Related topics
 
-[Available configurations settings and default values](../reference/letsgo-constants.md)  
+[Available configuration settings and default values](../reference/letsgo-constants.md)  
 [Manage multiple deployments](./manage-multiple-deployments.md)  
 [Running locally](./run-locally.md)  
 [LetsGo CLI](../reference/letsgo-cli.md)
