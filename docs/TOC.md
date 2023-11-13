@@ -20,7 +20,7 @@ How-Tos
 &nbsp;&nbsp;&nbsp;&nbsp;[Process the contact form](how-to/process-the-contact-form.md)  
 &nbsp;&nbsp;&nbsp;&nbsp;[Manage configuration](how-to/manage-configuration.md)  
 &nbsp;&nbsp;&nbsp;&nbsp;[Manage multiple deployments](how-to/manage-multiple-deployments.md)  
-&nbsp;&nbsp;&nbsp;&nbsp;Manage trust and authentication  
+&nbsp;&nbsp;&nbsp;&nbsp;[Manage trust and authentication](how-to/manage-trust-and-authentication.md)  
 &nbsp;&nbsp;&nbsp;&nbsp;Secure APIs  
 &nbsp;&nbsp;&nbsp;&nbsp;Create access tokens for testing  
 &nbsp;&nbsp;&nbsp;&nbsp;Create API keys for tenants  
