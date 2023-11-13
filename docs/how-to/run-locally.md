@@ -23,16 +23,16 @@ LETSGO_DEPLOYMENT=main
 LETSGO_WEB_URL=http://localhost:3000
 LETSGO_API_URL=http://localhost:3001
 LETSGO_LOCAL_QUEUE_URL=http://localhost:3002
-AUTH0_ISSUER_BASE_URL=https://{auth0-domain}
 AUTH0_AUDIENCE=letsgo:service
 AUTH0_SCOPE=openid profile email offline_access
 AUTH0_BASE_URL=http://localhost:3000
+AUTH0_ISSUER_BASE_URL=https://{auth0-domain}
 AUTH0_CLIENT_ID={auth0-client-id}
 AUTH0_CLIENT_SECRET={auth0-client-secret}
 AUTH0_SECRET={auth0-secret}
 ```
 
-The placeholder values for the last three `AUTH0_*` settings have been established when you [integrated with Auth0 to enable authentication](../tutorials/setting-up-authentication-with-auth0.md).
+The placeholder values for the last four `AUTH0_*` settings have been established when you [integrated with Auth0 to enable authentication](../tutorials/setting-up-authentication-with-auth0.md).
 
 #### The _API_ configuration
 
