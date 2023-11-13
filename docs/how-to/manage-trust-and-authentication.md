@@ -90,7 +90,7 @@ For the access token to be trusted, the `aud` claim must match the value that yo
 
 ### Authorization
 
-Access tokens created using the built-in issuer using either of the two methods above have the same value of the `iss` and `sub` claims. The value has the format `letsgo:{random-identifier}`. You need to account for such tokens when making any authorization decisions following a successful authentication.
+Access tokens created by the built-in issuer using either of the two methods above have the same value of the `iss` and `sub` claims. The value has the format `letsgo:{random-identifier}`. You need to account for such tokens when making any authorization decisions following a successful authentication.
 
 ### Related topics
 
