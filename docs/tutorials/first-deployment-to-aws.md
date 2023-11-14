@@ -6,7 +6,7 @@ In this tutorial, you will make the first deployment of the LetsGo stack to your
 
 You will also have your local environment prepared for further development. This tutorial does not integrate Auth0 or Stripe - you will do this in separate tutorials.
 
-**NOTE** This tutorial will deploy several artifacts to your AWS account. The cost of keeping them idle for a day is about $0.70 (that's 70 cents). It is easy to remove all of them when you are done.
+**NOTE** This tutorial will deploy several artifacts to your AWS account. The cost of keeping them idle for a day is about $0.70 (that's 70 cents). It is easy to [remove all of them](../how-to/remove-deployments.md) when you are done.
 
 ### Prerequisities
 
