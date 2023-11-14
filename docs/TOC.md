@@ -25,6 +25,7 @@ How-Tos
 &nbsp;&nbsp;&nbsp;&nbsp;[Manage the pricing model and Stripe integration](how-to/manage-the-pricing-model.md)  
 &nbsp;&nbsp;&nbsp;&nbsp;[Send notifications to Slack](how-to/send-notifications-to-slack.md)  
 &nbsp;&nbsp;&nbsp;&nbsp;[Manage scalability](how-to/manage-scalability.md)  
+&nbsp;&nbsp;&nbsp;&nbsp;[Remove deployments](how-to/remove-deployments.md)  
 Background Concepts  
 &nbsp;&nbsp;&nbsp;&nbsp;Why LetsGo?  
 &nbsp;&nbsp;&nbsp;&nbsp;Architecture  
