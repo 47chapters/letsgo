@@ -15,7 +15,7 @@ The `category` conceptually represents the entity class of an item. If you want 
 
 The `key` is a unique identifier of the entity within a category. In the `orders` category, a key could be the order ID, for example `order-123`. In the `customer-order` category that represents the relationship between a customer and an order, the key can be a composite of the customer ID and order ID, e.g. `/customer-123/order-456`.
 
-This pattern of using the `category` and `key` properties allows not only for simple CRUD operations, but also for common search patterns to be efficiently implemented. This is because DynamoDB has a first class, efficient way of searching for items in the database with a specific partition key (`category`) and a specific _prefix_ of the sort key (`key`). It makes it possible to use the categories that represent entity relationships to efficiently query for associated entities. For example, to find out all orders placed by `customer-123`, you can issue a query for items with the`customer-order` catagory that have a _prefix_ of the key equal to `/customer-123/`.
+This pattern of using the `category` and `key` properties allows not only for simple CRUD operations, but also for common search patterns to be efficiently implemented. This is because DynamoDB has a first class, efficient way of searching for items in the database with a specific partition key (`category`) and a specific _prefix_ of the sort key (`key`). It makes it possible to use the categories that represent entity relationships to efficiently query for associated entities. For example, to find all orders placed by `customer-123`, you can issue a query for items with the`customer-order` catagory that have a _prefix_ of the key equal to `/customer-123/`.
 
 The [accessing data in the database](../how-to/access-data-in-the-database-from-code.md) article describes how to access the database from code of the _API_ or _worker_ component.
 
@@ -25,7 +25,7 @@ The [accessing data in the database](../how-to/access-data-in-the-database-from-
 
 The DynamoDB table created by LetsGo supports automatic expiration of items. This can be requested by adding a `ttl` property to the item stored in the database. The property is a number that represents the desired expiration time of the item. When that time elapses, DynamoDB will remove the item from the database.
 
-Note that in practice DynamoDB itself may still include the item in in the results of search queries or explicit get operation. However the [@letsgo/db](../reference/letsgo-db.md) module that LetsGo provides to facilitate the DB access is normalizing this behavior in code - you will never get back an expired item.
+Note that in practice DynamoDB itself may still include an expired item in the results of search queries or explicit get operation. However the [@letsgo/db](../reference/letsgo-db.md) module that LetsGo provides to facilitate DB access is normalizing this behavior in code - you will never get back an expired item.
 
 ### System categories
 
