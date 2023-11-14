@@ -53,7 +53,7 @@ For details about how these settings affect the scalability, read AWS documentat
 
 ### Scaling the database
 
-The LetsGo database consists of a single [AWS DynamoDB](https://aws.amazon.com/dynamodb) table with auth-scaling enabled. No configuration settings are exposed to control the auto-scaling behavior. You can read the AWS documentation aboout [the default auto-scaling behavior](https://aws.amazon.com/blogs/database/amazon-dynamodb-auto-scaling-performance-and-cost-optimization-at-any-scale/) for more information.
+The LetsGo database consists of a single [AWS DynamoDB](https://aws.amazon.com/dynamodb) table with auth-scaling enabled. No configuration settings are exposed to control the auto-scaling behavior. You can read the AWS documentation about [the default auto-scaling behavior](https://aws.amazon.com/blogs/database/amazon-dynamodb-auto-scaling-performance-and-cost-optimization-at-any-scale/) for more information.
 
 ### Related topics
 
