@@ -42,7 +42,7 @@ Reference
 &nbsp;&nbsp;&nbsp;&nbsp;/apps/web  
 &nbsp;&nbsp;&nbsp;&nbsp;/apps/api  
 &nbsp;&nbsp;&nbsp;&nbsp;/apps/worker  
-&nbsp;&nbsp;&nbsp;&nbsp;LetsGo CLI (yarn ops)
+&nbsp;&nbsp;&nbsp;&nbsp;LetsGo CLI (yarn ops)  
 &nbsp;&nbsp;&nbsp;&nbsp;@letsgo/constants  
 &nbsp;&nbsp;&nbsp;&nbsp;@letsgo/db  
 &nbsp;&nbsp;&nbsp;&nbsp;@letsgo/pricing  
