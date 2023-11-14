@@ -4,7 +4,7 @@ One challenge with middle tier and background work is that it happens behind the
 
 In the early stages of product development, and in the early stages of a startup life, it is often useful and exciting to be notified in real time about interesting events happening in the system. A customer just paid you a monthly subscription fee. A new customer signed up. A customer upgraded their plan from freemium to paid. A customer churned. One useful way of staying on top of such events is to send an automated notification to Slack.
 
-LetsGo worker boilerplate makes sending notifications to Slack easy.
+LetsGo boilerplate makes sending notifications to Slack easy.
 
 First, create a [Slack incoming webhook](https://api.slack.com/messaging/webhooks) that allows sending notifications to a specific channel in your Slack workspace. You will end up with an URL that looks similar to `https://hooks.slack.com/services/T05U3L3AHGV/B0....QNB/U0F....RrQ`.
 
@@ -38,4 +38,5 @@ You can leave the calls to `sendSlackMessage` in the code - they become a no-op 
 ### Related topics
 
 [Develop the worker](./develop-the-worker.md)  
-[Develop the API](./develop-the-api.md)
+[Develop the API](./develop-the-api.md)  
+[@letsgo/slack](../reference/letsgo-slack.md)
