@@ -49,6 +49,10 @@ For the queue and event source mapping components which deliver messages to the 
 
 For details about how these settings affect the scalability, read AWS documentation on [configuring the queue as an event source](https://docs.aws.amazon.com/lambda/latest/dg/with-sqs.html#events-sqs-eventsource) and [configuring queue parameters](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-configure-queue-parameters.html).
 
+### Scaling the database
+
+The LetsGo database consists of a single [AWS DynamoDB](https://aws.amazon.com/dynamodb) table with auth-scaling enabled. No configuration settings are exposed to control the auto-scaling behavior. You can read the AWS documentation aboout [the default auto-scaling behavior](https://aws.amazon.com/blogs/database/amazon-dynamodb-auto-scaling-performance-and-cost-optimization-at-any-scale/) for more information.
+
 ### Related topics
 
 [Managing configuration](./manage-configuration.md)  
