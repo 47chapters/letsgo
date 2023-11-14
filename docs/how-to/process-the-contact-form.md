@@ -31,7 +31,7 @@ sequenceDiagram
   N-->>B: HTTP 201
 ```
 
-The default implementation of the `contactHandler.ts` sends a formatted message to Slack, as long as the [Slack notifications are enabled](./develop-the-worker.md#increasing-visibility-with-slack-notifications).
+The default implementation of the `contactHandler.ts` sends a formatted message to Slack, as long as the [Slack notifications are enabled](./send-notifications-to-slack.md).
 
 ### Implement custom contact form processing logic
 
