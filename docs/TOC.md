@@ -29,7 +29,7 @@ How-Tos
 Background Concepts  
 &nbsp;&nbsp;&nbsp;&nbsp;[Architecture and technology choices](backgound/architecture-and-technology-choices.md)  
 &nbsp;&nbsp;&nbsp;&nbsp;Tenants and users  
-&nbsp;&nbsp;&nbsp;&nbsp;Data model  
+&nbsp;&nbsp;&nbsp;&nbsp;[Data model](background/data-model.md)  
 &nbsp;&nbsp;&nbsp;&nbsp;Authentication, authorization, and trust  
 &nbsp;&nbsp;&nbsp;&nbsp;DevOps and dedicated deployments  
 Reference  
@@ -49,3 +49,4 @@ Reference
 &nbsp;&nbsp;&nbsp;&nbsp;@letsgo/trust  
 &nbsp;&nbsp;&nbsp;&nbsp;@letsgo/types  
 &nbsp;&nbsp;&nbsp;&nbsp;turborepo artifacts
+&nbsp;&nbsp;&nbsp;&nbsp;[System database categories](reference/system-database-categories.md)
