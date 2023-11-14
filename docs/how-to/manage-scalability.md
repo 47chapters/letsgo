@@ -1,6 +1,8 @@
 ## Manage scalability
 
-The choice of technologies in the LetsGo infrastructure allows you to control a variety of scalability settings to suite your workload needs. These settings are discussed separately for the _web_, _API_, and _worker_ components below.
+The choice of technologies in the LetsGo infrastructure allows you to control a variety of scalability settings to suite your workload needs. These settings are discussed separately for the _web_, _API_, _worker_, and _database_ components below.
+
+<img width="837" alt="image" src="https://github.com/tjanczuk/letsgo/assets/822369/af626761-0716-4119-84b2-33f1153d7033">
 
 ### How to set scalability settings
 
