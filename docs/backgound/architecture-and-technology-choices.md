@@ -12,7 +12,7 @@ Many SaaS applications consist of a similar set of components:
 - A worker behind a queue to process asynchronous work
 - A database
 
-LetsGo includes all of these components in the LetsGo platform:
+LetsGo includes all of these components in one platform, and provides the devops tools to manage multiple deployments in AWS:
 
 <img width="837" alt="image" src="https://github.com/tjanczuk/letsgo/assets/822369/f7fe2317-d7de-4698-b093-416a52a1a145">
 
