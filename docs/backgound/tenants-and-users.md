@@ -18,4 +18,22 @@ LetsGo also helps you manage subscription plans. In the LetsGo model, a _tenant_
 
 ### Invitations
 
-LetsGo supports an invitation mechanism using which one user with access to a specic tenant can invite another user. By accepting the invitation, the other user also gains access to the tenant.
+LetsGo supports an invitation mechanism using which one user with access to a specific tenant can invite another user. By accepting the invitation, the other user also gains access to the tenant.
+
+```mermaid
+sequenceDiagram
+  participant U1 as User 1
+  participant U2 as User 2
+  participant S as API server
+  participant D as Database
+  U1-->>S: POST /v1/tenant/ten-123/invitation<br>Authorization: Bearer {accessToken}
+  S-->>D: PUT ten-123/inv-345
+  S-->>U1: HTTP 200<br>inv-345
+  U1-->>U2: invitation link with ten-123/inv-345
+  U2-->>S: POST /v1/tenant/ten-123/invitation/inv-345/accept<br><br>Authorization: Bearer {accessToken}
+  S-->>D: DELETE ten-123/inv-345<br>PUT ten-123/usr-U2<br>PUT usr-U2/ten-123
+  S-->>U2: HTTP 200
+  U2-->>S: GET /v1/me<br>Authorization: Bearer {accessToken}
+  S-->>D: LIST /usr-U2/*
+  S-->>U2: HTTP 200<br>{ ..., tenants: [ "ten-123" ] }
+```
