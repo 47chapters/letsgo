@@ -58,7 +58,7 @@ For subscription management and payment processing, LetsGo provides support for 
 
 ### Technology un-choices
 
-One of the areas where LetsGo is completely unopinionated is the UI framework or a design system for the _web_ component. This is where most apps want to bring out their own ideas to differentiate themselves. LetsGo makes it abundantly clear you need to bring your own UI framework and design system by using plain HTML with the black Times New Roman font on white background across all components of the _web_.
+One of the areas where LetsGo is completely unopinionated is the UI framework or a design system for the _web_ component. This is where most apps want to bring out their own ideas to differentiate themselves. LetsGo makes it abundantly clear you need to bring your own UI framework and design system by using plain HTML with the black Times New Roman font on white background across all components of the _web_ that are included.
 
 ### Related topics
 
