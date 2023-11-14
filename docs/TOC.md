@@ -1,6 +1,6 @@
 # LetsGo - A Starter Kit for Starting Startups
 
-Overview  
+[Why LetsGo?](./why.md)  
 [Tutorials](tutorials.md)  
 &nbsp;&nbsp;&nbsp;&nbsp;[First deployment to AWS](tutorials/first-deployment-to-aws.md)  
 &nbsp;&nbsp;&nbsp;&nbsp;[Building and running locally](tutorials/building-and-running-locally.md)  
@@ -27,7 +27,6 @@ How-Tos
 &nbsp;&nbsp;&nbsp;&nbsp;[Manage scalability](how-to/manage-scalability.md)  
 &nbsp;&nbsp;&nbsp;&nbsp;[Remove deployments](how-to/remove-deployments.md)  
 Background Concepts  
-&nbsp;&nbsp;&nbsp;&nbsp;Why LetsGo?  
 &nbsp;&nbsp;&nbsp;&nbsp;Architecture  
 &nbsp;&nbsp;&nbsp;&nbsp;What is provided and what is not  
 &nbsp;&nbsp;&nbsp;&nbsp;Technology choices  
@@ -35,8 +34,7 @@ Background Concepts
 &nbsp;&nbsp;&nbsp;&nbsp;Data model  
 &nbsp;&nbsp;&nbsp;&nbsp;Authentication, authorization, and Auth0 integration  
 &nbsp;&nbsp;&nbsp;&nbsp;Pricing models and Stripe integration  
-&nbsp;&nbsp;&nbsp;&nbsp;DevOps and development lifecycle  
-&nbsp;&nbsp;&nbsp;&nbsp;Configuration  
+&nbsp;&nbsp;&nbsp;&nbsp;DevOps and dedicated deployments  
 Reference  
 &nbsp;&nbsp;&nbsp;&nbsp;Deployment components  
 &nbsp;&nbsp;&nbsp;&nbsp;Repository structure  

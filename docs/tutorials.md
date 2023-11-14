@@ -14,4 +14,4 @@ After that, you can decide what's more important to you:
 [Setting up payments with Stripe](tutorials/setting-up-payments-with-stripe.md)  
 [Configuring a custom domain](tutorials/configuring-custom-domain.md)
 
-Ready, set, go!
+Let's go!
