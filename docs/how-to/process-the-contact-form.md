@@ -4,7 +4,7 @@ The _web_ component contains a contact form your customer can fill out to reques
 
 <img width="912" alt="image" src="https://github.com/tjanczuk/letsgo/assets/822369/b7365637-0e2f-4526-affa-ea721764bed3">
 
-The LetsGo boilerplate provides the mechanics of the form submission and data collection, but it does not provide the actual logic of processing the submission data itself. You would normally want to use this data to update your CRM system or otherwise trigger the sales team to act on it.
+The LetsGo boilerplate provides the mechanics of the form submission and data collection, but it does not provide the actual logic to decide what to do with the submitted data. You would normally want to use this data to update your CRM system or otherwise trigger the sales team to act on it.
 
 This article shows you how to implement that custom submission processing logic. It assumes you have read about how to [develop the worker](./develop-the-worker.md).
 
