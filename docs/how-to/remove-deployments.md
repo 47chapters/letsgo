@@ -33,7 +33,7 @@ yarn ops rm -a all -d stage
 
 **WARNING** This completely removes all deployment artifacts including durable data. All system and customer data in the _database_ will be lost, so will the messages in the queue to be consumed by the _worker_. **There is no backup**.
 
-**NOTICE** If you ran this command in error, please refer to [jobs.com](https://www.jobs.com/) to find your next job.
+**NOTE** If you ran this command in error, please refer to [jobs.com](https://www.jobs.com/) to find your next job.
 
 To remove all artifacts related to a deployment, including durable data, run:
 
