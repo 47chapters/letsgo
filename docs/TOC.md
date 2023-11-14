@@ -23,7 +23,7 @@ How-Tos
 &nbsp;&nbsp;&nbsp;&nbsp;[Manage trust and authentication](how-to/manage-trust-and-authentication.md)  
 &nbsp;&nbsp;&nbsp;&nbsp;[Get deployment status](how-to/get-deployment-status.md)  
 &nbsp;&nbsp;&nbsp;&nbsp;[Manage the pricing model and Stripe integration](how-to/manage-the-pricing-model.md)  
-&nbsp;&nbsp;&nbsp;&nbsp;Send notifications to Slack  
+&nbsp;&nbsp;&nbsp;&nbsp;[Send notifications to Slack](how-to/send-notifications-to-slack.md)  
 &nbsp;&nbsp;&nbsp;&nbsp;Manage scalability  
 Background Concepts  
 &nbsp;&nbsp;&nbsp;&nbsp;Why LetsGo?  

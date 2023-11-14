@@ -138,56 +138,13 @@ export const myMessageHandler: MessageHandler<Message> = async (
 
 ### Increasing visibility with Slack notifications
 
-One challenge with asynchronous work is that it happens asynchronously, and the outcome of the processig is difficult to observe. Logs are collected in CloudWatch, but these are usually used for post-mortem analysis.
-
-In the early stages of product development, and in the early stages of a startup life, it is often useful and exciting to be notified in real time about interesting events happening in the system. A customer just paid you a monthly subscription fee. A new customer signed up. A customer upgraded their plan from freemium to paid. A customer churned. One useful way of staying on top of such events is to send an automated notification to Slack.
-
-LetsGo worker boilerplate makes sending notifications to Slack easy.
-
-First, create a [Slack incoming webhook](https://api.slack.com/messaging/webhooks) that allows sending notifications to a specific channel in your Slack workspace. You will end up with an URL that looks similar to `https://hooks.slack.com/services/T05U3L3AHGV/B0....QNB/U0F....RrQ`.
-
-Add a new environent variable to `apps/worker/.env` file to enable slack notifications when [running locally](../tutorials/building-and-running-locally.md):
-
-```bash
-cat >> apps/worker/.env <<EOF
-LETSGO_SLACK_URL={your-slack-incoming-webhook-url}
-EOF
-```
-
-Set the same environment variable in your cloud deployment and re-deploy the worker:
-
-```bash
-yarn ops config set LETSGO_SLACK_URL={your-slack-incoming-webhook-url}
-yarn ops deploy -a worker
-```
-
-And you are done! Out of the gate, LetsGo will now be sending notifications to Slack when new tenants are created, existing tenants are deleted, and on all Stripe events received via Stripe webhooks, including the most precious one:
-
-<img width="388" alt="image" src="https://github.com/tjanczuk/letsgo/assets/822369/73166dd0-bee4-4cbf-9cad-f279eaef6211">
-
-If you want to add Slack notifications for the new message handlers you are adding to the worker, you can use the `sendSlackMessage` facility function provided by LetsGo in the `@letsgo/slack` package:
-
-```typescript
-import { Message } from "@letsgo/types";
-import { MessageHandler } from "./index";
-import { sendSlackMessage } from "@letsgo/slack";
-
-export const myMessageHandler: MessageHandler<Message> = async (
-  message,
-  event,
-  context
-) => {
-  // ...
-  await sendSlackMessage(":boom::moneybag: New mega deal closed!");
-};
-```
-
-You can leave the calls to `sendSlackMessage` in the code - they become a no-op if the `LETSGO_SLACK_URL` variable is not defined in the environment.
+One challenge with asynchronous work is that it happens asynchronously, and the outcome of the processig is difficult to observe. LetsGo makes it easy to send notifications to Slack when important events happen. The _worker_ component is pre-wired to send Slack messages on important Stripe lifecycle events, you only need to enable it. Read the [send notifications to Slack](./send-notifications-to-slack.md) to set this up.
 
 ### Related topics
 
 [Enqueue asynchronous work](./enqueue-asynchronous-work.md)  
 [Access data in the database from code](./access-data-in-the-database-from-code.md)  
+[Send notifications to Slack](./send-notifications-to-slack.md)  
 [Manage trust and authentication](./manage-trust-and-authentication.md)  
 [Develop the frontend](./develop-the-frontend.md)  
 [Develop the API](./develop-the-api.md)
