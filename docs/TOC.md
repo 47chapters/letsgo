@@ -22,9 +22,7 @@ How-Tos
 &nbsp;&nbsp;&nbsp;&nbsp;[Manage multiple deployments](how-to/manage-multiple-deployments.md)  
 &nbsp;&nbsp;&nbsp;&nbsp;[Manage trust and authentication](how-to/manage-trust-and-authentication.md)  
 &nbsp;&nbsp;&nbsp;&nbsp;[Get deployment status](how-to/get-deployment-status.md)  
-&nbsp;&nbsp;&nbsp;&nbsp;Manage the pricing model and Stripe integration  
-&nbsp;&nbsp;&nbsp;&nbsp;Implement Stripe webhooks  
-&nbsp;&nbsp;&nbsp;&nbsp;Manage authentication and Auth0 integration  
+&nbsp;&nbsp;&nbsp;&nbsp;[Manage the pricing model and Stripe integration](how-to/manage-the-pricing-model.md)  
 &nbsp;&nbsp;&nbsp;&nbsp;Send notifications to Slack  
 &nbsp;&nbsp;&nbsp;&nbsp;Manage scalability  
 Background Concepts  
