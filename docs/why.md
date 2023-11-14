@@ -15,12 +15,12 @@ This is where LetsGo comes in. It provides the architecture and the tooling that
 LetsGo does it by providing a prescriptive architecture implemented with a modern set of technologies and a robust operational tooling for managing your app in AWS. On day one you get more than most startups build in the first two years of existence. This is what LetsGo provides you with:
 
 - An application architecture with a **web, HTTP API, worker, and a database components**, all wired up and ready to go.
-- A **devops CLI** that helps you set up CI/CD and manage several deployments of your app in AWS to help you segregate your production and development workloads or to support dedicated deployments for your customers.
+- A **devops CLI** that helps you set up CI/CD and manage several deployments of your app in AWS to help you segregate your production and development workloads or to **support dedicated deployments** for your customers.
 - **Integration with Auth0** to authenticate your users and protect your APIs.
 - **Integration with Stripe** to automate your billing and subscription lifecycle management.
 - **Integration with Slack** to keep current with new customers signing up and subscriptions being paid.
 - A **flexible tenancy and user model** with membership management and invitation flow.
-- A set of modern yet robust technologies including Next.js and Node.js that **make your days exciting and the nights boring**.
+- A set of modern yet robust technologies including Next.js, Node.js, and Typescript that **make your days exciting and the nights boring**.
 - LetGo is **OSS under MIT**, so there is no vendor lock-in and you can always see what makes it tick.
 
 LetsGo isn't for everybody. Not all apps have the shape that fits LetsGo architecture. The choice of technologies does not make the sense for all scenarios. Yet this architecture and tech stack works for the 80% of the products out there.

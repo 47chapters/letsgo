@@ -27,13 +27,10 @@ How-Tos
 &nbsp;&nbsp;&nbsp;&nbsp;[Manage scalability](how-to/manage-scalability.md)  
 &nbsp;&nbsp;&nbsp;&nbsp;[Remove deployments](how-to/remove-deployments.md)  
 Background Concepts  
-&nbsp;&nbsp;&nbsp;&nbsp;Architecture  
-&nbsp;&nbsp;&nbsp;&nbsp;What is provided and what is not  
-&nbsp;&nbsp;&nbsp;&nbsp;Technology choices  
+&nbsp;&nbsp;&nbsp;&nbsp;[Architecture and technology choices](backgound/architecture-and-technology-choices.md)  
 &nbsp;&nbsp;&nbsp;&nbsp;Tenants and users  
 &nbsp;&nbsp;&nbsp;&nbsp;Data model  
-&nbsp;&nbsp;&nbsp;&nbsp;Authentication, authorization, and Auth0 integration  
-&nbsp;&nbsp;&nbsp;&nbsp;Pricing models and Stripe integration  
+&nbsp;&nbsp;&nbsp;&nbsp;Authentication, authorization, and trust  
 &nbsp;&nbsp;&nbsp;&nbsp;DevOps and dedicated deployments  
 Reference  
 &nbsp;&nbsp;&nbsp;&nbsp;Deployment components  
