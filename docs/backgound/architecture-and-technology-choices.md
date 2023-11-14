@@ -18,11 +18,11 @@ LetsGo includes all of these components in one platform, and provides the devops
 
 The _web_ component implements both the marketing website and the management dashboard. The management dashboard portion of the _web_ component requires user authentication, which is part of the LetsGo platform.
 
-The _API_ component exposes HTTP APIs of your application. These APIs are meant to be consumed by the management dashboard in the _web_ component, as well as by your customers directly. LetsGo supports securing the HTTP APIs. LetsGo also provides an implementation of a number of endpoints related to concepts it has an opinion about, for example [tenants and users](./tenants-and-users.md).
+The _API_ component exposes HTTP APIs of your application. These APIs are meant to be consumed by the management dashboard in the _web_ component, as well as directly by your customers. LetsGo supports securing the HTTP APIs. LetsGo also provides the implementation of a number of endpoints related to concepts it has an opinion about, for example [tenants and users](./tenants-and-users.md).
 
-The _worker_ component processes asynchronous work and is deployed behind a queue. New work for the _worker_ is enqueued by the _API_ component in the implementation of the various HTTP endpoints. The worker contains scaffolding for some aspects of the app, for example [Stripe webhooks](../how-to/develop-the-worker.md), while remaining extensible to other types of asynchronous work you may want to introduce.
+The _worker_ component processes asynchronous work and is deployed behind a queue. New work for the _worker_ is enqueued by the _API_ component in the implementation of the various HTTP endpoints. The worker contains the scaffolding for some aspects of the app, for example [Stripe webhooks](../how-to/develop-the-worker.md), while remaining extensible to other types of asynchronous work you may want to introduce.
 
-The _database_ component supports persistent storage of data in your app. It is used from the _API_ and _worker_ components.
+The _database_ component supports persistent storage of data in your app. It is used from the _API_ and _worker_ components. Read more about it in the [data model](./data-model.md) section.
 
 Part of the LetsGo platform is a prescriptive model for [authentication and trust](./authentication-authorization-and-trust.md). It provides a way for securing access to the management dasboard that is part of the _web_ component, as well as the HTTP APIs implemented in the _API_ component.
 
