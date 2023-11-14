@@ -13,7 +13,7 @@ This method of removing a deployment can be used to temporarily shut it down to 
 
 - The _database_ component.
 - The SQS queue holding the messages for the _worker_.
-- The ECR images of the _worker_, _API_, and _webb_.
+- The ECR images of the _worker_, _API_, and _web_.
 
 This allows you to later re-create the transitent artifacts by [re-deploying to AWS](../tutorials/re-deploying-to-aws.md) and pick up from where you were in terms in the state of the data.
 
