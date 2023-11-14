@@ -6,7 +6,7 @@ Most B2B applications have a concept of a _tenant_ which is separate from the co
 
 A _tenant_ is unit of organization specific to the customer of the app. The concept may have different names depending on the domain of the app, for example a _team_, a _project_, an _organization_, or a _workspace_.
 
-A _user_ of the app is a unique identity from the [authentication](./authentication-authorization-and-trust.md) perspective. In practical terms, in the context of accessing the app's functionality thorugh the browser, a user is a physical human being.
+A _user_ of the app is a unique identity from the [authentication](./authentication-authorization-and-trust.md) perspective. In practical terms, in the context of accessing the app's functionality through the browser, a user is a physical human being.
 
 A _tenant_ may have multiple _users_. This represents a situation where multiple users have access to the same project, workspace, or a team, and is a frequent pattern in B2B apps.
 
@@ -38,17 +38,19 @@ sequenceDiagram
   S-->>U2: HTTP 200<br>{ ..., tenants: [ "ten-123" ] }
 ```
 
-In the first step, user _U1_ with access to tenant _ten-123_ calls the _API_ to create an invitation. The server generates a random initation Id and stores it in the database associated with tenant _ten-123_. The invitations are stored with a TTL so that they automatically expire if not used within 24h. The server returns the generated invitation Id _inv-456_ to user \_U1.
+**NOTE** For clarity of the illustration, the diagram above omits the browser component that intermediates betweem the users and the API server.
 
-User _U1_ forms an invitation link that directs the browser to the _web_ component and sends it over using propriatery channels (e-mail, Slack) to user _U2_ whom he wants to invite to tenant _ten-123_.
+In the first step, user _U1_ with access to tenant _ten-123_ calls the _API_ to create an invitation. The server generates a random initation Id and stores it in the database associated with tenant _ten-123_. The invitations are stored with a TTL so that they automatically expire if not used within 24h. The server returns the generated invitation Id _inv-456_ to user _U1_.
 
-User _U2_ navigates to the invitation link in the browser and is asked to log. Then, he sends a request to the _API_ server to accept the invitation. The _API_ server validates the invitation still exists in the database, then creates the associatation between user _U2_ and tenant _ten-123_ in the database.
+User _U1_ forms an invitation link that directs the browser to the _web_ component and sends it over to user _U2_ using propriatery channels (e-mail, Slack).
 
-In the last step, the new user _U2_ calls the `/v1/me` endpoint om the _API_ server, which looks up the database to determine the list of tenants user _U2_ has access to, and returns that list in the response.
+User _U2_ navigates to the invitation link in the browser and is asked to log in. Then, he sends a request to the _API_ server to accept the invitation. The _API_ server validates the invitation still exists in the database, then creates the associatation between user _U2_ and tenant _ten-123_ in the database.
+
+In the last step, the new user _U2_ calls the `/v1/me` endpoint on the _API_ server, which looks up the database to determine the list of tenants user _U2_ has access to, and returns that list in the response.
 
 ### Plans and subscriptions
 
-Read more about the relationship between tenants and subscription plans in [manage-the-pricing-model](../how-to/manage-the-pricing-model.md).
+Read more about the relationship between tenants and subscription plans in [Manage the pricing model](../how-to/manage-the-pricing-model.md).
 
 ### Database and API
 

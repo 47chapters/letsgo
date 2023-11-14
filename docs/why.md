@@ -12,7 +12,7 @@ This is where LetsGo comes in. It provides the architecture and the tooling that
 
 <img width="837" alt="image" src="https://github.com/tjanczuk/letsgo/assets/822369/f7fe2317-d7de-4698-b093-416a52a1a145">
 
-LetsGo does it by providing a prescriptive architecture implemented with a modern set of technologies and a robust operational tooling for managing your app in AWS. On day one you get more than most startups build in the first two years of existence. This is what LetsGo provides you with:
+LetsGo does it by providing a prescriptive architecture implemented with a modern set of technologies and a robust operational tooling for managing your app in AWS. On day one you get more than most startups build in the first two years. This is what LetsGo provides you with:
 
 - An application architecture with a **web, HTTP API, worker, and a database components**, all wired up and ready to go.
 - A **devops CLI** that helps you set up CI/CD and manage several deployments of your app in AWS to help you segregate your production and development workloads or to **support dedicated deployments** for your customers.
@@ -25,6 +25,6 @@ LetsGo does it by providing a prescriptive architecture implemented with a moder
 
 LetsGo isn't for everybody. Not all apps have the shape that fits LetsGo architecture. The choice of technologies does not make the sense for all scenarios. Yet this architecture and tech stack works for the 80% of the products out there.
 
-Is LetsGo for you? The best way to find out is to [go over the tutorials](./tutorials.md). You may find that by spending an hour you saved yourself a few months of work now or a year of work later.
+Is LetsGo for you? The best way to find out is to [go over the tutorials](./tutorials.md) or to read more about the [architecture and tech stack](./backgound/architecture-and-technology-choices.md). You may find that by spending an hour you saved yourself a few months of work now or a year of work later.
 
 Let's go!
