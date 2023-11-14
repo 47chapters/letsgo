@@ -30,7 +30,7 @@ For details about how these settings affect scalability, read AWS documentation 
 
 ### Scaling the _worker_ component
 
-The _worker_ component consists of an [AWS Lambda function](https://aws.amazon.com/pm/lambda) and an [AWS SQS Standard Queue](https://aws.amazon.com/sqs/). Both have their own scalability behaviors and settings you can control.
+The _worker_ component consists of an [AWS Lambda function](https://aws.amazon.com/pm/lambda), an [AWS SQS Standard Queue](https://aws.amazon.com/sqs/), and an [AWS Event Source Mapping](https://docs.aws.amazon.com/lambda/latest/dg/with-sqs.html) that connects the two. All have their own scalability behaviors and settings you can control.
 
 For the _worker_'s Lambda function, you can set:
 
