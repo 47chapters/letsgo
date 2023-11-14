@@ -37,3 +37,27 @@ sequenceDiagram
   S-->>D: LIST /usr-U2/*
   S-->>U2: HTTP 200<br>{ ..., tenants: [ "ten-123" ] }
 ```
+
+In the first step, user _U1_ with access to tenant _ten-123_ calls the _API_ to create an invitation. The server generates a random initation Id and stores it in the database associated with tenant _ten-123_. The invitations are stored with a TTL so that they automatically expire if not used within 24h. The server returns the generated invitation Id _inv-456_ to user \_U1.
+
+User _U1_ forms an invitation link that directs the browser to the _web_ component and sends it over using propriatery channels (e-mail, Slack) to user _U2_ whom he wants to invite to tenant _ten-123_.
+
+User _U2_ navigates to the invitation link in the browser and is asked to log. Then, he sends a request to the _API_ server to accept the invitation. The _API_ server validates the invitation still exists in the database, then creates the associatation between user _U2_ and tenant _ten-123_ in the database.
+
+In the last step, the new user _U2_ calls the `/v1/me` endpoint om the _API_ server, which looks up the database to determine the list of tenants user _U2_ has access to, and returns that list in the response.
+
+### Plans and subscriptions
+
+Read more about the relationship between tenants and subscription plans in [manage-the-pricing-model](../how-to/manage-the-pricing-model.md).
+
+### Database and API
+
+LetsGo maintains a number of database categories to support the tenancy model. You can read more about in [System database categories](../reference/system-database-categories.md).
+
+LetsGo also implements a number of HTTP APIs in the _API_ component in support of the tenancy model. You can read more about in [Develop the API](../how-to/develop-the-api.md).
+
+### Related topics
+
+[Develop the API](../how-to/develop-the-api.md)  
+[System database categories](../reference/system-database-categories.md)  
+[Authentication, authorization, and trust](./authentication-authorization-and-trust.md)

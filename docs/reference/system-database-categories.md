@@ -38,6 +38,12 @@ Key: `/` (a fixed value of a singleton item)
 
 There is only ever up to one such item in the database. It specifies which of the PKI trusted issuers registered in the system is the active issuer.
 
+### letsgo-invitation
+
+Key: `/{tenantId}/{invitationId}`
+
+Stores an invitation to join a tenant. Unused invitations expire after 24h.
+
 ### letsgo-test
 
 Key: varies
