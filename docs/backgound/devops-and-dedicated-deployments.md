@@ -1,8 +1,10 @@
 ## Devops and dedicated deployments
 
-LetsGo takes a very first class approach to devops. The [LetsGo CLI](../reference/letsgo-cli.md) is treated as an integral part of the platform. It allows for creation of new deployments of the application in AWS as well as management of existing ones. It supports managing trust, inspecting the database, checking the status of the deployment, helping with the setup of a custom domain, and managing deployment configuration.
+LetsGo takes a very first class approach to devops. The [LetsGo CLI](../reference/letsgo-cli.md) is treated as an integral part of the platform. It allows for creation of new deployments of your application in AWS as well as management of existing ones. It supports managing trust, inspecting the database, checking the status of the deployment, helping with the setup of a custom domain, and managing deployment configuration.
 
 Using the LetsGo CLI you can deploy your app to any AWS region in minutes.
+
+<img width="943" alt="image" src="https://github.com/tjanczuk/letsgo/assets/822369/2858f3c0-28aa-4142-b105-6759574eeb83">
 
 ### Dedicated deployments
 
@@ -14,10 +16,10 @@ This is a source of major technical debt once you reach the point of maturity th
 
 - You may want to segragete your production and staging environments.
 - You may want every developer on your team to have their own environment in the cloud.
-- Your customers, are asking for a dedicated deployment option either on your AWS account or on theirs. This is often the case with B2B apps.
+- Your customers are asking for a dedicated deployment option either on your AWS account or on theirs. This is often the case with B2B apps.
 - Your customers demand that certain data locality requiremets are met, which requires multiple, isolated deployments in various geographical locations.
 
-At that point, an application that started off as a singleton in the cloud singleton faces a major hurdle - how to put itself back in-the-box of a repeatable devops process that can start from the bare cloud infrastructure and re-create all application components from scratch.
+At that point, an application that started off as a singleton in the cloud faces a major hurdle - how to put itself back in-the-box of a repeatable devops process that can start from the bare cloud infrastructure and re-create all application components from scratch.
 
 LetsGo solves this problem for you by providing this repeatable process on day one:
 
