@@ -1,50 +1,25 @@
 ## Manage trust and authentication
 
-Your users need to log into the management dashboard ([develop the frontend](./develop-the-frontend.md)) and call your HTTP APIs ([develop the API](./develop-the-api.md)), and you need to provide a secure way for them do so. This is usually a two-stage process:
-
-1. Authentication - having callers prove who they are.
-1. Authorization - checking if they are allowed to do what they intend.
-
-LetsGo uses Auth0 for authentication and the [Setting up authentication with Auth0](../tutorials/setting-up-authentication-with-auth0.md) tutorial walks you through the steps behind it. In this article we will look at how authentication works under the hood and how to manage trust in your LetsGo deployment.
-
-### Access tokens
-
-When calling an authenticated endpoint exposed by the _API_ component, the caller must present an access token in the `Authorization` header of the request, e.g.
-
-```text
-GET /v1/me
-Authorization: Bearer ey....
-```
-
-The LetsGo model requires that the access token:
-
-1. Is in [JWT](https://datatracker.ietf.org/doc/html/rfc7519) format.
-1. Is signed by an issuer that is trusted.
-1. Has the `aud` claim matching the audience value expected by your deployment.
-
-The essence of the model is to decision who you trust to issue the access tokens you will accept.
+This article shows you how to manage trusted issuers in the system and modify the expected value of the audience. It assumes you are familiar with the concepts discussed in [Authentication, authorization, and trust](../backgound/authentication-authorization-and-trust.md).
 
 ### Trusted issuers
 
-LetsGo has two types of trusted issuers of JWT tokens it accepts:
-
-1. Third-party issuers like [Auth0](https://auth0.com).
-1. Built-in issuers that use PKI credentials configured by you.
-
-You can manage the trusted issuers with the `yarn ops issuer` command. For examle, you can see the list of trusted issuers for your deployment with:
+You can manage the trusted issuers in the system with the `yarn ops issuer` command. For examle, you can see the list of trusted issuers for your deployment with:
 
 ```bash
 yarn ops issuer ls
 ```
 
+Please refer to the [LetsGo CLI](../reference/letsgo-cli.md) for details.
+
 #### Third party issuers
 
-You enable trust to a third-party issuer by providing two pieces of information in the configuration of your deployment:
+To enable trust to a third-party access token issuer, you need two pieces of information:
 
-1. The issuer identifier, corresponding to the `iss` claim in the JWT tokens created by that issuer.
-1. The [JWKS](https://datatracker.ietf.org/doc/html/rfc7517) endpoint that specifies the public keys of the issuer to be used when validating signature of JWT tokens.
+1. The issuer identifier, which is the value of the `iss` claim in the access tokens created by that issuer.
+1. The issuer's [JWKS]((https://datatracker.ietf.org/doc/html/rfc7517) endpoint.
 
-You enable trust to an issuer by running the following command:
+With this information, you can enable trust to that issuer by running the following command:
 
 ```bash
 yarn ops issuer add --issuer {issuer-identifier} --jwks {jwks-endpoint}
@@ -54,17 +29,37 @@ The [Setting up authentication with Auth0](../tutorials/setting-up-authenticatio
 
 #### Built-in PKI issuers
 
-You add a built-in issuer of JWT tokens that uses a generated public/private key pair stored in your system with:
+You add a new built-in issuer of JWT tokens that uses a generated public/private key pair stored in your system with:
 
 ```bash
-yarn ops issuer add --pki --pki-create
+yarn ops issuer add -pki-create
 ```
 
 You can have multiple trusted PKI issuers configured in the system, which enables you to roll over the PKI credentials without downtime.
 
-One of the PKI issuers can be designated as _active_. The system uses this issuer when it needs to create an access token internally for accessing the HTTP APIs. The main use case is to enable the _worker_ component to make calls to the endpoints exposed by the _API_. You can read more about it in [developing the worker](./develop-the-worker.md).
+One of the PKI issuers can be designated as _active_. When you run the `yarn ops issuer add --pki --pki-create`, the newly created issuer is designated as active. You can also create a new PKI issuer without designating it as active with:
 
-Another use of the active PKI issuer is to create ad-hoc JWT access tokens for testing. You can do this using the CLI with:
+```bash
+yarn ops issuer add --pki-create-only
+```
+
+Once you have multiple built-in PKI issuers in the system, you can change the one that is active withL
+
+```bash
+yarn ops issuer add --pki-activate {issuerId}
+```
+
+To see which of the built-in issuers is active, run
+
+```bash
+yarn ops issuer ls
+```
+
+**NOTE** When a brand new LetsGo deployment is created for the first time, one built-in issuer is created for you and designated active.
+
+### Creating ad-hoc access tokens
+
+One use of active PKI issuer is to create ad-hoc JWT access tokens for testing. You can do this using the CLI with:
 
 ```bash
 yarn ops jwt
@@ -88,12 +83,9 @@ const accessToken = await createJwt();
 
 For the access token to be trusted, the `aud` claim must match the value that your deployment expects. LetsGo uses a logical audience of `letsgo:service` by default. You can change this value to be something else using the `LETSGO_API_AUDIENCE` configuration property for the _API_ component, and the `AUTH0_AUDIENCE` configuration property for the _web_ component (assuming you have [configured Auth0 as your trusted issuer](../tutorials/setting-up-authentication-with-auth0.md)).
 
-### Authorization
-
-Access tokens created by the built-in issuer using either of the two methods above have the same value of the `iss` and `sub` claims. The value has the format `letsgo:{random-identifier}`. You need to account for such tokens when making any authorization decisions following a successful authentication in the _API_ component.
-
 ### Related topics
 
+[Authentication, authorization, and trust](../backgound/authentication-authorization-and-trust.md)  
 [Setting up authentication with Auth0](../tutorials/setting-up-authentication-with-auth0.md)  
 [Developing the API](./develop-the-api.md)  
 [Developing the worker](./develop-the-worker.md)  

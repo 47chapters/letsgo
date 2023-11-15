@@ -30,7 +30,7 @@ Background Concepts
 &nbsp;&nbsp;&nbsp;&nbsp;[Architecture and technology choices](backgound/architecture-and-technology-choices.md)  
 &nbsp;&nbsp;&nbsp;&nbsp;[Tenants and users](./background/tenants-and-users.md)  
 &nbsp;&nbsp;&nbsp;&nbsp;[Data model](backgound/data-model.md)  
-&nbsp;&nbsp;&nbsp;&nbsp;Authentication, authorization, and trust  
+&nbsp;&nbsp;&nbsp;&nbsp;[Authentication, authorization, and trust](./backgound/authentication-authorization-and-trust.md)  
 &nbsp;&nbsp;&nbsp;&nbsp;DevOps and dedicated deployments  
 Reference  
 &nbsp;&nbsp;&nbsp;&nbsp;Deployment components  
