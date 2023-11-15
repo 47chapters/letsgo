@@ -111,7 +111,7 @@ yarn ops config get
 To get all configuration settings of the default deployment in the default region in the [dotenv](https://www.npmjs.com/package/dotenv) format (useful for scripting or piping into `yarn ops config set -s` - see above):
 
 ```bash
-yarn ops config get -o env
+yarn -s ops config get -o env
 ```
 
 To get all configuration settings of the `stage` deployment in the `eu-central-1` region:
@@ -150,7 +150,7 @@ To deploy or re-deploy all components of the application to the default deployme
 yarn ops deploy -a all
 ```
 
-To deploy or re-deploy the `web` and `api` components of the application to the default deployment in the default region using the last built Docker images, run:
+To deploy or re-deploy the _web_ and _API_ components of the application to the default deployment in the default region using the last built Docker images, run:
 
 ```bash
 yarn ops deploy -a api -a web
@@ -218,7 +218,7 @@ Temporarily stops all or selected components of the deployment without removing 
 
 Stopping has the following effect on individual components:
 
-- _web_ and \_API - the public endpoint stops responding, services are suspended, you are not charged for compute.
+- _web_ and _API_ - the public endpoint stops responding, services are suspended, you are not charged for compute.
 - _worker_ - the event source mapping pumping messages from the queue to the Lambda is stopped.
 
 To stop all components of the default deployment in the default region:
@@ -321,7 +321,7 @@ yarn ops domain status -a web -d stage -r eu-central-1
 
 #### yarn ops domain rm
 
-Disassociate a custom domain from form the _web_ or _API_ component of a deployment. After disassociation, the component is no longer reachable using URLs with the custom domain name. The DNS records you have set up previously to enable the custom domain can be manually removed.
+Disassociate a custom domain from the _web_ or _API_ component of a deployment. After disassociation, the component is no longer reachable using URLs with the custom domain name. The DNS records you have set up previously to enable the custom domain can be manually removed.
 
 To remove the custom domain for the _API_ component of the default deployment in the default region:
 
@@ -339,7 +339,7 @@ yarn ops domain rm -a web -d stage -r eu-central-1
 
 Manipulates data in the _database_ component. Please read the [Data model](../backgound/data-model.md) to understand LetsGo's database structure.
 
-This set of commands is a thin shim over over the functionality of [@letsgo/db](./letsgo-db.md) module, described in [Access data in the database from code](../how-to/access-data-in-the-database-from-code.md).
+This set of commands is a thin shim over the functionality of [@letsgo/db](./letsgo-db.md) module, described in [Access data in the database from code](../how-to/access-data-in-the-database-from-code.md).
 
 #### yarn ops db ls
 
@@ -357,7 +357,7 @@ To list all items in the `orders` category with `key` value _starting with_ `202
 yarn ops db ls orders 2023-
 ```
 
-By default, the output only contains the full `key` values of the matching items. If you want to include the entire items instead, add the `-f, -full` option:
+By default, the output only contains the full `key` values of the matching items. If you want to include the entire items instead, add the `-f, --full` option:
 
 ```bash
 yarn ops db ls orders 2023- --full
@@ -442,7 +442,7 @@ yarn ops issuer ls --full -d stage -r eu-central-1
 
 #### yarn ops issuer add
 
-Adds a new trusted issuer to a deployment or designates one of the existin built-in PKI issuers as _active_.
+Adds a new trusted issuer to a deployment or designates one of the existing built-in PKI issuers as _active_.
 
 You must specify either:
 
