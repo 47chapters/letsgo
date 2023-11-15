@@ -39,8 +39,8 @@ Individual commands are described below.
 
 Most LetsGo CLI command accept these common options:
 
-- `-d, --deployment` - a named deployment to operate on. If the options is not specifed, a default deployment name is used. The default deployment provided in the `LETSGO_DEPLOYMENT` environment variable is used. If the variable is not specified, the default deployment name specified in the `DefaultDeployment` export from [@letsgo/constants](./letsgo-constants.md) is used (`main` unless you changed it).
-- `-r, --region` - the AWS region of the deployment. If the option is not specified, a default region is used. The default region provided in the `AWS_REGION` environment variable is used. If the variable is not set, the default region specified in the `DefaultRegion` export from [@letsgo/constants](./letsgo-constants.md) is used (`us-west-2` unless you changed it).
+- `-d, --deployment` - a named deployment to operate on. If the option is not specifed, a default deployment name provided in the `LETSGO_DEPLOYMENT` environment variable is used. If the variable is not set, the default deployment name specified in the `DefaultDeployment` export from [@letsgo/constants](./letsgo-constants.md) is used (`main` unless you changed it).
+- `-r, --region` - the AWS region of the deployment. If the option is not specified, a default region provided in the `AWS_REGION` environment variable is used. If the variable is not set, the default region specified in the `DefaultRegion` export from [@letsgo/constants](./letsgo-constants.md) is used (`us-west-2` unless you changed it).
 - `-o, --output` - output format of the command; most commands support `text` and `json`
 
 ### yarn ops config
