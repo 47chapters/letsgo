@@ -20,12 +20,12 @@ cli
     "DevOps tool for LetsGo - set up and manage your deployments in AWS."
   )
   .addCommand(config)
-  .addCommand(rm)
   .addCommand(deploy)
   .addCommand(status)
   .addCommand(stop)
   .addCommand(start)
   .addCommand(restart)
+  .addCommand(rm)
   .addCommand(domain)
   .addCommand(db)
   .addCommand(issuer)

@@ -33,12 +33,11 @@ Background Concepts
 &nbsp;&nbsp;&nbsp;&nbsp;[Authentication, authorization, and trust](./backgound/authentication-authorization-and-trust.md)  
 &nbsp;&nbsp;&nbsp;&nbsp;[DevOps and dedicated deployments](./backgound/devops-and-dedicated-deployments.md)  
 Reference  
-&nbsp;&nbsp;&nbsp;&nbsp;Deployment components  
-&nbsp;&nbsp;&nbsp;&nbsp;Repository structure  
+&nbsp;&nbsp;&nbsp;&nbsp;[LetsGo CLI (yarn ops)](./reference/letsgo-cli.md)  
+&nbsp;&nbsp;&nbsp;&nbsp;[System database categories](reference/system-database-categories.md)  
 &nbsp;&nbsp;&nbsp;&nbsp;/apps/web  
 &nbsp;&nbsp;&nbsp;&nbsp;/apps/api  
 &nbsp;&nbsp;&nbsp;&nbsp;/apps/worker  
-&nbsp;&nbsp;&nbsp;&nbsp;LetsGo CLI (yarn ops)  
 &nbsp;&nbsp;&nbsp;&nbsp;@letsgo/constants  
 &nbsp;&nbsp;&nbsp;&nbsp;@letsgo/db  
 &nbsp;&nbsp;&nbsp;&nbsp;@letsgo/pricing  
@@ -49,4 +48,3 @@ Reference
 &nbsp;&nbsp;&nbsp;&nbsp;@letsgo/trust  
 &nbsp;&nbsp;&nbsp;&nbsp;@letsgo/types  
 &nbsp;&nbsp;&nbsp;&nbsp;turborepo artifacts
-&nbsp;&nbsp;&nbsp;&nbsp;[System database categories](reference/system-database-categories.md)
