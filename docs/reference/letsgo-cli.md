@@ -1,6 +1,6 @@
 ## LetsGo CLI (yarn ops)
 
-The LetsGo CLI is the primary devops tool you will use to manaage the lifecycle of your app. It can be invoked with `yarn ops` from the root of the repository after the first build.
+The LetsGo CLI is the primary devops tool you will use to manage the lifecycle of your app. It can be invoked with `yarn ops` from the root of the repository after the first build.
 
 LetsGo CLI allows you to create new deployments of your application in AWS as well as manage existing ones. It supports managing trust, inspecting the database, checking the status of the deployment, helping with the setup of a custom domain, and managing deployment configuration.
 
@@ -21,18 +21,19 @@ When this is done, the LetsGo CLI can be invoked with `yarn ops` from the root o
 
 These are the top level commands offered by the CLI:
 
-- `yarn ops config` - manage configuration
-- `yarn ops deploy` - deploy or re-deploy the application to AWS
-- `yarn ops status` - get the status of a deployment
-- `yarn ops stop` - stop the application
-- `yarn ops start` - start the application
-- `yarn ops restart` - restart the application
-- `yarn ops rm` - remove the deployment
-- `yarn ops domain` - setup and manage a custom domain
-- `yarn ops issuer` - manage trust
-- `yarn ops jwt` - create an access token for testing
+[yarn ops config](#yarn-ops-config) - manage configuration  
+[yarn ops deploy](#yarn-ops-deploy) - deploy or re-deploy the application to AWS  
+[yarn ops status](#yarn-ops-status) - get the status of a deployment  
+[yarn ops stop](#yarn-ops-stop) - stop the application  
+[yarn ops start](#yarn-ops-start) - start the application  
+[yarn ops restart](#yarn-ops-restart) - restart the application  
+[yarn ops rm](#yarn-ops-rm) - remove the deployment  
+[yarn ops domain](#yarn-ops-domain) - setup and manage a custom domain  
+[yarn ops db](#yarn-ops-db) - manipulate data in the database  
+[yarn ops issuer](#yarn-ops-issuer) - manage trust  
+[yarn ops jwt](#yarn-ops-jwt) - create an access token for testing
 
-Individual commands are described below
+Individual commands are described below.
 
 ### Common options
 
@@ -333,6 +334,79 @@ To remove the custom domain for the _web_ component of the `stage` deployment in
 ```bash
 yarn ops domain rm -a web -d stage -r eu-central-1
 ```
+
+### yarn ops db
+
+Manipulates data in the _database_ component. Please read the [Data model](../backgound/data-model.md) to understand LetsGo's database structure.
+
+This set of commands is a thin shim over over the functionality of [@letsgo/db](./letsgo-db.md) module, described in [Access data in the database from code](../how-to/access-data-in-the-database-from-code.md).
+
+#### yarn ops db ls
+
+Lists database items with a specified `category` and optionally a specified _prefix_ of the `key`.
+
+To list all items in the `orders` category, run:
+
+```bash
+yarn ops db ls orders
+```
+
+To list all items in the `orders` category with `key` value _starting with_ `2023-`, run:
+
+```bash
+yarn ops db ls orders 2023-
+```
+
+By default, the output only contains the full `key` values of the matching items. If you want to include the entire items instead, add the `-f, -full` option:
+
+```bash
+yarn ops db ls orders 2023- --full
+```
+
+This command supports paging. You can specify the `-l, --limit` option to indicate the upper bound on the number of results you would like to get. If the result of the operation specifies a continuation token (`nextToken`), you can specify it using the `-n, --nextToken` option in a subsequent call to the command to receive the next page of results.
+
+#### yarn ops db get
+
+Get the value of a single item with a specific `category` and `key`.
+
+To get an item with the `orders` category and `key` value of `2023-123456`:
+
+```bash
+yarn ops db get orders 2023-123456
+```
+
+If the item exists, the command returns the JSON representation of the item.
+
+If you want to use the result for scripting, you must tell `yarn` not to generate any output to stdin by passing the `-s` option to yarn:
+
+```bash
+yarn -s ops db get orders 2023-123456
+```
+
+#### yarn ops db put
+
+Upserts an item to the database. The item is specified as a JSON document which must be an object containing at least the `category` and `key` string properties.
+
+To add an item to the database:
+
+```bash
+yarn ops db put '{"category":"orders","key":"2023-123456","customerId":"cust-123","total":120}'
+```
+
+When you specify the `-s, --stdin` option, the item to be put into the database is read from stdin:
+
+```bash
+yarn ops db put -s <<EOF
+{
+  "category": "orders",
+  "key": "2023-123456",
+  "customerId": "cust-123",
+  "total": 120
+}
+EOF
+```
+
+The latter form is useful for scriping, where you can pipe the JSON output of one command into `yarn ops db put -s`.
 
 ### yarn ops issuer
 
