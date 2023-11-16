@@ -80,7 +80,7 @@ LETSGO_API_URL=http://localhost:3001
 LETSGO_LOCAL_QUEUE_URL=http://localhost:3002
 ```
 
-These settings allow the code you write in the _worker_ component to call the _API_ endpoints as well as enqueue new, asynchronous work for itself using the [@letsgo/queue](../reference/letsgo-queue.md) package.
+These settings allow the code you write in the _worker_ component to call the _API_ endpoints as well as enqueue new, asynchronous work for itself using the [@letsgo/queue](../reference/letsgo-queue/README.md) package.
 
 In some situations, the worker may need to call Stripe using the [@letsgo/stripe](../reference/letsgo-stripe.md) package. In this case, you must provide the same set of Stripe-related configuration settings to the _worker_ as you did for the _API_ component. In the most general case:
 
@@ -121,11 +121,11 @@ This will:
 - Rebuild anythng that needs rebuilding.
 - Run the _web_ component as a plain Node.js HTTP server listening on http://localhost:3000. You can navigate to it in the browser.
 - Run the _API_ component as a plain Node.js HTTP server listening on http://localhost:3001. You can call `curl http://localhost:3001/v1/health` to get the health information.
-- Run the _worker_ component as a plain Node.js HTTP server listening on http://localhost:3002. You can use the [@letsgo/queue](../reference/letsgo-queue.md) package to enqueue work for it from the code of the _API_ or _worker_ components.
+- Run the _worker_ component as a plain Node.js HTTP server listening on http://localhost:3002. You can use the [@letsgo/queue](../reference/letsgo-queue/README.md) package to enqueue work for it from the code of the _API_ or _worker_ components.
 - Watch for any changes in the file system of these components _and its dependencies_, and rebuild and restart the components as necessary.
 - For the _web_ component, the _fast refresh_ mechanims is used that immediately reflects any changes in the code of the _web_ component without the need to refresh the browser window.
 
-**NOTE** Unlike in the cloud, there is no queue in front of the _worker_ component when running locally. Any events "enqueued" for the worker using the [@letsgo/queue](../reference/letsgo-queue.md) package will be immediately passed to the worker to process using the lightweight HTTP server listening on http://localhost:3002. This means there is no fidelity with any of the scalability/throttling/failure behaviors you would expect if the queue were present. In particular, events that fail during processing are dumped as opposed to being re-tried or sent to a dead letter queue.
+**NOTE** Unlike in the cloud, there is no queue in front of the _worker_ component when running locally. Any events "enqueued" for the worker using the [@letsgo/queue](../reference/letsgo-queue/README.md) package will be immediately passed to the worker to process using the lightweight HTTP server listening on http://localhost:3002. This means there is no fidelity with any of the scalability/throttling/failure behaviors you would expect if the queue were present. In particular, events that fail during processing are dumped as opposed to being re-tried or sent to a dead letter queue.
 
 ### Run individual components
 

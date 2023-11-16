@@ -1,3 +1,9 @@
+/**
+ * The package provides a way to enqueue messages to be processed by the LetsGo _worker_.
+ *
+ * @module
+ */
+
 import {
   ListQueueTagsCommand,
   ListQueuesCommand,
@@ -12,6 +18,9 @@ import http from "http";
 const apiVersion = "2012-11-05";
 
 let client: SQSClient | undefined;
+/**
+ * @ignore
+ */
 export function getSQSClient(region: string): SQSClient {
   if (!client) {
     client = new SQSClient({
@@ -22,6 +31,12 @@ export function getSQSClient(region: string): SQSClient {
   return client;
 }
 
+/**
+ * Lists all SQS queue URLs created by LetsGo in a given region and optionally to support a given deployment.
+ * @param region AWS region
+ * @param deployment LetsGo deployment name
+ * @returns Array of matching SQS queue URLs
+ */
 export async function listLetsGoQueues(
   region: string,
   deployment?: string
@@ -85,11 +100,23 @@ async function getQueueUrl(): Promise<string> {
   return queueUrl;
 }
 
+/**
+ * Options for enqueueing a message.
+ */
 export interface EnqueueOptions {
+  /**
+   * The number of seconds to delay the message readiness for delivery to the worker.
+   */
   delaySeconds?: number;
 }
 
+/**
+ * Result of enqueueing a message.
+ */
 export interface EnqueueResult {
+  /**
+   * The SQS message ID.
+   */
   messageId: string;
 }
 
@@ -161,6 +188,15 @@ async function enqueueLocal(
   return { messageId: payload.Records[0].messageId };
 }
 
+/**
+ * Enqueues a message to be processed by the LetsGo _worker_. If the `LETSGO_LOCAL_QUEUE_URL` environment variable is set,
+ * the message is sent to the specified URL with an HTTP POST instead of being enqueued to AWS SQS. This environment variable
+ * is used in the local development scenario to allow the _worker_ component to run behind a lightweight HTTP server
+ * on the developer's machine.
+ * @param message The message to enqueue
+ * @param options Options for enqueueing the message
+ * @returns Enqeue result, including SQS message Id.
+ */
 export async function enqueue(
   message: Message,
   options?: EnqueueOptions
