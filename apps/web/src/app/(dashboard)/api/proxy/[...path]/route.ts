@@ -14,7 +14,7 @@ import { withApiAuthRequired } from "@auth0/nextjs-auth0";
 import proxyFactory from "../../proxy";
 
 // The withApiAuthRequired is evaluated at build time but expectes AUTH0_SECRET to be set.
-const oldAuth0Secret = process.env.AUTH0_SECRET;
+const oldAuth0Secret = process.env["AUTH0_SECRET"];
 process.env["AUTH0_SECRET"] =
   process.env["AUTH0_SECRET"] || "never-used-secret-value";
 const proxy = withApiAuthRequired(
