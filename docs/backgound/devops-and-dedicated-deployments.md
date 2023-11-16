@@ -32,5 +32,5 @@ Read more about how to [manage multiple deployments](../how-to/manage-multiple-d
 ### Related topics
 
 [LetsGo CLI](../reference/letsgo-cli.md)  
-[Why LetsGo?](../why.md)  
+[Why LetsGo?](../backgound/why.md)  
 [Architecture and technology choices](./architecture-and-technology-choices.md)

@@ -1,3 +1,7 @@
+<!-- markdown-link-check-disable -->
+<!-- markdown-link-check-disable -->
+<!-- markdown-link-check-disable -->
+
 ## Getting Started
 
 First, run the development server:

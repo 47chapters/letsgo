@@ -78,7 +78,11 @@ async function scheduleNewOrder() {
 
 ### Local vs cloud behavior
 
+<!-- markdown-link-check-disable -->
+
 When [running locally](../tutorials/building-and-running-locally.md), there is no queue between your client and the _worker_, and the _worker_ is hosted as a plain Node.js process in a lightweight HTTP server on http://localhost:3002. This means there are some differences in behavior of `enqeue` between local and cloud environments:
+
+<!-- markdown-link-check-enable -->
 
 1. Messages enqueued using `enqueue` are immediately delivered to the _worker_ for execution with an HTTP call.
 1. The `delaySeconds` is not observed.

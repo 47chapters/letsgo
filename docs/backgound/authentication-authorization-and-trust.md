@@ -1,6 +1,6 @@
 ## Authentication, authorization, and trust
 
-Users of your app need to log into the management dashboard ([develop the frontend](./develop-the-frontend.md)) and call your HTTP APIs ([develop the API](./develop-the-api.md)), and you need to provide a secure way for them do so. This is usually a two-stage process:
+Users of your app need to log into the management dashboard ([develop the frontend](../how-to/develop-the-frontend.md)) and call your HTTP APIs ([develop the API](../how-to/develop-the-api.md)), and you need to provide a secure way for them do so. This is usually a two-stage process:
 
 1. Authentication - having callers prove who they are.
 1. Authorization - checking if they are allowed to do what they intend.
@@ -64,7 +64,7 @@ This way, the validity of an access token presented by the caller can be checked
 
 You can have multiple built-in PKI issuers configured in the system, which enables you to roll over the PKI credentials without downtime.
 
-One of the PKI issuers can be designated as _active_. The system uses this issuer when it needs to create an access token internally for accessing the HTTP APIs. The main use case is to enable the _worker_ component to make calls to the endpoints exposed by the _API_. You can read more about it in [developing the worker](./develop-the-worker.md).
+One of the PKI issuers can be designated as _active_. The system uses this issuer when it needs to create an access token internally for accessing the HTTP APIs. The main use case is to enable the _worker_ component to make calls to the endpoints exposed by the _API_. You can read more about it in [developing the worker](../how-to/develop-the-worker.md).
 
 Another use of the active PKI issuer is to create ad-hoc JWT access tokens for testing. You can read more about it in [managing trust and authentication](../how-to/manage-trust-and-authentication.md#creating-ad-hoc-access-tokens).
 

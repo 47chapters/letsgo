@@ -128,8 +128,11 @@ You must add your custom domain to the Auth0 configuration to inform Auth0 that 
 
 In the [Auth0 Management Dashboard](https://manage.auth0.com), navigate to _Applications / Applications_, locate the application you have created when [setting up authentication with Auth0](setting-up-authentication-with-auth0.md), go to the _Settings_ tab, find the _Application URIs_ section, and update the configuration as follows:
 
+<!-- markdown-link-check-disable -->
+
 - In _Allowed Callback URLs_, add the URL based on your custom domain name of the _web_ component, e.g. `https://contoso.com/api/auth/callback` (replace `contoso.com` with your domain name),
 - In _Allowed logout URLs_ and in the _Allowed Web Origins_, add a URL based on your custom domain name of the _web_ component, e.g. `https://contoso.com/` (replace `contoso.com` with your custom domain name).
+<!-- markdown-link-check-enable -->
 
 <img width="1312" alt="image" src="https://github.com/tjanczuk/letsgo/assets/822369/c9c9a123-21ef-4c4a-986e-0ec6503b464a">
 
@@ -166,6 +169,8 @@ Api
 
 Notice the _CustomDomain_ properties showing the custom domain name and its status as `active` for the _web_ and _API_ components.
 
+<!-- markdown-link-check-disable -->
+
 ### Access the website at the custom domain
 
 Point the browser at your custom domain, e.g. `https://contoso.com`. You should see your website.
@@ -177,6 +182,8 @@ Invoke the health endpoint of your _API_ using the custom domain, e.g.
 ```bash
 curl https://api.contoso.com/v1/health
 ```
+
+<!-- markdown-link-check-enable -->
 
 You should see an HTTP 200 response with a JSON response that includes the details, e.g.
 
