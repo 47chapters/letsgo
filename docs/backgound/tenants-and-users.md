@@ -38,7 +38,7 @@ sequenceDiagram
   S-->>U2: HTTP 200<br>{ ..., tenants: [ "ten-123" ] }
 ```
 
-**NOTE** For clarity of the illustration, the diagram above omits the browser component that intermediates betweem the users and the API server.
+**NOTE** For clarity of the illustration, the diagram above omits the browser component that intermediates between the users and the API server.
 
 In the first step, user _U1_ with access to tenant _ten-123_ calls the _API_ to create an invitation. The server generates a random initation Id and stores it in the database associated with tenant _ten-123_. The invitations are stored with a TTL so that they automatically expire if not used within 24h. The server returns the generated invitation Id _inv-456_ to user _U1_.
 
