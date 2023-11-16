@@ -34,7 +34,7 @@ The maximum number of messages the _worker_ component can process in a single in
 
 #### Defined in
 
-[index.ts:619](https://github.com/tjanczuk/letsgo/blob/66e0983/packages/constants/src/index.ts#L619)
+[index.ts:619](https://github.com/tjanczuk/letsgo/blob/68a7da4/packages/constants/src/index.ts#L619)
 
 ___
 
@@ -46,7 +46,7 @@ The maximum time in seconds the _worker_ component waits for more messages to ar
 
 #### Defined in
 
-[index.ts:623](https://github.com/tjanczuk/letsgo/blob/66e0983/packages/constants/src/index.ts#L623)
+[index.ts:623](https://github.com/tjanczuk/letsgo/blob/68a7da4/packages/constants/src/index.ts#L623)
 
 ___
 
@@ -59,7 +59,7 @@ This number multipled by the [batchSize](WorkerSettingsDefaultConfig.md#batchsiz
 
 #### Defined in
 
-[index.ts:628](https://github.com/tjanczuk/letsgo/blob/66e0983/packages/constants/src/index.ts#L628)
+[index.ts:628](https://github.com/tjanczuk/letsgo/blob/68a7da4/packages/constants/src/index.ts#L628)
 
 ___
 
@@ -72,7 +72,7 @@ in the `/tmp` directory.
 
 #### Defined in
 
-[index.ts:615](https://github.com/tjanczuk/letsgo/blob/66e0983/packages/constants/src/index.ts#L615)
+[index.ts:615](https://github.com/tjanczuk/letsgo/blob/68a7da4/packages/constants/src/index.ts#L615)
 
 ___
 
@@ -84,7 +84,7 @@ The amount of memory allocated to the Lambda function of the _worker_ component.
 
 #### Defined in
 
-[index.ts:610](https://github.com/tjanczuk/letsgo/blob/66e0983/packages/constants/src/index.ts#L610)
+[index.ts:610](https://github.com/tjanczuk/letsgo/blob/68a7da4/packages/constants/src/index.ts#L610)
 
 ___
 
@@ -96,7 +96,7 @@ The maximum time in seconds the Lambda function of the _worker_ component can ru
 
 #### Defined in
 
-[index.ts:606](https://github.com/tjanczuk/letsgo/blob/66e0983/packages/constants/src/index.ts#L606)
+[index.ts:606](https://github.com/tjanczuk/letsgo/blob/68a7da4/packages/constants/src/index.ts#L606)
 
 ___
 
@@ -109,7 +109,7 @@ before it is discarded.
 
 #### Defined in
 
-[index.ts:593](https://github.com/tjanczuk/letsgo/blob/66e0983/packages/constants/src/index.ts#L593)
+[index.ts:593](https://github.com/tjanczuk/letsgo/blob/68a7da4/packages/constants/src/index.ts#L593)
 
 ___
 
@@ -121,7 +121,7 @@ The time in seconds a request for a message from the SQS queue remains pending i
 
 #### Defined in
 
-[index.ts:602](https://github.com/tjanczuk/letsgo/blob/66e0983/packages/constants/src/index.ts#L602)
+[index.ts:602](https://github.com/tjanczuk/letsgo/blob/68a7da4/packages/constants/src/index.ts#L602)
 
 ___
 
@@ -134,4 +134,4 @@ confirm its processing.
 
 #### Defined in
 
-[index.ts:598](https://github.com/tjanczuk/letsgo/blob/66e0983/packages/constants/src/index.ts#L598)
+[index.ts:598](https://github.com/tjanczuk/letsgo/blob/68a7da4/packages/constants/src/index.ts#L598)

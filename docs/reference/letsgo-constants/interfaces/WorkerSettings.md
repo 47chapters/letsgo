@@ -29,7 +29,7 @@ Returns the default configuration settings for the component.
 
 #### Defined in
 
-[index.ts:703](https://github.com/tjanczuk/letsgo/blob/66e0983/packages/constants/src/index.ts#L703)
+[index.ts:703](https://github.com/tjanczuk/letsgo/blob/68a7da4/packages/constants/src/index.ts#L703)
 
 ___
 
@@ -57,7 +57,7 @@ ECR repository name
 
 #### Defined in
 
-[index.ts:680](https://github.com/tjanczuk/letsgo/blob/66e0983/packages/constants/src/index.ts#L680)
+[index.ts:680](https://github.com/tjanczuk/letsgo/blob/68a7da4/packages/constants/src/index.ts#L680)
 
 ___
 
@@ -88,7 +88,7 @@ IAM inline policy document
 
 #### Defined in
 
-[index.ts:663](https://github.com/tjanczuk/letsgo/blob/66e0983/packages/constants/src/index.ts#L663)
+[index.ts:663](https://github.com/tjanczuk/letsgo/blob/68a7da4/packages/constants/src/index.ts#L663)
 
 ___
 
@@ -116,7 +116,7 @@ Lambda function name
 
 #### Defined in
 
-[index.ts:692](https://github.com/tjanczuk/letsgo/blob/66e0983/packages/constants/src/index.ts#L692)
+[index.ts:692](https://github.com/tjanczuk/letsgo/blob/68a7da4/packages/constants/src/index.ts#L692)
 
 ___
 
@@ -144,7 +144,7 @@ Local Docker image name (without the tag)
 
 #### Defined in
 
-[index.ts:686](https://github.com/tjanczuk/letsgo/blob/66e0983/packages/constants/src/index.ts#L686)
+[index.ts:686](https://github.com/tjanczuk/letsgo/blob/68a7da4/packages/constants/src/index.ts#L686)
 
 ___
 
@@ -173,7 +173,7 @@ Number of days to retain CloudWatch logs.
 
 #### Defined in
 
-[index.ts:699](https://github.com/tjanczuk/letsgo/blob/66e0983/packages/constants/src/index.ts#L699)
+[index.ts:699](https://github.com/tjanczuk/letsgo/blob/68a7da4/packages/constants/src/index.ts#L699)
 
 ___
 
@@ -202,7 +202,7 @@ Array of managed IAM policy ARNs
 
 #### Defined in
 
-[index.ts:674](https://github.com/tjanczuk/letsgo/blob/66e0983/packages/constants/src/index.ts#L674)
+[index.ts:674](https://github.com/tjanczuk/letsgo/blob/68a7da4/packages/constants/src/index.ts#L674)
 
 ___
 
@@ -231,7 +231,7 @@ IAM policy name
 
 #### Defined in
 
-[index.ts:654](https://github.com/tjanczuk/letsgo/blob/66e0983/packages/constants/src/index.ts#L654)
+[index.ts:654](https://github.com/tjanczuk/letsgo/blob/68a7da4/packages/constants/src/index.ts#L654)
 
 ___
 
@@ -259,7 +259,7 @@ Prefix of the SQS queue name
 
 #### Defined in
 
-[index.ts:640](https://github.com/tjanczuk/letsgo/blob/66e0983/packages/constants/src/index.ts#L640)
+[index.ts:640](https://github.com/tjanczuk/letsgo/blob/68a7da4/packages/constants/src/index.ts#L640)
 
 ___
 
@@ -288,4 +288,4 @@ IAM role name
 
 #### Defined in
 
-[index.ts:647](https://github.com/tjanczuk/letsgo/blob/66e0983/packages/constants/src/index.ts#L647)
+[index.ts:647](https://github.com/tjanczuk/letsgo/blob/68a7da4/packages/constants/src/index.ts#L647)

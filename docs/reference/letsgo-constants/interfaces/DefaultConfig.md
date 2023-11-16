@@ -3,7 +3,7 @@
 # Interface: DefaultConfig
 
 A collection of default configuration settings. Each setting is an array of two strings: the first one
-is the name of the environment variable representing this setting, and the seond is the default vakue of the setting.
+is the name of the environment variable representing this setting, and the seond is the default value of the setting.
 
 ## Hierarchy
 

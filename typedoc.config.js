@@ -7,4 +7,5 @@ module.exports = {
   githubPages: false,
   hideGenerator: true,
   cleanOutputDir: true,
+  useTsLinkResolution: false,
 };
