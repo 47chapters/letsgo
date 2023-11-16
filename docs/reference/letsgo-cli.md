@@ -39,15 +39,15 @@ Individual commands are described below.
 
 Most LetsGo CLI command accept these common options:
 
-- `-d, --deployment` - a named deployment to operate on. If the option is not specifed, a default deployment name provided in the `LETSGO_DEPLOYMENT` environment variable is used. If the variable is not set, the default deployment name specified in the `DefaultDeployment` export from [@letsgo/constants](./letsgo-constants.md) is used (`main` unless you changed it).
-- `-r, --region` - the AWS region of the deployment. If the option is not specified, a default region provided in the `AWS_REGION` environment variable is used. If the variable is not set, the default region specified in the `DefaultRegion` export from [@letsgo/constants](./letsgo-constants.md) is used (`us-west-2` unless you changed it).
+- `-d, --deployment` - a named deployment to operate on. If the option is not specifed, a default deployment name provided in the `LETSGO_DEPLOYMENT` environment variable is used. If the variable is not set, the default deployment name specified in the `DefaultDeployment` export from [@letsgo/constants](./letsgo-constants/README.md) is used (`main` unless you changed it).
+- `-r, --region` - the AWS region of the deployment. If the option is not specified, a default region provided in the `AWS_REGION` environment variable is used. If the variable is not set, the default region specified in the `DefaultRegion` export from [@letsgo/constants](./letsgo-constants/README.md) is used (`us-west-2` unless you changed it).
 - `-o, --output` - output format of the command; most commands support `text` and `json`
 
 ### yarn ops config
 
 Manages configuration of a deployment in AWS. See [manage configuration](../how-to/manage-configuration.md) for more information.
 
-See the [available configuration settings and default values](../reference/letsgo-constants.md) for configuration settings LetsGo defines. You can also define you own configurations settings that will be propagated to the components of your app using environment variables upon deployment.
+See the [available configuration settings and default values](../reference/letsgo-constants/README.md) for configuration settings LetsGo defines. You can also define you own configurations settings that will be propagated to the components of your app using environment variables upon deployment.
 
 #### yarn ops config ls
 

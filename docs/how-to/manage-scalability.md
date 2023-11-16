@@ -6,7 +6,7 @@ The choice of technologies in the LetsGo infrastructure allows you to control a 
 
 ### How to set scalability settings
 
-All of the settings described below have reasonable defaults chosen to support a development scenario. These defaults are defined as part of the [@letsgo/constants](../reference/letsgo-constants.md) package. You can override any of these defaults on a per-deployment basis using the [LetsGo CLI](../reference/letsgo-cli.md), specifically the `yarn ops config set` command. See [managing configuration](./manage-configuration.md) for details.
+All of the settings described below have reasonable defaults chosen to support a development scenario. These defaults are defined as part of the [@letsgo/constants](../reference/letsgo-constants/README.md) package. You can override any of these defaults on a per-deployment basis using the [LetsGo CLI](../reference/letsgo-cli.md), specifically the `yarn ops config set` command. See [managing configuration](./manage-configuration.md) for details.
 
 The scalability settings are only relevant in the AWS deployment. None of the scalability settings affect [running the stack locally](./run-locally.md) using `yarn dev`.
 
@@ -59,7 +59,7 @@ The LetsGo database consists of a single [AWS DynamoDB](https://aws.amazon.com/d
 
 [Managing configuration](./manage-configuration.md)  
 [LetsGo CLI](../reference/letsgo-cli.md)  
-[@letsgo/constants](../reference/letsgo-constants.md)  
+[@letsgo/constants](../reference/letsgo-constants/README.md)  
 [Developing the frontend](./develop-the-frontend.md)  
 [Developing the API](./develop-the-api.md)  
 [Developing the worker](./develop-the-worker.md)

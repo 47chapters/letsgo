@@ -38,7 +38,7 @@ Reference
 &nbsp;&nbsp;&nbsp;&nbsp;/apps/web  
 &nbsp;&nbsp;&nbsp;&nbsp;/apps/api  
 &nbsp;&nbsp;&nbsp;&nbsp;/apps/worker  
-&nbsp;&nbsp;&nbsp;&nbsp;@letsgo/constants  
+&nbsp;&nbsp;&nbsp;&nbsp;[@letsgo/constants](./reference/letsgo-constants/README.md)  
 &nbsp;&nbsp;&nbsp;&nbsp;@letsgo/db  
 &nbsp;&nbsp;&nbsp;&nbsp;@letsgo/pricing  
 &nbsp;&nbsp;&nbsp;&nbsp;@letsgo/queue  

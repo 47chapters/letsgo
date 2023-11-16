@@ -4,7 +4,7 @@ The _web_, _API_, and _worker_ components have a large number of configuration s
 
 ### Specifying configuration settings when running locally
 
-When running the stack locally, configuration settings for the _web_, _API_, and _worker_ components are provided via the `.env*` files, separately for each of the components. This minimum set of configuration settings for each of the components is described in detail in the [running locally](./run-locally.md) article. Refer to [@letsgo/constants](../reference/letsgo-constants.md) for a complete list of configuration settings you can set.
+When running the stack locally, configuration settings for the _web_, _API_, and _worker_ components are provided via the `.env*` files, separately for each of the components. This minimum set of configuration settings for each of the components is described in detail in the [running locally](./run-locally.md) article. Refer to [@letsgo/constants](../reference/letsgo-constants/README.md) for a complete list of configuration settings you can set.
 
 ### Specifying configuration settings when running in AWS
 
@@ -37,7 +37,7 @@ In addition to the configuration settings sourced from the AWS Systems Manager P
 - `LETSGO_WEB_URL`
 - `LETSGO_DEPLOYMENT`
 
-Refer to [@letsgo/constants](../reference/letsgo-constants.md) for a complete list of configuration settings you can set, including their default values if not specified explicitly through `yarn ops config set`.
+Refer to [@letsgo/constants](../reference/letsgo-constants/README.md) for a complete list of configuration settings you can set, including their default values if not specified explicitly through `yarn ops config set`.
 
 ### Managing configuration of several deployments in AWS
 
@@ -55,7 +55,7 @@ yarn ops deploy -a api -d stage
 
 ### Related topics
 
-[Available configuration settings and default values](../reference/letsgo-constants.md)  
+[Available configuration settings and default values](../reference/letsgo-constants/README.md)  
 [Manage multiple deployments](./manage-multiple-deployments.md)  
 [Running locally](./run-locally.md)  
 [LetsGo CLI](../reference/letsgo-cli.md)
