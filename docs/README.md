@@ -40,7 +40,7 @@ Reference
 &nbsp;&nbsp;&nbsp;&nbsp;/apps/worker  
 &nbsp;&nbsp;&nbsp;&nbsp;[@letsgo/constants](./reference/letsgo-constants/README.md)  
 &nbsp;&nbsp;&nbsp;&nbsp;[@letsgo/db](./reference/letsgo-db/README.md)  
-&nbsp;&nbsp;&nbsp;&nbsp;@letsgo/pricing  
+&nbsp;&nbsp;&nbsp;&nbsp;[@letsgo/pricing](./reference/letsgo-pricing/README.md)  
 &nbsp;&nbsp;&nbsp;&nbsp;[@letsgo/queue](./reference/letsgo-queue/README.md)  
 &nbsp;&nbsp;&nbsp;&nbsp;[@letsgo/slack](./reference/letsgo-slack/README.md)  
 &nbsp;&nbsp;&nbsp;&nbsp;[@letsgo/stripe](./reference/letsgo-stripe/README.md)  

@@ -161,4 +161,4 @@ In the _web_ component, you can access the list of tenants the logged in user ha
 [Setting up payments with Stripe](../tutorials/setting-up-payments-with-stripe.md)  
 [Tenants and users](../backgound/tenants-and-users.md)  
 [@letsgo/tenant](../reference/letsgo-tenant/README.md)  
-[@letsgo/pricing](../reference/letsgo-pricing.md)
+[@letsgo/pricing](../reference/letsgo-pricing/README.md)
