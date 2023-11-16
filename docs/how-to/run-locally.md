@@ -82,7 +82,7 @@ LETSGO_LOCAL_QUEUE_URL=http://localhost:3002
 
 These settings allow the code you write in the _worker_ component to call the _API_ endpoints as well as enqueue new, asynchronous work for itself using the [@letsgo/queue](../reference/letsgo-queue/README.md) package.
 
-In some situations, the worker may need to call Stripe using the [@letsgo/stripe](../reference/letsgo-stripe.md) package. In this case, you must provide the same set of Stripe-related configuration settings to the _worker_ as you did for the _API_ component. In the most general case:
+In some situations, the worker may need to call Stripe using the [@letsgo/stripe](../reference/letsgo-stripe/README.md) package. In this case, you must provide the same set of Stripe-related configuration settings to the _worker_ as you did for the _API_ component. In the most general case:
 
 ```bash
 LETSGO_DEPLOYMENT=main
