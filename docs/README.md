@@ -42,7 +42,7 @@ Reference
 &nbsp;&nbsp;&nbsp;&nbsp;[@letsgo/db](./reference/letsgo-db/README.md)  
 &nbsp;&nbsp;&nbsp;&nbsp;@letsgo/pricing  
 &nbsp;&nbsp;&nbsp;&nbsp;[@letsgo/queue](./reference/letsgo-queue/README.md)  
-&nbsp;&nbsp;&nbsp;&nbsp;@letsgo/slack  
+&nbsp;&nbsp;&nbsp;&nbsp;[@letsgo/slack](./reference/letsgo-slack/README.md)  
 &nbsp;&nbsp;&nbsp;&nbsp;@letsgo/stripe  
 &nbsp;&nbsp;&nbsp;&nbsp;@letsgo/tenant  
 &nbsp;&nbsp;&nbsp;&nbsp;@letsgo/trust  

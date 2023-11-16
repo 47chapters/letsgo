@@ -39,4 +39,4 @@ You can leave the calls to `sendSlackMessage` in the code - they become a no-op 
 
 [Develop the worker](./develop-the-worker.md)  
 [Develop the API](./develop-the-api.md)  
-[@letsgo/slack](../reference/letsgo-slack.md)
+[@letsgo/slack](../reference/letsgo-slack/README.md)
