@@ -1,70 +1,86 @@
-# Turborepo Docker starter
+# LetsGo - A Starter Kit for Starting Startups
 
-This is an official Docker starter Turborepo.
+New SaaS businesses cut corners that are hard to fix later. LetsGo gives you a foundation to prevent this.
 
-## Using this example
+This project provides you with the architecture and the tooling that will put your startup on a solid foundation from day one. It helps you save months of work leading to the launch, while allowing you to focus on the essence of your product. The day you let the first customer in, you have no technical debt. As you grow, you can continue focusing your resources on what matters most: your customers and your product.
 
-Run the following command:
+<img width="837" alt="image" src="https://github.com/tjanczuk/letsgo/assets/822369/f7fe2317-d7de-4698-b093-416a52a1a145">
 
-```sh
-npx create-turbo@latest -e with-docker
-```
+LetsGo does it by providing a prescriptive architecture implemented with a modern set of technologies and a robust operational tooling for managing your app in AWS. On day one you get more than most startups build in the first two years:
 
-## What's inside?
+- An application architecture with a **web, HTTP API, worker, and a database components**, all wired up and ready to go.
+- A **devops CLI** that helps you set up CI/CD and manage several deployments of your app in AWS to help you segregate your production and development workloads or to **support dedicated deployments** for your customers.
+- **Integration with Auth0** to authenticate your users and protect your APIs.
+- **Integration with Stripe** to automate your billing and subscription lifecycle management.
+- **Integration with Slack** to keep current with new customers signing up and subscriptions being paid.
+- A **flexible tenancy and user model** with membership management and invitation flow.
+- A set of modern yet robust technologies including Next.js, Node.js, and Typescript that **make your days exciting and the nights boring**.
+- LetGo is **OSS under MIT**, so there is no vendor lock-in and you can always see what makes it tick.
 
-This turborepo uses [Yarn](https://classic.yarnpkg.com/lang/en/) as a package manager. It includes the following packages/apps:
+## Getting started
 
-### Apps and Packages
+Learn more about the [architecture, technology choices, and principles](./docs/docs/backgound/architecture-and-technology-choices.md) or jump right into [your fist deployment to AWS](./docs/docs/tutorials/first-deployment-to-aws.md) tutorial.
 
-- `web`: a [Next.js](https://nextjs.org/) app
-- `api`: an [Express](https://expressjs.com/) server
-- `ui`: ui: a React component library
-- `eslint-config-custom`: `eslint` configurations for client side applications (includes `eslint-config-next` and `eslint-config-prettier`)
-- `eslint-config-custom-server`: `eslint` configurations for server side applications (includes `eslint-config-next` and `eslint-config-prettier`)
-- `scripts`: Jest configurations
-- `logger`: Isomorphic logger (a small wrapper around console.log)
-- `tsconfig`: tsconfig.json;s used throughout the monorepo
+Let's go!
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+## Documentation
 
-### Docker
+### Overview
 
-This repo is configured to be built with Docker, and Docker compose. To build all apps in this repo:
+[Why LetsGo?](./docs/backgound/why.md)
 
-```
-# Create a network, which allows containers to communicate
-# with each other, by using their container name as a hostname
-docker network create app_network
+### Tutorials
 
-# Build prod using new BuildKit engine
-COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose -f docker-compose.yml build
+Follow these in sequence:
 
-# Start prod in detached mode
-docker-compose -f docker-compose.yml up -d
-```
+[First deployment to AWS](./docs/tutorials/first-deployment-to-aws.md)  
+[Building and running locally](./docs/tutorials/building-and-running-locally.md)  
+[Re-deploying to AWS](./docs/tutorials/re-deploying-to-aws.md)  
+[Setting up authentication with Auth0](./docs/tutorials/setting-up-authentication-with-auth0.md)
 
-Open http://localhost:3000.
+Then choose what is more important to you:
 
-To shutdown all running containers:
+[Setting up payments with Stripe](./docs/tutorials/setting-up-payments-with-stripe.md)  
+[Configuring a custom domain](./docs/tutorials/configuring-custom-domain.md)
 
-```
-# Stop all running containers
-docker kill $(docker ps -q) && docker rm $(docker ps -a -q)
-```
+### How-Tos
 
-### Remote Caching
+[How to use LetsGo?](./docs/how-to/how-to-use-letsgo.md)  
+[Run locally](./docs/how-to/run-locally.md)  
+[Run tests](./docs/how-to/run-tests.md)  
+[Develop the frontend](./docs/how-to/develop-the-frontend.md)  
+[Develop the API](./docs/how-to/develop-the-api.md)  
+[Develop the worker](./docs/how-to/develop-the-worker.md)  
+[Enqueue asynchronous work](./docs/how-to/enqueue-asynchronous-work.md)  
+[Access data in the database from code](./docs/how-to/access-data-in-the-database-from-code.md)  
+[Process the contact form](./docs/how-to/process-the-contact-form.md)  
+[Manage configuration](./docs/how-to/manage-configuration.md)  
+[Manage multiple deployments](./docs/how-to/manage-multiple-deployments.md)  
+[Manage trust and authentication](./docs/how-to/manage-trust-and-authentication.md)  
+[Get deployment status](./docs/how-to/get-deployment-status.md)  
+[Manage the pricing model and Stripe integration](./docs/how-to/manage-the-pricing-model.md)  
+[Send notifications to Slack](./docs/how-to/send-notifications-to-slack.md)  
+[Manage scalability](./docs/how-to/manage-scalability.md)  
+[Remove deployments](./docs/how-to/remove-deployments.md)
 
-This example includes optional remote caching. In the Dockerfiles of the apps, uncomment the build arguments for `TURBO_TEAM` and `TURBO_TOKEN`. Then, pass these build arguments to your Docker build.
+### Background Concepts
 
-You can test this behavior using a command like:
+[Architecture and technology choices](./docs/backgound/architecture-and-technology-choices.md)  
+[Tenants and users](./docs/backgound/tenants-and-users.md)  
+[Data model](./docs/backgound/data-model.md)  
+[Authentication, authorization, and trust](./docs/backgound/authentication-authorization-and-trust.md)  
+[DevOps and dedicated deployments](./docs/backgound/devops-and-dedicated-deployments.md)
 
-`docker build -f apps/web/Dockerfile . --build-arg TURBO_TEAM=“your-team-name” --build-arg TURBO_TOKEN=“your-token“ --no-cache`
+### Reference
 
-### Utilities
-
-This Turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Jest](https://jestjs.io) test runner for all things JavaScript
-- [Prettier](https://prettier.io) for code formatting
+[LetsGo CLI (yarn ops)](./docs/reference/letsgo-cli.md)  
+[System database categories](./docs/reference/system-database-categories.md)  
+[@letsgo/constants](./docs/reference/letsgo-constants/README.md)  
+[@letsgo/db](./docs/reference/letsgo-db/README.md)  
+[@letsgo/pricing](./docs/reference/letsgo-pricing/README.md)  
+[@letsgo/queue](./docs/reference/letsgo-queue/README.md)  
+[@letsgo/slack](./docs/reference/letsgo-slack/README.md)  
+[@letsgo/stripe](./docs/reference/letsgo-stripe/README.md)  
+[@letsgo/tenant](./docs/reference/letsgo-tenant/README.md)  
+[@letsgo/trust](./docs/reference/letsgo-trust/README.md)  
+[@letsgo/types](./docs/reference/letsgo-types/README.md)
