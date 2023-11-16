@@ -1,6 +1,10 @@
 ## Configuring a custom domain
 
+<!-- markdown-link-check-disable -->
+
 In this tutorial, you will configure custom domains for your _web_ and _API_ components. When you are done, you will be able to access the website and the HTTP APIs on your branded domain, e.g. https://contoso.com and https://api.contoso.com, in addition to the domain names provided by AWS.
+
+<!-- markdown-link-check-enable -->
 
 <img width="387" alt="image" src="https://github.com/tjanczuk/letsgo/assets/822369/e99a33c5-4a53-4af9-afbe-5f5c1d87d93b">
 
