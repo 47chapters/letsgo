@@ -94,4 +94,4 @@ For the access token to be trusted, the `aud` claim must match the value that yo
 [Developing the API](./develop-the-api.md)  
 [Developing the worker](./develop-the-worker.md)  
 [LetsGo CLI](../reference/letsgo-cli.md)  
-[@letsgo/trust](../reference/letsgo-trust.md)
+[@letsgo/trust](../reference/letsgo-trust/README.md)

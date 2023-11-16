@@ -14,31 +14,80 @@ const IssuerCategory = `${VendorPrefix}-issuer`;
 const ActiveIssuerCategory = `${IssuerCategory}-active`;
 const ActiveIssuerKey = "/";
 
-interface JwksIssuer extends DBItem {
+/**
+ * Definition of a third-party access token issuer.
+ */
+export interface JwksIssuer extends DBItem {
+  /**
+   * The [JWKS](https://tools.ietf.org/html/rfc7517) URL of the issuer.
+   */
   jwks: string;
+  /**
+   * The time when the issuer was created.
+   */
   createdAt: string;
 }
 
-interface PkiCredentials {
+/**
+ * PKI credentials of a built-in PKI issuer.
+ */
+export interface PkiCredentials {
+  /**
+   * Public RSA key in PEM format.
+   */
   publicKey: string;
+  /**
+   * Private RSA key in PEM format.
+   */
   privateKey: string;
+  /**
+   * OAuth key identifier.
+   */
   kid: string;
+  /**
+   * The time when the PKI credentials was created.
+   */
   createdAt: string;
 }
 
+/**
+ * Definition of a built-in PKI issuer.
+ */
 export interface PkiIssuer extends DBItem, PkiCredentials {}
 
-type Issuer = JwksIssuer | PkiIssuer;
+/**
+ * An issuer is either a third-party JWKS-based issuer or a built-in PKI-based issuer.
+ */
+export type Issuer = JwksIssuer | PkiIssuer;
 
+/**
+ * Result of listing issuers.
+ */
 export interface ListIssuersResult {
+  /**
+   * List of issuers.
+   */
   items: Issuer[];
+  /**
+   * Continuation token for paginated results.
+   */
   nextToken?: string;
 }
 
+/**
+ * Checks if an object is a JWKS issuer.
+ * @param issuer Prospective JWKS issuer.
+ * @returns True if the object is a JWKS issuer, false otherwise.
+ */
 export function isJwksIssuer(issuer: any): issuer is JwksIssuer {
   return issuer.jwks !== undefined && issuer.createdAt !== undefined;
 }
 
+/**
+ * Checks if an object is a PKI issuer.
+ * @param issuer Prospective PKI issuer.
+ * @returns True if the object is a PKI issuer, false otherwise.
+ */
 export function isPkiIssuer(issuer: any): issuer is PkiIssuer {
   return (
     issuer.publicKey !== undefined &&
@@ -48,9 +97,19 @@ export function isPkiIssuer(issuer: any): issuer is PkiIssuer {
   );
 }
 
+/**
+ * Generates the `iss` claim value for a PKI issuer.
+ * @param issuer The PKI issuer.
+ * @returns The `iss` claim value.
+ */
 export const getPkiIss = (issuer: PkiCredentials) =>
   `${VendorPrefix}:${issuer.kid}`;
 
+/**
+ * Checks if an `iss` claim value represents a built-in PKI issuer.
+ * @param iss The `iss` claim value from an access token.
+ * @returns True if the `iss` represents a built-in PKI issuer, false otherwise.
+ */
 export const isBuiltInIssuer = (iss: string) =>
   iss.startsWith(`${VendorPrefix}:`);
 
@@ -91,12 +150,24 @@ async function createPkiCredentials(): Promise<PkiCredentials> {
   });
 }
 
+/**
+ * Lists issuers in the system. This function is paginated. If the results contains a `nextToken` property, subsequent
+ * page of the results can be fetched by passing the `nextToken` as an option to the next call of this function.
+ * @param options Options for listing issuers.
+ * @returns The list of issuers and the optional continuation token for paginated results.
+ */
 export async function listIssuers(
   options?: ListItemsOptions
 ): Promise<ListIssuersResult> {
   return listItems(IssuerCategory, "", options) as Promise<ListIssuersResult>;
 }
 
+/**
+ * Adds a new third party JWKS issuer to the system.
+ * @param issuerId The unique identifier of the issuer.
+ * @param jwks The [JWKS](https://tools.ietf.org/html/rfc7517) URL of the issuer.
+ * @param options Location of the deployment.
+ */
 export async function addJwksIssuer(
   issuerId: string,
   jwks: string,
@@ -113,6 +184,11 @@ export async function addJwksIssuer(
   );
 }
 
+/**
+ * Returns the active built-in PKI issuer if one exists.
+ * @param options Location of the deployment.
+ * @returns Active PKI issuer or undefined if no active PKI issuer exists.
+ */
 export async function getActiveIssuer(
   options?: DeploymentOptions
 ): Promise<PkiIssuer | undefined> {
@@ -130,11 +206,17 @@ export async function getActiveIssuer(
   return activeIssuer as PkiIssuer;
 }
 
+/**
+ * Sets active built-in PKI issuer.
+ * @param iss Issuer identifier
+ * @param options Location of the deployment.
+ * @returns The new, active PKI issuer.
+ */
 export async function setActiveIssuer(
-  issuerKey: string,
+  iss: string,
   options?: DeploymentOptions
 ): Promise<PkiIssuer> {
-  const issuer = await getItem(IssuerCategory, issuerKey, {
+  const issuer = await getItem(IssuerCategory, iss, {
     ...options,
     consistentRead: true,
   });
@@ -150,7 +232,7 @@ export async function setActiveIssuer(
     {
       category: ActiveIssuerCategory,
       key: ActiveIssuerKey,
-      issuer: issuerKey,
+      issuer: iss,
       modifiedAt: new Date().toISOString(),
     },
     options
@@ -158,20 +240,38 @@ export async function setActiveIssuer(
   return issuer;
 }
 
+/**
+ * Removes an issuer from the system. Access tokens issued by the issuer will no longer be trusted.
+ * @param iss Issuer identifier
+ * @param options Location of the deployment.
+ */
 export async function deleteIssuer(
-  issuerKey: string,
+  iss: string,
   options?: DeploymentOptions
 ): Promise<void> {
-  return deleteItem(IssuerCategory, issuerKey, options);
+  return deleteItem(IssuerCategory, iss, options);
 }
 
+/**
+ * Gets an issuer if one exists.
+ * @param iss Issuer identifier
+ * @param options Location of the deployment.
+ * @returns Issuer or undefined if the issuer does not exist.
+ */
 export async function getIssuer(
-  issuerKey: string,
+  iss: string,
   options?: DeploymentOptions
 ): Promise<Issuer | undefined> {
-  return getItem(IssuerCategory, issuerKey, options) as Promise<Issuer>;
+  return getItem(IssuerCategory, iss, options) as Promise<Issuer>;
 }
 
+/**
+ * Creates and stores a new built-in PKI issuer and optionally sets it as active. A new private/public key pair is created for the
+ * issuer.
+ * @param setActive If true, the new issuer is set as active.
+ * @param options Location of the deployment.
+ * @returns The new build-in PKI issuer.
+ */
 export async function createIssuer(
   setActive: boolean,
   options?: DeploymentOptions

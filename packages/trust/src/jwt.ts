@@ -3,15 +3,40 @@ import { Jwt, JwtPayload, decode, sign, verify } from "jsonwebtoken";
 import { PkiIssuer, getActiveIssuer } from "./issuer";
 import { StaticJwtAudience } from "@letsgo/constants";
 
-const DefaultExpiry = "8h";
+/**
+ * Default expiry for JWT access tokens created using built-in PKI issuers.
+ */
+export const DefaultExpiry = "8h";
 
-interface CreateJwtOptions {
+/**
+ * Options for creating a JWT access token.
+ */
+export interface CreateJwtOptions {
+  /**
+   * The built-in PKI issuer to use to sign the JWT. If not specified, the active issuer will be used.
+   */
   issuer?: PkiIssuer;
+  /**
+   * The `sub` claim of the JWT. If not specified, the same value as the `iss` claim will be used.
+   */
   subject?: string;
+  /**
+   * The `aud` claim of the JWT. If not specified, the value of the `LETSGO_API_AUDIENCE` environment variable will
+   * be used if specified, or `letsgo:service` otherwise.
+   */
   audience?: string;
+  /**
+   * Expiration time of the JWT. If not specified, the default expiry will be used. The value can be a number of seconds,
+   * or an expression like `8h`, `2d`, etc. If `0` is specified, a non-expiring JWT token is issued.
+   */
   expiresIn?: string;
 }
 
+/**
+ * Creates a new JWT access token.
+ * @param options Options for creating the JWT.
+ * @returns The JWT access token.
+ */
 export async function createJwt(options?: CreateJwtOptions): Promise<string> {
   options = options || {};
   options.audience =
@@ -40,6 +65,16 @@ export async function createJwt(options?: CreateJwtOptions): Promise<string> {
   return token;
 }
 
+/**
+ * Verifies a JWT access token. A valid JWT must be signed by one of the trusted issuers in the system. Public keys
+ * of the issuers used to validate access token signature are cached in memory for up to 5 minutes, so removing
+ * a trusted issuer may take up to 5 minutes to be effective.
+ * @param region AWS region.
+ * @param deployment LetsGo deployment name.
+ * @param token JWT access token to verify.
+ * @param audience Expected value of the `aud` claim in the JWT.
+ * @returns Parsed, validated JWT or undefined if the token is invalid.
+ */
 export async function verifyJwt(
   region: string,
   deployment: string,

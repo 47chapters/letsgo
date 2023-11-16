@@ -1,8 +1,3 @@
-import {
-  DefaultRegion,
-  DefaultDeployment,
-  VendorPrefix,
-} from "@letsgo/constants";
 import { getIssuer, isPkiIssuer } from "./issuer";
 
 const Ttl = 5 * 60 * 1000; // 5 minutes
@@ -130,6 +125,18 @@ function parseJwks(json: any): { [kid: string]: string } {
   return keys;
 }
 
+/**
+ * Returns the public key of an issuer that can be used to validate a JWT access token signature. The combination
+ * of `iss` and `kid` uniquely identifies the key. For third-party issuers, the public key is obtained from the
+ * [JWKS](https://tools.ietf.org/html/rfc7517) endpoint. For built-in PKI issuers it is read from the `letsgo-issuer` category in the database.
+ * The public key is cached in memory for up to 5 minutes, so removing an issuer from the system may not take
+ * effect for up to 5 minutes.
+ * @param region AWS region.
+ * @param deployment LetsGo deployment name.
+ * @param iss The `iss` claim value from the access token.
+ * @param kid The `kid` claim value from the access token.
+ * @returns The RSA public key of the issuer in PEM format or undefined if the key cannot be found.
+ */
 export async function getSignatureVerificationKey(
   region: string,
   deployment: string,
