@@ -20,4 +20,4 @@ Array of identities represeting users with access to the tenant.
 
 #### Defined in
 
-[index.ts:17](https://github.com/tjanczuk/letsgo/blob/d6c3e04/packages/types/src/index.ts#L17)
+[index.ts:17](https://github.com/tjanczuk/letsgo/blob/4d5649a/packages/types/src/index.ts#L17)

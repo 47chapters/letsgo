@@ -160,7 +160,8 @@ export interface PostPaymentMethodResponse {
 }
 
 /**
- * Message types recognized by the _worker_ component.
+ * Message types recognized by the _worker_ component. You should add your own message types here.
+ * Do not use the `letsgo` prefix as it is reserved for future internal LetsGo message types.
  */
 export enum MessageType {
   /**

@@ -23,7 +23,7 @@ Deserialized identity of the user.
 
 #### Defined in
 
-[index.ts:104](https://github.com/tjanczuk/letsgo/blob/d6c3e04/packages/types/src/index.ts#L104)
+[index.ts:104](https://github.com/tjanczuk/letsgo/blob/4d5649a/packages/types/src/index.ts#L104)
 
 ___
 
@@ -35,7 +35,7 @@ Serialized identityId of the user.
 
 #### Defined in
 
-[index.ts:100](https://github.com/tjanczuk/letsgo/blob/d6c3e04/packages/types/src/index.ts#L100)
+[index.ts:100](https://github.com/tjanczuk/letsgo/blob/4d5649a/packages/types/src/index.ts#L100)
 
 ___
 
@@ -47,4 +47,4 @@ List of tenants that the user has access to.
 
 #### Defined in
 
-[index.ts:108](https://github.com/tjanczuk/letsgo/blob/d6c3e04/packages/types/src/index.ts#L108)
+[index.ts:108](https://github.com/tjanczuk/letsgo/blob/4d5649a/packages/types/src/index.ts#L108)

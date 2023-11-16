@@ -43,7 +43,7 @@ Other event properties.
 
 #### Defined in
 
-[index.ts:313](https://github.com/tjanczuk/letsgo/blob/d6c3e04/packages/types/src/index.ts#L313)
+[index.ts:314](https://github.com/tjanczuk/letsgo/blob/4d5649a/packages/types/src/index.ts#L314)
 
 ___
 
@@ -59,4 +59,4 @@ Message type.
 
 #### Defined in
 
-[index.ts:309](https://github.com/tjanczuk/letsgo/blob/d6c3e04/packages/types/src/index.ts#L309)
+[index.ts:310](https://github.com/tjanczuk/letsgo/blob/4d5649a/packages/types/src/index.ts#L310)

@@ -2,7 +2,8 @@
 
 # Enumeration: MessageType
 
-Message types recognized by the _worker_ component.
+Message types recognized by the _worker_ component. You should add your own message types here.
+Do not use the `letsgo` prefix as it is reserved for future internal LetsGo message types.
 
 ## Table of contents
 
@@ -23,7 +24,7 @@ Submission of the contact form.
 
 #### Defined in
 
-[index.ts:169](https://github.com/tjanczuk/letsgo/blob/d6c3e04/packages/types/src/index.ts#L169)
+[index.ts:170](https://github.com/tjanczuk/letsgo/blob/4d5649a/packages/types/src/index.ts#L170)
 
 ___
 
@@ -35,7 +36,7 @@ Stripe webhook event.
 
 #### Defined in
 
-[index.ts:173](https://github.com/tjanczuk/letsgo/blob/d6c3e04/packages/types/src/index.ts#L173)
+[index.ts:174](https://github.com/tjanczuk/letsgo/blob/4d5649a/packages/types/src/index.ts#L174)
 
 ___
 
@@ -47,7 +48,7 @@ LetsGo tenant deleted.
 
 #### Defined in
 
-[index.ts:181](https://github.com/tjanczuk/letsgo/blob/d6c3e04/packages/types/src/index.ts#L181)
+[index.ts:182](https://github.com/tjanczuk/letsgo/blob/4d5649a/packages/types/src/index.ts#L182)
 
 ___
 
@@ -59,4 +60,4 @@ New LetsGo tenant created.
 
 #### Defined in
 
-[index.ts:177](https://github.com/tjanczuk/letsgo/blob/d6c3e04/packages/types/src/index.ts#L177)
+[index.ts:178](https://github.com/tjanczuk/letsgo/blob/4d5649a/packages/types/src/index.ts#L178)
