@@ -25,13 +25,15 @@ Options for getting all tenants a specific user has access to.
 
 • `Optional` **deployment**: `string`
 
+LetsGo deployment name.
+
 #### Inherited from
 
 DeploymentOptions.deployment
 
 #### Defined in
 
-db/dist/index.d.ts:3
+db/dist/index.d.ts:18
 
 ___
 
@@ -43,7 +45,7 @@ The identity of the user whose tenants are to be returned.
 
 #### Defined in
 
-[tenant/src/index.ts:614](https://github.com/tjanczuk/letsgo/blob/f8169ee/packages/tenant/src/index.ts#L614)
+[tenant/src/index.ts:614](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/tenant/src/index.ts#L614)
 
 ___
 
@@ -55,7 +57,7 @@ If true, the result includes tenants that have been deleted.
 
 #### Defined in
 
-[tenant/src/index.ts:618](https://github.com/tjanczuk/letsgo/blob/f8169ee/packages/tenant/src/index.ts#L618)
+[tenant/src/index.ts:618](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/tenant/src/index.ts#L618)
 
 ___
 
@@ -63,10 +65,12 @@ ___
 
 • `Optional` **region**: `string`
 
+AWS region.
+
 #### Inherited from
 
 DeploymentOptions.region
 
 #### Defined in
 
-db/dist/index.d.ts:2
+db/dist/index.d.ts:14

@@ -29,7 +29,7 @@ The time when the PKI credentials was created.
 
 #### Defined in
 
-[trust/src/issuer.ts:50](https://github.com/tjanczuk/letsgo/blob/502ef5a/packages/trust/src/issuer.ts#L50)
+[trust/src/issuer.ts:50](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/trust/src/issuer.ts#L50)
 
 ___
 
@@ -41,7 +41,7 @@ OAuth key identifier.
 
 #### Defined in
 
-[trust/src/issuer.ts:46](https://github.com/tjanczuk/letsgo/blob/502ef5a/packages/trust/src/issuer.ts#L46)
+[trust/src/issuer.ts:46](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/trust/src/issuer.ts#L46)
 
 ___
 
@@ -53,7 +53,7 @@ Private RSA key in PEM format.
 
 #### Defined in
 
-[trust/src/issuer.ts:42](https://github.com/tjanczuk/letsgo/blob/502ef5a/packages/trust/src/issuer.ts#L42)
+[trust/src/issuer.ts:42](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/trust/src/issuer.ts#L42)
 
 ___
 
@@ -65,4 +65,4 @@ Public RSA key in PEM format.
 
 #### Defined in
 
-[trust/src/issuer.ts:38](https://github.com/tjanczuk/letsgo/blob/502ef5a/packages/trust/src/issuer.ts#L38)
+[trust/src/issuer.ts:38](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/trust/src/issuer.ts#L38)

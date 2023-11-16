@@ -30,7 +30,7 @@ the contact form of the website.
 
 #### Defined in
 
-[index.ts:45](https://github.com/tjanczuk/letsgo/blob/054058c/packages/pricing/src/index.ts#L45)
+[index.ts:45](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/pricing/src/index.ts#L45)
 
 ___
 
@@ -42,7 +42,7 @@ The verb to use in the action button for the plan, e.g. "Contact Us" or "Buy Now
 
 #### Defined in
 
-[index.ts:49](https://github.com/tjanczuk/letsgo/blob/054058c/packages/pricing/src/index.ts#L49)
+[index.ts:49](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/pricing/src/index.ts#L49)
 
 ___
 
@@ -55,7 +55,7 @@ if you want to discontinue a plan. Never remove a plan that has any active tenan
 
 #### Defined in
 
-[index.ts:19](https://github.com/tjanczuk/letsgo/blob/054058c/packages/pricing/src/index.ts#L19)
+[index.ts:19](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/pricing/src/index.ts#L19)
 
 ___
 
@@ -67,7 +67,7 @@ Brief description of the plan.
 
 #### Defined in
 
-[index.ts:27](https://github.com/tjanczuk/letsgo/blob/054058c/packages/pricing/src/index.ts#L27)
+[index.ts:27](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/pricing/src/index.ts#L27)
 
 ___
 
@@ -79,7 +79,7 @@ ___
 
 #### Defined in
 
-[index.ts:31](https://github.com/tjanczuk/letsgo/blob/054058c/packages/pricing/src/index.ts#L31)
+[index.ts:31](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/pricing/src/index.ts#L31)
 
 ___
 
@@ -91,7 +91,7 @@ Brief, friendly name of the plan.
 
 #### Defined in
 
-[index.ts:23](https://github.com/tjanczuk/letsgo/blob/054058c/packages/pricing/src/index.ts#L23)
+[index.ts:23](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/pricing/src/index.ts#L23)
 
 ___
 
@@ -103,7 +103,7 @@ Unique identifier of the plan. Never reuse plan Id values.
 
 #### Defined in
 
-[index.ts:14](https://github.com/tjanczuk/letsgo/blob/054058c/packages/pricing/src/index.ts#L14)
+[index.ts:14](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/pricing/src/index.ts#L14)
 
 ___
 
@@ -115,7 +115,7 @@ Textual description of the price of the plan, e.g. "$10 / month"
 
 #### Defined in
 
-[index.ts:39](https://github.com/tjanczuk/letsgo/blob/054058c/packages/pricing/src/index.ts#L39)
+[index.ts:39](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/pricing/src/index.ts#L39)
 
 ___
 
@@ -127,4 +127,4 @@ If true, this is a paid plan that should be handled by Stripe subscriptions.
 
 #### Defined in
 
-[index.ts:35](https://github.com/tjanczuk/letsgo/blob/054058c/packages/pricing/src/index.ts#L35)
+[index.ts:35](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/pricing/src/index.ts#L35)

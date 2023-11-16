@@ -47,7 +47,7 @@ The serialized identityId of the user.
 
 #### Defined in
 
-[trust/src/identity.ts:72](https://github.com/tjanczuk/letsgo/blob/502ef5a/packages/trust/src/identity.ts#L72)
+[trust/src/identity.ts:72](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/trust/src/identity.ts#L72)
 
 ___
 
@@ -91,7 +91,7 @@ The timestamp of the last update to the identity.
 
 #### Defined in
 
-[trust/src/identity.ts:80](https://github.com/tjanczuk/letsgo/blob/502ef5a/packages/trust/src/identity.ts#L80)
+[trust/src/identity.ts:80](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/trust/src/identity.ts#L80)
 
 ___
 
@@ -103,4 +103,4 @@ Claims describing the user.
 
 #### Defined in
 
-[trust/src/identity.ts:76](https://github.com/tjanczuk/letsgo/blob/502ef5a/packages/trust/src/identity.ts#L76)
+[trust/src/identity.ts:76](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/trust/src/identity.ts#L76)

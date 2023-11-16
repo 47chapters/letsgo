@@ -1,5 +1,5 @@
 /**
- * The package helps manage trust in LetsGo. It provies functions for managing issuers, identities,
+ * This package helps manage trust in LetsGo. It provies functions for managing issuers, identities,
  * and issuing and verifying JWTs,
  *
  * @module

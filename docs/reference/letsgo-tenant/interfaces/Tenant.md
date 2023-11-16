@@ -33,13 +33,15 @@ A LetsGo tenant.
 
 • **category**: `string`
 
+The DynamoDB partition key.
+
 #### Inherited from
 
 DBItem.category
 
 #### Defined in
 
-db/dist/index.d.ts:13
+db/dist/index.d.ts:49
 
 ___
 
@@ -51,7 +53,7 @@ The timestamp of the tenant's creation.
 
 #### Defined in
 
-[tenant/src/index.ts:141](https://github.com/tjanczuk/letsgo/blob/f8169ee/packages/tenant/src/index.ts#L141)
+[tenant/src/index.ts:141](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/tenant/src/index.ts#L141)
 
 ___
 
@@ -63,7 +65,7 @@ The identity of the user who created the tenant.
 
 #### Defined in
 
-[tenant/src/index.ts:145](https://github.com/tjanczuk/letsgo/blob/f8169ee/packages/tenant/src/index.ts#L145)
+[tenant/src/index.ts:145](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/tenant/src/index.ts#L145)
 
 ___
 
@@ -76,7 +78,7 @@ the tenant is considered non-exitent in the UX of the end user.
 
 #### Defined in
 
-[tenant/src/index.ts:158](https://github.com/tjanczuk/letsgo/blob/f8169ee/packages/tenant/src/index.ts#L158)
+[tenant/src/index.ts:158](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/tenant/src/index.ts#L158)
 
 ___
 
@@ -88,7 +90,7 @@ The identity of the user who deleted the tenant.
 
 #### Defined in
 
-[tenant/src/index.ts:162](https://github.com/tjanczuk/letsgo/blob/f8169ee/packages/tenant/src/index.ts#L162)
+[tenant/src/index.ts:162](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/tenant/src/index.ts#L162)
 
 ___
 
@@ -100,7 +102,7 @@ The tenant's display name. This does not need to be unique in the system.
 
 #### Defined in
 
-[tenant/src/index.ts:137](https://github.com/tjanczuk/letsgo/blob/f8169ee/packages/tenant/src/index.ts#L137)
+[tenant/src/index.ts:137](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/tenant/src/index.ts#L137)
 
 ___
 
@@ -108,13 +110,15 @@ ___
 
 • **key**: `string`
 
+The DynamoDB sort key.
+
 #### Inherited from
 
 DBItem.key
 
 #### Defined in
 
-db/dist/index.d.ts:14
+db/dist/index.d.ts:53
 
 ___
 
@@ -126,7 +130,7 @@ The tenant's subscription plan. A tenant is _always_ associated with a subscript
 
 #### Defined in
 
-[tenant/src/index.ts:166](https://github.com/tjanczuk/letsgo/blob/f8169ee/packages/tenant/src/index.ts#L166)
+[tenant/src/index.ts:166](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/tenant/src/index.ts#L166)
 
 ___
 
@@ -138,7 +142,7 @@ The tenant ID. This is unique in the system.
 
 #### Defined in
 
-[tenant/src/index.ts:133](https://github.com/tjanczuk/letsgo/blob/f8169ee/packages/tenant/src/index.ts#L133)
+[tenant/src/index.ts:133](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/tenant/src/index.ts#L133)
 
 ___
 
@@ -146,13 +150,15 @@ ___
 
 • `Optional` **ttl**: `number`
 
+The time-to-live (TTL) value for the item.
+
 #### Inherited from
 
 DBItem.ttl
 
 #### Defined in
 
-db/dist/index.d.ts:15
+db/dist/index.d.ts:57
 
 ___
 
@@ -164,7 +170,7 @@ The timestamp of the last update to the tenant.
 
 #### Defined in
 
-[tenant/src/index.ts:149](https://github.com/tjanczuk/letsgo/blob/f8169ee/packages/tenant/src/index.ts#L149)
+[tenant/src/index.ts:149](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/tenant/src/index.ts#L149)
 
 ___
 
@@ -176,4 +182,4 @@ The identity of the user who last updated the tenant.
 
 #### Defined in
 
-[tenant/src/index.ts:153](https://github.com/tjanczuk/letsgo/blob/f8169ee/packages/tenant/src/index.ts#L153)
+[tenant/src/index.ts:153](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/tenant/src/index.ts#L153)

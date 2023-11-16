@@ -29,7 +29,7 @@ The identity of the user who is deleting the tenant.
 
 #### Defined in
 
-[tenant/src/index.ts:583](https://github.com/tjanczuk/letsgo/blob/f8169ee/packages/tenant/src/index.ts#L583)
+[tenant/src/index.ts:583](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/tenant/src/index.ts#L583)
 
 ___
 
@@ -37,13 +37,15 @@ ___
 
 • `Optional` **deployment**: `string`
 
+LetsGo deployment name.
+
 #### Inherited from
 
 DeploymentOptions.deployment
 
 #### Defined in
 
-db/dist/index.d.ts:3
+db/dist/index.d.ts:18
 
 ___
 
@@ -51,13 +53,15 @@ ___
 
 • `Optional` **region**: `string`
 
+AWS region.
+
 #### Inherited from
 
 DeploymentOptions.region
 
 #### Defined in
 
-db/dist/index.d.ts:2
+db/dist/index.d.ts:14
 
 ___
 
@@ -69,4 +73,4 @@ The ID of the tenant to delete.
 
 #### Defined in
 
-[tenant/src/index.ts:579](https://github.com/tjanczuk/letsgo/blob/f8169ee/packages/tenant/src/index.ts#L579)
+[tenant/src/index.ts:579](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/tenant/src/index.ts#L579)

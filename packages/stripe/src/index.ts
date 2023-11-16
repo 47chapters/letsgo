@@ -1,5 +1,5 @@
 /**
- * The package consolidates all interactions between LetsGo and Stripe APIs. It provides facility functions specific
+ * This package consolidates all interactions between LetsGo and Stripe APIs. It provides facility functions specific
  * to the LetsGo use cases which wrap relevant Stripe API calls.
  *
  * @module

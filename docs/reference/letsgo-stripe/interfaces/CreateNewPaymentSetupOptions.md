@@ -20,4 +20,4 @@ Existing Stripe customer ID for whom to create the payment setup.
 
 #### Defined in
 
-[index.ts:301](https://github.com/tjanczuk/letsgo/blob/fb7a7f0/packages/stripe/src/index.ts#L301)
+[index.ts:301](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/stripe/src/index.ts#L301)

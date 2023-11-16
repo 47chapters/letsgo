@@ -27,13 +27,15 @@ Options for updating an existing tenant.
 
 • `Optional` **deployment**: `string`
 
+LetsGo deployment name.
+
 #### Inherited from
 
 DeploymentOptions.deployment
 
 #### Defined in
 
-db/dist/index.d.ts:3
+db/dist/index.d.ts:18
 
 ___
 
@@ -45,7 +47,7 @@ The tenant's display name. If not specified, the existing display name is used.
 
 #### Defined in
 
-[tenant/src/index.ts:540](https://github.com/tjanczuk/letsgo/blob/f8169ee/packages/tenant/src/index.ts#L540)
+[tenant/src/index.ts:540](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/tenant/src/index.ts#L540)
 
 ___
 
@@ -57,7 +59,7 @@ The tenant's updated subscription plan. If not specified, the existing plan is u
 
 #### Defined in
 
-[tenant/src/index.ts:548](https://github.com/tjanczuk/letsgo/blob/f8169ee/packages/tenant/src/index.ts#L548)
+[tenant/src/index.ts:548](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/tenant/src/index.ts#L548)
 
 ___
 
@@ -65,13 +67,15 @@ ___
 
 • `Optional` **region**: `string`
 
+AWS region.
+
 #### Inherited from
 
 DeploymentOptions.region
 
 #### Defined in
 
-db/dist/index.d.ts:2
+db/dist/index.d.ts:14
 
 ___
 
@@ -83,7 +87,7 @@ The ID of the tenant to update.
 
 #### Defined in
 
-[tenant/src/index.ts:536](https://github.com/tjanczuk/letsgo/blob/f8169ee/packages/tenant/src/index.ts#L536)
+[tenant/src/index.ts:536](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/tenant/src/index.ts#L536)
 
 ___
 
@@ -95,4 +99,4 @@ The identity of the user who is updating the tenant.
 
 #### Defined in
 
-[tenant/src/index.ts:544](https://github.com/tjanczuk/letsgo/blob/f8169ee/packages/tenant/src/index.ts#L544)
+[tenant/src/index.ts:544](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/tenant/src/index.ts#L544)

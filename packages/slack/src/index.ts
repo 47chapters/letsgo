@@ -1,5 +1,5 @@
 /**
- * The package facilitates sending notifications to Slack using Slack incoming webhooks. This functionality is
+ * This package facilitates sending notifications to Slack using Slack incoming webhooks. This functionality is
  * primarily used by the LetsGo _worker_ to send notifications about the status of the jobs it is processing.
  *
  * @module

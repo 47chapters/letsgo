@@ -1,5 +1,5 @@
 /**
- * The package facilitates access to the LetsGo database. It provides a simple set of CRUD operations
+ * This package facilitates access to the LetsGo database. It provides a simple set of CRUD operations
  * as well as a simple query interface.
  *
  * @module

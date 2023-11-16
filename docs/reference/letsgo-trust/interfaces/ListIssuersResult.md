@@ -21,7 +21,7 @@ List of issuers.
 
 #### Defined in
 
-[trust/src/issuer.ts:70](https://github.com/tjanczuk/letsgo/blob/502ef5a/packages/trust/src/issuer.ts#L70)
+[trust/src/issuer.ts:70](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/trust/src/issuer.ts#L70)
 
 ___
 
@@ -33,4 +33,4 @@ Continuation token for paginated results.
 
 #### Defined in
 
-[trust/src/issuer.ts:74](https://github.com/tjanczuk/letsgo/blob/502ef5a/packages/trust/src/issuer.ts#L74)
+[trust/src/issuer.ts:74](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/trust/src/issuer.ts#L74)

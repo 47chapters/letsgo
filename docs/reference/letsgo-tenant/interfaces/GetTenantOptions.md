@@ -25,13 +25,15 @@ Options for getting an existing tenant.
 
 • `Optional` **deployment**: `string`
 
+LetsGo deployment name.
+
 #### Inherited from
 
 DeploymentOptions.deployment
 
 #### Defined in
 
-db/dist/index.d.ts:3
+db/dist/index.d.ts:18
 
 ___
 
@@ -43,7 +45,7 @@ If true, the tenant is returned even if it is deleted (i.e. it's `deletedAt` pro
 
 #### Defined in
 
-[tenant/src/index.ts:508](https://github.com/tjanczuk/letsgo/blob/f8169ee/packages/tenant/src/index.ts#L508)
+[tenant/src/index.ts:508](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/tenant/src/index.ts#L508)
 
 ___
 
@@ -51,13 +53,15 @@ ___
 
 • `Optional` **region**: `string`
 
+AWS region.
+
 #### Inherited from
 
 DeploymentOptions.region
 
 #### Defined in
 
-db/dist/index.d.ts:2
+db/dist/index.d.ts:14
 
 ___
 
@@ -69,4 +73,4 @@ The ID of the tenant to get.
 
 #### Defined in
 
-[tenant/src/index.ts:504](https://github.com/tjanczuk/letsgo/blob/f8169ee/packages/tenant/src/index.ts#L504)
+[tenant/src/index.ts:504](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/tenant/src/index.ts#L504)

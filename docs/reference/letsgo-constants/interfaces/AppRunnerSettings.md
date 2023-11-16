@@ -31,9 +31,9 @@ The name of the component for which an AppRunner service is created (`web` or `a
 
 #### Defined in
 
-[index.ts:342](https://github.com/tjanczuk/letsgo/blob/68a7da4/packages/constants/src/index.ts#L342)
+[index.ts:342](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/constants/src/index.ts#L342)
 
----
+___
 
 ### defaultConfig
 
@@ -43,9 +43,9 @@ Returns the default configuration settings for the component.
 
 #### Defined in
 
-[index.ts:415](https://github.com/tjanczuk/letsgo/blob/68a7da4/packages/constants/src/index.ts#L415)
+[index.ts:415](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/constants/src/index.ts#L415)
 
----
+___
 
 ### getAppRunnerAutoScalingConfigurationName
 
@@ -59,8 +59,8 @@ Returns the name of the AppRunner auto scaling configuration to create.
 
 ##### Parameters
 
-| Name         | Type     | Description            |
-| :----------- | :------- | :--------------------- |
+| Name | Type | Description |
+| :------ | :------ | :------ |
 | `deployment` | `string` | LetsGo deployment name |
 
 ##### Returns
@@ -71,9 +71,9 @@ AppRunner Auto Scaling Configuration name
 
 #### Defined in
 
-[index.ts:400](https://github.com/tjanczuk/letsgo/blob/68a7da4/packages/constants/src/index.ts#L400)
+[index.ts:400](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/constants/src/index.ts#L400)
 
----
+___
 
 ### getAppRunnerServiceName
 
@@ -87,8 +87,8 @@ Returns the name of the AppRunner service to create.
 
 ##### Parameters
 
-| Name         | Type     | Description            |
-| :----------- | :------- | :--------------------- |
+| Name | Type | Description |
+| :------ | :------ | :------ |
 | `deployment` | `string` | LetsGo deployment name |
 
 ##### Returns
@@ -99,9 +99,9 @@ AppRunner service name
 
 #### Defined in
 
-[index.ts:394](https://github.com/tjanczuk/letsgo/blob/68a7da4/packages/constants/src/index.ts#L394)
+[index.ts:394](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/constants/src/index.ts#L394)
 
----
+___
 
 ### getEcrRepositoryName
 
@@ -115,8 +115,8 @@ Returns the name of the ECR repository to create to store the Docker images for 
 
 ##### Parameters
 
-| Name         | Type     | Description            |
-| :----------- | :------- | :--------------------- |
+| Name | Type | Description |
+| :------ | :------ | :------ |
 | `deployment` | `string` | LetsGo deployment name |
 
 ##### Returns
@@ -127,9 +127,9 @@ ECR repository name
 
 #### Defined in
 
-[index.ts:382](https://github.com/tjanczuk/letsgo/blob/68a7da4/packages/constants/src/index.ts#L382)
+[index.ts:382](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/constants/src/index.ts#L382)
 
----
+___
 
 ### getInlineRolePolicy
 
@@ -144,10 +144,10 @@ created for the AppRunner service.
 
 ##### Parameters
 
-| Name         | Type     | Description            |
-| :----------- | :------- | :--------------------- |
-| `accountId`  | `string` | AWS account ID         |
-| `region`     | `string` | AWS region             |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `accountId` | `string` | AWS account ID |
+| `region` | `string` | AWS region |
 | `deployment` | `string` | LetsGo deployment name |
 
 ##### Returns
@@ -158,9 +158,9 @@ IAM inline policy document
 
 #### Defined in
 
-[index.ts:365](https://github.com/tjanczuk/letsgo/blob/68a7da4/packages/constants/src/index.ts#L365)
+[index.ts:365](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/constants/src/index.ts#L365)
 
----
+___
 
 ### getLocalRepositoryName
 
@@ -174,8 +174,8 @@ Returns the name of the locally built Docker image containing code for the compo
 
 ##### Parameters
 
-| Name         | Type     | Description            |
-| :----------- | :------- | :--------------------- |
+| Name | Type | Description |
+| :------ | :------ | :------ |
 | `deployment` | `string` | LetsGo deployment name |
 
 ##### Returns
@@ -186,9 +186,9 @@ Local Docker image name (without the tag)
 
 #### Defined in
 
-[index.ts:388](https://github.com/tjanczuk/letsgo/blob/68a7da4/packages/constants/src/index.ts#L388)
+[index.ts:388](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/constants/src/index.ts#L388)
 
----
+___
 
 ### getLogRetentionInDays
 
@@ -202,9 +202,9 @@ Returns the number of days to retain the CloudWatch logs for the AppRunner servi
 
 ##### Parameters
 
-| Name         | Type     | Description            |
-| :----------- | :------- | :--------------------- |
-| `region`     | `string` | AWS region             |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `region` | `string` | AWS region |
 | `deployment` | `string` | LetsGo deployment name |
 
 ##### Returns
@@ -215,9 +215,9 @@ Number of days to retain CloudWatch logs.
 
 #### Defined in
 
-[index.ts:407](https://github.com/tjanczuk/letsgo/blob/68a7da4/packages/constants/src/index.ts#L407)
+[index.ts:407](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/constants/src/index.ts#L407)
 
----
+___
 
 ### getManagedPolicyArns
 
@@ -231,9 +231,9 @@ Returns an array of ARNs of managed IAM policies to attach to the IAM role creat
 
 ##### Parameters
 
-| Name         | Type     | Description            |
-| :----------- | :------- | :--------------------- |
-| `region`     | `string` | AWS region             |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `region` | `string` | AWS region |
 | `deployment` | `string` | LetsGo deployment name |
 
 ##### Returns
@@ -244,9 +244,9 @@ Array of managed IAM policy ARNs
 
 #### Defined in
 
-[index.ts:376](https://github.com/tjanczuk/letsgo/blob/68a7da4/packages/constants/src/index.ts#L376)
+[index.ts:376](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/constants/src/index.ts#L376)
 
----
+___
 
 ### getPolicyName
 
@@ -260,9 +260,9 @@ Returns the name of the IAM policy to create for the the App Runner service.
 
 ##### Parameters
 
-| Name         | Type     | Description            |
-| :----------- | :------- | :--------------------- |
-| `region`     | `string` | AWS region             |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `region` | `string` | AWS region |
 | `deployment` | `string` | LetsGo deployment name |
 
 ##### Returns
@@ -273,9 +273,9 @@ IAM policy name
 
 #### Defined in
 
-[index.ts:356](https://github.com/tjanczuk/letsgo/blob/68a7da4/packages/constants/src/index.ts#L356)
+[index.ts:356](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/constants/src/index.ts#L356)
 
----
+___
 
 ### getRoleName
 
@@ -289,9 +289,9 @@ Returns the name of the IAM role to create for the the App Runner service.
 
 ##### Parameters
 
-| Name         | Type     | Description            |
-| :----------- | :------- | :--------------------- |
-| `region`     | `string` | AWS region             |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `region` | `string` | AWS region |
 | `deployment` | `string` | LetsGo deployment name |
 
 ##### Returns
@@ -302,9 +302,9 @@ IAM role name
 
 #### Defined in
 
-[index.ts:349](https://github.com/tjanczuk/letsgo/blob/68a7da4/packages/constants/src/index.ts#L349)
+[index.ts:349](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/constants/src/index.ts#L349)
 
----
+___
 
 ### serviceUrlConfigKey
 
@@ -314,4 +314,4 @@ Returns the name of the environment variable containing the public URL of the Ap
 
 #### Defined in
 
-[index.ts:411](https://github.com/tjanczuk/letsgo/blob/68a7da4/packages/constants/src/index.ts#L411)
+[index.ts:411](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/constants/src/index.ts#L411)

@@ -30,7 +30,7 @@ If true, the read will be strongly consistent read in DynamoDB.
 
 #### Defined in
 
-[index.ts:55](https://github.com/tjanczuk/letsgo/blob/dbef5c2/packages/db/src/index.ts#L55)
+[index.ts:55](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/db/src/index.ts#L55)
 
 ___
 
@@ -46,7 +46,7 @@ LetsGo deployment name.
 
 #### Defined in
 
-[index.ts:45](https://github.com/tjanczuk/letsgo/blob/dbef5c2/packages/db/src/index.ts#L45)
+[index.ts:45](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/db/src/index.ts#L45)
 
 ___
 
@@ -62,4 +62,4 @@ AWS region.
 
 #### Defined in
 
-[index.ts:41](https://github.com/tjanczuk/letsgo/blob/dbef5c2/packages/db/src/index.ts#L41)
+[index.ts:41](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/db/src/index.ts#L41)

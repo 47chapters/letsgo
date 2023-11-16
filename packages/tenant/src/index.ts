@@ -1,5 +1,5 @@
 /**
- * The package consolidates functions for managing LetsGo tenants, users,
+ * This package consolidates functions for managing LetsGo tenants, users,
  * and users' memberhips in tenants, including invitations. It also support management of
  * tenant's subscriptions and keeping track of changes in subscription plans.
  *

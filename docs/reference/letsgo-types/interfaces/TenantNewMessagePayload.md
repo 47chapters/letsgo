@@ -20,4 +20,4 @@ The newly created tenant.
 
 #### Defined in
 
-[index.ts:256](https://github.com/tjanczuk/letsgo/blob/4d5649a/packages/types/src/index.ts#L256)
+[index.ts:256](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/types/src/index.ts#L256)

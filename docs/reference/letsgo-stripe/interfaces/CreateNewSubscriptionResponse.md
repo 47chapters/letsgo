@@ -30,7 +30,7 @@ Client secret for the Stripe payment intent.
 
 #### Defined in
 
-[index.ts:252](https://github.com/tjanczuk/letsgo/blob/fb7a7f0/packages/stripe/src/index.ts#L252)
+[index.ts:252](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/stripe/src/index.ts#L252)
 
 ___
 
@@ -46,7 +46,7 @@ Date and time when the current subscription period ends.
 
 #### Defined in
 
-[index.ts:230](https://github.com/tjanczuk/letsgo/blob/fb7a7f0/packages/stripe/src/index.ts#L230)
+[index.ts:230](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/stripe/src/index.ts#L230)
 
 ___
 
@@ -59,7 +59,7 @@ on the Stripe configuration.
 
 #### Defined in
 
-[index.ts:257](https://github.com/tjanczuk/letsgo/blob/fb7a7f0/packages/stripe/src/index.ts#L257)
+[index.ts:257](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/stripe/src/index.ts#L257)
 
 ___
 
@@ -75,7 +75,7 @@ Stripe subscription status.
 
 #### Defined in
 
-[index.ts:226](https://github.com/tjanczuk/letsgo/blob/fb7a7f0/packages/stripe/src/index.ts#L226)
+[index.ts:226](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/stripe/src/index.ts#L226)
 
 ___
 
@@ -91,4 +91,4 @@ Stripe subscription Id.
 
 #### Defined in
 
-[index.ts:222](https://github.com/tjanczuk/letsgo/blob/fb7a7f0/packages/stripe/src/index.ts#L222)
+[index.ts:222](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/stripe/src/index.ts#L222)

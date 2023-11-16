@@ -24,13 +24,15 @@ Options for getting all users of a specific tenant.
 
 • `Optional` **deployment**: `string`
 
+LetsGo deployment name.
+
 #### Inherited from
 
 DeploymentOptions.deployment
 
 #### Defined in
 
-db/dist/index.d.ts:3
+db/dist/index.d.ts:18
 
 ___
 
@@ -38,13 +40,15 @@ ___
 
 • `Optional` **region**: `string`
 
+AWS region.
+
 #### Inherited from
 
 DeploymentOptions.region
 
 #### Defined in
 
-db/dist/index.d.ts:2
+db/dist/index.d.ts:14
 
 ___
 
@@ -56,4 +60,4 @@ The Id of the tenant whose users are to be returned.
 
 #### Defined in
 
-[tenant/src/index.ts:656](https://github.com/tjanczuk/letsgo/blob/f8169ee/packages/tenant/src/index.ts#L656)
+[tenant/src/index.ts:656](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/tenant/src/index.ts#L656)

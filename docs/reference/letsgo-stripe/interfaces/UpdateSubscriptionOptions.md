@@ -22,7 +22,7 @@ Identity of the LetsGo user who initiated the transaction to update the Stripe s
 
 #### Defined in
 
-[index.ts:433](https://github.com/tjanczuk/letsgo/blob/fb7a7f0/packages/stripe/src/index.ts#L433)
+[index.ts:433](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/stripe/src/index.ts#L433)
 
 ___
 
@@ -34,7 +34,7 @@ LetsGo plan ID to use as a lookup key to locate the new Stripe price to associat
 
 #### Defined in
 
-[index.ts:437](https://github.com/tjanczuk/letsgo/blob/fb7a7f0/packages/stripe/src/index.ts#L437)
+[index.ts:437](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/stripe/src/index.ts#L437)
 
 ___
 
@@ -46,4 +46,4 @@ The Stripe subscription ID to update.
 
 #### Defined in
 
-[index.ts:429](https://github.com/tjanczuk/letsgo/blob/fb7a7f0/packages/stripe/src/index.ts#L429)
+[index.ts:429](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/stripe/src/index.ts#L429)

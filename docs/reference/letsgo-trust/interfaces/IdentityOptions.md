@@ -47,7 +47,7 @@ The deserialized identity of the user.
 
 #### Defined in
 
-[trust/src/identity.ts:32](https://github.com/tjanczuk/letsgo/blob/502ef5a/packages/trust/src/identity.ts#L32)
+[trust/src/identity.ts:32](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/trust/src/identity.ts#L32)
 
 ___
 
@@ -59,7 +59,7 @@ The serialized identityId of the user.
 
 #### Defined in
 
-[trust/src/identity.ts:28](https://github.com/tjanczuk/letsgo/blob/502ef5a/packages/trust/src/identity.ts#L28)
+[trust/src/identity.ts:28](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/trust/src/identity.ts#L28)
 
 ___
 

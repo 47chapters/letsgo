@@ -28,13 +28,15 @@ An invitation for a new user to join a tenant.
 
 • **category**: `string`
 
+The DynamoDB partition key.
+
 #### Inherited from
 
 DBItem.category
 
 #### Defined in
 
-db/dist/index.d.ts:13
+db/dist/index.d.ts:49
 
 ___
 
@@ -46,7 +48,7 @@ The timestamp of the invitation's creation.
 
 #### Defined in
 
-[tenant/src/index.ts:184](https://github.com/tjanczuk/letsgo/blob/f8169ee/packages/tenant/src/index.ts#L184)
+[tenant/src/index.ts:184](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/tenant/src/index.ts#L184)
 
 ___
 
@@ -58,7 +60,7 @@ The identity of the user who created the invitation.
 
 #### Defined in
 
-[tenant/src/index.ts:180](https://github.com/tjanczuk/letsgo/blob/f8169ee/packages/tenant/src/index.ts#L180)
+[tenant/src/index.ts:180](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/tenant/src/index.ts#L180)
 
 ___
 
@@ -70,7 +72,7 @@ The timestamp of the invitation's expiration.
 
 #### Defined in
 
-[tenant/src/index.ts:188](https://github.com/tjanczuk/letsgo/blob/f8169ee/packages/tenant/src/index.ts#L188)
+[tenant/src/index.ts:188](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/tenant/src/index.ts#L188)
 
 ___
 
@@ -82,7 +84,7 @@ The invitation ID. This is unique within a tenant.
 
 #### Defined in
 
-[tenant/src/index.ts:176](https://github.com/tjanczuk/letsgo/blob/f8169ee/packages/tenant/src/index.ts#L176)
+[tenant/src/index.ts:176](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/tenant/src/index.ts#L176)
 
 ___
 
@@ -90,13 +92,15 @@ ___
 
 • **key**: `string`
 
+The DynamoDB sort key.
+
 #### Inherited from
 
 DBItem.key
 
 #### Defined in
 
-db/dist/index.d.ts:14
+db/dist/index.d.ts:53
 
 ___
 
@@ -112,4 +116,4 @@ DBItem.ttl
 
 #### Defined in
 
-[tenant/src/index.ts:192](https://github.com/tjanczuk/letsgo/blob/f8169ee/packages/tenant/src/index.ts#L192)
+[tenant/src/index.ts:192](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/tenant/src/index.ts#L192)

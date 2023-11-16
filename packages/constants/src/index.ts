@@ -1,5 +1,5 @@
 /**
- * The package defines constants that change infrequently:
+ * This package defines constants that change infrequently:
  * - naming patterns of AWS resources created by LetsGo,
  * - IAM policies for the components created by LetsGo,
  * - default values for configuration settings,

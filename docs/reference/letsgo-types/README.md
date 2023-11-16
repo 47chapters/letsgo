@@ -2,7 +2,7 @@
 
 # @letsgo/types
 
-The package contains types that are shared between LetsGo client and server components.
+This package contains types that are shared between LetsGo client and server components.
 
 ## Table of contents
 

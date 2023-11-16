@@ -2,7 +2,7 @@
 
 # @letsgo/slack
 
-The package facilitates sending notifications to Slack using Slack incoming webhooks. This functionality is
+This package facilitates sending notifications to Slack using Slack incoming webhooks. This functionality is
 primarily used by the LetsGo _worker_ to send notifications about the status of the jobs it is processing.
 
 ## Table of contents
@@ -38,4 +38,4 @@ variable is not set, the message is not sent, and the function returns immediate
 
 #### Defined in
 
-[index.ts:43](https://github.com/tjanczuk/letsgo/blob/ba93bb6/packages/slack/src/index.ts#L43)
+[index.ts:43](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/slack/src/index.ts#L43)

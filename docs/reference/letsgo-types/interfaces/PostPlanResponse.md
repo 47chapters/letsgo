@@ -23,7 +23,7 @@ Stripe client secret to continue processing a new payment intent.
 
 #### Defined in
 
-[index.ts:141](https://github.com/tjanczuk/letsgo/blob/4d5649a/packages/types/src/index.ts#L141)
+[index.ts:141](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/types/src/index.ts#L141)
 
 ___
 
@@ -35,7 +35,7 @@ Stripe public key.
 
 #### Defined in
 
-[index.ts:145](https://github.com/tjanczuk/letsgo/blob/4d5649a/packages/types/src/index.ts#L145)
+[index.ts:145](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/types/src/index.ts#L145)
 
 ___
 
@@ -47,4 +47,4 @@ Stripe subscrption Id.
 
 #### Defined in
 
-[index.ts:137](https://github.com/tjanczuk/letsgo/blob/4d5649a/packages/types/src/index.ts#L137)
+[index.ts:137](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/types/src/index.ts#L137)

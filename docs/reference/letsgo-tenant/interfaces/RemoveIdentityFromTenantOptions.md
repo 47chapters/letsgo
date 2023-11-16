@@ -25,13 +25,15 @@ Options for removing a user from a tenant.
 
 • `Optional` **deployment**: `string`
 
+LetsGo deployment name.
+
 #### Inherited from
 
 DeploymentOptions.deployment
 
 #### Defined in
 
-db/dist/index.d.ts:3
+db/dist/index.d.ts:18
 
 ___
 
@@ -43,7 +45,7 @@ LetsGo identity.
 
 #### Defined in
 
-[tenant/src/index.ts:756](https://github.com/tjanczuk/letsgo/blob/f8169ee/packages/tenant/src/index.ts#L756)
+[tenant/src/index.ts:756](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/tenant/src/index.ts#L756)
 
 ___
 
@@ -51,13 +53,15 @@ ___
 
 • `Optional` **region**: `string`
 
+AWS region.
+
 #### Inherited from
 
 DeploymentOptions.region
 
 #### Defined in
 
-db/dist/index.d.ts:2
+db/dist/index.d.ts:14
 
 ___
 
@@ -69,4 +73,4 @@ LetsGo tenant Id.
 
 #### Defined in
 
-[tenant/src/index.ts:752](https://github.com/tjanczuk/letsgo/blob/f8169ee/packages/tenant/src/index.ts#L752)
+[tenant/src/index.ts:752](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/tenant/src/index.ts#L752)

@@ -1,5 +1,5 @@
 /**
- * The package provides a way to enqueue messages to be processed by the LetsGo _worker_.
+ * This package provides a way to enqueue messages to be processed by the LetsGo _worker_.
  *
  * @module
  */
