@@ -10,7 +10,7 @@ This article assumes you have [integrated with Auth0 to enable user authenticati
 
 The _API_ component is an [Express](https://expressjs.com/) server implemented in [TypeScript](https://www.typescriptlang.org/).
 
-The boilerplate LetsGo provides includes endpoints required for tenant and user management, support for managing the lifecycle of Stripe subscriptions, including processing of Stripe webhooks, and support for contact form submissions from the _web_ component.
+The boilerplate provided by LetsGo includes endpoints required for tenant and user management, support for managing the lifecycle of Stripe subscriptions, including processing of Stripe webhooks, and support for contact form submissions from the _web_ component.
 
 In the course of development of your app, you will be adding new routes to the server to expose the HTTP APIs specific to your application.
 
