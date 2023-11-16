@@ -19,7 +19,9 @@ LetsGo does it by providing a prescriptive architecture implemented with a moder
 
 ## Getting started
 
-Learn more about the [architecture, technology choices, and principles](./docs/docs/backgound/architecture-and-technology-choices.md) or jump right into [your fist deployment to AWS](./docs/docs/tutorials/first-deployment-to-aws.md) tutorial.
+Learn more about the [architecture, technology choices, and principles](./docs/backgound/architecture-and-technology-choices.md) or jump right into [your fist deployment to AWS](./docs/tutorials/first-deployment-to-aws.md) tutorial.
+
+If you run into an problem or have a question, [file an issue](https://github.com/tjanczuk/letsgo/issues)
 
 Let's go!
 
