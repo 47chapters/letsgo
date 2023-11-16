@@ -44,7 +44,7 @@ Reference
 &nbsp;&nbsp;&nbsp;&nbsp;[@letsgo/queue](./reference/letsgo-queue/README.md)  
 &nbsp;&nbsp;&nbsp;&nbsp;[@letsgo/slack](./reference/letsgo-slack/README.md)  
 &nbsp;&nbsp;&nbsp;&nbsp;[@letsgo/stripe](./reference/letsgo-stripe/README.md)  
-&nbsp;&nbsp;&nbsp;&nbsp;@letsgo/tenant  
+&nbsp;&nbsp;&nbsp;&nbsp;[@letsgo/tenant](./reference/letsgo-tenant/README.md)  
 &nbsp;&nbsp;&nbsp;&nbsp;@letsgo/trust  
 &nbsp;&nbsp;&nbsp;&nbsp;@letsgo/types  
 &nbsp;&nbsp;&nbsp;&nbsp;Turborepo artifacts
