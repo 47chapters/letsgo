@@ -154,11 +154,11 @@ This is the meaning of individual properties of `SubscriptionPlan`:
 - `stripeSubscription.card` if the customer is using a credit card to pay for the subscription, this will contain the type of the card they are using and the last four digits, which you can use to display payment information in the UI.
 - `changes` is an array containing the entire history of changes of pricing plans for the tenant.
 
-In the _web_ component, you can access the list of tenants the logged in user has access to as well as the current tenant using the [_useTenant_ hook](./develop-the-frontend.md#get-tenants-and-current-tenant). In the _API_ and _worker_ components, you can use the `getTenant` function exposed by the [@letsgo/tenant](../reference/letsgo-tenant.md) package to access a specific tenant. When calling the _API_, you can use the `GET /v1/me` endpoint to find out the list of tenants the caller has access to, based on the identity information from their access token.
+In the _web_ component, you can access the list of tenants the logged in user has access to as well as the current tenant using the [_useTenant_ hook](./develop-the-frontend.md#get-tenants-and-current-tenant). In the _API_ and _worker_ components, you can use the `getTenant` function exposed by the [@letsgo/tenant](../reference/letsgo-tenant/README.md) package to access a specific tenant. When calling the _API_, you can use the `GET /v1/me` endpoint to find out the list of tenants the caller has access to, based on the identity information from their access token.
 
 ### Related topics
 
 [Setting up payments with Stripe](../tutorials/setting-up-payments-with-stripe.md)  
 [Tenants and users](../backgound/tenants-and-users.md)  
-[@letsgo/tenant](../reference/letsgo-tenant.md)  
+[@letsgo/tenant](../reference/letsgo-tenant/README.md)  
 [@letsgo/pricing](../reference/letsgo-pricing.md)
