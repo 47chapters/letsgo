@@ -33,15 +33,10 @@ Let's go!
 
 ### Tutorials
 
-Follow these in sequence:
-
 [First deployment to AWS](./docs/tutorials/first-deployment-to-aws.md)  
 [Building and running locally](./docs/tutorials/building-and-running-locally.md)  
 [Re-deploying to AWS](./docs/tutorials/re-deploying-to-aws.md)  
 [Setting up authentication with Auth0](./docs/tutorials/setting-up-authentication-with-auth0.md)
-
-Then choose what is more important to you:
-
 [Setting up payments with Stripe](./docs/tutorials/setting-up-payments-with-stripe.md)  
 [Configuring a custom domain](./docs/tutorials/configuring-custom-domain.md)
 
