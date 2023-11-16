@@ -339,7 +339,7 @@ yarn ops domain rm -a web -d stage -r eu-central-1
 
 Manipulates data in the _database_ component. Please read the [Data model](../backgound/data-model.md) to understand LetsGo's database structure.
 
-This set of commands is a thin shim over the functionality of [@letsgo/db](./letsgo-db.md) module, described in [Access data in the database from code](../how-to/access-data-in-the-database-from-code.md).
+This set of commands is a thin shim over the functionality of [@letsgo/db](./letsgo-db/README.md) module, described in [Access data in the database from code](../how-to/access-data-in-the-database-from-code.md).
 
 #### yarn ops db ls
 

@@ -1,3 +1,10 @@
+/**
+ * The package facilitates access to the LetsGo database. It provides a simple set of CRUD operations
+ * as well as a simple query interface.
+ *
+ * @module
+ */
+
 import {
   AttributeValue,
   DeleteItemCommand,
@@ -24,29 +31,79 @@ class HttpError extends Error {
   }
 }
 
+/**
+ * Options that describe the location of the LetsGo database.
+ */
 export interface DeploymentOptions {
+  /**
+   * AWS region.
+   */
   region?: string;
+  /**
+   * LetsGo deployment name.
+   */
   deployment?: string;
 }
 
+/**
+ * Options for reading data from the database.
+ */
 export interface GetItemOptions extends DeploymentOptions {
+  /**
+   * If true, the read will be strongly consistent read in DynamoDB.
+   */
   consistentRead?: boolean;
 }
 
+/**
+ * Options for listing data from the database.
+ */
 export interface ListItemsOptions extends GetItemOptions {
+  /**
+   * The maximum number of items to return.
+   */
   limit?: number;
+  /**
+   * Continuation token for paginated results.
+   */
   nextToken?: string;
 }
 
+/**
+ * A database item.
+ */
 export interface DBItem {
+  /**
+   * The DynamoDB partition key.
+   */
   category: string;
+  /**
+   * The DynamoDB sort key.
+   */
   key: string;
+  /**
+   * The time-to-live (TTL) value for the item.
+   */
   ttl?: number;
+  /**
+   * Any other attributes.
+   */
   [key: string]: any;
 }
 
+/**
+ * The result of a list operation.
+ */
 export interface ListItemsResult<T extends DBItem> {
+  /**
+   * The list of items matching the query.
+   */
   items: T[];
+  /**
+   * Continuation token for paginated results. If present, the client should pass this token
+   * to the next call to using {@link ListItemsOptions.nextToken} to
+   * retrieve the next page of results.
+   */
   nextToken?: string;
 }
 
@@ -68,6 +125,13 @@ async function getClient(options?: DeploymentOptions): Promise<DynamoDBClient> {
   return clients[region];
 }
 
+/**
+ * Retrieves a single item from the database.
+ * @param category The partition key
+ * @param key The sort key
+ * @param options Options for the operation
+ * @returns A promise that resolves to the item or undefined if the item does not exist or has expired.
+ */
 export async function getItem<T extends DBItem>(
   category: string,
   key: string,
@@ -89,6 +153,11 @@ export async function getItem<T extends DBItem>(
   }
 }
 
+/**
+ * Upserts an item in the database.
+ * @param item The item to upsert
+ * @param options Options for the operation
+ */
 export async function putItem<T extends DBItem>(
   item: T,
   options?: DeploymentOptions
@@ -102,6 +171,12 @@ export async function putItem<T extends DBItem>(
   await client.send(putCommand);
 }
 
+/**
+ * Ensures the item is deleted. If the item does not exist, this operation is a no-op.
+ * @param category The partition key
+ * @param key The sort key
+ * @param options Options for the operation
+ */
 export async function deleteItem(
   category: string,
   key: string,
@@ -116,6 +191,13 @@ export async function deleteItem(
   await client.send(deleteItem);
 }
 
+/**
+ * Lists items in the database that match the given category and key prefix. This function suports pagination.
+ * @param category The partition key
+ * @param keyPrefix The prefix of the sort key
+ * @param options Options for the operation
+ * @returns Matching items an an optional continuation token for paginated results.
+ */
 export async function listItems<T extends DBItem>(
   category: string,
   keyPrefix: string,

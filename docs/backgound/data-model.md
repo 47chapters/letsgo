@@ -25,7 +25,7 @@ The [accessing data in the database](../how-to/access-data-in-the-database-from-
 
 The DynamoDB table created by LetsGo supports automatic expiration of items. This can be requested by adding a `ttl` property to the item stored in the database. The property is a number that represents the desired expiration time of the item. When that time elapses, DynamoDB will remove the item from the database.
 
-Note that in practice DynamoDB itself may still include an expired item in the results of search queries or explicit get operation. However the [@letsgo/db](../reference/letsgo-db.md) module that LetsGo provides to facilitate DB access is normalizing this behavior in code - you will never get back an expired item.
+Note that in practice DynamoDB itself may still include an expired item in the results of search queries or explicit get operation. However the [@letsgo/db](../reference/letsgo-db/README.md) module that LetsGo provides to facilitate DB access is normalizing this behavior in code - you will never get back an expired item.
 
 ### System categories
 
