@@ -10,25 +10,12 @@
  * This mechanism is in place to reduce the attack surface area by not exposing API access tokens to the browser.
  */
 
-import {
-  AppRouteHandlerFn,
-  AppRouteHandlerFnContext,
-  withApiAuthRequired,
-} from "@auth0/nextjs-auth0";
+import { withApiAuthRequired } from "@auth0/nextjs-auth0";
 import proxyFactory from "../../proxy";
-import { NextRequest } from "next/server";
 
-// Delay create the proxy implementation because withApiAuthRequired has environment variable expectations
-// that may not be met at build time.
-let proxyImpl: AppRouteHandlerFn | undefined = undefined;
-const proxy = async (req: NextRequest, ctx: AppRouteHandlerFnContext) => {
-  if (!proxyImpl) {
-    proxyImpl = withApiAuthRequired(
-      proxyFactory({ addAccessTokenToRequest: true })
-    );
-  }
-  return proxyImpl(req, ctx);
-};
+const proxy = withApiAuthRequired(
+  proxyFactory({ addAccessTokenToRequest: true })
+);
 
 export const GET = proxy;
 export const POST = proxy;
