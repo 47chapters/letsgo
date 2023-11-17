@@ -60,7 +60,10 @@ export async function listLetsGoQueues(
           queues.push(queueUrl);
         }
       } catch (e: any) {
-        if (e.name !== "AWS.SimpleQueueService.NonExistentQueue") {
+        if (
+          e.name !== "AWS.SimpleQueueService.NonExistentQueue" &&
+          e.name !== "QueueDoesNotExist"
+        ) {
           throw e;
         }
       }
