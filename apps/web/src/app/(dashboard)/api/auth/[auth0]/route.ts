@@ -1,9 +1,4 @@
-import {
-  AfterRefetch,
-  AppRouteHandlerFn,
-  Session,
-  handleProfile,
-} from "@auth0/nextjs-auth0";
+import { AfterRefetch, AppRouteHandlerFn, Session } from "@auth0/nextjs-auth0";
 import { serializeIdentity } from "@letsgo/trust";
 import jwt from "jsonwebtoken";
 import { NextRequest } from "next/server";
@@ -47,8 +42,9 @@ const saveOpenIdProfile: AfterRefetch = async (
 let handleAuthImpl: AppRouteHandlerFn | undefined = undefined;
 const auth: AppRouteHandlerFn = async (req, ctx) => {
   if (!handleAuthImpl) {
-    handleAuthImpl = getAuth0().handleAuth({
-      profile: handleProfile({
+    const auth0 = getAuth0();
+    handleAuthImpl = auth0.handleAuth({
+      profile: auth0.handleProfile({
         refetch: true,
         afterRefetch: saveOpenIdProfile,
       }),
