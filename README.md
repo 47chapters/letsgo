@@ -1,3 +1,5 @@
+![Check Markdown Links](https://github.com/tjanczuk/letsgo/actions/workflows/action.yaml/badge.svg?event=push)
+
 # LetsGo - A Starter Kit for Starting Startups
 
 New SaaS businesses cut corners that are hard to fix later. LetsGo gives you a foundation to prevent this.
