@@ -10,12 +10,22 @@
  * This mechanism is in place to reduce the attack surface area by not exposing API access tokens to the browser.
  */
 
-import { withApiAuthRequired } from "@auth0/nextjs-auth0";
+import { AppRouteHandlerFn } from "@auth0/nextjs-auth0";
+import { getAuth0 } from "../../auth0";
 import proxyFactory from "../../proxy";
 
-const proxy = withApiAuthRequired(
-  proxyFactory({ addAccessTokenToRequest: true })
-);
+// Delay the initialization of the proxy until the first request is received.
+// This is necessary because withApiAuthRequired depends on environment variables
+// which are only present at runtime (not build time), which breaks the Next.js build.
+let proxyImpl: AppRouteHandlerFn | undefined = undefined;
+const proxy: AppRouteHandlerFn = async (req, ctx) => {
+  if (!proxyImpl) {
+    proxyImpl = getAuth0().withApiAuthRequired(
+      proxyFactory({ addAccessTokenToRequest: true })
+    );
+  }
+  return proxyImpl(req, ctx);
+};
 
 export const GET = proxy;
 export const POST = proxy;

@@ -1,12 +1,16 @@
 type EnsureEnvironmentVariablesProps = React.PropsWithChildren<{
   requiredEnvironmentVariables: string[];
   component: string;
+  docsUrl?: string;
+  docsText?: string;
 }>;
 
 function EnsureEnvironmentVariables({
   children,
   requiredEnvironmentVariables,
   component,
+  docsText,
+  docsUrl,
 }: EnsureEnvironmentVariablesProps) {
   const missingEnvironmentVariables = requiredEnvironmentVariables.filter(
     (v) => process.env[v] === undefined
@@ -33,13 +37,20 @@ function EnsureEnvironmentVariables({
         </ul>
         <p>
           If you are running the web component locally, you can provide them in
-          the <code>/apps/web/.env.local</code> file.{" "}
+          the <code>apps/web/.env.local</code> file.{" "}
         </p>
         <p>
           If you are running in AWS, you can set them using the{" "}
           <code>yarn ops config set</code> command prior to running{" "}
           <code>yarn ops deploy</code>.{" "}
         </p>
+        {docsUrl && docsText && (
+          <p>
+            <a href={docsUrl} target="_blank">
+              {docsText}
+            </a>
+          </p>
+        )}
       </div>
     );
   }
@@ -67,6 +78,8 @@ export function Auth0EnsureEnvironmentVariables({
     <EnsureEnvironmentVariables
       requiredEnvironmentVariables={Auth0RequiredEnvironmentVariables}
       component="Auth0"
+      docsUrl="https://github.com/tjanczuk/letsgo/blob/main/docs/tutorials/setting-up-authentication-with-auth0.md"
+      docsText="Follow this tutorial to set up Auth0 in LetsGo"
     >
       {children}
     </EnsureEnvironmentVariables>

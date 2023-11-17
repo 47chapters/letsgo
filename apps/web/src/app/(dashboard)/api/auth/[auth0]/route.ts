@@ -1,13 +1,14 @@
 import {
   AfterRefetch,
+  AppRouteHandlerFn,
   Session,
-  handleAuth,
   handleProfile,
 } from "@auth0/nextjs-auth0";
 import { serializeIdentity } from "@letsgo/trust";
+import jwt from "jsonwebtoken";
 import { NextRequest } from "next/server";
 import { apiRequest, getApiUrl } from "../../../../../components/common-server";
-import jwt from "jsonwebtoken";
+import { getAuth0 } from "../../auth0";
 
 /**
  * Save the OpenId profile of the user in the database so that the management portal
@@ -40,9 +41,20 @@ const saveOpenIdProfile: AfterRefetch = async (
   return session;
 };
 
-export const GET = handleAuth({
-  profile: handleProfile({
-    refetch: true,
-    afterRefetch: saveOpenIdProfile,
-  }),
-});
+// Delay the initialization of the auth handler until the first request is received.
+// This is necessary because the auth handler depends on environment variables
+// which are only present at runtime (not build time), which breaks the Next.js build.
+let handleAuthImpl: AppRouteHandlerFn | undefined = undefined;
+const auth: AppRouteHandlerFn = async (req, ctx) => {
+  if (!handleAuthImpl) {
+    handleAuthImpl = getAuth0().handleAuth({
+      profile: handleProfile({
+        refetch: true,
+        afterRefetch: saveOpenIdProfile,
+      }),
+    }) as AppRouteHandlerFn;
+  }
+  return handleAuthImpl(req, ctx);
+};
+
+export const GET = auth;
