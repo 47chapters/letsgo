@@ -16,7 +16,8 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "lint": "turbo run lint",
     "test": "turbo run test",
-    "doc": "turbo run doc"
+    "doc": "turbo run doc",
+    "ops": "./apps/ops/dist/index.js"
   },
   "dependencies": {},
   "devDependencies": {
