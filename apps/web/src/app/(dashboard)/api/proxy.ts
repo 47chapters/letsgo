@@ -10,9 +10,9 @@
  * This mechanism is in place to reduce the attack surface area by not exposing API access tokens to the browser.
  */
 
-import { getAccessToken } from "@auth0/nextjs-auth0";
 import { AppRouteHandlerFnContext } from "@auth0/nextjs-auth0/dist/helpers/with-api-auth-required";
 import { NextRequest, NextResponse } from "next/server";
+import { getAuth0 } from "../../../components/auth0";
 
 const methods: {
   [method: string]: { proxyRequestBody: boolean; proxyResponseBody: boolean };
@@ -98,7 +98,10 @@ export default function proxyFactory(options: ProxyOptions) {
     let accessTokenResponse: NextResponse | undefined = undefined;
     if (options.addAccessTokenToRequest) {
       accessTokenResponse = new NextResponse();
-      const { accessToken } = await getAccessToken(req, accessTokenResponse);
+      const { accessToken } = await getAuth0().getAccessToken(
+        req,
+        accessTokenResponse
+      );
       authorization = `Bearer ${accessToken}`;
     }
     let responseBody: any = undefined;

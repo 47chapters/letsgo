@@ -1,4 +1,4 @@
-import { getAccessToken } from "@auth0/nextjs-auth0";
+import { getAuth0 } from "./auth0";
 
 export interface ApiRequestOptions {
   path: string;
@@ -15,7 +15,7 @@ export async function apiRequest(
   options: ApiRequestOptions
 ): Promise<any | undefined> {
   const accessToken =
-    options.accessToken || (await getAccessToken()).accessToken;
+    options.accessToken || (await getAuth0().getAccessToken()).accessToken;
   const url = getApiUrl(options.path);
   const authorization = `Bearer ${accessToken}`;
   const method = options.method || "GET";
