@@ -11,10 +11,7 @@ When running the stack locally, configuration settings for the _web_, _API_, and
 Providing configuration settings for the _web_, _API_, and _worker_ components running in AWS is a two-stage process:
 
 1. You set the desired configuration settings in [AWS Systems Manager Parameter Store](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-parameter-store.html) using the `yarn ops config set` command of the LetsGo CLI.
-1. During the deployment of your stack using `yarn ops deploy`, the configuration settings are read from the AWS Parameter Store and propagated to the _web_, _API, and \_worker_ components as follows:
-
-- For the _web_ and _API_ components, a reference to the AWS Parameter Store is used in the service definition. Every time the service starts up (or restarts) the current configuration values will be read.
-- For the _worker_ component, a snapshot of the configuraiton settings in AWS Paramater Store is taken at deployment time and set as environment variables on the AWS Lambda function.
+1. During the deployment of your stack using `yarn ops deploy`, a snapshot of the configuraiton settings in AWS Paramater Store is taken and set as environment variables on the AppRunner service of the _web_ and _API_ components and the AWS Lambda function of the _worker_ component. Configuration of deployed artifacts is immutable until the next deployment.
 
 <img width="835" alt="image" src="https://github.com/tjanczuk/letsgo/assets/822369/52f10cb4-16fd-4803-9d0d-1c8fe04ee9a0">
 

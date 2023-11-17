@@ -300,8 +300,8 @@ async function waitForCustomDomain(
   region: string,
   serviceArn: string,
   maxWait: number,
-  inProgressStatus: string,
-  terminalStatus: string | undefined,
+  inProgressStatus: string[],
+  terminalStatus: string[] | undefined,
   silentOutput: boolean,
   logger: Logger
 ): Promise<CustomDomain | undefined> {
@@ -322,9 +322,9 @@ async function waitForCustomDomain(
     const customDomain = result[0];
     !silentOutput &&
       logger(`${clock}s custom domain status: ${customDomain.Status}`);
-    if (customDomain.Status === terminalStatus) {
+    if (terminalStatus?.includes(customDomain.Status || "")) {
       return customDomain;
-    } else if (customDomain.Status !== inProgressStatus) {
+    } else if (!inProgressStatus.includes(customDomain.Status || "")) {
       logger(
         chalk.red(
           `failure adding custom domain: unexpected custom domain status ${customDomain.Status}`
@@ -410,8 +410,8 @@ export async function addCustomDomain(
     region,
     serviceArn,
     MaxWaitTimeForCustomDomain,
-    "creating",
-    "pending_certificate_dns_validation",
+    ["creating", "binding_certificate"],
+    ["pending_certificate_dns_validation", "active"],
     silentOutput,
     logger
   );
@@ -534,27 +534,19 @@ async function updateAppRunnerService(
   const desiredServiceUrlEnvironmentVariablesKeys = Object.keys(
     desiredServiceUrlEnvironmentVariables
   );
-  const desiredConfig =
-    (await getConfig(options.region, options.deployment, true))[
-      options.deployment
-    ] || {};
-  const currentConfigKeys = Object.keys(
-    existingService.SourceConfiguration?.ImageRepository?.ImageConfiguration
-      ?.RuntimeEnvironmentSecrets || {}
+  const desiredEnvironmentVariables =
+    (await getConfig(options.region, options.deployment))[options.deployment] ||
+    {};
+  const desiredEnvironmentVariableKeys = Object.keys(
+    desiredEnvironmentVariables
   );
   const currentEnvironmentVariables =
     existingService.SourceConfiguration?.ImageRepository?.ImageConfiguration
       ?.RuntimeEnvironmentVariables || {};
-  const desiredConfigKeys = Object.keys(desiredConfig);
   const configNeedsUpdate =
-    desiredConfigKeys.find(
+    desiredEnvironmentVariableKeys.find(
       (key) =>
-        !currentConfigKeys.includes(key) &&
-        !options.ignoreConfigKeys.includes(key)
-    ) !== undefined ||
-    currentConfigKeys.find(
-      (key) =>
-        !desiredConfigKeys.includes(key) &&
+        currentEnvironmentVariables[key] !== desiredEnvironmentVariables[key] &&
         !options.ignoreConfigKeys.includes(key)
     ) !== undefined ||
     desiredServiceUrlEnvironmentVariablesKeys.find(
@@ -603,7 +595,6 @@ async function updateAppRunnerService(
           ImageIdentifier: `${ecrRepositoryUrl}:${options.imageTag}`,
           ImageRepositoryType: "ECR",
           ImageConfiguration: {
-            RuntimeEnvironmentSecrets: desiredConfig,
             RuntimeEnvironmentVariables: {
               LETSGO_IMAGE_TAG: options.imageTag,
               LETSGO_DEPLOYMENT: options.deployment,
@@ -611,6 +602,7 @@ async function updateAppRunnerService(
               // Workaround for a Next.js issue. See https://github.com/vercel/next.js/issues/49777
               HOSTNAME: "0.0.0.0",
               ...desiredServiceUrlEnvironmentVariables,
+              ...desiredEnvironmentVariables,
             },
           },
         },
@@ -715,10 +707,6 @@ async function createAppRunnerService(
         ImageIdentifier: `${ecrRepositoryUrl}:${options.imageTag}`,
         ImageRepositoryType: "ECR",
         ImageConfiguration: {
-          RuntimeEnvironmentSecrets:
-            (await getConfig(options.region, options.deployment, true))[
-              options.deployment
-            ] || {},
           RuntimeEnvironmentVariables: {
             LETSGO_IMAGE_TAG: options.imageTag,
             LETSGO_DEPLOYMENT: options.deployment,
@@ -726,6 +714,9 @@ async function createAppRunnerService(
             // Workaround for a Next.js issue. See https://github.com/vercel/next.js/issues/49777
             HOSTNAME: "0.0.0.0",
             ...desiredServiceUrlEnvironmentVariables,
+            ...((await getConfig(options.region, options.deployment))[
+              options.deployment
+            ] || {}),
           },
         },
       },

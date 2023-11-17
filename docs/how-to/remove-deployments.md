@@ -9,13 +9,15 @@ Both options are discussed below.
 
 ### Removing a deployment, softly
 
-This method of removing a deployment can be used to temporarily shut it down to save AWS costs with the intention of restarting it later in the same state. This method only removes the transient artifacts of a deployment and leaves your durable data in place:
+This method of removing a deployment can be used to shut it down to save AWS costs while keeping all customer data around. This method removes the transient artifacts of a deployment and leaves your durable data in place:
 
 - The _database_ component.
 - The SQS queue holding the messages for the _worker_. (**NOTE** SQS will discard messages in the queue if they are not consumed during the time window [you configured](./manage-scalability.md#scaling-the-worker-component))
 - The ECR images of the _worker_, _API_, and _web_.
 
-This allows you to later re-create the transitent artifacts by [re-deploying to AWS](../tutorials/re-deploying-to-aws.md) and pick up from where you were in terms in the state of the data.
+**NOTE** The URLs of the _web_ and _API_ components as well as custom domain name configuration will be released. If you re-create the servies later, they will be assigned new URLs. If you don't want to release the URLs of the services, consider stopping the services with `yarn ops stop` instead of removing them.
+
+This allows you to later re-create the transitent artifacts by [re-deploying to AWS](../tutorials/re-deploying-to-aws.md) and pick up from where you were in terms in the state of the data, and repeating the process of [configuring the custom domain](../tutorials/configuring-custom-domain.md).
 
 To remove the deployment this way, run the following command:
 
