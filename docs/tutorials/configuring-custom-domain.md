@@ -12,7 +12,11 @@ This tutorial assumes you have already [set up authentication with Auth0](settin
 
 ### Get your domain
 
+<!-- markdown-link-check-disable -->
+
 You need to own a domain name to continue with this tutorial. You can buy a domain from one of the many domain registrars like [Namecheap](https://namecheap.com) or [GoDaddy](https://godaddy.com).
+
+<!-- markdown-link-check-enable -->
 
 To continue with this tutorial, you must be able to manage DNS entries for your custom domain.
 
@@ -58,9 +62,13 @@ The output of these commands lists a number of required DNS records and will loo
 ...
 ```
 
+<!-- markdown-link-check-disable -->
+
 You must now manually create these entries in your domain registrar to complete the set up of custom domains. This process is specific to the domain registrar you are using. For example, here is the process for [Namecheap](https://www.namecheap.com/support/knowledgebase/article.aspx/767/10/how-to-change-dns-for-a-domain/), and here for [GoDaddy](https://www.godaddy.com/help/manage-dns-records-680). Other domain registrars will have similar instructions.
 
 **NOTE** Some domain name registrars have restrictions on the length of keys or values of the DNS records which may prevent you from setting up the required DNS records. As a workaround, you can set up a [Cloudflare](https://cloudflare.com) account and move the management of DNS records for your custom domain there by using Cloudflare's nameservers with your custom domain in your domain registrar.
+
+<!-- markdown-link-check-enable -->
 
 ### Monitor the status of your custom domain configuration
 
@@ -130,9 +138,9 @@ Only after the _Status_ is `active` you can proceed to the next step.
 
 You must add your custom domain to the Auth0 configuration to inform Auth0 that your service is now available on a new set of URLs.
 
-In the [Auth0 Management Dashboard](https://manage.auth0.com), navigate to _Applications / Applications_, locate the application you have created when [setting up authentication with Auth0](setting-up-authentication-with-auth0.md), go to the _Settings_ tab, find the _Application URIs_ section, and update the configuration as follows:
+<!-- markdown-link-check-enable -->
 
-<!-- markdown-link-check-disable -->
+In the [Auth0 Management Dashboard](https://manage.auth0.com), navigate to _Applications / Applications_, locate the application you have created when [setting up authentication with Auth0](setting-up-authentication-with-auth0.md), go to the _Settings_ tab, find the _Application URIs_ section, and update the configuration as follows:
 
 - In _Allowed Callback URLs_, add the URL based on your custom domain name of the _web_ component, e.g. `https://contoso.com/api/auth/callback` (replace `contoso.com` with your domain name),
 - In _Allowed logout URLs_ and in the _Allowed Web Origins_, add a URL based on your custom domain name of the _web_ component, e.g. `https://contoso.com/` (replace `contoso.com` with your custom domain name).
