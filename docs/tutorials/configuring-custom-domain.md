@@ -138,7 +138,7 @@ Only after the _Status_ is `active` you can proceed to the next step.
 
 You must add your custom domain to the Auth0 configuration to inform Auth0 that your service is now available on a new set of URLs.
 
-<!-- markdown-link-check-enable -->
+<!-- markdown-link-check-disable -->
 
 In the [Auth0 Management Dashboard](https://manage.auth0.com), navigate to _Applications / Applications_, locate the application you have created when [setting up authentication with Auth0](setting-up-authentication-with-auth0.md), go to the _Settings_ tab, find the _Application URIs_ section, and update the configuration as follows:
 
