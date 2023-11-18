@@ -87,7 +87,7 @@ The output of the command should describe your user's identity in AWS.
 Go to a directory where you want to create a subdirectory with your project files and run:
 
 ```bash
-git clone git@github.com:tjanczuk/letsgo.git
+git clone git@github.com:47chapters/letsgo.git
 ```
 
 You now have a subdirectory called `letsgo` with a copy of the LetsGo project. Go to that subdirectory with:

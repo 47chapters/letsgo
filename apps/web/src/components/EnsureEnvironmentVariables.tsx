@@ -78,7 +78,7 @@ export function Auth0EnsureEnvironmentVariables({
     <EnsureEnvironmentVariables
       requiredEnvironmentVariables={Auth0RequiredEnvironmentVariables}
       component="Auth0"
-      docsUrl="https://github.com/tjanczuk/letsgo/blob/main/docs/tutorials/setting-up-authentication-with-auth0.md"
+      docsUrl="https://github.com/47chapters/letsgo/blob/main/docs/tutorials/setting-up-authentication-with-auth0.md"
       docsText="Follow this tutorial to set up Auth0 in LetsGo"
     >
       {children}
