@@ -1,4 +1,4 @@
-![Check Markdown Links](https://github.com/tjanczuk/letsgo/actions/workflows/action.yaml/badge.svg?event=push)
+![Check Markdown Links](https://github.com/47chapters/letsgo/actions/workflows/action.yaml/badge.svg?event=push)
 
 # LetsGo - A Starter Kit for Starting Startups
 
