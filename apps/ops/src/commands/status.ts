@@ -35,7 +35,7 @@ import {
 } from "@aws-sdk/client-lambda";
 import { TableDescription } from "@aws-sdk/client-dynamodb";
 import { get } from "https";
-import { LogGroup } from "aws-sdk/clients/cloudwatchlogs";
+import { LogGroup } from "@aws-sdk/client-cloudwatch-logs";
 
 const AllArtifacts = ["all", "api", "web", "db", "worker"];
 
