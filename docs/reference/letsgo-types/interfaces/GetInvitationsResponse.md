@@ -20,4 +20,4 @@ Active invitations to the tenant.
 
 #### Defined in
 
-[index.ts:89](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/types/src/index.ts#L89)
+[index.ts:89](https://github.com/47chapters/letsgo/blob/11c7e19/packages/types/src/index.ts#L89)

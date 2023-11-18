@@ -46,7 +46,7 @@ The time when the issuer was created.
 
 #### Defined in
 
-[trust/src/issuer.ts:28](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/trust/src/issuer.ts#L28)
+[trust/src/issuer.ts:28](https://github.com/47chapters/letsgo/blob/11c7e19/packages/trust/src/issuer.ts#L28)
 
 ___
 
@@ -58,7 +58,7 @@ The [JWKS](https://tools.ietf.org/html/rfc7517) URL of the issuer.
 
 #### Defined in
 
-[trust/src/issuer.ts:24](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/trust/src/issuer.ts#L24)
+[trust/src/issuer.ts:24](https://github.com/47chapters/letsgo/blob/11c7e19/packages/trust/src/issuer.ts#L24)
 
 ___
 

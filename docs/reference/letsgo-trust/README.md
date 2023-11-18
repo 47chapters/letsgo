@@ -60,7 +60,7 @@ An issuer is either a third-party JWKS-based issuer or a built-in PKI-based issu
 
 #### Defined in
 
-[trust/src/issuer.ts:61](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/trust/src/issuer.ts#L61)
+[trust/src/issuer.ts:61](https://github.com/47chapters/letsgo/blob/11c7e19/packages/trust/src/issuer.ts#L61)
 
 ## Variables
 
@@ -72,7 +72,7 @@ Default expiry for JWT access tokens created using built-in PKI issuers.
 
 #### Defined in
 
-[trust/src/jwt.ts:9](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/trust/src/jwt.ts#L9)
+[trust/src/jwt.ts:9](https://github.com/47chapters/letsgo/blob/11c7e19/packages/trust/src/jwt.ts#L9)
 
 ## Functions
 
@@ -96,7 +96,7 @@ Adds a new third party JWKS issuer to the system.
 
 #### Defined in
 
-[trust/src/issuer.ts:171](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/trust/src/issuer.ts#L171)
+[trust/src/issuer.ts:171](https://github.com/47chapters/letsgo/blob/11c7e19/packages/trust/src/issuer.ts#L171)
 
 ___
 
@@ -122,7 +122,7 @@ The new build-in PKI issuer.
 
 #### Defined in
 
-[trust/src/issuer.ts:275](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/trust/src/issuer.ts#L275)
+[trust/src/issuer.ts:275](https://github.com/47chapters/letsgo/blob/11c7e19/packages/trust/src/issuer.ts#L275)
 
 ___
 
@@ -146,7 +146,7 @@ The JWT access token.
 
 #### Defined in
 
-[trust/src/jwt.ts:40](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/trust/src/jwt.ts#L40)
+[trust/src/jwt.ts:40](https://github.com/47chapters/letsgo/blob/11c7e19/packages/trust/src/jwt.ts#L40)
 
 ___
 
@@ -168,7 +168,7 @@ Deletes an identity from the database. Identities are stored in the `letsgo-iden
 
 #### Defined in
 
-[trust/src/identity.ts:104](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/trust/src/identity.ts#L104)
+[trust/src/identity.ts:104](https://github.com/47chapters/letsgo/blob/11c7e19/packages/trust/src/identity.ts#L104)
 
 ___
 
@@ -191,7 +191,7 @@ Removes an issuer from the system. Access tokens issued by the issuer will no lo
 
 #### Defined in
 
-[trust/src/issuer.ts:248](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/trust/src/issuer.ts#L248)
+[trust/src/issuer.ts:248](https://github.com/47chapters/letsgo/blob/11c7e19/packages/trust/src/issuer.ts#L248)
 
 ___
 
@@ -215,7 +215,7 @@ Deserialized identity.
 
 #### Defined in
 
-[trust/src/index.ts:45](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/trust/src/index.ts#L45)
+[trust/src/index.ts:45](https://github.com/47chapters/letsgo/blob/11c7e19/packages/trust/src/index.ts#L45)
 
 ___
 
@@ -239,7 +239,7 @@ Active PKI issuer or undefined if no active PKI issuer exists.
 
 #### Defined in
 
-[trust/src/issuer.ts:192](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/trust/src/issuer.ts#L192)
+[trust/src/issuer.ts:192](https://github.com/47chapters/letsgo/blob/11c7e19/packages/trust/src/issuer.ts#L192)
 
 ___
 
@@ -263,7 +263,7 @@ The identity result or undefined if the identity does not exist.
 
 #### Defined in
 
-[trust/src/identity.ts:88](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/trust/src/identity.ts#L88)
+[trust/src/identity.ts:88](https://github.com/47chapters/letsgo/blob/11c7e19/packages/trust/src/identity.ts#L88)
 
 ___
 
@@ -288,7 +288,7 @@ Issuer or undefined if the issuer does not exist.
 
 #### Defined in
 
-[trust/src/issuer.ts:261](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/trust/src/issuer.ts#L261)
+[trust/src/issuer.ts:261](https://github.com/47chapters/letsgo/blob/11c7e19/packages/trust/src/issuer.ts#L261)
 
 ___
 
@@ -312,7 +312,7 @@ The `iss` claim value.
 
 #### Defined in
 
-[trust/src/issuer.ts:105](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/trust/src/issuer.ts#L105)
+[trust/src/issuer.ts:105](https://github.com/47chapters/letsgo/blob/11c7e19/packages/trust/src/issuer.ts#L105)
 
 ___
 
@@ -343,7 +343,7 @@ The RSA public key of the issuer in PEM format or undefined if the key cannot be
 
 #### Defined in
 
-[trust/src/keyResolver.ts:140](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/trust/src/keyResolver.ts#L140)
+[trust/src/keyResolver.ts:140](https://github.com/47chapters/letsgo/blob/11c7e19/packages/trust/src/keyResolver.ts#L140)
 
 ___
 
@@ -367,7 +367,7 @@ True if the `iss` represents a built-in PKI issuer, false otherwise.
 
 #### Defined in
 
-[trust/src/issuer.ts:113](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/trust/src/issuer.ts#L113)
+[trust/src/issuer.ts:113](https://github.com/47chapters/letsgo/blob/11c7e19/packages/trust/src/issuer.ts#L113)
 
 ___
 
@@ -391,7 +391,7 @@ True if the object is a JWKS issuer, false otherwise.
 
 #### Defined in
 
-[trust/src/issuer.ts:82](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/trust/src/issuer.ts#L82)
+[trust/src/issuer.ts:82](https://github.com/47chapters/letsgo/blob/11c7e19/packages/trust/src/issuer.ts#L82)
 
 ___
 
@@ -415,7 +415,7 @@ True if the object is a PKI issuer, false otherwise.
 
 #### Defined in
 
-[trust/src/issuer.ts:91](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/trust/src/issuer.ts#L91)
+[trust/src/issuer.ts:91](https://github.com/47chapters/letsgo/blob/11c7e19/packages/trust/src/issuer.ts#L91)
 
 ___
 
@@ -440,7 +440,7 @@ The list of issuers and the optional continuation token for paginated results.
 
 #### Defined in
 
-[trust/src/issuer.ts:159](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/trust/src/issuer.ts#L159)
+[trust/src/issuer.ts:159](https://github.com/47chapters/letsgo/blob/11c7e19/packages/trust/src/issuer.ts#L159)
 
 ___
 
@@ -462,7 +462,7 @@ Upserts an identity to the database. Identities are stored in the `letsgo-identi
 
 #### Defined in
 
-[trust/src/identity.ts:49](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/trust/src/identity.ts#L49)
+[trust/src/identity.ts:49](https://github.com/47chapters/letsgo/blob/11c7e19/packages/trust/src/identity.ts#L49)
 
 ___
 
@@ -486,7 +486,7 @@ identity Id
 
 #### Defined in
 
-[trust/src/index.ts:34](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/trust/src/index.ts#L34)
+[trust/src/index.ts:34](https://github.com/47chapters/letsgo/blob/11c7e19/packages/trust/src/index.ts#L34)
 
 ___
 
@@ -511,7 +511,7 @@ The new, active PKI issuer.
 
 #### Defined in
 
-[trust/src/issuer.ts:215](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/trust/src/issuer.ts#L215)
+[trust/src/issuer.ts:215](https://github.com/47chapters/letsgo/blob/11c7e19/packages/trust/src/issuer.ts#L215)
 
 ___
 
@@ -540,4 +540,4 @@ Parsed, validated JWT or undefined if the token is invalid.
 
 #### Defined in
 
-[trust/src/jwt.ts:78](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/trust/src/jwt.ts#L78)
+[trust/src/jwt.ts:78](https://github.com/47chapters/letsgo/blob/11c7e19/packages/trust/src/jwt.ts#L78)

@@ -22,7 +22,7 @@ The new plan ID the tenant switched to.
 
 #### Defined in
 
-[tenant/src/index.ts:82](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/tenant/src/index.ts#L82)
+[tenant/src/index.ts:82](https://github.com/47chapters/letsgo/blob/11c7e19/packages/tenant/src/index.ts#L82)
 
 ___
 
@@ -34,7 +34,7 @@ The timestamp of the change.
 
 #### Defined in
 
-[tenant/src/index.ts:74](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/tenant/src/index.ts#L74)
+[tenant/src/index.ts:74](https://github.com/47chapters/letsgo/blob/11c7e19/packages/tenant/src/index.ts#L74)
 
 ___
 
@@ -46,4 +46,4 @@ The identity of the user who made the change.
 
 #### Defined in
 
-[tenant/src/index.ts:78](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/tenant/src/index.ts#L78)
+[tenant/src/index.ts:78](https://github.com/47chapters/letsgo/blob/11c7e19/packages/tenant/src/index.ts#L78)

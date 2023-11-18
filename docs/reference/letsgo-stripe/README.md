@@ -61,7 +61,7 @@ Updated Stripe subscription.
 
 #### Defined in
 
-[index.ts:486](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/stripe/src/index.ts#L486)
+[index.ts:486](https://github.com/47chapters/letsgo/blob/11c7e19/packages/stripe/src/index.ts#L486)
 
 ___
 
@@ -86,7 +86,7 @@ Parameters describing the result of a completed Stripe payment setup.
 
 #### Defined in
 
-[index.ts:394](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/stripe/src/index.ts#L394)
+[index.ts:394](https://github.com/47chapters/letsgo/blob/11c7e19/packages/stripe/src/index.ts#L394)
 
 ___
 
@@ -110,7 +110,7 @@ New Stripe customer.
 
 #### Defined in
 
-[index.ts:147](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/stripe/src/index.ts#L147)
+[index.ts:147](https://github.com/47chapters/letsgo/blob/11c7e19/packages/stripe/src/index.ts#L147)
 
 ___
 
@@ -136,7 +136,7 @@ Parameters describing the newly created Stripe payment setup including the payme
 
 #### Defined in
 
-[index.ts:327](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/stripe/src/index.ts#L327)
+[index.ts:327](https://github.com/47chapters/letsgo/blob/11c7e19/packages/stripe/src/index.ts#L327)
 
 ___
 
@@ -161,7 +161,7 @@ Parameters describing the newly created Stripe subscription including the paymen
 
 #### Defined in
 
-[index.ts:266](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/stripe/src/index.ts#L266)
+[index.ts:266](https://github.com/47chapters/letsgo/blob/11c7e19/packages/stripe/src/index.ts#L266)
 
 ___
 
@@ -186,7 +186,7 @@ The Stripe price with the specified lookup key.
 
 #### Defined in
 
-[index.ts:185](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/stripe/src/index.ts#L185)
+[index.ts:185](https://github.com/47chapters/letsgo/blob/11c7e19/packages/stripe/src/index.ts#L185)
 
 ___
 
@@ -204,7 +204,7 @@ determine the public, secret, and webhook keys for Stripe.
 
 #### Defined in
 
-[index.ts:40](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/stripe/src/index.ts#L40)
+[index.ts:40](https://github.com/47chapters/letsgo/blob/11c7e19/packages/stripe/src/index.ts#L40)
 
 ___
 
@@ -228,7 +228,7 @@ Select parameters of a Stripe subscription with the specified ID or `undefined` 
 
 #### Defined in
 
-[index.ts:521](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/stripe/src/index.ts#L521)
+[index.ts:521](https://github.com/47chapters/letsgo/blob/11c7e19/packages/stripe/src/index.ts#L521)
 
 ___
 
@@ -252,7 +252,7 @@ The Stripe price with the specified lookup key or undefined if not found.
 
 #### Defined in
 
-[index.ts:168](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/stripe/src/index.ts#L168)
+[index.ts:168](https://github.com/47chapters/letsgo/blob/11c7e19/packages/stripe/src/index.ts#L168)
 
 ___
 
@@ -276,7 +276,7 @@ Updated Stripe subscription.
 
 #### Defined in
 
-[index.ts:445](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/stripe/src/index.ts#L445)
+[index.ts:445](https://github.com/47chapters/letsgo/blob/11c7e19/packages/stripe/src/index.ts#L445)
 
 ___
 
@@ -300,4 +300,4 @@ Validated Stripe event.
 
 #### Defined in
 
-[index.ts:106](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/stripe/src/index.ts#L106)
+[index.ts:106](https://github.com/47chapters/letsgo/blob/11c7e19/packages/stripe/src/index.ts#L106)

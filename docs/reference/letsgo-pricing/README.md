@@ -31,7 +31,7 @@ The list of active plans only.
 
 #### Defined in
 
-[index.ts:117](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/pricing/src/index.ts#L117)
+[index.ts:117](https://github.com/47chapters/letsgo/blob/11c7e19/packages/pricing/src/index.ts#L117)
 
 ___
 
@@ -43,7 +43,7 @@ The default plan Id to use for all new tenants. This is typically a freemium pla
 
 #### Defined in
 
-[index.ts:55](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/pricing/src/index.ts#L55)
+[index.ts:55](https://github.com/47chapters/letsgo/blob/11c7e19/packages/pricing/src/index.ts#L55)
 
 ___
 
@@ -56,7 +56,7 @@ even if you no longer offer this plan to new users. Mark it as `active: false` i
 
 #### Defined in
 
-[index.ts:61](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/pricing/src/index.ts#L61)
+[index.ts:61](https://github.com/47chapters/letsgo/blob/11c7e19/packages/pricing/src/index.ts#L61)
 
 ## Functions
 
@@ -80,7 +80,7 @@ The plan if it exists and is active, undefined otherwise.
 
 #### Defined in
 
-[index.ts:124](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/pricing/src/index.ts#L124)
+[index.ts:124](https://github.com/47chapters/letsgo/blob/11c7e19/packages/pricing/src/index.ts#L124)
 
 ___
 
@@ -104,4 +104,4 @@ The plan or undefined if it does not exist.
 
 #### Defined in
 
-[index.ts:133](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/pricing/src/index.ts#L133)
+[index.ts:133](https://github.com/47chapters/letsgo/blob/11c7e19/packages/pricing/src/index.ts#L133)

@@ -22,7 +22,7 @@ The Stripe customer ID for whom the payment setup is being completed for.
 
 #### Defined in
 
-[index.ts:352](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/stripe/src/index.ts#L352)
+[index.ts:352](https://github.com/47chapters/letsgo/blob/11c7e19/packages/stripe/src/index.ts#L352)
 
 ___
 
@@ -34,7 +34,7 @@ The Stripe setup intent ID that is being completed.
 
 #### Defined in
 
-[index.ts:348](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/stripe/src/index.ts#L348)
+[index.ts:348](https://github.com/47chapters/letsgo/blob/11c7e19/packages/stripe/src/index.ts#L348)
 
 ___
 
@@ -46,4 +46,4 @@ The Stripe subscription ID to associate with the new payment method.
 
 #### Defined in
 
-[index.ts:356](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/stripe/src/index.ts#L356)
+[index.ts:356](https://github.com/47chapters/letsgo/blob/11c7e19/packages/stripe/src/index.ts#L356)

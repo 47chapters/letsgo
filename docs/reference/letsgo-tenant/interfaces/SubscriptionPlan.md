@@ -23,7 +23,7 @@ History of changes of the tenant's subscription plan.
 
 #### Defined in
 
-[tenant/src/index.ts:123](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/tenant/src/index.ts#L123)
+[tenant/src/index.ts:123](https://github.com/47chapters/letsgo/blob/11c7e19/packages/tenant/src/index.ts#L123)
 
 ___
 
@@ -35,7 +35,7 @@ The plan ID.
 
 #### Defined in
 
-[tenant/src/index.ts:92](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/tenant/src/index.ts#L92)
+[tenant/src/index.ts:92](https://github.com/47chapters/letsgo/blob/11c7e19/packages/tenant/src/index.ts#L92)
 
 ___
 
@@ -48,7 +48,7 @@ if the tenant's Stripe subscription is canceled and later reactivated.
 
 #### Defined in
 
-[tenant/src/index.ts:97](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/tenant/src/index.ts#L97)
+[tenant/src/index.ts:97](https://github.com/47chapters/letsgo/blob/11c7e19/packages/tenant/src/index.ts#L97)
 
 ___
 
@@ -70,4 +70,4 @@ or a custom plan handled outside of Stripe's realm).
 
 #### Defined in
 
-[tenant/src/index.ts:102](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/tenant/src/index.ts#L102)
+[tenant/src/index.ts:102](https://github.com/47chapters/letsgo/blob/11c7e19/packages/tenant/src/index.ts#L102)

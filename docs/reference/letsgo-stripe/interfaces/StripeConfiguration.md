@@ -21,7 +21,7 @@ Configuration for _live_ or _test_ mode of the Stripe API client.
 
 #### Defined in
 
-[index.ts:23](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/stripe/src/index.ts#L23)
+[index.ts:23](https://github.com/47chapters/letsgo/blob/11c7e19/packages/stripe/src/index.ts#L23)
 
 ___
 
@@ -31,7 +31,7 @@ ___
 
 #### Defined in
 
-[index.ts:22](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/stripe/src/index.ts#L22)
+[index.ts:22](https://github.com/47chapters/letsgo/blob/11c7e19/packages/stripe/src/index.ts#L22)
 
 ___
 
@@ -41,7 +41,7 @@ ___
 
 #### Defined in
 
-[index.ts:21](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/stripe/src/index.ts#L21)
+[index.ts:21](https://github.com/47chapters/letsgo/blob/11c7e19/packages/stripe/src/index.ts#L21)
 
 ___
 
@@ -51,4 +51,4 @@ ___
 
 #### Defined in
 
-[index.ts:24](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/stripe/src/index.ts#L24)
+[index.ts:24](https://github.com/47chapters/letsgo/blob/11c7e19/packages/stripe/src/index.ts#L24)

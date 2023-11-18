@@ -63,7 +63,7 @@ The _database_ category for items representing a specific tenant's users.
 
 #### Defined in
 
-[tenant/src/index.ts:53](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/tenant/src/index.ts#L53)
+[tenant/src/index.ts:53](https://github.com/47chapters/letsgo/blob/11c7e19/packages/tenant/src/index.ts#L53)
 
 ___
 
@@ -75,7 +75,7 @@ The _database_ category for items representing invitations for a specific tenant
 
 #### Defined in
 
-[tenant/src/index.ts:58](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/tenant/src/index.ts#L58)
+[tenant/src/index.ts:58](https://github.com/47chapters/letsgo/blob/11c7e19/packages/tenant/src/index.ts#L58)
 
 ___
 
@@ -87,7 +87,7 @@ The _database_ category for items representing LetsGo tenants.
 
 #### Defined in
 
-[tenant/src/index.ts:43](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/tenant/src/index.ts#L43)
+[tenant/src/index.ts:43](https://github.com/47chapters/letsgo/blob/11c7e19/packages/tenant/src/index.ts#L43)
 
 ___
 
@@ -99,7 +99,7 @@ The _database_ category for items representing a specific user's access to tenan
 
 #### Defined in
 
-[tenant/src/index.ts:48](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/tenant/src/index.ts#L48)
+[tenant/src/index.ts:48](https://github.com/47chapters/letsgo/blob/11c7e19/packages/tenant/src/index.ts#L48)
 
 ## Functions
 
@@ -121,7 +121,7 @@ Adds a new user to a tenant.
 
 #### Defined in
 
-[tenant/src/index.ts:734](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/tenant/src/index.ts#L734)
+[tenant/src/index.ts:734](https://github.com/47chapters/letsgo/blob/11c7e19/packages/tenant/src/index.ts#L734)
 
 ___
 
@@ -145,7 +145,7 @@ New invitation
 
 #### Defined in
 
-[tenant/src/index.ts:333](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/tenant/src/index.ts#L333)
+[tenant/src/index.ts:333](https://github.com/47chapters/letsgo/blob/11c7e19/packages/tenant/src/index.ts#L333)
 
 ___
 
@@ -170,7 +170,7 @@ The newly created tenant.
 
 #### Defined in
 
-[tenant/src/index.ts:460](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/tenant/src/index.ts#L460)
+[tenant/src/index.ts:460](https://github.com/47chapters/letsgo/blob/11c7e19/packages/tenant/src/index.ts#L460)
 
 ___
 
@@ -192,7 +192,7 @@ Revoke an inviation to join a tenant.
 
 #### Defined in
 
-[tenant/src/index.ts:398](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/tenant/src/index.ts#L398)
+[tenant/src/index.ts:398](https://github.com/47chapters/letsgo/blob/11c7e19/packages/tenant/src/index.ts#L398)
 
 ___
 
@@ -216,7 +216,7 @@ The deleted tenant, or undefined if the tenant was alrady deleted or does not ex
 
 #### Defined in
 
-[tenant/src/index.ts:591](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/tenant/src/index.ts#L591)
+[tenant/src/index.ts:591](https://github.com/47chapters/letsgo/blob/11c7e19/packages/tenant/src/index.ts#L591)
 
 ___
 
@@ -240,7 +240,7 @@ Array of users who are members of the tenant.
 
 #### Defined in
 
-[tenant/src/index.ts:664](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/tenant/src/index.ts#L664)
+[tenant/src/index.ts:664](https://github.com/47chapters/letsgo/blob/11c7e19/packages/tenant/src/index.ts#L664)
 
 ___
 
@@ -264,7 +264,7 @@ The invitation if it exists and has not expired, undefined otherwise.
 
 #### Defined in
 
-[tenant/src/index.ts:369](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/tenant/src/index.ts#L369)
+[tenant/src/index.ts:369](https://github.com/47chapters/letsgo/blob/11c7e19/packages/tenant/src/index.ts#L369)
 
 ___
 
@@ -288,7 +288,7 @@ Array of active invitations.
 
 #### Defined in
 
-[tenant/src/index.ts:423](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/tenant/src/index.ts#L423)
+[tenant/src/index.ts:423](https://github.com/47chapters/letsgo/blob/11c7e19/packages/tenant/src/index.ts#L423)
 
 ___
 
@@ -312,7 +312,7 @@ The tenant if it exists and is not deleted, undefined otherwise.
 
 #### Defined in
 
-[tenant/src/index.ts:516](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/tenant/src/index.ts#L516)
+[tenant/src/index.ts:516](https://github.com/47chapters/letsgo/blob/11c7e19/packages/tenant/src/index.ts#L516)
 
 ___
 
@@ -336,7 +336,7 @@ Array of tenants the user has access to.
 
 #### Defined in
 
-[tenant/src/index.ts:626](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/tenant/src/index.ts#L626)
+[tenant/src/index.ts:626](https://github.com/47chapters/letsgo/blob/11c7e19/packages/tenant/src/index.ts#L626)
 
 ___
 
@@ -360,7 +360,7 @@ True if the user is member of the tenant, false otherwise.
 
 #### Defined in
 
-[tenant/src/index.ts:705](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/tenant/src/index.ts#L705)
+[tenant/src/index.ts:705](https://github.com/47chapters/letsgo/blob/11c7e19/packages/tenant/src/index.ts#L705)
 
 ___
 
@@ -384,7 +384,7 @@ The updated tenant.
 
 #### Defined in
 
-[tenant/src/index.ts:556](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/tenant/src/index.ts#L556)
+[tenant/src/index.ts:556](https://github.com/47chapters/letsgo/blob/11c7e19/packages/tenant/src/index.ts#L556)
 
 ___
 
@@ -409,7 +409,7 @@ The updated tenant if the subscription status changed, undefined if there were n
 
 #### Defined in
 
-[tenant/src/index.ts:287](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/tenant/src/index.ts#L287)
+[tenant/src/index.ts:287](https://github.com/47chapters/letsgo/blob/11c7e19/packages/tenant/src/index.ts#L287)
 
 ___
 
@@ -431,7 +431,7 @@ Removes a user from a tenant.
 
 #### Defined in
 
-[tenant/src/index.ts:763](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/tenant/src/index.ts#L763)
+[tenant/src/index.ts:763](https://github.com/47chapters/letsgo/blob/11c7e19/packages/tenant/src/index.ts#L763)
 
 ___
 
@@ -455,4 +455,4 @@ Update the tenant with a new plan ID and record the change.
 
 #### Defined in
 
-[tenant/src/index.ts:254](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/tenant/src/index.ts#L254)
+[tenant/src/index.ts:254](https://github.com/47chapters/letsgo/blob/11c7e19/packages/tenant/src/index.ts#L254)

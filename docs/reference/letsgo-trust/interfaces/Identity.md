@@ -21,7 +21,7 @@ The issuer identifier of the identity.
 
 #### Defined in
 
-[trust/src/index.ts:22](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/trust/src/index.ts#L22)
+[trust/src/index.ts:22](https://github.com/47chapters/letsgo/blob/11c7e19/packages/trust/src/index.ts#L22)
 
 ___
 
@@ -33,4 +33,4 @@ The subject identifier of the identity, unique within the issuer.
 
 #### Defined in
 
-[trust/src/index.ts:26](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/trust/src/index.ts#L26)
+[trust/src/index.ts:26](https://github.com/47chapters/letsgo/blob/11c7e19/packages/trust/src/index.ts#L26)

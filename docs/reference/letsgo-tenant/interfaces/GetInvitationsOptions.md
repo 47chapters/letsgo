@@ -60,4 +60,4 @@ The tenant ID the invitations relate to.
 
 #### Defined in
 
-[tenant/src/index.ts:415](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/tenant/src/index.ts#L415)
+[tenant/src/index.ts:415](https://github.com/47chapters/letsgo/blob/11c7e19/packages/tenant/src/index.ts#L415)

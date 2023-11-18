@@ -26,7 +26,7 @@ Email address of the sender.
 
 #### Defined in
 
-[index.ts:206](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/types/src/index.ts#L206)
+[index.ts:206](https://github.com/47chapters/letsgo/blob/11c7e19/packages/types/src/index.ts#L206)
 
 ___
 
@@ -38,7 +38,7 @@ Identity Id of the logged in user when the form was submitted.
 
 #### Defined in
 
-[index.ts:232](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/types/src/index.ts#L232)
+[index.ts:232](https://github.com/47chapters/letsgo/blob/11c7e19/packages/types/src/index.ts#L232)
 
 ___
 
@@ -50,7 +50,7 @@ Message provided by the sender.
 
 #### Defined in
 
-[index.ts:214](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/types/src/index.ts#L214)
+[index.ts:214](https://github.com/47chapters/letsgo/blob/11c7e19/packages/types/src/index.ts#L214)
 
 ___
 
@@ -62,7 +62,7 @@ Name of the sender.
 
 #### Defined in
 
-[index.ts:210](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/types/src/index.ts#L210)
+[index.ts:210](https://github.com/47chapters/letsgo/blob/11c7e19/packages/types/src/index.ts#L210)
 
 ___
 
@@ -78,7 +78,7 @@ Query parameters of the page where the contact form was submitted.
 
 #### Defined in
 
-[index.ts:222](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/types/src/index.ts#L222)
+[index.ts:222](https://github.com/47chapters/letsgo/blob/11c7e19/packages/types/src/index.ts#L222)
 
 ___
 
@@ -90,7 +90,7 @@ Current tenant Id if one was present in the context where the contact form was s
 
 #### Defined in
 
-[index.ts:228](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/types/src/index.ts#L228)
+[index.ts:228](https://github.com/47chapters/letsgo/blob/11c7e19/packages/types/src/index.ts#L228)
 
 ___
 
@@ -102,4 +102,4 @@ Timestamp of the submission.
 
 #### Defined in
 
-[index.ts:218](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/types/src/index.ts#L218)
+[index.ts:218](https://github.com/47chapters/letsgo/blob/11c7e19/packages/types/src/index.ts#L218)

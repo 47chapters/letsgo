@@ -27,7 +27,7 @@ Slack blocks. See [Block Kit](https://api.slack.com/reference/block-kit/blocks) 
 
 #### Defined in
 
-[index.ts:19](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/slack/src/index.ts#L19)
+[index.ts:19](https://github.com/47chapters/letsgo/blob/11c7e19/packages/slack/src/index.ts#L19)
 
 ___
 
@@ -39,4 +39,4 @@ The text of the message, including any formatting supported by Slack.
 
 #### Defined in
 
-[index.ts:15](https://github.com/tjanczuk/letsgo/blob/c32fd97/packages/slack/src/index.ts#L15)
+[index.ts:15](https://github.com/47chapters/letsgo/blob/11c7e19/packages/slack/src/index.ts#L15)
