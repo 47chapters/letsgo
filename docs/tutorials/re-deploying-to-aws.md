@@ -1,12 +1,12 @@
 ## Re-deploying to AWS
 
-In this tutorial, you will re-deploy the LetsGo stack that you modified locally to AWS. Upon completion, the changes you made locally will be published and accessible in the cloud.
+In this tutorial, you will redeploy the LetsGo stack that you modified locally to AWS. Upon completion, the changes you made locally will be published and accessible in the cloud.
 
 This tutorial assumes you have already made and tested local modifications to your app as part of the [building and running locally](building-and-running-locally.md) tutorial.
 
 ### Build the Docker images
 
-Build the Docker images that include the local modifications you made in the web, api, or worker components:
+Build the Docker images that include the local modifications you made in the _web_, _API_, or _worker_ components:
 
 ```bash
 yarn buildx
@@ -29,7 +29,7 @@ Deployed: all, api, db, web, worker
 
 ### Get the URLs of the web and API components
 
-In the course of re-deployment, the public URLs of the _web_ and _api_ components remain unchanged. If you need to remind yourself what they are, you can always run the following command:
+In the course of re-deployment, the public URLs of the _web_ and _API_ components remain unchanged. If you need to remind yourself what they are, you can always run the following command:
 
 ```bash
 $ yarn ops status
@@ -58,9 +58,9 @@ $ curl https://6ucstfkcn6.us-west-2.awsapprunner.com/v1/health
 {"ok":true,"imageTag":"9225060f1903ddef","updatedAt":"2023-11-04T22:08:24.392Z"}
 ```
 
-Notice the output is an HTTP 200 response with a JSON providing some basic information about the API component. Also notice how the `updatedAt` field contains a very recent timestamp indicating the time of the re-deployment.
+Notice the output is an HTTP 200 response with a JSON providing some basic information about the API component. Also, notice how the `updatedAt` field contains a very recent timestamp indicating the time of the re-deployment.
 
-Finally, navigate to the Web component's Url in the browser, and notice how the local change you made got propagated to the cloud:
+Finally, navigate to the Web component's URL in the browser, and notice how the local change you made got propagated to the cloud:
 
 <img width="912" alt="image" src="https://github.com/tjanczuk/letsgo/assets/822369/6aab4476-4d16-4ab4-97c4-211a80017266">
 

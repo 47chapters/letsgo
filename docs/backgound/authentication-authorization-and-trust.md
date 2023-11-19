@@ -1,11 +1,11 @@
 ## Authentication, authorization, and trust
 
-Users of your app need to log into the management dashboard ([develop the frontend](../how-to/develop-the-frontend.md)) and call your HTTP APIs ([develop the API](../how-to/develop-the-api.md)), and you need to provide a secure way for them do so. This is usually a two-stage process:
+Users of your app need to log into the management dashboard ([develop the front end](../how-to/develop-the-frontend.md)) and call your HTTP APIs ([develop the API](../how-to/develop-the-api.md)), and you need to provide a secure way for them to do so. This is usually a two-stage process:
 
 1. Authentication - having callers prove who they are.
 1. Authorization - checking if they are allowed to do what they intend.
 
-LetsGo uses Auth0 for authentication and the [Setting up authentication with Auth0](../tutorials/setting-up-authentication-with-auth0.md) tutorial walks you through the steps behind it. In this article we will look at how authentication works under the hood and how to manage trust in your LetsGo deployment.
+LetsGo uses Auth0 for authentication and the [Setting up authentication with Auth0](../tutorials/setting-up-authentication-with-auth0.md) tutorial walks you through the steps behind it. In this article, we will look at how authentication works under the hood and how to manage trust in your LetsGo deployment.
 
 ### Access tokens
 
@@ -38,7 +38,7 @@ The [manage trust and authentication](../how-to/manage-trust-and-authentication.
 Enabling trust to a third-party issuer requires providing two pieces of information:
 
 1. The issuer identifier, corresponding to the `iss` claim in the JWT tokens created by that issuer.
-1. The [JWKS](https://datatracker.ietf.org/doc/html/rfc7517) endpoint that specifies the public keys of the issuer to be used when validating signature of JWT tokens.
+1. The [JWKS](https://datatracker.ietf.org/doc/html/rfc7517) endpoint that specifies the public keys of the issuer to be used when validating the signature of JWT tokens.
 
 This way, the validity of an access token presented by the caller can be checked by:
 
@@ -72,10 +72,10 @@ Another use of the active PKI issuer is to create ad-hoc JWT access tokens for t
 
 LetsGo does not prescribe any authorization model. It is up to you to decide how you model permissions and authorization decisions in your app given an authenticated user.
 
-Having said that, LetsGo supports a [tenancy model](./tenants-and-users.md) which has implications on the permissions of a user to perform operations related to specific tenants of your app. Out of the box, LetsGo implements a very simple authorization model for these tenant-specific operations:
+Having said that, LetsGo supports a [tenancy model](./tenants-and-users.md) that has implications on the permissions of a user to perform operations related to specific tenants of your app. Out of the box, LetsGo implements a very simple authorization model for these tenant-specific operations:
 
-1. A user who is a member of tenant can perform all operations on that tenant.
-1. A user who is not a member of tenant cannot perform any operations on that tenant.
+1. A user who is a member of a tenant can perform all operations on that tenant.
+1. A user who is not a member of a tenant cannot perform any operations on that tenant.
 1. A caller using an access token issued by a trusted built-in PKI issuer can perform all operations on all tenants.
 
 These authorization decisions in the _API_ component are implemented by the [authorizeTenant middleware](../how-to/develop-the-api.md#the-authorizetenant-middleware).

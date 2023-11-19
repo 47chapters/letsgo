@@ -6,7 +6,7 @@ During active development, running the components of your application locally is
 
 This article assumes your app has already been [integrated with Auth0 for authentication](../tutorials/setting-up-authentication-with-auth0.md) and [with Stripe for payments](../tutorials/setting-up-payments-with-stripe.md).
 
-### Prerequisities
+### Prerequisites
 
 Before you can run your app locally, you must make sure that the DynamoDB database already exists in the cloud, and that the local components are configured.
 
@@ -57,7 +57,7 @@ LETSGO_STRIPE_TEST_WEBHOOK_KEY={test-mode-cli-webhook-signing-secret}
 
 <!-- markdown-link-check-enable -->
 
-The placeholder values for the last three `LETSGO_STRIPE_*` setting have been establied when you [integrated with Stripe to process payments](../tutorials/setting-up-payments-with-stripe.md).
+The placeholder values for the last three `LETSGO_STRIPE_*` settings have been established when you [integrated with Stripe to process payments](../tutorials/setting-up-payments-with-stripe.md).
 
 The configuration above allows you to execute all payment-related operations in Stripe's _test mode_, which means no money is changing hands. This is the recommended way to run your app locally during development and testing. However, there may be situations when you want to execute final tests against Stipe's _live mode_. In this case, the configuration must contain additional settings:
 
@@ -79,7 +79,7 @@ LETSGO_STRIPE_LIVE_WEBHOOK_KEY={live-mode-cli-webhook-signing-secret}
 
 <!-- markdown-link-check-enable -->
 
-Notice the addition of the three configuraiton settings with live mode keys for Stripe: `LETSGO_STRIPE_LIVE_*`. In addition, notice the `LETSGO_STRIPE_LIVE_MODE=1` entry. Setting `LETSGO_STRIPE_LIVE_MODE` to `1` causes the _API_ component to use the Stripe live mode keys from the `LETSGO_STRIPE_LIVE_*` properties. If `LETSGO_STRIPE_LIVE_MODE` is set to any value other than `1` or not set at all, the test mode Stripe keys from the `LETSGO_STRIPE_TEST_*` properties are used instead.
+Notice the addition of the three configuration settings with live mode keys for Stripe: `LETSGO_STRIPE_LIVE_*`. In addition, notice the `LETSGO_STRIPE_LIVE_MODE=1` entry. Setting `LETSGO_STRIPE_LIVE_MODE` to `1` causes the _API_ component to use the Stripe live mode keys from the `LETSGO_STRIPE_LIVE_*` properties. If `LETSGO_STRIPE_LIVE_MODE` is set to any value other than `1` or not set at all, the test mode Stripe keys from the `LETSGO_STRIPE_TEST_*` properties are used instead.
 
 #### The _worker_ configuration
 
@@ -140,13 +140,13 @@ yarn dev
 
 This will:
 
-- Rebuild anythng that needs rebuilding.
+- Rebuild anything that needs rebuilding.
 - Run the _web_ component as a plain Node.js HTTP server listening on http://localhost:3000. You can navigate to it in the browser.
 - Run the _API_ component as a plain Node.js HTTP server listening on http://localhost:3001. You can call `curl http://localhost:3001/v1/health` to get the health information.
 - Run the _worker_ component as a plain Node.js HTTP server listening on http://localhost:3002. You can use the [@letsgo/queue](../reference/letsgo-queue/README.md) package to enqueue work for it from the code of the _API_ or _worker_ components.
 <!-- markdown-link-check-enable -->
-- Watch for any changes in the file system of these components _and its dependencies_, and rebuild and restart the components as necessary.
-- For the _web_ component, the _fast refresh_ mechanims is used that immediately reflects any changes in the code of the _web_ component without the need to refresh the browser window.
+- Watch for any changes in the file system of these components _and their dependencies_, and rebuild and restart the components as necessary.
+- For the _web_ component, the _fast refresh_ mechanism is used that immediately reflects any changes in the code of the _web_ component without the need to refresh the browser window.
 
 <!-- markdown-link-check-disable -->
 

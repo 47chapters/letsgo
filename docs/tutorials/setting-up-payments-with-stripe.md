@@ -1,6 +1,6 @@
 ## Setting up payments with Stripe
 
-In this tutorial, you will integrate with Stripe to automate subscription payments in your app. You will define your subscription-based pricing plans and set up corresponding Stripe products and prices. At the end of this tutorial, users of you app will be able to sign up to a specific subscription directly from your pricing page, switch between pricing plans after signup, and update their payment methods.
+In this tutorial, you will integrate with Stripe to automate subscription payments in your app. You will define your subscription-based pricing plans and set up corresponding Stripe products and prices. At the end of this tutorial, users of your app will be able to sign up for a specific subscription directly from your pricing page, switch between pricing plans after signup, and update their payment methods.
 
 <img width="1312" alt="image" src="https://github.com/tjanczuk/letsgo/assets/822369/d33b7ef3-92fc-4c07-bb36-9f75a432df4f">
 
@@ -14,13 +14,13 @@ We are using Stripe as the payment processing and subscription management platfo
 
 ### Install Stripe CLI
 
-We use Stripe CLI to tunnel webhook events related to payment and subscription lifecycle to your locally running application. Follow the instructions [here](https://stripe.com/docs/stripe-cli) to install and setup the Stripe CLI.
+We use Stripe CLI to tunnel webhook events related to payment and subscription lifecycle to your locally running application. Follow the instructions [here](https://stripe.com/docs/stripe-cli) to install and set up the Stripe CLI.
 
 ### Collect the API keys from Stripe
 
-For the purpose of this tutorial, we exclusively use Stripe's test mode intended for development and testing. Stripe's test mode does not affect the flow of actual money, and has its own set of API keys separate from production. You will need three keys: _publishable key_, _secret key_, and the _webhook signing secret_.
+For the purpose of this tutorial, we exclusively use Stripe's test mode intended for development and testing. Stripe's test mode does not affect the flow of actual money and has its own set of API keys separate from production. You will need three keys: _publishable key_, _secret key_, and the _webhook signing secret_.
 
-You can access the _publishable key_ and _secret key_ for the Stripe's test mode from [Test Mode API Keys](https://dashboard.stripe.com/test/apikeys) section of the Stripe dashboard.
+You can access the _publishable key_ and _secret \_key_ for Stripe's test mode from [Test Mode API Keys](https://dashboard.stripe.com/test/apikeys) section of the Stripe dashboard.
 
 ### Registering a Stripe webhook
 
@@ -28,7 +28,7 @@ To access the _webhook signing secret_, you must first register a new webhook en
 
 1. Determine the base URL of your _API_ server running in AWS by executing `yarn ops status -a api`. The _Url_ property contains the _API_ base URL.
 1. Go to the [Test Mode Webhooks](https://dashboard.stripe.com/test/webhooks) page of the Stripe's dashboard and choose _Add endpoint_ in the _Hosted endpoints_ section.
-1. In _Endpoint URL_, enter `{base-url}/v1/stripe/webhook`, where `{base-url}` is the _API_ base url you determined above.
+1. In the _Endpoint URL_, enter `{base-url}/v1/stripe/webhook`, where `{base-url}` is the _API_ base URL you determined above.
 1. Click _Select events_ and check the checkbox next to _select all events_. Then click _Add events_.
 1. Back on the previous screen, click _Add endpoint_.
 1. You will now see a page with the status of the endpoint. Click _Reveal_ under _Signing secret_. Take note of this _webhook signing secret_, its value starts with `whsec_`.
@@ -67,7 +67,7 @@ yarn ops config set LETSGO_STRIPE_TEST_SECRET_KEY={secret-key}
 yarn ops config set LETSGO_STRIPE_TEST_WEBHOOK_KEY={cloud-webhook-signing-secret}
 ```
 
-Remember to substitute the _publishable key_, _secret key_, and the _webhook signing secret_ obtained when adding a webhook endpoint in the Stripe dashboard for `{publishable-key}`, `{secret-key}`, and `{cloud-webhook-signing-secret}`, respectively. The `{cloud-webhook-signing-secret}` is the _webhook signing secret_ obtain when [registering a Stipe webook](#registering-a-stripe-webhook) previously.
+Remember to substitute the _publishable key_, _secret key_, and the _webhook signing secret_ obtained when adding a webhook endpoint in the Stripe dashboard for `{publishable-key}`, `{secret-key}`, and `{cloud-webhook-signing-secret}`, respectively. The `{cloud-webhook-signing-secret}` is the _webhook signing secret_ obtained when [registering a Stipe webook](#registering-a-stripe-webhook) previously.
 
 For those configuration changes to take effect, you need to re-deploy your application with:
 
@@ -136,7 +136,7 @@ export const Plans: Plan[] = [
 ];
 ```
 
-This is where your application defines the pricing plans that show up on the `/pricing` page and your customers can choose from. There are four pricing plans above, but only two of them, marked with `usesStripe: true`, have their billing automated through Stripe. One is a _Starter_ plan for $10/month, the other a _Business_ plan for $90/month. We won't be modifying this pricing structure in this tutorial. Instead, take note of the `planId` values for the two plans (`starter` and `business`, respectively) as we will need them to configure corresponding concepts in Stripe.
+This is where your application defines the pricing plans that show up on the `/pricing` page and your customers can choose from. There are four pricing plans above, but only two of them, marked with `usesStripe: true`, have their billing automated through Stripe. One is a _Starter_ plan for $10/month, and the other a _Business_ plan for $90/month. We won't be modifying this pricing structure in this tutorial. Instead, take note of the `planId` values for the two plans (`starter` and `business`, respectively) as we will need them to configure corresponding concepts in Stripe.
 
 ### Configure products and prices in Stripe
 
@@ -146,7 +146,7 @@ Go to the [Test Mode Product Catalog](https://dashboard.stripe.com/test/products
 
 <img width="767" alt="image" src="https://github.com/tjanczuk/letsgo/assets/822369/c2bfa789-ed4d-4f19-a194-8f4b8462ec19">
 
-Enter _Starter_ as the _Name_ of the first product. Enter _10_ in the _Amount_ field. Make sure currency is set to _USD_ and the _Recurring_ mode is selected. Make sure _Billing period_ is set to _monthly_.
+Enter _Starter_ as the _Name_ of the first product. Enter _10_ in the _Amount_ field. Make sure the currency is set to _USD_ and the _Recurring_ mode is selected. Make sure _Billing period_ is set to _monthly_.
 
 Now click on the _Advanced pricing options_, scroll down to the _Additional_ section, and enter the LetsGo `planId` value of _starter_ into the _Lookup key_ field. Click _Next_, then _Add product_.
 
@@ -154,13 +154,13 @@ Then repeat this process to add a second product, entering _Business_, _90_, and
 
 **IMPORTANT** The value of Stripe's _Lookup key_ must match exactly the value of `planId` of the corresponding plan defined in LetsGo. This is how LetsGo correlates a LetsGo plan with Stripe's product and price.
 
-When you are done defining products in Stripe, your list of product should be similar to this:
+When you are done defining products in Stripe, your list of products should be similar to this:
 
 <img width="1312" alt="image" src="https://github.com/tjanczuk/letsgo/assets/822369/261a65d6-2b80-4c72-b414-d2db680731aa">
 
 ### Subscribe to a paid plan in test mode locally
 
-To test the Stripe integration locally, you will sign up to the _Business_ plan at $90/month. Since you are using Stripe's test mode, no money is going to change hands and you will be able to use a fake credit card number.
+To test the Stripe integration locally, you will sign up for the \_Business\_\_ plan at $90/month. Since you are using Stripe's test mode, no money is going to change hands and you will be able to use a fake credit card number.
 
 First, run the application locally with:
 
@@ -182,7 +182,7 @@ Either way, click on the _Get Started_ or _Select_ button for the _Business_ pla
 
 <img width="1312" alt="image" src="https://github.com/tjanczuk/letsgo/assets/822369/862b57eb-136f-4b96-be68-620e8a2620bf">
 
-Since you are using Stripe's test mode, we will use a fake credit card information. Enter _5555 5555 5555 4444_ as the credit card number, some future date for expiration, _123_ for SVC, and 98053 for the ZIP code (if the country is set to US). Click _Submit_.
+Since you are using Stripe's test mode, we will use fake credit card information. Enter _5555 5555 5555 4444_ as the credit card number, some future date for expiration, _123_ for SVC, and 98053 for the ZIP code (if the country is set to US). Click _Submit_.
 
 After a successful charge of $90 to the fake credit card, you will be redirected to the tenant settings page of the dashboard. The page shows the current plan, payment status, payment method, and the billing cycle:
 
@@ -194,7 +194,7 @@ From the tenant settings screen, you can also initiate a change of the subscript
 
 Now let's go through the flow of changing the subscription plan using your app deployed to AWS.
 
-First, find out the public URL of you website by running:
+First, find out the public URL of your website by running:
 
 ```bash
 yarn ops status -a web
@@ -226,7 +226,7 @@ Navigate to the [Test Mode Subscription Page](https://dashboard.stripe.com/test/
 
 <img width="1268" alt="image" src="https://github.com/tjanczuk/letsgo/assets/822369/5a710ec1-af5c-45da-89f2-842220a1399a">
 
-When you click into subscription details, you can inspect many aspects of this subscription which go beyond the scope of this tutorial. One element to highlight here is the _Metadata_ section:
+When you click on subscription details, you can inspect many aspects of this subscription that go beyond the scope of this tutorial. One element to highlight here is the _Metadata_ section:
 
 <img width="1312" alt="image" src="https://github.com/tjanczuk/letsgo/assets/822369/6bfe9aef-005c-49a6-995b-c401743b6a9e">
 

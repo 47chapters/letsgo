@@ -8,7 +8,7 @@ You will also have your local environment prepared for further development. This
 
 **NOTE** This tutorial will deploy several artifacts to your AWS account. The cost of keeping them idle for a day is about $0.70 (that's 70 cents). It is easy to [remove all of them](../how-to/remove-deployments.md) when you are done.
 
-### Prerequisities
+### Prerequisites
 
 First, you need to install a few tools, configure your development environment, and create an AWS account if you don't have one already.
 
@@ -116,7 +116,7 @@ yarn build
 
 ### Build the Docker images
 
-Build the Docker images for the web, api, and worker components:
+Build the Docker images for the _web_, _API_, and _worker_ components:
 
 ```bash
 yarn buildx
@@ -170,7 +170,7 @@ $ curl https://6ucstfkcn6.us-west-2.awsapprunner.com/v1/health
 
 Notice the output is an HTTP 200 response with a JSON providing some basic information about the API component.
 
-Lastly, navigate to the Web component's Url in the browser:
+Lastly, navigate to the Web component's URL in the browser:
 
 <img width="912" alt="image" src="https://github.com/tjanczuk/letsgo/assets/822369/ccca4a7e-a14f-4ceb-9864-2810ef083122">
 

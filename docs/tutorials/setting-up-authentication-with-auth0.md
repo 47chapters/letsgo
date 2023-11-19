@@ -1,6 +1,6 @@
 ## Setting up authentication with Auth0
 
-In this tutorial, you will integrate with Auth0 to authenticate users of your app. You will use authentication to secure the dashboard portion of your _web_ component as well as the HTTP endpoints of the _api_ component. To do this, you will first configure Auth0, then make changes to your app and test it locally, and finally re-deploy the secured application to AWS. Upon completion, you will be able to log in to the dashboard portion of your _web_ component using your Google Account:
+In this tutorial, you will integrate with Auth0 to authenticate users of your app. You will use authentication to secure the dashboard portion of your _web_ component as well as the HTTP endpoints of the _API_ component. To do this, you will first configure Auth0, then make changes to your app and test it locally, and finally re-deploy the secured application to AWS. Upon completion, you will be able to log in to the dashboard portion of your _web_ component using your Google Account:
 
 <img width="1312" alt="image" src="https://github.com/tjanczuk/letsgo/assets/822369/4d36bb48-5463-4d1b-af0d-6bbbbc7771fd">
 
@@ -21,7 +21,7 @@ Web
 ...
 ```
 
-Take note of the _Url_ value, which is the public HTTPS URL of your web site. Let's call it _base Url_ - we will be using it when configuring Auth0 in the next steps.
+Take note of the _Url_ value, which is the public HTTPS URL of your website. Let's call it _base Url_ - we will be using it when configuring Auth0 in the next steps.
 
 ### Sign up to Auth0
 
@@ -49,18 +49,18 @@ Once the Auth0 application has been created, go to its settings, find the _Basic
 
 On the same settings page, find the _Application URIs_ section, and make the following changes:
 
-- In _Allowed Callback URLs_, enter two URLs separateby by a comma:
+- In _Allowed Callback URLs_, enter two URLs separated by a comma:
   - `http://localhost:3000/api/auth/callback`
-  - `{base-url}/api/auth/callback`, where `{base-url}` is the _base url_ of your web site you obtained by running `yarn ops status -a web` before
+  - `{base-url}/api/auth/callback`, where `{base-url}` is the _base URL_ of your website you obtained by running `yarn ops status -a web` before
 - In _Allowed logout URLs_ and in the _Allowed Web Origins_, enter two URLs separated by a comma:
   - `http://localhost:3000`
-  - the _base url_ of your website
+  - the _base URL_ of your website
 
 <img width="1413" alt="image" src="https://github.com/tjanczuk/letsgo/assets/822369/a6f93ea7-beec-4ede-930d-cbadc0caae14">
 
 Scroll down the page and _Save_ the changes.
 
-While you are at the bottom of the page, expand _Advanced Settings_, go to the _Endpoints_ tab, and take note of the _JSON Web Key Set_ value. It will look similar to `https://goletsgo.us.auth0.com/.well-known/jwks.json`. We will be using this URL in next steps when instructing your LetsGo application to trust Auth0 as an authentication provider.
+While you are at the bottom of the page, expand _Advanced Settings_, go to the _Endpoints_ tab, and take note of the _JSON Web Key Set_ value. It will look similar to `https://goletsgo.us.auth0.com/.well-known/jwks.json`. We will be using this URL in the next steps when instructing your LetsGo application to trust Auth0 as an authentication provider.
 
 ### Configure Auth0 in the local environment
 
@@ -80,7 +80,7 @@ EOF
 
 Remember to substitute the _Domain_, _Client ID_, and _Client Secret_ values from the previous step for `{auth0-domain}`, `{auth0-client-id}`, and `{auth0-client-secret}`, respectively.
 
-For `{auth0-secret}`, generate a random password - this is the key that will be used to encrypt Auth0 cookies with when you run your app locally. You can run `node -p "Math.random().toString(32).substring(2)"` to quickly generate a pseudo-random value which should be good enough for the purpose.
+For `{auth0-secret}`, generate a random password - this is the key that will be used to encrypt Auth0 cookies when you run your app locally. You can run `node -p "Math.random().toString(32).substring(2)"` to quickly generate a pseudo-random value which should be good enough for the purpose.
 
 ### Configure Auth0 as a trusted issuer
 
@@ -98,7 +98,7 @@ Remember to substitute _Domain_ and _JSON Web Key Set_ URL for `{auth0-domain}` 
 yarn ops issuer add --issuer https://goletsgo.us.auth0.com/ --jwks https://goletsgo.us.auth0.com/.well-known/jwks.json
 ```
 
-### Run your application locally and test authentication
+### Run your application locally and test the authentication
 
 Start your application locally with:
 
@@ -110,7 +110,7 @@ Then navigate to `http://localhost:3000` in the browser and click the _Login_ li
 
 <img width="1312" alt="image" src="https://github.com/tjanczuk/letsgo/assets/822369/4d36bb48-5463-4d1b-af0d-6bbbbc7771fd">
 
-From here, you can choose to log in using your Google Account, or choose _Sign up_ to create a new username and password for your app. After a successful login, you will be redirected back to your locally running application. You will see a page that is part of the management dashboard of your application only available to authenticated users. The page allows you to manage certain settings of the tenant of your application which was created when you first logged in:
+From here, you can choose to log in using your Google Account or choose _Sign up_ to create a new username and password for your app. After a successful login, you will be redirected back to your locally running application. You will see a page that is part of the management dashboard of your application only available to authenticated users. The page allows you to manage certain settings of the tenant of your application which was created when you first logged in:
 
 <img width="1312" alt="image" src="https://github.com/tjanczuk/letsgo/assets/822369/1d1e0fa8-e7b7-4e00-a6e1-405617461ea2">
 
@@ -134,7 +134,7 @@ For those configuration changes to take effect, you need to re-deploy your appli
 yarn ops deploy -a all
 ```
 
-Once the deployment command completed, navigate the browser to the public URL of your website (which you can obtain by running `yarn ops status -a web`), and click the _Login_ link in the navbar. You should be taken through the same login flow as you just tested locally. After login, you will be redirected to the same tenant management page you have seen locally.
+Once the deployment command is completed, navigate the browser to the public URL of your website (which you can obtain by running `yarn ops status -a web`), and click the _Login_ link in the navbar. You should be taken through the same login flow as you just tested locally. After login, you will be redirected to the same tenant management page you have seen locally.
 
 ### Test API authentication
 
@@ -171,7 +171,7 @@ $ curl --request GET \
 >   --header 'authorization: Bearer eyJhbGciOi...31JX_NE2nAzwI2zyvW8qXcLuBk9hdb1RFdQ'
 ```
 
-You will see the output simiar to this:
+You will see the output similar to this:
 
 ```json
 {
@@ -212,10 +212,10 @@ You will see the output simiar to this:
 }
 ```
 
-The HTTP 200 response indicates the API call was successful. The access token presented was trusted by the API. In the JSON response the `/v1/me` endpoint returns information about the tenants of your app the caller has permissions to.
+The HTTP 200 response indicates the API call was successful. The access token presented was trusted by the API. In the JSON response, the `/v1/me` endpoint returns information about the tenants of your app the caller has permissions to.
 
 You can try issuing the same request to the public _API_ endpoint of your app, which you can get by running `yarn ops status -a api`.
 
 Congratulations! You have successfully secured access to your _web_ and _API_ components using Auth0. Users of your app will need to log in to your dashboard using Auth0, and they will need to obtain an access token from Auth0 in order to call the HTTP APIs.
 
-From here, you can choose to [integrate Stripe](./setting-up-payments-with-stripe.md) to offer paid subscriptions, or [configure a custom domain](./configuring-custom-domain.md) for your app.
+From here, you can choose to [integrate Stripe](./setting-up-payments-with-stripe.md) to offer paid subscriptions or [configure a custom domain](./configuring-custom-domain.md) for your app.

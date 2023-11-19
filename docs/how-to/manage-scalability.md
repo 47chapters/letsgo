@@ -1,6 +1,6 @@
 ## Manage scalability
 
-The choice of technologies in the LetsGo infrastructure allows you to control a variety of scalability settings to suite your workload needs. These settings are discussed separately for the _web_, _API_, _worker_, and _database_ components below.
+The choice of technologies in the LetsGo infrastructure allows you to control a variety of scalability settings to suit your workload needs. These settings are discussed separately for the _web_, _API_, _worker_, and _database_ components below.
 
 <img width="837" alt="image" src="https://github.com/tjanczuk/letsgo/assets/822369/af626761-0716-4119-84b2-33f1153d7033">
 
@@ -38,14 +38,14 @@ For the _worker_'s Lambda function, you can set:
 - `LETSGO_WORKER_FUNCTION_TIMEOUT` is the maximum time the function is allowed to execute, in seconds. Default 60.
 - `LETSGO_WORKER_MEMORY` is the memory size of the process running the Lambda function. Default 128.
 
-For details about how these settings affect the scalability, read AWS documentaion on [configuring Lambda functions](https://docs.aws.amazon.com/lambda/latest/dg/configuration-function-common.html).
+For details about how these settings affect the scalability, read the AWS documentation on [configuring Lambda functions](https://docs.aws.amazon.com/lambda/latest/dg/configuration-function-common.html).
 
-For the queue and event source mapping components which deliver messages to the worker Lambda function, you can control:
+For the queue and event source mapping components that deliver messages to the worker Lambda function, you can control:
 
 - `LETSGO_WORKER_BATCHING_WINDOW` is the time in seconds during which the event mapper waits for messages to accumulate in a batch before sending that batch to the worker. Default 2.
 - `LETSGO_WORKER_BATCH_SIZE` is the maximum batch size of messages the worker will receive at a time. Default 10.
 - `LETSGO_WORKER_CONCURRENCY` controls the maximum number of worker instances that can run concurrently. This multiplied by the maximum batch size gives you the upper bound on the concurrently processed messages. Default 5.
-- `LETSGO_WORKER_MESSAGE_RETENTION_PERIOD` how long a message can stay in the queue without being successully processed before it is discarded. Default 345600 (4 days).
+- `LETSGO_WORKER_MESSAGE_RETENTION_PERIOD` how long a message can stay in the queue without being successfully processed before it is discarded. Default 345600 (4 days).
 - `LETSGO_WORKER_RECEIVE_MESSAGE_WAIT_TIME` is the maximum time in seconds SQS waits for messages to become available after getting a receive request. Default 2.
 - `LETSGO_WORKER_VISIBILITY_TIMEOUT` how long a message stays hidden in the queue before it becomes eligible for re-delivery to the worker in case the worker does not confirm successful consumption. Default 360.
 

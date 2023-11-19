@@ -1,16 +1,16 @@
 ## Tenants and users
 
-Most B2B applications have a concept of a _tenant_ which is separate from the concept of a _user_. LetsGo has a first class support for modeling tenants and users and their relationship, along with related concepts like subscription plans and invitations.
+Most B2B applications have a concept of a _tenant_ which is separate from the concept of a _user_. LetsGo has first-class support for modeling tenants and users and their relationships, along with related concepts like subscription plans and invitations.
 
 <img width="778" alt="image" src="https://github.com/tjanczuk/letsgo/assets/822369/d9b562e8-363d-444c-a3ea-2bdebe4ccbd2">
 
-A _tenant_ is unit of organization specific to the customer of the app. The concept may have different names depending on the domain of the app, for example a _team_, a _project_, an _organization_, or a _workspace_.
+A _tenant_ is a unit of organization specific to the customer of the app. The concept may have different names depending on the domain of the app, for example, a _team\_\_, a \_project_, an _organization_, or a _workspace_.
 
-A _user_ of the app is a unique identity from the [authentication](./authentication-authorization-and-trust.md) perspective. In practical terms, in the context of accessing the app's functionality through the browser, a user is a physical human being.
+A _user_ of the app has a unique identity from the [authentication](./authentication-authorization-and-trust.md) perspective. In practical terms, in the context of accessing the app's functionality through the browser, a user is a physical human being.
 
-A _tenant_ may have multiple _users_. This represents a situation where multiple users have access to the same project, workspace, or a team, and is a frequent pattern in B2B apps.
+A _tenant_ may have multiple _users_. This represents a situation where multiple users have access to the same project, workspace, or team, and is a frequent pattern in B2B apps.
 
-A _user_ in turn may have access to multiple _tenants_. For example, Fubar and Fubaz are companies who are customers of your app. They are different _tenants_ in your system. Now, John is a contractor who works for both Fubar and Fubaz. John is a _user_ in our app who can access either _tenant_ Fubar or _tenant_ Fubaz. The way this manifests itself in the UI presented to the user in the _web_ component is via the tenant selector dropdown:
+A _user_ in turn may have access to multiple _tenants_. For example, Fubar and Fubaz are companies that are customers of your app. They are different _tenants_ in your system. Now, John is a contractor who works for both Fubar and Fubaz. John is a _user_ in our app who can access either _tenant_ Fubar or _tenant_ Fubaz. The way this manifests itself in the UI presented to the user in the _web_ component is via the tenant selector dropdown:
 
 <img width="254" alt="image" src="https://github.com/tjanczuk/letsgo/assets/822369/7ff31d3a-c2b3-4f96-8b69-11d931179dc8">
 
@@ -42,11 +42,11 @@ sequenceDiagram
 
 In the first step, user _U1_ with access to tenant _ten-123_ calls the _API_ to create an invitation. The server generates a random initation Id and stores it in the database associated with tenant _ten-123_. The invitations are stored with a TTL so that they automatically expire if not used within 24h. The server returns the generated invitation Id _inv-456_ to user _U1_.
 
-User _U1_ forms an invitation link that directs the browser to the _web_ component and sends it over to user _U2_ using propriatery channels (e-mail, Slack).
+User _U1_ forms an invitation link that directs the browser to the _web_ component and sends it over to user _U2_ using proprietary channels (e-mail, Slack).
 
-User _U2_ navigates to the invitation link in the browser and is asked to log in. Then, he sends a request to the _API_ server to accept the invitation. The _API_ server validates the invitation still exists in the database, then creates the associatation between user _U2_ and tenant _ten-123_ in the database.
+User _U2_ navigates to the invitation link in the browser and is asked to log in. Then, he sends a request to the _API_ server to accept the invitation. The _API_ server validates the invitation still exists in the database and then creates the association between user _U2_ and tenant _ten-123_ in the database.
 
-In the last step, the new user _U2_ calls the `/v1/me` endpoint on the _API_ server, which looks up the database to determine the list of tenants user _U2_ has access to, and returns that list in the response.
+In the last step, the new user _U2_ calls the `/v1/me` endpoint on the _API_ server, which looks up the database to determine the list of tenants to which user _U2_ has access and returns that list in the response.
 
 ### Plans and subscriptions
 

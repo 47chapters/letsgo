@@ -1,14 +1,14 @@
 ## Run tests
 
-The LetsGo monorepo uses the [Jest](https://jestjs.io/) test framework for individual components and packages. In addition, test running is streamlined through the [turborepo](https://turbo.build/repo)'s inrecemental build logic, which allows you to quickly run tests for only those components that have changed.
+The LetsGo monorepo uses the [Jest](https://jestjs.io/) test framework for individual components and packages. In addition, test running is streamlined through the [turborepo](https://turbo.build/repo)'s incremental build logic, which allows you to quickly run tests for only those components that have changed.
 
-### Prerequisities
+### Prerequisites
 
-Before running tests, satisfy the same prerequisities as for [running your app locally](./run-locally.md#prerequisities).
+Before running tests, satisfy the same prerequisites as for [running your app locally](./run-locally.md#prerequisities).
 
 ### Side effects
 
-There is a variety of tests in the LetsGo monorepo, from simple API level tests to integration tests that cut through many layers of the app all the way to the database.
+There is a variety of tests in the LetsGo monorepo, from simple API-level tests to integration tests that cut through many layers of the app all the way to the database.
 
 Some tests will write data to the database. While all tests make the best effort to clean up after themselves and not affect artifacts they have not created, it is not a good idea to run tests in the production environment once you have live customers, unless you know exactly what you are doing.
 
@@ -22,7 +22,7 @@ You can run all tests in the monorepo from the root directory of your project wi
 yarn test
 ```
 
-This will run tests for all components of the monorepo that have a `test` script defined in their `package.json` file. Note that this mechanism uses the [turborepo](https://turbo.build/repo)'s inrecemental build logic, which means that tests will be skipped for components that have not changed (and their dependencies have not changed) since the last test run. If you want to override this logic and force all tests in the monorepo to run regardless of any changes, use this command instead:
+This will run tests for all components of the monorepo that have a `test` script defined in their `package.json` file. Note that this mechanism uses the [turborepo](https://turbo.build/repo)'s incremental build logic, which means that tests will be skipped for components that have not changed (and their dependencies have not changed) since the last test run. If you want to override this logic and force all tests in the monorepo to run regardless of any changes, use this command instead:
 
 ```bash
 yarn test --force
@@ -46,4 +46,4 @@ cd packages/trust
 yarn test
 ```
 
-This mechanism does not use [turborepo](https://turbo.build/repo)'s inrecemental build logic and instead simply executes the `test` script from `package.json`. It is often a more conveninent way of running tests for the component you are currently working on.
+This mechanism does not use [turborepo](https://turbo.build/repo)'s incremental build logic and instead simply executes the `test` script from `package.json`. It is often a more convenient way of running tests for the component you are currently working on.

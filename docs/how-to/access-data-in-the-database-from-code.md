@@ -1,6 +1,6 @@
 ## Access data in the database from code
 
-LetsGo provides the `@letsgo/db` package in the `packages/db` directory to facilitate accessing [data in the database](../backgound/data-model.md). It offers basic CRUD operations as well as listing of items in the database. If you need more advanced constructs, you will need to add new functions to the package.
+LetsGo provides the `@letsgo/db` package in the `packages/db` directory to facilitate accessing [data in the database](../backgound/data-model.md). It offers basic CRUD operations as well as a listing of items in the database. If you need more advanced constructs, you will need to add new functions to the package.
 
 <img width="844" alt="image" src="https://github.com/tjanczuk/letsgo/assets/822369/490eda3c-e494-4958-9749-252c8ed8fe31">
 
@@ -127,15 +127,15 @@ const result = await listItems<Order>("order", "", { limit: 5 });
 console.log("ORDERS", result.items);
 ```
 
-**NOTE** When you specify `limit`, the call will return _up to_ that number of results, even if at the same time a `nextToken` is retured.
+**NOTE** When you specify `limit`, the call will return _up to_ that number of results, even if at the same time a `nextToken` is returned.
 
 ### Modeling is-part-of relationships
 
-In application data modelling it is very common to encounter one-to-many or many-to-many relationships between entities. For example, in the [LetsGo tenancy model](../backgound/tenants-and-users.md) there is a many-to-many relationship between tenants and users of the system.
+In application data modeling it is very common to encounter one-to-many or many-to-many relationships between entities. For example, in the [LetsGo tenancy model](../backgound/tenants-and-users.md), there is a many-to-many relationship between tenants and users of the system.
 
 One useful pattern for representing such relationships in the LetsGo database is through the use of hierarchical `key` properties.
 
-Consider there are two users in the system: `usr-1`, `usr-2`, and two tenants: `ten-1`, `ten-2`. Let's then assume that `usr-1` has access to both tenants, and `usr-2` only to `ten-2`.
+Consider there are two users in the system: `usr-1`, `usr-2`, and two tenants: `ten-1`, `ten-2`. Let's then assume that `usr-1` has access to both tenants and `usr-2` only to `ten-2`.
 
 You can represent these relationships using two database categories: `tenant-user` and `user-tenant`, each with hierarchical keys of the form `/{tenantId}/{userId}` and `/{userId}/{tenantId}`, respectively:
 

@@ -22,9 +22,9 @@ To continue with this tutorial, you must be able to manage DNS entries for your 
 
 ### Decide what domain names to use
 
-The _web_ and _API_ components of your app will be running on distinct domain names. One common pattern is to host your website on the root domain, e.g. `contoso.com`, and the _API_ compnent on a subdomain, e.g. `api.contoso.com`.
+The _web_ and _API_ components of your app will be running on distinct domain names. One common pattern is to host your website on the root domain, e.g. `contoso.com`, and the _API_ component on a subdomain, e.g. `api.contoso.com`.
 
-Before continuing, decide what domain names will be used for the the _web_ and _API_ components. For illustration purposes, this tutorial will assume you are using `contoso.com` for your _web_ component, and `api.contoso.com` for the _API_.
+Before continuing, decide what domain names will be used for the _web_ and _API_ components. For illustration purposes, this tutorial will assume you are using `contoso.com` for your _web_ component, and `api.contoso.com` for the _API_.
 
 ### Configure the custom domain for the _web_ and _API_ components
 

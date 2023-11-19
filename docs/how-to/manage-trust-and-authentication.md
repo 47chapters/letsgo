@@ -4,7 +4,7 @@ This article shows you how to manage trusted issuers in the system and modify th
 
 ### Trusted issuers
 
-You can manage the trusted issuers in the system with the `yarn ops issuer` command. For examle, you can see the list of trusted issuers for your deployment with:
+You can manage the trusted issuers in the system with the `yarn ops issuer` command. For example, you can see the list of trusted issuers for your deployment with:
 
 ```bash
 yarn ops issuer ls
@@ -12,14 +12,14 @@ yarn ops issuer ls
 
 Please refer to the [LetsGo CLI](../reference/letsgo-cli.md) for details.
 
-#### Third party issuers
+#### Third-party issuers
 
 To enable trust to a third-party access token issuer, you need two pieces of information:
 
-1. The issuer identifier, which is the value of the `iss` claim in the access tokens created by that issuer.
+1. The issuer identifier, which is to the value of the `iss` claim in the access tokens created by that issuer.
 1. The issuer's [JWKS](https://datatracker.ietf.org/doc/html/rfc7517) endpoint.
 
-With this information, you can enable trust to that issuer by running the following command:
+With this information, you can enable trust in that issuer by running the following command:
 
 ```bash
 yarn ops issuer add --issuer {issuer-identifier} --jwks {jwks-endpoint}

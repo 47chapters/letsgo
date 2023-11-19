@@ -1,6 +1,6 @@
 ## Manage configuration
 
-The _web_, _API_, and _worker_ components have a large number of configuration settings controlling things from authentication to payments to queue behavior. At runtime, all those settings are provided to the respective components using environment variables. There is a difference between how these settings are specified when you run LetsGo locally and in AWS. In addition, in case of running LetsGo in the cloud, there is an additional consideration of separately configuring multiple potential deployments.
+The _web_, _API_, and _worker_ components have a large number of configuration settings controlling things from authentication to payments to queue behavior. At runtime, all those settings are provided to the respective components using environment variables. There is a difference between how these settings are specified when you run LetsGo locally and in AWS. In addition, in the case of running LetsGo in the cloud, there is an additional consideration of separately configuring multiple potential deployments.
 
 ### Specifying configuration settings when running locally
 
@@ -11,7 +11,7 @@ When running the stack locally, configuration settings for the _web_, _API_, and
 Providing configuration settings for the _web_, _API_, and _worker_ components running in AWS is a two-stage process:
 
 1. You set the desired configuration settings in [AWS Systems Manager Parameter Store](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-parameter-store.html) using the `yarn ops config set` command of the LetsGo CLI.
-1. During the deployment of your stack using `yarn ops deploy`, a snapshot of the configuraiton settings in AWS Paramater Store is taken and set as environment variables on the AppRunner service of the _web_ and _API_ components and the AWS Lambda function of the _worker_ component. Configuration of deployed artifacts is immutable until the next deployment.
+1. During the deployment of your stack using `yarn ops deploy`, a snapshot of the configuration settings in AWS Parameter Store is taken and set as environment variables on the AppRunner service of the _web_ and _API_ components and the AWS Lambda function of the _worker_ component. Configuration of deployed artifacts is immutable until the next deployment.
 
 <img width="835" alt="image" src="https://github.com/tjanczuk/letsgo/assets/822369/52f10cb4-16fd-4803-9d0d-1c8fe04ee9a0">
 
@@ -21,13 +21,13 @@ For example, to set the memory size of the _API_ processes, you can call:
 yarn ops config set LETSGO_API_APPRUNNER_MEMORY=4096
 ```
 
-You can then deploy a new version of the _API_ component with this configuration setting with:
+You can then deploy a new version of the _API_ component with this configuration setting:
 
 ```bash
 yarn ops deploy -a api
 ```
 
-In addition to the configuration settings sourced from the AWS Systems Manager Parameter Store, LetsGo CLI determines the following settings at deployment time and sets them explicily as environment variables an all _web_, _API_, and _worker_ components so that you don't need to provide them explicitly via `yarn ops config set`:
+In addition to the configuration settings sourced from the AWS Systems Manager Parameter Store, LetsGo CLI determines the following settings at deployment time and sets them explicitly as environment variables for all _web_, _API_, and _worker_ components so that you don't need to provide them explicitly via `yarn ops config set`:
 
 - `AUTH0_BASE_URL`
 - `LETSGO_API_URL`

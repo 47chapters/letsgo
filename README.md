@@ -4,13 +4,13 @@
 
 New SaaS businesses cut corners that are hard to fix later. LetsGo gives you a foundation to prevent this.
 
-This project provides you with the architecture and the tooling that will put your startup on a solid foundation from day one. It helps you save months of work leading to the launch, while allowing you to focus on the essence of your product. The day you let the first customer in, you have no technical debt. As you grow, you can continue focusing your resources on what matters most: your customers and your product.
+This project provides you with the architecture and the tooling that will put your startup on a solid foundation from day one. It helps you save months of work leading to the launch while allowing you to focus on the essence of your product. The day you let the first customer in, you have no technical debt. As you grow, you can continue focusing your resources on what matters most: your customers and your product.
 
 <img width="837" alt="image" src="https://github.com/tjanczuk/letsgo/assets/822369/f7fe2317-d7de-4698-b093-416a52a1a145">
 
-LetsGo does it by providing a prescriptive architecture implemented with a modern set of technologies and a robust operational tooling for managing your app in AWS. On day one you get more than most startups build in the first two years:
+LetsGo does it by providing a prescriptive architecture implemented with a modern set of technologies and robust operational tooling for managing your app in AWS. On day one you get more than most startups build in the first two years:
 
-- An application architecture with a **web, HTTP API, worker, and a database components**, all wired up and ready to go.
+- An application architecture with a **web, HTTP API, worker, and database components**, all wired up and ready to go.
 - A **devops CLI** that helps you set up CI/CD and manage several deployments of your app in AWS to help you segregate your production and development workloads or to **support dedicated deployments** for your customers.
 - **Integration with Auth0** to authenticate your users and protect your APIs.
 - **Integration with Stripe** to automate your billing and subscription lifecycle management.
@@ -21,9 +21,9 @@ LetsGo does it by providing a prescriptive architecture implemented with a moder
 
 ## Getting started
 
-Learn more about the [architecture, technology choices, and principles](./docs/backgound/architecture-and-technology-choices.md) or jump right into [your fist deployment to AWS](./docs/tutorials/first-deployment-to-aws.md) tutorial.
+Learn more about the [architecture, technology choices, and principles](./docs/backgound/architecture-and-technology-choices.md) or jump right into [your first deployment to AWS](./docs/tutorials/first-deployment-to-aws.md) tutorial.
 
-If you run into an problem or have a question, [file an issue](https://github.com/tjanczuk/letsgo/issues)
+If you run into a problem or have a question, [file an issue](https://github.com/tjanczuk/letsgo/issues)
 
 Let's go!
 

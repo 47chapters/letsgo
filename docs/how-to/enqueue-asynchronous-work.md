@@ -1,6 +1,6 @@
 ## Enqueue asynchronous work
 
-The _worker_ component of the LetsGo boilerplate supports executing asynchronous work in the background, outside of the lifespan of an HTTP request. Aside from from processing Stripe events delivered via a webhook, your application may define and schedule its own types of asynchronous work.
+The _worker_ component of the LetsGo boilerplate supports executing asynchronous work in the background, outside of the lifespan of an HTTP request. Aside from processing Stripe events delivered via a webhook, your application may define and schedule its own types of asynchronous work.
 
 <img width="836" alt="image" src="https://github.com/tjanczuk/letsgo/assets/822369/835f7840-da4a-4c2e-bd1a-50864fb60c47">
 
@@ -10,7 +10,7 @@ This article assumes you already know how to [develop the worker](./develop-the-
 
 There are two common contexts in which you may want to schedule asynchronous work: from within the _API_ component, and from within the _worker_.
 
-When your application receives an HTTP request which requires work that cannot, should not, or needs not be completed during the lifetime of the HTTP request, you can schedule its asynchornous execution by the worker for later, and immediately respond to the HTTP request. One such case, which is already implemented in the LetsGo boilerplate, is the `POST /v1/contact` endpoint. It accepts a contact form submission from the _web_ component and schedules its processing for the _worker_ by enqueuing a message with type `letsgo:contact`.
+When your application receives an HTTP request that requires work that cannot, should not, or needs not be completed during the lifetime of the HTTP request, you can schedule its asynchronous execution by the worker for later, and immediately respond to the HTTP request. One such case, which is already implemented in the LetsGo boilerplate, is the `POST /v1/contact` endpoint. It accepts a contact form submission from the _web_ component and schedules its processing for the _worker_ by enqueuing a message with the type `letsgo:contact`.
 
 In another case, processing one chunk of asynchronous work in the _worker_ itself may require scheduling subsequent asynchronous jobs for later. For example, when you encounter errors or throttling limits when connecting to downstream services to complete an asynchronous job, you may want to re-schedule that job for later.
 
@@ -58,7 +58,7 @@ Due to AWS SQS limitations, the overall size of a message cannot exceed around 2
 
 Sometimes it is useful to delay the processing of enqueued messages by the _worker_. For example, when a downstream service required to process the work is down or has reached a throttling limit, you may want to implement a retry with an exponential back-off.
 
-In those cases you can pass an option to `enqueue` telling it to delay the delivery of the message to the _worker_ by a specific number of seconds, up to 900 (i.e. 15 minutes). If you need longer delays, you need to implement that logic yourself by re-enqueuing messages received by the worker with an ever decreasing delay:
+In those cases, you can pass an option to `enqueue` telling it to delay the delivery of the message to the _worker_ by a specific number of seconds, up to 900 (i.e. 15 minutes). If you need longer delays, you need to implement that logic yourself by re-enqueuing messages received by the worker with an ever-decreasing delay:
 
 ```typescript
 import { enqueue } from "@letsgo/queue";
@@ -80,7 +80,7 @@ async function scheduleNewOrder() {
 
 <!-- markdown-link-check-disable -->
 
-When [running locally](../tutorials/building-and-running-locally.md), there is no queue between your client and the _worker_, and the _worker_ is hosted as a plain Node.js process in a lightweight HTTP server on http://localhost:3002. This means there are some differences in behavior of `enqeue` between local and cloud environments:
+When [running locally](../tutorials/building-and-running-locally.md), there is no queue between your client and the _worker_, and the _worker_ is hosted as a plain Node.js process in a lightweight HTTP server on http://localhost:3002. This means there are some differences in the behavior of `enqeue`` between local and cloud environments:
 
 <!-- markdown-link-check-enable -->
 
@@ -91,5 +91,5 @@ When [running locally](../tutorials/building-and-running-locally.md), there is n
 ## Related topics
 
 [Access data in the database from code](./access-data-in-the-database-from-code.md)  
-[Develop the api](./develop-the-api.md)  
+[Develop the API](./develop-the-api.md)  
 [Develop the worker](./develop-the-worker.md)

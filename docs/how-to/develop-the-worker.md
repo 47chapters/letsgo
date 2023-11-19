@@ -10,17 +10,17 @@ This article assumes you have [integrated with Stripe to process payments](../tu
 
 The _worker_ component is an [AWS Lambda handler](https://docs.aws.amazon.com/lambda/latest/dg/typescript-handler.html) implemented in [TypeScript](https://www.typescriptlang.org/).
 
-The boilerplate LetsGo _worker_ implementation provides a simple message routing mechanism based on the `type` property of the received message. The scaffolding breaks down the routing logic all the way to the specific Stripe events generated in the lifecycle of a Stripe subscription, but leaves the processing logic of those events unimplemented. You need to add custom processing logic to the Stripe events that are relevant to your application.
+The boilerplate LetsGo _worker_ implementation provides a simple message routing mechanism based on the `type` property of the received message. The scaffolding breaks down the routing logic all the way to the specific Stripe events generated in the lifecycle of a Stripe subscription but leaves the processing logic of those events unimplemented. You need to add custom processing logic to the Stripe events that are relevant to your application.
 
-In the course of development of your app, you may be adding support for custom message types to the worker.
+In the course of the development of your app, you may be adding support for custom message types to the worker.
 
-When you [deploy your app to AWS](../tutorials/first-deployment-to-aws.md), the _worker_ component is packaged as a [Docker](https://www.docker.com/) image and deployed as an [AWS Lambda function](https://aws.amazon.com/pm/lambda). In addition, there is an [AWS SQS Standard Queue](https://aws.amazon.com/sqs/) in front of the Lambda function. New messages, regardless of their source, are first enqeued in SQS, and from there picked up for processing by a [Lambda Event Source Mapping](https://docs.aws.amazon.com/lambda/latest/dg/with-sqs.html) which invokes the Lambda handler function. This mechanism supports throttling and error handling of message processing.
+When you [deploy your app to AWS](../tutorials/first-deployment-to-aws.md), the _worker_ component is packaged as a [Docker](https://www.docker.com/) image and deployed as an [AWS Lambda function](https://aws.amazon.com/pm/lambda). In addition, there is an [AWS SQS Standard Queue](https://aws.amazon.com/sqs/) in front of the Lambda function. New messages, regardless of their source, are first enqueued in SQS, and from there picked up for processing by a [Lambda Event Source Mapping](https://docs.aws.amazon.com/lambda/latest/dg/with-sqs.html) which invokes the Lambda handler function. This mechanism supports throttling and error handling of message processing.
 
 When [running locally](./run-locally.md), the _worker_ component is hosted as a plain [Node.js](https://nodejs.org/) HTTP server on `http://localhost:3002`. Unlike in the cloud, there is no queue in front of the _worker_ component when running locally. Any messages "enqueued" for the worker using the [@letsgo/queue](../reference/letsgo-queue/README.md) package will be immediately passed to the worker to process. This means there is no fidelity with any of the scalability/throttling/failure behaviors you would expect if the queue were present. In particular, messages that fail during processing are dumped as opposed to being re-tried or sent to a dead letter queue.
 
 ### Location
 
-The _worker_ code is located in the `apps/worker` directory. Here are key files you will be working with:
+The _worker_ code is located in the `apps/worker` directory. Here are the key files you will be working with:
 
 - `apps/worker/index.ts` - the AWS Lambda handler responsible for receiving messages, routing them to handlers, and reporting back failures to SQS.
 - `apps/worker/server.ts` - the lightweight HTTP server used when running the worker locally.
@@ -28,7 +28,7 @@ The _worker_ code is located in the `apps/worker` directory. Here are key files 
 - `apps/worker/handlers` - handlers for individual message types.
 - `apps/worker/handlers/stripe` - handlers for individual types of Stripe events
 
-Message types are used across different components of the application, it is therefore conveninent to define them in a shared location. The `@letsgo/types` package located in `packages/types` directory is used for this purpose. You will be adding new message types to that package.
+Message types are used across different components of the application, it is therefore convenient to define them in a shared location. The `@letsgo/types` package located in `packages/types` directory is used for this purpose. You will be adding new message types to that package.
 
 ### Messages and message handlers
 
@@ -108,7 +108,7 @@ Implementing message processing logic in the worker often requires calling the H
 
 If the API you are calling performs any sensitive work, you have likely secured it to require authentication and authorization. The worker must therefore obtain an access token it can present when calling the API. You can read more about different ways of obtaining that access token in [Manage trust and authentication](./manage-trust-and-authentication.md).
 
-The simplest way for the worker to get hold of a suitable access token is to use one issued by the PKI-based trusted issuer registered in your LetsGo deployment. The worker boilerplate provides a `getAccessToken` facility function to create such access token. You can then use it to make a call to the chosen endpoint on the _API_:
+The simplest way for the worker to get hold of a suitable access token is to use one issued by the PKI-based trusted issuer registered in your LetsGo deployment. The worker boilerplate provides a `getAccessToken` facility function to create such an access token. You can then use it to make a call to the chosen endpoint on the _API_:
 
 ```typescript
 import { Message } from "@letsgo/types";
@@ -138,7 +138,7 @@ export const myMessageHandler: MessageHandler<Message> = async (
 
 ### Increasing visibility with Slack notifications
 
-One challenge with asynchronous work is that it happens asynchronously, and the outcome of the processig is difficult to observe. LetsGo makes it easy to send notifications to Slack when important events happen. The _worker_ component is pre-wired to send Slack messages on important Stripe lifecycle events, you only need to enable it. Read the [send notifications to Slack](./send-notifications-to-slack.md) to set this up.
+One challenge with asynchronous work is that it happens asynchronously, and the outcome of the processing is difficult to observe. LetsGo makes it easy to send notifications to Slack when important events happen. The _worker_ component is pre-wired to send Slack messages on important Stripe lifecycle events, you only need to enable it. Read the [send notifications to Slack](./send-notifications-to-slack.md) to set this up.
 
 ### Related topics
 

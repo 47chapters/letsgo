@@ -1,6 +1,6 @@
 ## Develop the frontend
 
-The _web_ component of the LetsGo boilerplate implements the frontend of your application. This includes two aspects: your public website (landing page, pricing page, etc.), and the management dashboard for your customers (managing tenants, users, any settings specific to active subscriptions to your app).
+The _web_ component of the LetsGo boilerplate implements the front end of your application. This includes two aspects: your public website (landing page, pricing page, etc.), and the management dashboard for your customers (managing tenants, users, and any settings specific to active subscriptions to your app).
 
 <img width="838" alt="image" src="https://github.com/tjanczuk/letsgo/assets/822369/3b62360c-8eae-426e-bfb8-eb57e0e5aab6">
 
@@ -12,7 +12,7 @@ The _web_ component is a [Next.js](https://nextjs.org/) application implemented 
 
 The boilerplate LetsGo provides does not rely on any specific React UI framework. All components are implemented in plain HTML with minimal inline styling. The focus is on designing the right routing structure and logic with the expectation you will bring your own UI framework to create a branded experience.
 
-When [running locally](./run-locally.md), the _web_ component is hosted as a plain [Node.js](https://nodejs.org/) http server on `http://localhost:3000`.
+When [running locally](./run-locally.md), the _web_ component is hosted as a plain [Node.js](https://nodejs.org/) HTTP server on `http://localhost:3000`.
 
 When you [deploy your app to AWS](../tutorials/first-deployment-to-aws.md), the _web_ component is packaged as a [Docker](https://www.docker.com/) image and deployed using [AWS App Runner](https://aws.amazon.com/apprunner/).
 
@@ -36,8 +36,8 @@ These are the individual pages included in the LetsGo boilerplate:
 - `app/web/src/app/(site)/pricing` the pricing page.
 - `app/web/src/app/(site)/contact` the contact form. See [Process the contact form](./process-the-contact-form.md) for details.
 - `app/web/src/app/(dashboard)/manage` the root path of the management dashboard. The `layout.tsx` in this location enforces user authentication for all subordinate paths.
-- `app/web/src/app/(dashboard)/manage/settings` management of settings specific to the logged in user.
-- `app/web/src/app/(dashboard)/manage/[tenantId]/settings` management of settings specific to a particular tenant of your app. This is where subscriptions, billing, and team membership is managed. Read more about how [tenants and users](../backgound/tenants-and-users.md) are related.
+- `app/web/src/app/(dashboard)/manage/settings` management of settings specific to the logged-in user.
+- `app/web/src/app/(dashboard)/manage/[tenantId]/settings` management of settings specific to a particular tenant of your app. This is where subscriptions, billing, and team membership are managed. Read more about how [tenants and users](../backgound/tenants-and-users.md) are related.
 - `app/web/src/app/(dashboard)/manage/[tenantId]/newplan` selection of a new subscription plan for an existing tenant.
 - `app/web/src/app/(dashboard)/manage/[tenantId]/newplan/[planId]` confirmation of the intention to change to a new subscription plan for an existing tenant.
 - `app/web/src/app/(dashboard)/manage/[tenantId]/paymentmethod` updating the payment method for a paid Stripe subscription of an existing tenant.
@@ -54,7 +54,7 @@ The purpose of the last two routes is described in more detail [below](#server-l
 
 ### Get authenticated user
 
-Information about the authenticated user can be obtained using the `useUser` hook provided by the Auth0 SDK. This hook can be used in either the dashboard or the public website portion of the frontend, since a logged in user can explicitly or implicitly navigate between these two sections of the frontend.
+Information about the authenticated user can be obtained using the `useUser` hook provided by the Auth0 SDK. This hook can be used in either the dashboard or the public website portion of the frontend since a logged-in user can explicitly or implicitly navigate between these two sections of the frontend.
 
 Here is a simple example of using the `useUser` hook:
 
@@ -79,7 +79,7 @@ export function MyComponent() {
 
 ### Get tenants and current tenant
 
-A logged in user can manage one or more tenants they have permissions to (read more about tenants and users [here](../backgound/tenants-and-users.md)). LetsGo provides the `useTenant` hook to determine the set of tenants the user has access to as well as the current tenant selected in the dashboard.
+A logged-in user can manage one or more tenants they have permission to (read more about tenants and users [here](../backgound/tenants-and-users.md)). LetsGo provides the `useTenant` hook to determine the set of tenants the user has access to as well as the current tenant selected in the dashboard.
 
 Here is a simple example of using the `useTenant` hook:
 
@@ -113,11 +113,11 @@ export function MyComponent() {
 
 ### Server logic and calling the APIs
 
-LetsGo recommends you [implement all your server side application logic in the _API_ component](./develop-the-api.md) and provides two React hooks to make it easy: `useApi` and `useApiMutate`. While Next.js supports simple server side endpoints using [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes), LetsGo recommends you don't use this feature to avoid the fragmentation or duplication of your server side logic between the _web_ and _API_ components, and to allow the _web_ component to run with limited permissions.
+LetsGo recommends you [implement all your server-side application logic in the _API_ component](./develop-the-api.md) and it provides you with two React hooks to make it easy: `useApi` and `useApiMutate`. While Next.js supports simple server-side endpoints using [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes), LetsGo recommends you don't use this feature to avoid the fragmentation or duplication of your server-side logic between the _web_ and _API_ components and to allow the _web_ component to run with limited permissions.
 
-To facilitate calling the endpoints of the _API_ component from the browser, LetsGo boilerplate provides two [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes): `app/web/src/app/(dashboard)/api/proxy/[...path]`, and `app/web/src/app/(dashboard)/api/unauthenticated-proxy/[...path]`. These Next.js's endpoints simply proxy incoming requests to the _API_ component. In addition, the first of these routes adds a JWT access token of the currently logged in user to the upstream requests to the _API_ component. This removes the need for the access tokens to be handled by the browser, which increases security.
+To facilitate calling the endpoints of the _API_ component from the browser, LetsGo boilerplate provides two [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes): `app/web/src/app/(dashboard)/api/proxy/[...path]`, and `app/web/src/app/(dashboard)/api/unauthenticated-proxy/[...path]`. These Next.js's endpoints simply proxy incoming requests to the _API_ component. In addition, the first of these routes adds a JWT access token of the currently logged-in user to the upstream requests to the _API_ component. This removes the need for the access tokens to be handled by the browser, which increases security.
 
-This is the end to end flow of the recommended way of calling **authenticated** _API_ endpoints from the client code running in the browser:
+This is the end-to-end flow of the recommended way of calling **authenticated** _API_ endpoints from the client code running in the browser:
 
 ```mermaid
 sequenceDiagram
@@ -130,7 +130,7 @@ sequenceDiagram
   N-->>B: HTTP 200 {JSON}
 ```
 
-This is the end to end flow of the recommended way of calling **unauthenticated** _API_ endpoints from the client code running in the browser:
+This is the end-to-end flow of the recommended way of calling **unauthenticated** _API_ endpoints from the client code running in the browser:
 
 ```mermaid
 sequenceDiagram
@@ -294,5 +294,5 @@ export function MyComponent() {
 
 ### Related topics
 
-[Develop the api](./develop-the-api.md)  
+[Develop the API](./develop-the-api.md)  
 [Develop the worker](./develop-the-worker.md)

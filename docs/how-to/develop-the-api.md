@@ -10,11 +10,11 @@ This article assumes you have [integrated with Auth0 to enable user authenticati
 
 The _API_ component is an [Express](https://expressjs.com/) server implemented in [TypeScript](https://www.typescriptlang.org/).
 
-The boilerplate provided by LetsGo includes endpoints required for tenant and user management, support for managing the lifecycle of Stripe subscriptions, including processing of Stripe webhooks, and support for contact form submissions from the _web_ component.
+The boilerplate provided by LetsGo includes endpoints required for tenant and user management, support for managing the lifecycle of Stripe subscriptions, including the processing of Stripe webhooks, and support for contact form submissions from the _web_ component.
 
 In the course of development of your app, you will be adding new routes to the server to expose the HTTP APIs specific to your application.
 
-When [running locally](./run-locally.md), the _API_ component is hosted as a plain [Node.js](https://nodejs.org/) http server on `http://localhost:3001`.
+When [running locally](./run-locally.md), the _API_ component is hosted as a plain [Node.js](https://nodejs.org/) HTTP server on `http://localhost:3001`.
 
 When you [deploy your app to AWS](../tutorials/first-deployment-to-aws.md), the _API_ component is packaged as a [Docker](https://www.docker.com/) image and deployed using [AWS App Runner](https://aws.amazon.com/apprunner/).
 
@@ -50,7 +50,7 @@ Tenant management:
 Subscription and payment management:
 
 - `POST /v1/tenant/:tenantId/paymentmethod` - initiates a change of tenant's payment method in Stripe.
-- `GET /v1/tenant/:tenantId/paymentmethod` - an endpoint Stripe redirects the browser to to complete the change of a tenant's payment method.
+- `GET /v1/tenant/:tenantId/paymentmethod` - an endpoint Stripe redirects the browser to complete the change of a tenant's payment method.
 - `POST /v1/tenant/:tenantId/plan` - initiate a change of the subscription plan of a tenant.
 - `POST /v1/stripe/webhook` - a webhook endpoint to receive Stripe events.
 
@@ -79,7 +79,7 @@ The `authenticate()` middleware rejects the request with HTTP 401 if the access 
 
 ### The `authorizeTenant()` middleware
 
-LetsGo does not prescribe any specific authorization model for your application. However, the `authorizeTenant()` middleware can be used to check if the caller has the permissions to manage a particular tenant. The middleware can only be used on routes that have `:tenantId` as one of the path segments, which means they represent an operation that is specific to a particular tenant. The `authorizeTenant()` middleware can only be used when preceeded by the `authenticate()` middleware:
+LetsGo does not prescribe any specific authorization model for your application. However, the `authorizeTenant()` middleware can be used to check if the caller has permission to manage a particular tenant. The middleware can only be used on routes that have `:tenantId` as one of the path segments, which means they represent an operation that is specific to a particular tenant. The `authorizeTenant()` middleware can only be used when preceded by the `authenticate()` middleware:
 
 ```ts
 import { authenticate, AuthenticatedRequest } from "./middleware/authenticate";
@@ -98,7 +98,7 @@ route.post(
 );
 ```
 
-The `authorizeTenant()` middleware rejects the request with an HTTP 403 if the authenticated user making the call does not have permissions to manage the tenant identified by the `:tenantId` from the request path.
+The `authorizeTenant()` middleware rejects the request with an HTTP 403 if the authenticated user making the call does not have permission to manage the tenant identified by the `:tenantId` from the request path.
 
 The tenant permission check can be optionally turned off if the caller presents a token issued by one of the [built-in issuers](./manage-trust-and-authentication.md) with:
 
