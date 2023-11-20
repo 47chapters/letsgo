@@ -17,7 +17,7 @@ LetsGo does it by providing a prescriptive architecture implemented with a moder
 - **Integration with Slack** to keep current with new customers signing up and subscriptions being paid.
 - A **flexible tenancy and user model** with membership management and invitation flow.
 - A set of modern yet robust technologies including Next.js, Node.js, and Typescript that **make your days exciting and the nights boring**.
-- LetGo is **OSS under MIT**, so there is no vendor lock-in and you can always see what makes it tick.
+- LetsGo is **OSS under MIT**, so there is no vendor lock-in and you can always see what makes it tick.
 
 ## Getting started
 
