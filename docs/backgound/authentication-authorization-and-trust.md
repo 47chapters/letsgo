@@ -40,7 +40,7 @@ Enabling trust to a third-party issuer requires providing two pieces of informat
 1. The issuer identifier, corresponding to the `iss` claim in the JWT tokens created by that issuer.
 1. The [JWKS](https://datatracker.ietf.org/doc/html/rfc7517) endpoint that specifies the public keys of the issuer to be used when validating the signature of JWT tokens.
 
-This way, the validity of an access token presented by the caller can be checked by:
+This way, LetsGo is empowered to check the validity of an access token presented by the caller by:
 
 1. Extracting the `iss` claim from the access token.
 1. Looking up the JWKS endpoint corresponding to that `iss` value in the LetsGo configuration.
