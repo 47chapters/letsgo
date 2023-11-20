@@ -17,8 +17,8 @@ LETSGO_WEB_URL=http://localhost:3000
 LETSGO_API_URL=http://localhost:3001
 LETSGO_LOCAL_QUEUE_URL=http://localhost:3002
 EOF
-cp apps/api/.env /apps/worker/.env
-cp apps/api/.env /apps/web/.env.local
+cp apps/api/.env apps/worker/.env
+cp apps/api/.env apps/web/.env.local
 ```
 
 Later on, when you integrate Auth0 and Stripe into your app, you will add to those local configuration files. But for now, the configuration above is sufficient.
