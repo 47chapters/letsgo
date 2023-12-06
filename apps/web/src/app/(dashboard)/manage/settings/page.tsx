@@ -1,7 +1,7 @@
 "use client";
 
-import { Me } from "../../../../components/Me";
-import { User } from "../../../../components/User";
+import { Me } from "components/Me";
+import { User } from "components/User";
 
 export default function Profile() {
   return (

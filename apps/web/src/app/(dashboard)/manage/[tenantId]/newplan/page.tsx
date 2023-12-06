@@ -2,8 +2,8 @@
 
 import { ActivePlans, Plan } from "@letsgo/pricing";
 import { useRouter } from "next/navigation";
-import { PlanSelector } from "../../../../../components/PlanSelector";
-import { useTenant } from "../../../../../components/TenantProvider";
+import { PlanSelector } from "components/PlanSelector";
+import { useTenant } from "components/TenantProvider";
 
 function ChooseNewPlan({ params }: { params: { tenantId: string } }) {
   const router = useRouter();

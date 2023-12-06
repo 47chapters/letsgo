@@ -5,10 +5,10 @@ import { getActivePlan, getPlan } from "@letsgo/pricing";
 import { PostPlanRequest, PostPlanResponse } from "@letsgo/types";
 import { notFound, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import Checkout from "../../../../../../components/Checkout";
-import { StripeElements } from "../../../../../../components/StripeElements";
-import { useTenant } from "../../../../../../components/TenantProvider";
-import { useApiMutate } from "../../../../../../components/common-client";
+import Checkout from "components/Checkout";
+import { StripeElements } from "components/StripeElements";
+import { useTenant } from "components/TenantProvider";
+import { useApiMutate } from "components/common-client";
 
 const EmailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
 

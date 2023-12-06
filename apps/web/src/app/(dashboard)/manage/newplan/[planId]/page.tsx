@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import { useRouter, notFound } from "next/navigation";
-import { useTenant } from "../../../../../components/TenantProvider";
+import { useTenant } from "components/TenantProvider";
 import { getActivePlan } from "@letsgo/pricing";
 
 function ResolveTenantForNewPlan({ params }: { params: { planId: string } }) {

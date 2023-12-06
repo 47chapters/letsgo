@@ -1,8 +1,8 @@
 "use client";
 
 import { ActivePlans, Plan } from "@letsgo/pricing";
-import { PlanSelector } from "../../../components/PlanSelector";
-import { useTenant } from "../../../components/TenantProvider";
+import { PlanSelector } from "components/PlanSelector";
+import { useTenant } from "components/TenantProvider";
 import { useRouter } from "next/navigation";
 
 export default function Pricing() {

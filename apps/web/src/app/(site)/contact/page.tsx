@@ -3,8 +3,8 @@
 import { useUser } from "@auth0/nextjs-auth0/client";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { useTenant } from "../../../components/TenantProvider";
-import { useApiMutate } from "../../../components/common-client";
+import { useTenant } from "components/TenantProvider";
+import { useApiMutate } from "components/common-client";
 import { ContactMessagePayload } from "@letsgo/types";
 
 interface ContactParams {

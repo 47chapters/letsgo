@@ -1,8 +1,8 @@
 "use client";
 
-import { Account } from "../../../../../components/Account";
-import { Team } from "../../../../../components/Team";
-import { Invitations } from "../../../../../components/Invitations";
+import { Account } from "components/Account";
+import { Team } from "components/Team";
+import { Invitations } from "components/Invitations";
 
 export default function Tenant({ params }: { params: { tenantId: string } }) {
   const tenantId = params.tenantId as string;

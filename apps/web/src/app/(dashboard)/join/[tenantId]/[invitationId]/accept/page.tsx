@@ -1,10 +1,9 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useApiMutate } from "../../../../../../components/common-client";
+import { useApiMutate } from "components/common-client";
 import { useEffect, useState } from "react";
-import { useTenant } from "../../../../../../components/TenantProvider";
-import { getTenant } from "@letsgo/tenant";
+import { useTenant } from "components/TenantProvider";
 
 export default function Join({
   params: { tenantId, invitationId },
