@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useRouter, notFound } from "next/navigation";
 import { useTenant } from "components/TenantProvider";
 import { getActivePlan } from "@letsgo/pricing";
+import { LoadingPlaceholder } from "components/LoadingPlaceholder";
 
 function ResolveTenantForNewPlan({ params }: { params: { planId: string } }) {
   const router = useRouter();
@@ -20,7 +21,7 @@ function ResolveTenantForNewPlan({ params }: { params: { planId: string } }) {
   if (error) throw error;
   if (!getActivePlan(params.planId)) return notFound();
 
-  return <div>Loading...</div>;
+  return <LoadingPlaceholder />;
 }
 
 export default ResolveTenantForNewPlan;

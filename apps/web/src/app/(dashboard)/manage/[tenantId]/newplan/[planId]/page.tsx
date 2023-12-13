@@ -9,6 +9,19 @@ import Checkout from "components/Checkout";
 import { StripeElements } from "components/StripeElements";
 import { useTenant } from "components/TenantProvider";
 import { useApiMutate } from "components/common-client";
+import { Button } from "components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "components/ui/card";
+import { PlanOption } from "components/PlanOption";
+import { ArrowBigRight } from "lucide-react";
+import { Input } from "components/ui/input";
+import { Label } from "components/ui/label";
+import { cn } from "components/utils";
 
 const EmailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
 
@@ -33,7 +46,7 @@ function SwitchPlans({
       if (data === undefined) {
         // Plan transition is complete - return to the management page
         refreshTenants();
-        router.replace(`/manage/${params.tenantId}/settings`);
+        router.replace(`/manage/${params.tenantId}/subscription`);
       }
     },
   });
@@ -51,7 +64,7 @@ function SwitchPlans({
 
   if (planResponse) {
     // New plan requires payment information - collect it using Stripe.
-    // On successful completion, Stripe will redirect the browser to /manage/:tenantId/settings.
+    // On successful completion, Stripe will redirect the browser to /manage/:tenantId/subscription.
     return (
       <StripeElements
         publicKey={planResponse.publicKey}
@@ -82,24 +95,13 @@ function SwitchPlans({
       setPlan(request);
     };
 
+    const handleCancel = async () => {
+      router.replace(`/manage/${currentTenant.tenantId}/subscription`);
+    };
+
     if (currentPlan.planId === newPlan.planId) {
-      return (
-        <div>
-          <p>
-            You are already subscribed to this plan:{" "}
-            <b>
-              {currentPlan.name} ({currentPlan.price})
-            </b>
-          </p>
-          <button
-            onClick={() =>
-              router.replace(`/manage/${currentTenant.tenantId}/settings`)
-            }
-          >
-            Manage plan
-          </button>
-        </div>
-      );
+      router.replace(`/manage/${currentTenant.tenantId}/subscription`);
+      return <div></div>;
     }
 
     const confirmEmail =
@@ -107,42 +109,52 @@ function SwitchPlans({
     const isEmailValid = !confirmEmail || EmailRegex.test(email);
 
     return (
-      <div>
-        <h1>Switching Plans</h1>
-        <p>
-          Current plan:{" "}
-          <b>
-            {currentPlan.name} ({currentPlan.price})
-          </b>
-        </p>
-        <p>
-          New plan:{" "}
-          <b>
-            {newPlan.name} ({newPlan.price})
-          </b>
-        </p>
-        {confirmEmail && (
-          <p>
-            Billing e-mail address:{" "}
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              style={isEmailValid ? {} : { color: "red" }}
-            />
-          </p>
-        )}
-        <button
-          disabled={isSettingNewPlan || !isEmailValid}
-          onClick={handleSwitch}
-        >
-          Confirm
-        </button>
-      </div>
+      <Card className="border-none shadow-none">
+        <CardHeader>
+          <CardTitle>Do you want to switch plans?</CardTitle>
+        </CardHeader>
+        <CardContent className="flex flex-col gap-6">
+          <div className="flex min-w-[500px] items-stretch">
+            <PlanOption plan={currentPlan} isCurrentPlan={true} />
+            <div className="flex items-center">
+              <ArrowBigRight className="mx-4" size={48} />
+            </div>
+            <PlanOption plan={newPlan} isCurrentPlan={false} />
+          </div>
+          {confirmEmail && (
+            <div className="grid w-full max-w-sm items-center gap-1.5">
+              <Label htmlFor="email">Billing e-mail address</Label>
+              <Input
+                type="email"
+                id="email"
+                placeholder="Email"
+                onChange={(e) => setEmail(e.target.value)}
+                className={cn({ "border-red-500": !isEmailValid })}
+                value={email}
+              />
+            </div>
+          )}
+          <div className="space-x-4">
+            <Button
+              disabled={isSettingNewPlan || !isEmailValid}
+              onClick={handleSwitch}
+            >
+              Confirm
+            </Button>
+            <Button
+              variant="secondary"
+              disabled={isSettingNewPlan}
+              onClick={handleCancel}
+            >
+              Cancel
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
     );
   }
 
-  return <div>Loading...</div>;
+  return <div></div>;
 }
 
 export default SwitchPlans;

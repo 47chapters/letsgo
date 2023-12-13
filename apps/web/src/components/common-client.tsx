@@ -1,9 +1,23 @@
 "use client";
 
+import { UserProfile } from "@auth0/nextjs-auth0/client";
 import useSWR, { KeyedMutator } from "swr";
 import useSWRMutate from "swr/mutation";
 
 const CurrentTenantKey = "LetsGoCurrentTenant";
+
+export function getUserAvatarFallback(user: UserProfile) {
+  if (user.name) {
+    return user.name
+      .split(" ")
+      .map((n) => n[0].toUpperCase())
+      .join("");
+  }
+  if (user.nickname) {
+    return user.nickname[0].toUpperCase();
+  }
+  return "U";
+}
 
 export function createAbsoluteUrl(relativeUrl: string) {
   return `${window.location.protocol}//${window.location.host}${relativeUrl}`;

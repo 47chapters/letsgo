@@ -10,14 +10,8 @@ export default function CheckAccessToTenant({
   children: React.ReactNode;
   params: { tenantId: string };
 }) {
-  const {
-    isLoading,
-    error,
-    tenants,
-    currentTenant,
-    getTenant,
-    setCurrentTenant,
-  } = useTenant();
+  const { error, tenants, currentTenant, getTenant, setCurrentTenant } =
+    useTenant();
 
   useEffect(() => {
     if (tenants) {
@@ -29,12 +23,11 @@ export default function CheckAccessToTenant({
     }
   }, [tenants, params.tenantId, setCurrentTenant, getTenant]);
 
-  if (isLoading) return <div>Loading...</div>;
   if (error) throw error;
 
   return currentTenant?.tenantId === params.tenantId ? (
     <div>{children}</div>
   ) : (
-    <div>Loading...</div>
+    <div></div>
   );
 }

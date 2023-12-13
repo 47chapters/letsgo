@@ -1,5 +1,7 @@
 "use client";
 
+import { Button } from "components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "components/ui/card";
 import { useRouter } from "next/navigation";
 
 function ProcessingPaymentMethodUpdate({
@@ -10,17 +12,24 @@ function ProcessingPaymentMethodUpdate({
   const router = useRouter();
 
   const handleClick = () => {
-    router.push(`/manage/${params.tenantId}/settings`);
+    router.push(`/manage/${params.tenantId}/subscription`);
   };
 
   return (
-    <div>
-      <p>
-        Processing payment details. We will update you when processing is
-        complete.
-      </p>
-      <button onClick={handleClick}>Got to tenant settings</button>
-    </div>
+    <Card className="borner-none shadown-none max-w-2xl">
+      <CardHeader>
+        <CardTitle>Processing payment</CardTitle>
+      </CardHeader>
+      <CardContent className="flex gap-6">
+        <div>
+          Payment processing is in progress. We will update you when processing
+          is complete.
+        </div>
+        <div>
+          <Button onClick={handleClick}>Back to subscription</Button>
+        </div>
+      </CardContent>
+    </Card>
   );
 }
 

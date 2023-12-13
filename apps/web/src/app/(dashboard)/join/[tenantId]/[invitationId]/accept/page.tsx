@@ -28,10 +28,7 @@ export default function Join({
     afterSuccess: async () => {
       setInvitationAccepted(true);
       await refreshTenants();
-      // const newTenant = getTenantFromTenants(tenantId);
-      // setCurrentTenant(newTenant);
-      window.location.href = `/manage/${tenantId}/settings`;
-      // router.replace(`/manage/${tenantId}/settings`);
+      window.location.href = `/manage/${tenantId}/team`;
     },
   });
   const [invitationAccepted, setInvitationAccepted] = useState(false);

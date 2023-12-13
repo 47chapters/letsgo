@@ -281,7 +281,7 @@ export async function createNewSubscription(
     },
     off_session: true,
   });
-  return {
+  const r = {
     ...getSubscriptionResponse(subscription),
     clientSecret: (
       (subscription.latest_invoice as Stripe.Invoice)
@@ -289,6 +289,7 @@ export async function createNewSubscription(
     )?.client_secret as string,
     publicKey: getStripeConfiguration().publicKey,
   };
+  return r;
 }
 
 /**

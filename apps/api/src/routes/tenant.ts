@@ -212,7 +212,7 @@ router.get(
       // Redirect the browser back to the dashboard with appropriate next step
       let location: string;
       if (response.status === "succeeded") {
-        location = createAbsoluteWebUrl(`/manage/${tenantId}/settings`);
+        location = createAbsoluteWebUrl(`/manage/${tenantId}/subscription`);
       } else if (response.status === "processing") {
         location = createAbsoluteWebUrl(
           `/manage/${tenantId}/paymentmethod/processing`
@@ -320,7 +320,12 @@ router.post(
             // No card number yet, it will be created next
           };
           await putTenant(tenant);
-          res.json(response);
+          // Subscription is activated immediately if the Stripe user had a balance on their account.
+          if (response.status === "active") {
+            res.status(200).send();
+          } else {
+            res.json(response);
+          }
           return;
         } else {
           // current plan is not Stripe, new plan is not Stripe
@@ -424,8 +429,13 @@ router.get(
       const invitations = await getInvitations({
         tenantId: req.params.tenantId,
       });
+      const sortedInvitations = invitations.sort((i1, i2) => {
+        const e1 = new Date(i1.expiresAt).getTime();
+        const e2 = new Date(i2.expiresAt).getTime();
+        return e1 > e2 ? 1 : e1 < e2 ? -1 : 0;
+      });
       const response: GetInvitationsResponse = {
-        invitations: invitations.map(pruneResponse),
+        invitations: sortedInvitations.map(pruneResponse),
       };
       res.json(response);
     } catch (e) {

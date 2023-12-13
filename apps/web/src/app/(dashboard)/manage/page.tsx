@@ -10,13 +10,13 @@ function ResolveTenant() {
 
   useEffect(() => {
     if (currentTenant) {
-      router.replace(`/manage/${currentTenant.tenantId}/settings`);
+      router.replace(`/manage/${currentTenant.tenantId}/dashboard`);
     }
   }, [currentTenant, router]);
 
   if (error) throw error;
 
-  return <div>Loading...</div>;
+  return <div></div>;
 }
 
 export default ResolveTenant;

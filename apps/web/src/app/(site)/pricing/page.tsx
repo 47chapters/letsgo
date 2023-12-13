@@ -32,13 +32,17 @@ export default function Pricing() {
   };
 
   return (
-    <div>
-      <h1 style={{ textAlign: "center" }}>Pricing</h1>
-      <PlanSelector
-        plans={ActivePlans}
-        onPlanSelected={handlePlanSelected}
-        currentPlanId={currentPlanId}
-      ></PlanSelector>
+    <div className="flex flex-col gap-10 mt-10 items-center">
+      <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
+        Pricing
+      </h3>
+      <div className="flex flex-col items-center">
+        <PlanSelector
+          plans={ActivePlans}
+          onPlanSelected={handlePlanSelected}
+          currentPlanId={currentPlanId}
+        ></PlanSelector>
+      </div>
     </div>
   );
 }

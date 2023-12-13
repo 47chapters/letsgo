@@ -7,6 +7,7 @@ import Checkout from "components/Checkout";
 import { StripeElements } from "components/StripeElements";
 import { useTenant } from "components/TenantProvider";
 import { useApiMutate } from "components/common-client";
+import { LoadingPlaceholder } from "components/LoadingPlaceholder";
 
 function PaymentMethodUpdate() {
   const { error: userError, user } = useUser();
@@ -44,7 +45,7 @@ function PaymentMethodUpdate() {
     );
   }
 
-  return <div>Loading...</div>;
+  return <LoadingPlaceholder />;
 }
 
 export default PaymentMethodUpdate;
