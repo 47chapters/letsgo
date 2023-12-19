@@ -7,8 +7,16 @@ import {
 import { createLogger, getArtifacts } from "./defaults";
 import { enableOrDisableService } from "../aws/apprunner";
 import { enableOrDisableEventSourceMapping } from "../aws/lambda";
+import { enableOrDisableSchedule } from "../aws/scheduler";
 
-export const AllServiceArtifacts = ["all", "api", "web", "worker"];
+export const AllServiceArtifacts = [
+  "all",
+  "api",
+  "web",
+  "worker",
+  "worker-queue",
+  "worker-scheduler",
+];
 
 export function createStartStopCommanderAction(start: boolean) {
   return async (options: any): Promise<void> => {
@@ -59,12 +67,23 @@ export function createStartStopCommanderAction(start: boolean) {
             ),
           ]
         : []),
-      ...(artifacts.worker
+      ...(artifacts["worker-queue"]
         ? [
             enableOrDisableEventSourceMapping(
               options.region,
               options.deployment,
               WorkerConfiguration.getLambdaFunctionName(options.deployment),
+              start,
+              logger
+            ),
+          ]
+        : []),
+      ...(artifacts["worker-scheduler"]
+        ? [
+            enableOrDisableSchedule(
+              options.region,
+              options.deployment,
+              WorkerConfiguration,
               start,
               logger
             ),

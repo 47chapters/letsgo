@@ -36,6 +36,9 @@ import {
 import { TableDescription } from "@aws-sdk/client-dynamodb";
 import { get } from "https";
 import { LogGroup } from "@aws-sdk/client-cloudwatch-logs";
+import { GetScheduleCommandOutput } from "@aws-sdk/client-scheduler";
+import { getSchedule } from "../aws/scheduler";
+import e from "express";
 
 const AllArtifacts = ["all", "api", "web", "db", "worker"];
 
@@ -55,6 +58,7 @@ interface WorkerStatus {
   lambda?: GetFunctionCommandOutput | null;
   sqs?: { [key: string]: string } | { error: string } | ErrorStatus | null;
   eventMapping?: EventSourceMappingConfiguration | ErrorStatus | null;
+  schedule?: GetScheduleCommandOutput | ErrorStatus | null;
   logGroup?: LogGroup;
 }
 
@@ -158,8 +162,14 @@ async function getWorkerStatus(
       eventMapping = eventSourceMappings[0];
     }
   }
-  return lambda || sqs || eventMapping
-    ? { lambda, sqs, eventMapping, logGroup }
+  let schedule: GetScheduleCommandOutput | ErrorStatus | null;
+  try {
+    schedule = (await getSchedule(region, deployment, settings)) || null;
+  } catch (e: any) {
+    schedule = { error: e.message };
+  }
+  return lambda || sqs || eventMapping || schedule || logGroup
+    ? { lambda, sqs, eventMapping, schedule, logGroup }
     : null;
 }
 
@@ -398,6 +408,25 @@ function printWorkerStatus(status: WorkerStatus | null | undefined) {
       printLine(
         "Updated",
         `${new Date(status.eventMapping?.LastModified || "")}`
+      );
+    }
+    if (!status.schedule) {
+      console.log(`${chalk.bold("  Schedule")}: ${chalk.red("Not found")}`);
+    } else if (isErrorStatus(status.schedule)) {
+      console.log(
+        `${chalk.bold("  Schedule")}: ${chalk.red(status.schedule.error)}`
+      );
+    } else {
+      console.log(`${chalk.bold("  Schedule")}`);
+      const mappingStateColor =
+        status.schedule?.State === "ENABLED" ? chalk.green : chalk.yellow;
+      printLine("State", mappingStateColor(status.schedule?.State || ""));
+      printLine("Expression", `${status.schedule?.ScheduleExpression}`);
+      printLine("Timezone", `${status.schedule?.ScheduleExpressionTimezone}`);
+      printLine("Arn", `${status.schedule?.Arn}`);
+      printLine(
+        "Updated",
+        `${new Date(status.schedule?.LastModificationDate || "")}`
       );
     }
   }

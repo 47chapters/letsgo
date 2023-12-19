@@ -214,6 +214,16 @@ export const ConfigSettings = {
    * in the `/tmp` directory.
    */
   WorkerFunctionEphemeralStorage: "LETSGO_WORKER_EPHEMERAL_STORAGE",
+  /** The EventBridge Scheduler expression that controls the timing of the scheduled invocation of the worker.
+   * Valid values are `cron({cron_expression})` and `rate({rate_expression})`, as documented in
+   * [CreateScheduleCommand](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/Package/-aws-sdk-client-scheduler/Class/CreateScheduleCommand/).
+   */
+  WorkerSchedule: "LETSGO_WORKER_SCHEDULE",
+  /**
+   * The time zone used by the EventBridge Scheduler expression that controls the timing of the scheduled invocation of the worker.
+   * Valid values are [IANA time zone IDs](https://nodatime.org/TimeZones).
+   */
+  WorkerScheduleTimezone: "LETSGO_WORKER_SCHEDULE_TIMEZONE",
   /**
    * A secret used to encrypt the Auth0 cookie used by the _web_ component to represent a logged in user.
    */
@@ -626,6 +636,17 @@ export interface WorkerSettingsDefaultConfig extends DefaultConfig {
    * This number multipled by the {@link batchSize} is the upper bound on the number of concurrently processed messages.
    */
   concurrency: string[];
+  /**
+   * The EventBridge Schedule expression that controls the timing of the scheduled invocation of the
+   * the Lambda function of the _worker_ component. Valid values are `cron({cron_expression})` and `rate({rate_expression})`,
+   * as documented in [CreateScheduleCommand](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/Package/-aws-sdk-client-scheduler/Class/CreateScheduleCommand/).
+   */
+  schedule: string[];
+  /**
+   * The time zone used by the EventBridge Schedule expression that controls the timing of the scheduled invocation of the
+   * the Lambda function of the _worker_ component. Valid values are [IANA time zone IDs](https://nodatime.org/TimeZones).
+   */
+  scheduleTimezone: string[];
 }
 
 /**
@@ -691,6 +712,12 @@ export interface WorkerSettings {
    */
   getLambdaFunctionName: (deployment: string) => string;
   /**
+   * Returns the name of the EventBridge Schedule that triggers the Lambda function of the _worker_ component.
+   * @param deployment LetsGo deployment name
+   * @returns Schedule name
+   */
+  getScheduleName: (deployment: string) => string;
+  /**
    * Returns the number of days to retain the CloudWatch logs for the Lambda function of the _worker_ component.
    * @param region AWS region
    * @param deployment LetsGo deployment name
@@ -704,6 +731,9 @@ export interface WorkerSettings {
 }
 
 const WorkerName = "worker";
+
+const getLambdaFunctionName = (deployment: string) =>
+  `${VendorPrefix}-${deployment}-${WorkerName}`;
 
 /**
  * Parameters that control the creation of AWS resources related to the _worker_ component.
@@ -759,6 +789,13 @@ export const WorkerConfiguration: WorkerSettings = {
           deployment
         )}`,
       },
+      {
+        Action: ["lambda:InvokeFunction"],
+        Effect: "Allow",
+        Resource: `arn:aws:lambda:${region}:${accountId}:function:${getLambdaFunctionName(
+          deployment
+        )}`,
+      },
     ],
   }),
   getManagedPolicyArns: (region: string, deployment: string) => [
@@ -768,7 +805,8 @@ export const WorkerConfiguration: WorkerSettings = {
     `${VendorPrefix}-${deployment}-${WorkerName}`,
   getLocalRepositoryName: (deployment: string) =>
     `${VendorPrefix}-${WorkerName}`,
-  getLambdaFunctionName: (deployment: string) =>
+  getLambdaFunctionName,
+  getScheduleName: (deployment: string) =>
     `${VendorPrefix}-${deployment}-${WorkerName}`,
   getLogRetentionInDays: (region: string, deployment: string) => 30,
   defaultConfig: {
@@ -788,5 +826,7 @@ export const WorkerConfiguration: WorkerSettings = {
       ConfigSettings.WorkerFunctionEphemeralStorage,
       "512",
     ],
+    schedule: [ConfigSettings.WorkerSchedule, "rate(1 minute)"],
+    scheduleTimezone: [ConfigSettings.WorkerScheduleTimezone, "UTC"],
   },
 };

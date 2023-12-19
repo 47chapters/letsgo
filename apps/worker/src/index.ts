@@ -1,12 +1,14 @@
 import { Message } from "@letsgo/types";
 import {
   Context,
+  EventBridgeEvent,
+  Handler,
   SQSBatchResponse,
   SQSEvent,
-  SQSHandler,
   SQSRecord,
 } from "aws-lambda";
 import { handlers, unrecognizedMessageTypeHandler } from "./handlers";
+import { scheduledHandler } from "./handlers/scheduledEventHandler";
 
 const processRecord = async (
   record: SQSRecord,
@@ -25,7 +27,10 @@ const processRecord = async (
   return handler(message, event, context);
 };
 
-export const handler: SQSHandler = async (event: SQSEvent, context) => {
+const sqsHandler = async (
+  event: SQSEvent,
+  context: Context
+): Promise<SQSBatchResponse> => {
   console.log(
     `WORKER RECEIVED ${event?.Records?.length} MESSAGE${
       event?.Records?.length === 1 ? "" : "S"
@@ -54,4 +59,23 @@ export const handler: SQSHandler = async (event: SQSEvent, context) => {
   );
 
   return response;
+};
+
+function isScheduledEvent(
+  event: any
+): event is EventBridgeEvent<"Scheduled Event", any> {
+  return event?.["detail-type"] === "Scheduled Event";
+}
+
+export const handler: Handler<
+  SQSEvent | EventBridgeEvent<"Scheduled Event", any>,
+  SQSBatchResponse | void
+> = async (event, context): Promise<void | SQSBatchResponse> => {
+  if (isScheduledEvent(event)) {
+    // This is an event triggered by the EventBridge scheduler
+    return scheduledHandler(event, context);
+  } else {
+    // This is message batch received from SQS
+    return sqsHandler(event, context);
+  }
 };

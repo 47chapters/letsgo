@@ -13,6 +13,7 @@ import {
   CreateEventSourceMappingCommandOutput,
   UpdateEventSourceMappingCommand,
   GetEventSourceMappingCommand,
+  DeleteEventSourceMappingCommand,
 } from "@aws-sdk/client-lambda";
 import { setLogGroupRetentionPolicy } from "./cloudwatch";
 import { Logger } from "../commands/defaults";
@@ -24,6 +25,7 @@ import { getOneLetsGoQueue, getQueueArnFromQueueUrl } from "./sqs";
 import { getTagsAsObject } from "./defaults";
 import chalk from "chalk";
 import { ServiceUrls, getServiceUrlEnvironmentVariables } from "./apprunner";
+import { getAccountId } from "./sts";
 
 const MaxFunctionWaitTime = 60 * 5; // 5 minutes
 const MaxEventSourceMappingWaitTime = 60 * 5; // 5 minutes
@@ -143,6 +145,38 @@ export async function enableOrDisableEventSourceMapping(
       "aws:lambda"
     );
   }
+}
+
+async function deleteEventSourceMapping(
+  region: string,
+  deployment: string,
+  functionName: string,
+  logger: Logger
+) {
+  logger(`deleting event source mapping...`, "aws:lambda");
+  const queueUrl = await getOneLetsGoQueue(region, deployment, logger);
+  if (!queueUrl) {
+    logger(
+      chalk.yellow(`cannot locate event source mapping: queue not found`),
+      "aws:sqs"
+    );
+    return;
+  }
+  const queueArn = await getQueueArnFromQueueUrl(region, queueUrl || "");
+  const eventSource = await getEventSourceMapping(
+    region,
+    functionName,
+    queueArn,
+    logger
+  );
+  const lambda = getLambdaClient(region);
+  if (eventSource) {
+    const command = new DeleteEventSourceMappingCommand({
+      UUID: eventSource.UUID || "",
+    });
+    await lambda.send(command);
+  }
+  logger("event source mapping deleted", "aws:lambda");
 }
 
 async function getEventSourceMappingFromUuid(region: string, uuid: string) {
@@ -641,9 +675,11 @@ export async function ensureLambda(
 
 export async function deleteLambda(
   region: string,
+  deployment: string,
   functionName: string,
   logger: Logger
 ) {
+  await deleteEventSourceMapping(region, deployment, functionName, logger);
   const existing = await getLambda(region, functionName);
   if (!existing) {
     return;
@@ -655,4 +691,8 @@ export async function deleteLambda(
   });
   await lambda.send(deleteCommand);
   logger(`function ${functionName} deleted`, "aws:lambda");
+}
+
+export async function getFunctionArn(region: string, functionName: string) {
+  return `arn:aws:lambda:${region}:${await getAccountId()}:function:${functionName}`;
 }
