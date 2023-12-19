@@ -119,7 +119,7 @@ async function getClient(options?: DeploymentOptions): Promise<DynamoDBClient> {
   const region = options?.region || DefaultRegion;
   if (!clients[region]) {
     clients[region] = new DynamoDBClient({
-      region: DefaultRegion,
+      region,
     });
   }
   return clients[region];
