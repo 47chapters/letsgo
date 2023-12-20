@@ -2,7 +2,7 @@
 
 The choice of technologies in the LetsGo infrastructure allows you to control a variety of scalability settings to suit your workload needs. These settings are discussed separately for the _web_, _API_, _worker_, and _database_ components below.
 
-<img width="837" alt="image" src="https://github.com/tjanczuk/letsgo/assets/822369/af626761-0716-4119-84b2-33f1153d7033">
+<img width="911" alt="LetsGo Scalability" src="https://github.com/47chapters/letsgo/assets/822369/9b13a639-f2cb-472a-9567-8167f778b3b9">
 
 ### How to set scalability settings
 

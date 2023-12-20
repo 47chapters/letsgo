@@ -2,7 +2,7 @@
 
 The _worker_ component of the LetsGo boilerplate supports executing asynchronous work in the background, outside of the lifespan of an HTTP request. This work may include processing Stripe events delivered via a webhook, processing contact form submissions from the _web_ component, or work scheduled using a time-based scheduler.
 
-<img width="836" alt="image" src="https://github.com/tjanczuk/letsgo/assets/822369/835f7840-da4a-4c2e-bd1a-50864fb60c47">
+<img width="917" alt="LetsGo Worker" src="https://github.com/47chapters/letsgo/assets/822369/da9622af-5828-4550-bc8e-bb773afdc5e3">
 
 This article assumes you have [integrated with Stripe to process payments](../tutorials/setting-up-payments-with-stripe.md).
 

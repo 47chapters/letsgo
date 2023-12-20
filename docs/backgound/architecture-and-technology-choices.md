@@ -14,7 +14,7 @@ Many SaaS applications consist of a similar set of components:
 
 LetsGo includes all of these components in one platform and provides the devops tools to manage multiple deployments in AWS:
 
-<img width="837" alt="image" src="https://github.com/tjanczuk/letsgo/assets/822369/f7fe2317-d7de-4698-b093-416a52a1a145">
+<img width="950" alt="LetsGo Architecture" src="https://github.com/47chapters/letsgo/assets/822369/c9e803b3-c2ee-4b2e-b8a4-16e107342c4e">
 
 The _web_ component implements both the marketing website and the management dashboard. The management dashboard portion of the _web_ component requires user authentication, which is part of the LetsGo platform.
 

@@ -2,7 +2,7 @@
 
 The _worker_ component of the LetsGo boilerplate supports executing asynchronous work in the background triggered by a schedule. This capability enables you to perform periodic background tasks in your application.
 
-<img width="836" alt="image" src="https://github.com/tjanczuk/letsgo/assets/822369/835f7840-da4a-4c2e-bd1a-50864fb60c47">
+<img width="924" alt="LetsGo Worker Scheduler" src="https://github.com/47chapters/letsgo/assets/822369/1ea8e2a3-6864-488d-a71a-4b3f0fdfdd05">
 
 This article assumes you already know how to [develop the worker](./develop-the-worker.md) to define the processing logic for asynchronous work and will talk about ways to schedule it.
 

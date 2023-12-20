@@ -2,7 +2,7 @@
 
 LetsGo provides the `@letsgo/db` package in the `packages/db` directory to facilitate accessing [data in the database](../backgound/data-model.md). It offers basic CRUD operations as well as a listing of items in the database. If you need more advanced constructs, you will need to add new functions to the package.
 
-<img width="844" alt="image" src="https://github.com/tjanczuk/letsgo/assets/822369/490eda3c-e494-4958-9749-252c8ed8fe31">
+<img width="938" alt="LetsGo Data Model" src="https://github.com/47chapters/letsgo/assets/822369/a5b2c67f-bd94-4e54-a685-18d3138c7029">
 
 The `@letsgo/db` package is already included and ready for use in the _API_ and _worker_ components, both when running locally or in the cloud.
 

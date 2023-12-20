@@ -2,7 +2,7 @@
 
 The _web_ component of the LetsGo boilerplate implements the front end of your application. This includes two aspects: your public website (landing page, pricing page, etc.), and the management dashboard for your customers (managing tenants, users, and any settings specific to active subscriptions to your app).
 
-<img width="838" alt="image" src="https://github.com/tjanczuk/letsgo/assets/822369/3b62360c-8eae-426e-bfb8-eb57e0e5aab6">
+<img width="917" alt="LetsGo Web" src="https://github.com/47chapters/letsgo/assets/822369/c144f67d-6025-466a-b366-202f1c92556b">
 
 This article assumes you have [integrated with Auth0 to enable user authentication](../tutorials/setting-up-authentication-with-auth0.md) and [integrated with Stripe to process payments](../tutorials/setting-up-payments-with-stripe.md).
 

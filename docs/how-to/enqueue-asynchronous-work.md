@@ -2,7 +2,7 @@
 
 The _worker_ component of the LetsGo boilerplate supports executing asynchronous work in the background, outside of the lifespan of an HTTP request. Aside from processing Stripe events delivered via a webhook, your application may define and schedule its own types of asynchronous work.
 
-<img width="836" alt="image" src="https://github.com/tjanczuk/letsgo/assets/822369/835f7840-da4a-4c2e-bd1a-50864fb60c47">
+<img width="922" alt="LetsGo Worker Enqueue" src="https://github.com/47chapters/letsgo/assets/822369/2bccb03e-a3b0-4c23-bf63-580f69985a6f">
 
 This article assumes you already know how to [develop the worker](./develop-the-worker.md) to define the processing logic for asynchronous work and will talk about ways to schedule it.
 
