@@ -22,6 +22,8 @@ The collection of default configuration settings of the _worker_ component.
 - [functionTimeout](WorkerSettingsDefaultConfig.md#functiontimeout)
 - [messageRetentionPeriod](WorkerSettingsDefaultConfig.md#messageretentionperiod)
 - [receiveMessageWaitTime](WorkerSettingsDefaultConfig.md#receivemessagewaittime)
+- [schedule](WorkerSettingsDefaultConfig.md#schedule)
+- [scheduleTimezone](WorkerSettingsDefaultConfig.md#scheduletimezone)
 - [visibilityTimeout](WorkerSettingsDefaultConfig.md#visibilitytimeout)
 
 ## Properties
@@ -34,7 +36,7 @@ The maximum number of messages the _worker_ component can process in a single in
 
 #### Defined in
 
-[index.ts:619](https://github.com/47chapters/letsgo/blob/11c7e19/packages/constants/src/index.ts#L619)
+[index.ts:629](https://github.com/47chapters/letsgo/blob/5310a6f/packages/constants/src/index.ts#L629)
 
 ___
 
@@ -46,7 +48,7 @@ The maximum time in seconds the _worker_ component waits for more messages to ar
 
 #### Defined in
 
-[index.ts:623](https://github.com/47chapters/letsgo/blob/11c7e19/packages/constants/src/index.ts#L623)
+[index.ts:633](https://github.com/47chapters/letsgo/blob/5310a6f/packages/constants/src/index.ts#L633)
 
 ___
 
@@ -59,7 +61,7 @@ This number multipled by the [batchSize](WorkerSettingsDefaultConfig.md#batchsiz
 
 #### Defined in
 
-[index.ts:628](https://github.com/47chapters/letsgo/blob/11c7e19/packages/constants/src/index.ts#L628)
+[index.ts:638](https://github.com/47chapters/letsgo/blob/5310a6f/packages/constants/src/index.ts#L638)
 
 ___
 
@@ -72,7 +74,7 @@ in the `/tmp` directory.
 
 #### Defined in
 
-[index.ts:615](https://github.com/47chapters/letsgo/blob/11c7e19/packages/constants/src/index.ts#L615)
+[index.ts:625](https://github.com/47chapters/letsgo/blob/5310a6f/packages/constants/src/index.ts#L625)
 
 ___
 
@@ -84,7 +86,7 @@ The amount of memory allocated to the Lambda function of the _worker_ component.
 
 #### Defined in
 
-[index.ts:610](https://github.com/47chapters/letsgo/blob/11c7e19/packages/constants/src/index.ts#L610)
+[index.ts:620](https://github.com/47chapters/letsgo/blob/5310a6f/packages/constants/src/index.ts#L620)
 
 ___
 
@@ -96,7 +98,7 @@ The maximum time in seconds the Lambda function of the _worker_ component can ru
 
 #### Defined in
 
-[index.ts:606](https://github.com/47chapters/letsgo/blob/11c7e19/packages/constants/src/index.ts#L606)
+[index.ts:616](https://github.com/47chapters/letsgo/blob/5310a6f/packages/constants/src/index.ts#L616)
 
 ___
 
@@ -109,7 +111,7 @@ before it is discarded.
 
 #### Defined in
 
-[index.ts:593](https://github.com/47chapters/letsgo/blob/11c7e19/packages/constants/src/index.ts#L593)
+[index.ts:603](https://github.com/47chapters/letsgo/blob/5310a6f/packages/constants/src/index.ts#L603)
 
 ___
 
@@ -121,7 +123,34 @@ The time in seconds a request for a message from the SQS queue remains pending i
 
 #### Defined in
 
-[index.ts:602](https://github.com/47chapters/letsgo/blob/11c7e19/packages/constants/src/index.ts#L602)
+[index.ts:612](https://github.com/47chapters/letsgo/blob/5310a6f/packages/constants/src/index.ts#L612)
+
+___
+
+### schedule
+
+• **schedule**: `string`[]
+
+The EventBridge Schedule expression that controls the timing of the scheduled invocation of the
+the Lambda function of the _worker_ component. Valid values are `cron({cron_expression})` and `rate({rate_expression})`,
+as documented in [CreateScheduleCommand](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/Package/-aws-sdk-client-scheduler/Class/CreateScheduleCommand/).
+
+#### Defined in
+
+[index.ts:644](https://github.com/47chapters/letsgo/blob/5310a6f/packages/constants/src/index.ts#L644)
+
+___
+
+### scheduleTimezone
+
+• **scheduleTimezone**: `string`[]
+
+The time zone used by the EventBridge Schedule expression that controls the timing of the scheduled invocation of the
+the Lambda function of the _worker_ component. Valid values are [IANA time zone IDs](https://nodatime.org/TimeZones).
+
+#### Defined in
+
+[index.ts:649](https://github.com/47chapters/letsgo/blob/5310a6f/packages/constants/src/index.ts#L649)
 
 ___
 
@@ -134,4 +163,4 @@ confirm its processing.
 
 #### Defined in
 
-[index.ts:598](https://github.com/47chapters/letsgo/blob/11c7e19/packages/constants/src/index.ts#L598)
+[index.ts:608](https://github.com/47chapters/letsgo/blob/5310a6f/packages/constants/src/index.ts#L608)

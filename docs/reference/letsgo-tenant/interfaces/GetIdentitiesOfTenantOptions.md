@@ -60,4 +60,4 @@ The Id of the tenant whose users are to be returned.
 
 #### Defined in
 
-[tenant/src/index.ts:656](https://github.com/47chapters/letsgo/blob/11c7e19/packages/tenant/src/index.ts#L656)
+[tenant/src/index.ts:656](https://github.com/47chapters/letsgo/blob/5310a6f/packages/tenant/src/index.ts#L656)

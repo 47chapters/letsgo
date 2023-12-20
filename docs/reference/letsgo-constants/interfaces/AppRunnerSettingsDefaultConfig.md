@@ -35,7 +35,7 @@ The amount of CPU allocated to a single instance of the component.
 
 #### Defined in
 
-[index.ts:306](https://github.com/47chapters/letsgo/blob/11c7e19/packages/constants/src/index.ts#L306)
+[index.ts:316](https://github.com/47chapters/letsgo/blob/5310a6f/packages/constants/src/index.ts#L316)
 
 ___
 
@@ -47,7 +47,7 @@ The number of consecutive successful health checks before the instance of the co
 
 #### Defined in
 
-[index.ts:328](https://github.com/47chapters/letsgo/blob/11c7e19/packages/constants/src/index.ts#L328)
+[index.ts:338](https://github.com/47chapters/letsgo/blob/5310a6f/packages/constants/src/index.ts#L338)
 
 ___
 
@@ -59,7 +59,7 @@ Frequency in seconds of the App Runner health check for the component.
 
 #### Defined in
 
-[index.ts:319](https://github.com/47chapters/letsgo/blob/11c7e19/packages/constants/src/index.ts#L319)
+[index.ts:329](https://github.com/47chapters/letsgo/blob/5310a6f/packages/constants/src/index.ts#L329)
 
 ___
 
@@ -72,7 +72,7 @@ if the instance of the component is healthy.
 
 #### Defined in
 
-[index.ts:315](https://github.com/47chapters/letsgo/blob/11c7e19/packages/constants/src/index.ts#L315)
+[index.ts:325](https://github.com/47chapters/letsgo/blob/5310a6f/packages/constants/src/index.ts#L325)
 
 ___
 
@@ -85,7 +85,7 @@ it is considered failed.
 
 #### Defined in
 
-[index.ts:324](https://github.com/47chapters/letsgo/blob/11c7e19/packages/constants/src/index.ts#L324)
+[index.ts:334](https://github.com/47chapters/letsgo/blob/5310a6f/packages/constants/src/index.ts#L334)
 
 ___
 
@@ -97,7 +97,7 @@ The number of consecutive failed health checks before the instance of the compon
 
 #### Defined in
 
-[index.ts:332](https://github.com/47chapters/letsgo/blob/11c7e19/packages/constants/src/index.ts#L332)
+[index.ts:342](https://github.com/47chapters/letsgo/blob/5310a6f/packages/constants/src/index.ts#L342)
 
 ___
 
@@ -109,7 +109,7 @@ The maximum number of concurrent HTTP requests processed by a single instance of
 
 #### Defined in
 
-[index.ts:302](https://github.com/47chapters/letsgo/blob/11c7e19/packages/constants/src/index.ts#L302)
+[index.ts:312](https://github.com/47chapters/letsgo/blob/5310a6f/packages/constants/src/index.ts#L312)
 
 ___
 
@@ -121,7 +121,7 @@ The maxium number of instances of the component.
 
 #### Defined in
 
-[index.ts:298](https://github.com/47chapters/letsgo/blob/11c7e19/packages/constants/src/index.ts#L298)
+[index.ts:308](https://github.com/47chapters/letsgo/blob/5310a6f/packages/constants/src/index.ts#L308)
 
 ___
 
@@ -133,7 +133,7 @@ The amount of memory allocated to a single instance of the component.
 
 #### Defined in
 
-[index.ts:310](https://github.com/47chapters/letsgo/blob/11c7e19/packages/constants/src/index.ts#L310)
+[index.ts:320](https://github.com/47chapters/letsgo/blob/5310a6f/packages/constants/src/index.ts#L320)
 
 ___
 
@@ -145,4 +145,4 @@ The minimum number of instances of the component to keep running at all times.
 
 #### Defined in
 
-[index.ts:294](https://github.com/47chapters/letsgo/blob/11c7e19/packages/constants/src/index.ts#L294)
+[index.ts:304](https://github.com/47chapters/letsgo/blob/5310a6f/packages/constants/src/index.ts#L304)

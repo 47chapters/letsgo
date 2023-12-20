@@ -21,7 +21,7 @@ The raw body of the incoming webhook request.
 
 #### Defined in
 
-[index.ts:94](https://github.com/47chapters/letsgo/blob/11c7e19/packages/stripe/src/index.ts#L94)
+[index.ts:94](https://github.com/47chapters/letsgo/blob/5310a6f/packages/stripe/src/index.ts#L94)
 
 ___
 
@@ -33,4 +33,4 @@ The value of the `Stripe-signature` HTTP request header.
 
 #### Defined in
 
-[index.ts:98](https://github.com/47chapters/letsgo/blob/11c7e19/packages/stripe/src/index.ts#L98)
+[index.ts:98](https://github.com/47chapters/letsgo/blob/5310a6f/packages/stripe/src/index.ts#L98)

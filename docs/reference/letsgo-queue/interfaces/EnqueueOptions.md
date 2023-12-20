@@ -20,4 +20,4 @@ The number of seconds to delay the message readiness for delivery to the worker.
 
 #### Defined in
 
-[index.ts:113](https://github.com/47chapters/letsgo/blob/11c7e19/packages/queue/src/index.ts#L113)
+[index.ts:113](https://github.com/47chapters/letsgo/blob/5310a6f/packages/queue/src/index.ts#L113)

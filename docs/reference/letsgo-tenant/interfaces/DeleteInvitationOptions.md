@@ -45,7 +45,7 @@ The invitation ID.
 
 #### Defined in
 
-[tenant/src/index.ts:391](https://github.com/47chapters/letsgo/blob/11c7e19/packages/tenant/src/index.ts#L391)
+[tenant/src/index.ts:391](https://github.com/47chapters/letsgo/blob/5310a6f/packages/tenant/src/index.ts#L391)
 
 ___
 
@@ -73,4 +73,4 @@ The tenant ID the invitation relates to.
 
 #### Defined in
 
-[tenant/src/index.ts:387](https://github.com/47chapters/letsgo/blob/11c7e19/packages/tenant/src/index.ts#L387)
+[tenant/src/index.ts:387](https://github.com/47chapters/letsgo/blob/5310a6f/packages/tenant/src/index.ts#L387)

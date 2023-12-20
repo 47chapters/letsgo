@@ -30,7 +30,7 @@ The identity of the user who is creating the invitation.
 
 #### Defined in
 
-[tenant/src/index.ts:270](https://github.com/47chapters/letsgo/blob/11c7e19/packages/tenant/src/index.ts#L270)
+[tenant/src/index.ts:270](https://github.com/47chapters/letsgo/blob/5310a6f/packages/tenant/src/index.ts#L270)
 
 ___
 
@@ -74,7 +74,7 @@ The tenant ID the invitation relates to.
 
 #### Defined in
 
-[tenant/src/index.ts:274](https://github.com/47chapters/letsgo/blob/11c7e19/packages/tenant/src/index.ts#L274)
+[tenant/src/index.ts:274](https://github.com/47chapters/letsgo/blob/5310a6f/packages/tenant/src/index.ts#L274)
 
 ___
 
@@ -86,4 +86,4 @@ The time-to-live of the invitation in seconds.
 
 #### Defined in
 
-[tenant/src/index.ts:278](https://github.com/47chapters/letsgo/blob/11c7e19/packages/tenant/src/index.ts#L278)
+[tenant/src/index.ts:278](https://github.com/47chapters/letsgo/blob/5310a6f/packages/tenant/src/index.ts#L278)

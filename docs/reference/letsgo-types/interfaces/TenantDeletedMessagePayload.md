@@ -21,7 +21,7 @@ The ID of the plan the tenant was on when it was deleted.
 
 #### Defined in
 
-[index.ts:285](https://github.com/47chapters/letsgo/blob/11c7e19/packages/types/src/index.ts#L285)
+[index.ts:289](https://github.com/47chapters/letsgo/blob/5310a6f/packages/types/src/index.ts#L289)
 
 ___
 
@@ -33,4 +33,4 @@ The deleted tenant.
 
 #### Defined in
 
-[index.ts:281](https://github.com/47chapters/letsgo/blob/11c7e19/packages/types/src/index.ts#L281)
+[index.ts:285](https://github.com/47chapters/letsgo/blob/5310a6f/packages/types/src/index.ts#L285)

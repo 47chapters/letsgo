@@ -18,6 +18,7 @@ Parameters that control the creation of AWS resources related to the _worker_ co
 - [getPolicyName](WorkerSettings.md#getpolicyname)
 - [getQueueNamePrefix](WorkerSettings.md#getqueuenameprefix)
 - [getRoleName](WorkerSettings.md#getrolename)
+- [getScheduleName](WorkerSettings.md#getschedulename)
 
 ## Properties
 
@@ -29,7 +30,7 @@ Returns the default configuration settings for the component.
 
 #### Defined in
 
-[index.ts:703](https://github.com/47chapters/letsgo/blob/11c7e19/packages/constants/src/index.ts#L703)
+[index.ts:730](https://github.com/47chapters/letsgo/blob/5310a6f/packages/constants/src/index.ts#L730)
 
 ___
 
@@ -57,7 +58,7 @@ ECR repository name
 
 #### Defined in
 
-[index.ts:680](https://github.com/47chapters/letsgo/blob/11c7e19/packages/constants/src/index.ts#L680)
+[index.ts:701](https://github.com/47chapters/letsgo/blob/5310a6f/packages/constants/src/index.ts#L701)
 
 ___
 
@@ -88,7 +89,7 @@ IAM inline policy document
 
 #### Defined in
 
-[index.ts:663](https://github.com/47chapters/letsgo/blob/11c7e19/packages/constants/src/index.ts#L663)
+[index.ts:684](https://github.com/47chapters/letsgo/blob/5310a6f/packages/constants/src/index.ts#L684)
 
 ___
 
@@ -116,7 +117,7 @@ Lambda function name
 
 #### Defined in
 
-[index.ts:692](https://github.com/47chapters/letsgo/blob/11c7e19/packages/constants/src/index.ts#L692)
+[index.ts:713](https://github.com/47chapters/letsgo/blob/5310a6f/packages/constants/src/index.ts#L713)
 
 ___
 
@@ -144,7 +145,7 @@ Local Docker image name (without the tag)
 
 #### Defined in
 
-[index.ts:686](https://github.com/47chapters/letsgo/blob/11c7e19/packages/constants/src/index.ts#L686)
+[index.ts:707](https://github.com/47chapters/letsgo/blob/5310a6f/packages/constants/src/index.ts#L707)
 
 ___
 
@@ -173,7 +174,7 @@ Number of days to retain CloudWatch logs.
 
 #### Defined in
 
-[index.ts:699](https://github.com/47chapters/letsgo/blob/11c7e19/packages/constants/src/index.ts#L699)
+[index.ts:726](https://github.com/47chapters/letsgo/blob/5310a6f/packages/constants/src/index.ts#L726)
 
 ___
 
@@ -202,7 +203,7 @@ Array of managed IAM policy ARNs
 
 #### Defined in
 
-[index.ts:674](https://github.com/47chapters/letsgo/blob/11c7e19/packages/constants/src/index.ts#L674)
+[index.ts:695](https://github.com/47chapters/letsgo/blob/5310a6f/packages/constants/src/index.ts#L695)
 
 ___
 
@@ -231,7 +232,7 @@ IAM policy name
 
 #### Defined in
 
-[index.ts:654](https://github.com/47chapters/letsgo/blob/11c7e19/packages/constants/src/index.ts#L654)
+[index.ts:675](https://github.com/47chapters/letsgo/blob/5310a6f/packages/constants/src/index.ts#L675)
 
 ___
 
@@ -259,7 +260,7 @@ Prefix of the SQS queue name
 
 #### Defined in
 
-[index.ts:640](https://github.com/47chapters/letsgo/blob/11c7e19/packages/constants/src/index.ts#L640)
+[index.ts:661](https://github.com/47chapters/letsgo/blob/5310a6f/packages/constants/src/index.ts#L661)
 
 ___
 
@@ -288,4 +289,32 @@ IAM role name
 
 #### Defined in
 
-[index.ts:647](https://github.com/47chapters/letsgo/blob/11c7e19/packages/constants/src/index.ts#L647)
+[index.ts:668](https://github.com/47chapters/letsgo/blob/5310a6f/packages/constants/src/index.ts#L668)
+
+___
+
+### getScheduleName
+
+• **getScheduleName**: (`deployment`: `string`) => `string`
+
+#### Type declaration
+
+▸ (`deployment`): `string`
+
+Returns the name of the EventBridge Schedule that triggers the Lambda function of the _worker_ component.
+
+##### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `deployment` | `string` | LetsGo deployment name |
+
+##### Returns
+
+`string`
+
+Schedule name
+
+#### Defined in
+
+[index.ts:719](https://github.com/47chapters/letsgo/blob/5310a6f/packages/constants/src/index.ts#L719)

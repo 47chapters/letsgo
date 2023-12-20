@@ -47,7 +47,7 @@ Parameters that control the creation of an App Runner service and related AWS re
 
 #### Defined in
 
-[index.ts:510](https://github.com/47chapters/letsgo/blob/11c7e19/packages/constants/src/index.ts#L510)
+[index.ts:520](https://github.com/47chapters/letsgo/blob/5310a6f/packages/constants/src/index.ts#L520)
 
 ___
 
@@ -108,11 +108,13 @@ configuration settings controling.
 | `WorkerFunctionTimeout` | `string` | The maximum time in seconds the Lambda function of the _worker_ component can run before it is terminated. |
 | `WorkerMessageRetentionPeriod` | `string` | The maximum time in seconds an unconsumed message can stay in the SQS queue of the _worker_ component before it is discarded. |
 | `WorkerReceiveMessageWaitTime` | `string` | The time in seconds a request for a message from the SQS queue remains pending if no message is available to read. |
+| `WorkerSchedule` | `string` | The EventBridge Scheduler expression that controls the timing of the scheduled invocation of the worker. Valid values are `cron({cron_expression})` and `rate({rate_expression})`, as documented in [CreateScheduleCommand](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/Package/-aws-sdk-client-scheduler/Class/CreateScheduleCommand/). |
+| `WorkerScheduleTimezone` | `string` | The time zone used by the EventBridge Scheduler expression that controls the timing of the scheduled invocation of the worker. Valid values are [IANA time zone IDs](https://nodatime.org/TimeZones). |
 | `WorkerVisibilityTimeout` | `string` | The time in seconds a message remains invisible in the SQS queue of the _worker_ component if it did not confirm its processing. |
 
 #### Defined in
 
-[index.ts:76](https://github.com/47chapters/letsgo/blob/11c7e19/packages/constants/src/index.ts#L76)
+[index.ts:76](https://github.com/47chapters/letsgo/blob/5310a6f/packages/constants/src/index.ts#L76)
 
 ___
 
@@ -124,7 +126,7 @@ Parameters that control the creation of the _database_ component.
 
 #### Defined in
 
-[index.ts:581](https://github.com/47chapters/letsgo/blob/11c7e19/packages/constants/src/index.ts#L581)
+[index.ts:591](https://github.com/47chapters/letsgo/blob/5310a6f/packages/constants/src/index.ts#L591)
 
 ___
 
@@ -136,7 +138,7 @@ The default LetsGo deployment name used by LetsGo CLI commands.
 
 #### Defined in
 
-[index.ts:28](https://github.com/47chapters/letsgo/blob/11c7e19/packages/constants/src/index.ts#L28)
+[index.ts:28](https://github.com/47chapters/letsgo/blob/5310a6f/packages/constants/src/index.ts#L28)
 
 ___
 
@@ -148,7 +150,7 @@ The default AWS region used by LetsGo CLI commands.
 
 #### Defined in
 
-[index.ts:23](https://github.com/47chapters/letsgo/blob/11c7e19/packages/constants/src/index.ts#L23)
+[index.ts:23](https://github.com/47chapters/letsgo/blob/5310a6f/packages/constants/src/index.ts#L23)
 
 ___
 
@@ -160,7 +162,7 @@ Default validity period of the invitations to join a tenant.
 
 #### Defined in
 
-[index.ts:39](https://github.com/47chapters/letsgo/blob/11c7e19/packages/constants/src/index.ts#L39)
+[index.ts:39](https://github.com/47chapters/letsgo/blob/5310a6f/packages/constants/src/index.ts#L39)
 
 ___
 
@@ -173,7 +175,7 @@ used when creating JWTs using the built-in PKI issuer.
 
 #### Defined in
 
-[index.ts:34](https://github.com/47chapters/letsgo/blob/11c7e19/packages/constants/src/index.ts#L34)
+[index.ts:34](https://github.com/47chapters/letsgo/blob/5310a6f/packages/constants/src/index.ts#L34)
 
 ___
 
@@ -185,7 +187,7 @@ Default version of of Stripe APIs called and Stripe webhooks accepted.
 
 #### Defined in
 
-[index.ts:44](https://github.com/47chapters/letsgo/blob/11c7e19/packages/constants/src/index.ts#L44)
+[index.ts:44](https://github.com/47chapters/letsgo/blob/5310a6f/packages/constants/src/index.ts#L44)
 
 ___
 
@@ -197,7 +199,7 @@ The name of the Stripe metadata tag that contains the LetsGo identity ID added t
 
 #### Defined in
 
-[index.ts:54](https://github.com/47chapters/letsgo/blob/11c7e19/packages/constants/src/index.ts#L54)
+[index.ts:54](https://github.com/47chapters/letsgo/blob/5310a6f/packages/constants/src/index.ts#L54)
 
 ___
 
@@ -209,7 +211,7 @@ The name of the Stripe metadata tag that contains the LetsGo plan ID added to St
 
 #### Defined in
 
-[index.ts:59](https://github.com/47chapters/letsgo/blob/11c7e19/packages/constants/src/index.ts#L59)
+[index.ts:59](https://github.com/47chapters/letsgo/blob/5310a6f/packages/constants/src/index.ts#L59)
 
 ___
 
@@ -221,7 +223,7 @@ The name of the Stripe metadata tag that contains the LetsGo tenant ID added to 
 
 #### Defined in
 
-[index.ts:49](https://github.com/47chapters/letsgo/blob/11c7e19/packages/constants/src/index.ts#L49)
+[index.ts:49](https://github.com/47chapters/letsgo/blob/5310a6f/packages/constants/src/index.ts#L49)
 
 ___
 
@@ -243,7 +245,7 @@ Names of AWS tags added to all AWS resources created by LetsGo.
 
 #### Defined in
 
-[index.ts:64](https://github.com/47chapters/letsgo/blob/11c7e19/packages/constants/src/index.ts#L64)
+[index.ts:64](https://github.com/47chapters/letsgo/blob/5310a6f/packages/constants/src/index.ts#L64)
 
 ___
 
@@ -257,7 +259,7 @@ Changing this value once the artifacts had been deployed is not supported.
 
 #### Defined in
 
-[index.ts:18](https://github.com/47chapters/letsgo/blob/11c7e19/packages/constants/src/index.ts#L18)
+[index.ts:18](https://github.com/47chapters/letsgo/blob/5310a6f/packages/constants/src/index.ts#L18)
 
 ___
 
@@ -269,7 +271,7 @@ Parameters that control the creation of an App Runner service and related AWS re
 
 #### Defined in
 
-[index.ts:537](https://github.com/47chapters/letsgo/blob/11c7e19/packages/constants/src/index.ts#L537)
+[index.ts:547](https://github.com/47chapters/letsgo/blob/5310a6f/packages/constants/src/index.ts#L547)
 
 ___
 
@@ -281,4 +283,4 @@ Parameters that control the creation of AWS resources related to the _worker_ co
 
 #### Defined in
 
-[index.ts:711](https://github.com/47chapters/letsgo/blob/11c7e19/packages/constants/src/index.ts#L711)
+[index.ts:741](https://github.com/47chapters/letsgo/blob/5310a6f/packages/constants/src/index.ts#L741)

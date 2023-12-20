@@ -24,7 +24,7 @@ be used if specified, or `letsgo:service` otherwise.
 
 #### Defined in
 
-[trust/src/jwt.ts:27](https://github.com/47chapters/letsgo/blob/11c7e19/packages/trust/src/jwt.ts#L27)
+[trust/src/jwt.ts:27](https://github.com/47chapters/letsgo/blob/5310a6f/packages/trust/src/jwt.ts#L27)
 
 ___
 
@@ -37,7 +37,7 @@ or an expression like `8h`, `2d`, etc. If `0` is specified, a non-expiring JWT t
 
 #### Defined in
 
-[trust/src/jwt.ts:32](https://github.com/47chapters/letsgo/blob/11c7e19/packages/trust/src/jwt.ts#L32)
+[trust/src/jwt.ts:32](https://github.com/47chapters/letsgo/blob/5310a6f/packages/trust/src/jwt.ts#L32)
 
 ___
 
@@ -49,7 +49,7 @@ The built-in PKI issuer to use to sign the JWT. If not specified, the active iss
 
 #### Defined in
 
-[trust/src/jwt.ts:18](https://github.com/47chapters/letsgo/blob/11c7e19/packages/trust/src/jwt.ts#L18)
+[trust/src/jwt.ts:18](https://github.com/47chapters/letsgo/blob/5310a6f/packages/trust/src/jwt.ts#L18)
 
 ___
 
@@ -61,4 +61,4 @@ The `sub` claim of the JWT. If not specified, the same value as the `iss` claim 
 
 #### Defined in
 
-[trust/src/jwt.ts:22](https://github.com/47chapters/letsgo/blob/11c7e19/packages/trust/src/jwt.ts#L22)
+[trust/src/jwt.ts:22](https://github.com/47chapters/letsgo/blob/5310a6f/packages/trust/src/jwt.ts#L22)

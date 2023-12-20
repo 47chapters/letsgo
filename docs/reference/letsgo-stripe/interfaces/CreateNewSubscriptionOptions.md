@@ -23,7 +23,7 @@ Stripe customer ID.
 
 #### Defined in
 
-[index.ts:200](https://github.com/47chapters/letsgo/blob/11c7e19/packages/stripe/src/index.ts#L200)
+[index.ts:200](https://github.com/47chapters/letsgo/blob/5310a6f/packages/stripe/src/index.ts#L200)
 
 ___
 
@@ -35,7 +35,7 @@ Identity of the LetsGo user who initiated the transaction to associate with the 
 
 #### Defined in
 
-[index.ts:208](https://github.com/47chapters/letsgo/blob/11c7e19/packages/stripe/src/index.ts#L208)
+[index.ts:208](https://github.com/47chapters/letsgo/blob/5310a6f/packages/stripe/src/index.ts#L208)
 
 ___
 
@@ -47,7 +47,7 @@ LetsGo plan ID to use as a lookup key to locate a Stripe price to associate with
 
 #### Defined in
 
-[index.ts:212](https://github.com/47chapters/letsgo/blob/11c7e19/packages/stripe/src/index.ts#L212)
+[index.ts:212](https://github.com/47chapters/letsgo/blob/5310a6f/packages/stripe/src/index.ts#L212)
 
 ___
 
@@ -59,4 +59,4 @@ LetsGo tenant ID to associate with the Stripe subscription.
 
 #### Defined in
 
-[index.ts:204](https://github.com/47chapters/letsgo/blob/11c7e19/packages/stripe/src/index.ts#L204)
+[index.ts:204](https://github.com/47chapters/letsgo/blob/5310a6f/packages/stripe/src/index.ts#L204)
