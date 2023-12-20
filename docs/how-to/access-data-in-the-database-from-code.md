@@ -185,5 +185,6 @@ The [LetsGo CLI](../reference/letsgo-cli.md) supports the `yarn ops db` command 
 [Data model](../backgound/data-model.md)  
 [LetsGo CLI](../reference/letsgo-cli.md)  
 [Enqueue asynchronous work](./enqueue-asynchronous-work.md)  
+[Schedule asynchronous work](./schedule-asynchronous-work.md)  
 [Develop the api](./develop-the-api.md)  
 [Develop the worker](./develop-the-worker.md)

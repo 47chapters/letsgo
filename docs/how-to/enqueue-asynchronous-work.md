@@ -92,4 +92,5 @@ When [running locally](../tutorials/building-and-running-locally.md), there is n
 
 [Access data in the database from code](./access-data-in-the-database-from-code.md)  
 [Develop the API](./develop-the-api.md)  
-[Develop the worker](./develop-the-worker.md)
+[Develop the worker](./develop-the-worker.md)  
+[Schedule asynchronous work](./schedule-asynchronous-work.md)

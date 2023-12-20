@@ -51,6 +51,7 @@ Let's go!
 [Develop the API](./docs/how-to/develop-the-api.md)  
 [Develop the worker](./docs/how-to/develop-the-worker.md)  
 [Enqueue asynchronous work](./docs/how-to/enqueue-asynchronous-work.md)  
+[Schedule asynchronous work](./docs/how-to/schedule-asynchronous-work.md)  
 [Access data in the database from code](./docs/how-to/access-data-in-the-database-from-code.md)  
 [Process the contact form](./docs/how-to/process-the-contact-form.md)  
 [Manage configuration](./docs/how-to/manage-configuration.md)  

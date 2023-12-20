@@ -6,7 +6,7 @@ export const scheduledHandler = async (
   context: Context
 ): Promise<void> => {
   console.log(
-    `WORKER RECEIVED SCHEDULED EVENT ID ${event.id} WITH TIMESTAMP ${event?.time}`
+    `WORKER RECEIVED SCHEDULED EVENT ID ${event.id} WITH TIMESTAMP ${event.time}`
   );
 
   /**
