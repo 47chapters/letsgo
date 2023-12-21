@@ -46,17 +46,17 @@ Notice the endpoint returns HTTP 200, which means it is healthy. The JSON respon
 
 Next, navigate the browser to `http://localhost:3000`, which is the locally running _web_ component:
 
-<img width="912" alt="image" src="https://github.com/tjanczuk/letsgo/assets/822369/6e66fba7-f15c-4eb9-9fa0-d5e2b80110e3">
+<img width="1320" alt="LetsGo Web - Local - Landing" src="https://github.com/47chapters/letsgo/assets/822369/8602706c-3917-41cc-80ae-9de12a0b4f3a">
 
 Well done, you are now running the LetsGo stack locally!
 
 ### Make a code change
 
-Open `apps/web/src/app/(site)/page.tsx` file in your code editor. Change the `The Service` string to `Hello, world!`. Save the file. You just made a change in the _web_ component of your app.
+Open `apps/web/src/components/Landing.tsx` file in your code editor. Change the `Future landing page of your product - make it yours` string to `Hello, world!`. Save the file. You just made a change in the _web_ component of your app.
 
 Go back to the browser window for `http://localhost:3000` and observe the change had an immediate effect:
 
-<img width="912" alt="image" src="https://github.com/tjanczuk/letsgo/assets/822369/e6a77a14-f8f0-414c-9cb7-28214ae6f2d4">
+<img width="1320" alt="LetsGo Web - Local - Modified Landing" src="https://github.com/47chapters/letsgo/assets/822369/6295ec40-bc2a-47e3-a351-2810448314d9">
 
 To reduce the development lifecycle, the LetsGo local development environment detects any changes in the files you make, recompiles the dependencies, and restarts the services as necessary for you. This applies equally to the _web_, _API_, and _worker_ components.
 

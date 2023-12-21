@@ -10,7 +10,7 @@ This article assumes you have [integrated with Auth0 to enable user authenticati
 
 The _web_ component is a [Next.js](https://nextjs.org/) application implemented in [TypeScript](https://www.typescriptlang.org/). It is based on the [Next.js's App Router](https://nextjs.org/docs/app) paradigm.
 
-The boilerplate LetsGo provides does not rely on any specific React UI framework. All components are implemented in plain HTML with minimal inline styling. The focus is on designing the right routing structure and logic with the expectation you will bring your own UI framework to create a branded experience.
+LetsGo boilerplate uses the [shadcn/ui](https://ui.shadcn.com/) component framework with [TailwindCSS](https://tailwindcss.com/) to organize the UI, which strikes a balance between out-of-the-box value and the flexibility you need to make the app look your own.
 
 When [running locally](./run-locally.md), the _web_ component is hosted as a plain [Node.js](https://nodejs.org/) HTTP server on `http://localhost:3000`.
 

@@ -2,7 +2,7 @@
 
 The _web_ component contains a contact form your customer can fill out to request more information.
 
-<img width="912" alt="image" src="https://github.com/tjanczuk/letsgo/assets/822369/b7365637-0e2f-4526-affa-ea721764bed3">
+<img width="1320" alt="LetsGo Web - Contact" src="https://github.com/47chapters/letsgo/assets/822369/8f709a8b-fd39-494f-a812-aab1b4c1f0a1">
 
 The LetsGo boilerplate provides the mechanics of the form submission and data collection, but it does not provide the actual logic to decide what to do with the submitted data. You would normally want to use this data to update your CRM system or otherwise trigger the sales team to act on it.
 

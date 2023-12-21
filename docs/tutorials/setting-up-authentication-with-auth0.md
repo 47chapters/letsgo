@@ -110,9 +110,9 @@ Then navigate to `http://localhost:3000` in the browser and click the _Login_ li
 
 <img width="1312" alt="image" src="https://github.com/tjanczuk/letsgo/assets/822369/4d36bb48-5463-4d1b-af0d-6bbbbc7771fd">
 
-From here, you can choose to log in using your Google Account or choose _Sign up_ to create a new username and password for your app. After a successful login, you will be redirected back to your locally running application. You will see a page that is part of the management dashboard of your application only available to authenticated users. The page allows you to manage certain settings of the tenant of your application which was created when you first logged in:
+From here, you can choose to log in using your Google Account or choose _Sign up_ to create a new username and password for your app. After a successful login, you will be redirected back to your locally running application. You will see a page that is part of the management dashboard of your application only available to authenticated users. Sections of this page allow you to manage certain settings of the tenant of your application which was created when you first logged in:
 
-<img width="1312" alt="image" src="https://github.com/tjanczuk/letsgo/assets/822369/1d1e0fa8-e7b7-4e00-a6e1-405617461ea2">
+<img width="1320" alt="LetsGo Web - Dashboard" src="https://github.com/47chapters/letsgo/assets/822369/21c488c8-a798-4723-9c07-338d58be248a">
 
 Now that you have authentication working locally, you will configure and re-deploy your app to AWS.
 
