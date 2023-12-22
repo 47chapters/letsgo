@@ -20,4 +20,4 @@ The SQS message ID.
 
 #### Defined in
 
-[index.ts:123](https://github.com/47chapters/letsgo/blob/11c7e19/packages/queue/src/index.ts#L123)
+[index.ts:123](https://github.com/47chapters/letsgo/blob/5310a6f/packages/queue/src/index.ts#L123)

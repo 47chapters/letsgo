@@ -9,11 +9,24 @@ as the list of tenants that user has access to.
 
 ### Properties
 
+- [accessToken](GetMeResponse.md#accesstoken)
 - [identity](GetMeResponse.md#identity)
 - [identityId](GetMeResponse.md#identityid)
 - [tenants](GetMeResponse.md#tenants)
 
 ## Properties
+
+### accessToken
+
+• `Optional` **accessToken**: `string`
+
+The JWT access token of the user. This is only returned if the `returnAccessToken` query parameter is set.
+
+#### Defined in
+
+[index.ts:108](https://github.com/47chapters/letsgo/blob/5310a6f/packages/types/src/index.ts#L108)
+
+___
 
 ### identity
 
@@ -23,7 +36,7 @@ Deserialized identity of the user.
 
 #### Defined in
 
-[index.ts:104](https://github.com/47chapters/letsgo/blob/11c7e19/packages/types/src/index.ts#L104)
+[index.ts:104](https://github.com/47chapters/letsgo/blob/5310a6f/packages/types/src/index.ts#L104)
 
 ___
 
@@ -35,7 +48,7 @@ Serialized identityId of the user.
 
 #### Defined in
 
-[index.ts:100](https://github.com/47chapters/letsgo/blob/11c7e19/packages/types/src/index.ts#L100)
+[index.ts:100](https://github.com/47chapters/letsgo/blob/5310a6f/packages/types/src/index.ts#L100)
 
 ___
 
@@ -43,8 +56,6 @@ ___
 
 • **tenants**: `Tenant`[]
 
-List of tenants that the user has access to.
-
 #### Defined in
 
-[index.ts:108](https://github.com/47chapters/letsgo/blob/11c7e19/packages/types/src/index.ts#L108)
+[index.ts:112](https://github.com/47chapters/letsgo/blob/5310a6f/packages/types/src/index.ts#L112)

@@ -2,7 +2,7 @@
 
 In this tutorial, you will make the first deployment of the LetsGo stack to your own AWS account. Upon completion, you will have the _web_ and _API_ components available on publicly accessible, secure URLs, and the _worker_ and _database_ components wired up and ready to use:
 
-<img width="846" alt="image" src="https://github.com/tjanczuk/letsgo/assets/822369/cf6a5118-943e-4c1b-ae61-dda43ab9ffab">
+<img width="919" alt="LetsGo Architecture - Basic" src="https://github.com/47chapters/letsgo/assets/822369/da0c39b9-e64a-4bc6-91fc-ad8bb0eb4383">
 
 You will also have your local environment prepared for further development. This tutorial does not integrate Auth0 or Stripe - you will do this in separate tutorials.
 
@@ -147,7 +147,7 @@ Web
   Service
     Status         RUNNING
     Health         HTTP 200 (160ms)
-    Url            https://uxb9hhcrtj.us-west-2.awsapprunner.com
+    Url            https://gwdvbituqq.us-west-2.awsapprunner.com
 ...
 Api
   Service
@@ -164,7 +164,7 @@ The output contains a report about the status of the web, API, worker, and datab
 Now, call the health endpoint of the API component with _curl_. The endpoint is the combination of the API's Url with the `/v1/health` path, e.g.:
 
 ```bash
-$ curl https://6ucstfkcn6.us-west-2.awsapprunner.com/v1/health
+$ curl https://gwdvbituqq.us-west-2.awsapprunner.com/v1/health
 {"ok":true,"imageTag":"9225060f1903ddef","updatedAt":"2023-11-04T22:08:24.392Z"}
 ```
 
@@ -172,6 +172,6 @@ Notice the output is an HTTP 200 response with a JSON providing some basic infor
 
 Lastly, navigate to the Web component's URL in the browser:
 
-<img width="912" alt="image" src="https://github.com/tjanczuk/letsgo/assets/822369/ccca4a7e-a14f-4ceb-9864-2810ef083122">
+<img width="1320" alt="LetsGo Web - First Deployment in AWS" src="https://github.com/47chapters/letsgo/assets/822369/aa75b4dd-dc26-4e7f-aa4a-ffca2635d830">
 
 Congratulations! You have just made your first deployment of the LetsGo stack to your own AWS account. You are ready to start making changes and adjustments to the app, and the first step is to learn how to [build and run the stack locally](building-and-running-locally.md).

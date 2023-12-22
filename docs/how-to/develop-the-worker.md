@@ -1,14 +1,21 @@
 ## Develop the worker
 
-The _worker_ component of the LetsGo boilerplate supports executing asynchronous work in the background, outside of the lifespan of an HTTP request. This work may include processing Stripe events delivered via a webhook, processing contact form submissions from the _web_ component, or other work that is specific to your application.
+The _worker_ component of the LetsGo boilerplate supports executing asynchronous work in the background, outside of the lifespan of an HTTP request. This work may include processing Stripe events delivered via a webhook, processing contact form submissions from the _web_ component, or work scheduled using a time-based scheduler.
 
-<img width="836" alt="image" src="https://github.com/tjanczuk/letsgo/assets/822369/835f7840-da4a-4c2e-bd1a-50864fb60c47">
+<img width="917" alt="LetsGo Worker" src="https://github.com/47chapters/letsgo/assets/822369/da9622af-5828-4550-bc8e-bb773afdc5e3">
 
 This article assumes you have [integrated with Stripe to process payments](../tutorials/setting-up-payments-with-stripe.md).
 
 ### Technology
 
 The _worker_ component is an [AWS Lambda handler](https://docs.aws.amazon.com/lambda/latest/dg/typescript-handler.html) implemented in [TypeScript](https://www.typescriptlang.org/).
+
+There are two use cases for executing asynchronous work in the worker:
+
+1. Message-based execution that is triggered by messages received from a queue.
+1. Time-based execution that is triggered by a scheduler.
+
+### Message-based execution
 
 The boilerplate LetsGo _worker_ implementation provides a simple message routing mechanism based on the `type` property of the received message. The scaffolding breaks down the routing logic all the way to the specific Stripe events generated in the lifecycle of a Stripe subscription but leaves the processing logic of those events unimplemented. You need to add custom processing logic to the Stripe events that are relevant to your application.
 
@@ -18,21 +25,30 @@ When you [deploy your app to AWS](../tutorials/first-deployment-to-aws.md), the 
 
 When [running locally](./run-locally.md), the _worker_ component is hosted as a plain [Node.js](https://nodejs.org/) HTTP server on `http://localhost:3002`. Unlike in the cloud, there is no queue in front of the _worker_ component when running locally. Any messages "enqueued" for the worker using the [@letsgo/queue](../reference/letsgo-queue/README.md) package will be immediately passed to the worker to process. This means there is no fidelity with any of the scalability/throttling/failure behaviors you would expect if the queue were present. In particular, messages that fail during processing are dumped as opposed to being re-tried or sent to a dead letter queue.
 
+### Time-based execution
+
+The boilerplate LetsGo _worker_ component is configured to execute scheduled work every hour. By default, the processing logic is a no-op but you can easily provide your implementation and adjust the schedule. You can read more about this process in [scheduling asynchronous work](./schedule-asynchronous-work.md).
+
+When you [deploy your app to AWS](../tutorials/first-deployment-to-aws.md), the _worker_ component is packaged as a [Docker](https://www.docker.com/) image and deployed as an [AWS Lambda function](https://aws.amazon.com/pm/lambda). In addition, there is an [AWS EventBridge Scheduler](https://aws.amazon.com/blogs/compute/introducing-amazon-eventbridge-scheduler/) set up to invoke the Lambda handler function following a provided schedule.
+
+When [running locally](./run-locally.md), the _worker_ component is hosted as a plain [Node.js](https://nodejs.org/) application, which uses the schedule configuration from the local `apps/worker/.env` file to execute the scheduled handler locally.
+
 ### Location
 
 The _worker_ code is located in the `apps/worker` directory. Here are the key files you will be working with:
 
-- `apps/worker/index.ts` - the AWS Lambda handler responsible for receiving messages, routing them to handlers, and reporting back failures to SQS.
-- `apps/worker/server.ts` - the lightweight HTTP server used when running the worker locally.
-- `apps/worker/api.ts` - helper functions used to call the _API_ endpoints from the worker code.
-- `apps/worker/handlers` - handlers for individual message types.
-- `apps/worker/handlers/stripe` - handlers for individual types of Stripe events
+- `apps/worker/src/index.ts` - the AWS Lambda handler responsible for receiving messages and scheduled events, and routing them to handlers.
+- `apps/worker/src/server.ts` - the lightweight HTTP server and scheduler used when running the worker locally.
+- `apps/worker/src/api.ts` - helper functions used to call the _API_ endpoints from the worker code.
+- `apps/worker/src/handlers` - handlers for individual message types.
+- `apps/worker/src/handlers/stripe` - handlers for individual types of Stripe events.
+- `apps/worker/src/handlers/scheduledEventHandler.ts` - handler of the scheduled events.
 
 Message types are used across different components of the application, it is therefore convenient to define them in a shared location. The `@letsgo/types` package located in `packages/types` directory is used for this purpose. You will be adding new message types to that package.
 
 ### Messages and message handlers
 
-Messages delivered to the worker are in the JSON format and have the following structure:
+When processing message-based events, messages delivered to the worker are in the JSON format and have the following structure:
 
 ```typescript
 interface Message {
@@ -143,6 +159,7 @@ One challenge with asynchronous work is that it happens asynchronously, and the 
 ### Related topics
 
 [Enqueue asynchronous work](./enqueue-asynchronous-work.md)  
+[Schedule asynchronous work](./schedule-asynchronous-work.md)  
 [Access data in the database from code](./access-data-in-the-database-from-code.md)  
 [Send notifications to Slack](./send-notifications-to-slack.md)  
 [Manage trust and authentication](./manage-trust-and-authentication.md)  

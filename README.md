@@ -6,7 +6,7 @@ New SaaS businesses cut corners that are hard to fix later. LetsGo gives you a f
 
 This project provides you with the architecture and the tooling that will put your startup on a solid foundation from day one. It helps you save months of work leading to the launch while allowing you to focus on the essence of your product. The day you let the first customer in, you have no technical debt. As you grow, you can continue focusing your resources on what matters most: your customers and your product.
 
-<img width="837" alt="image" src="https://github.com/tjanczuk/letsgo/assets/822369/f7fe2317-d7de-4698-b093-416a52a1a145">
+<img width="950" alt="LetsGo Architecture" src="https://github.com/47chapters/letsgo/assets/822369/c9e803b3-c2ee-4b2e-b8a4-16e107342c4e">
 
 LetsGo does it by providing a prescriptive architecture implemented with a modern set of technologies and robust operational tooling for managing your app in AWS. On day one you get more than most startups build in the first two years:
 
@@ -51,6 +51,7 @@ Let's go!
 [Develop the API](./docs/how-to/develop-the-api.md)  
 [Develop the worker](./docs/how-to/develop-the-worker.md)  
 [Enqueue asynchronous work](./docs/how-to/enqueue-asynchronous-work.md)  
+[Schedule asynchronous work](./docs/how-to/schedule-asynchronous-work.md)  
 [Access data in the database from code](./docs/how-to/access-data-in-the-database-from-code.md)  
 [Process the contact form](./docs/how-to/process-the-contact-form.md)  
 [Manage configuration](./docs/how-to/manage-configuration.md)  

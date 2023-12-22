@@ -21,7 +21,7 @@ Stripe client secret to continue processing a new setup intent.
 
 #### Defined in
 
-[index.ts:155](https://github.com/47chapters/letsgo/blob/11c7e19/packages/types/src/index.ts#L155)
+[index.ts:159](https://github.com/47chapters/letsgo/blob/5310a6f/packages/types/src/index.ts#L159)
 
 ___
 
@@ -33,4 +33,4 @@ Stripe public key.
 
 #### Defined in
 
-[index.ts:159](https://github.com/47chapters/letsgo/blob/11c7e19/packages/types/src/index.ts#L159)
+[index.ts:163](https://github.com/47chapters/letsgo/blob/5310a6f/packages/types/src/index.ts#L163)

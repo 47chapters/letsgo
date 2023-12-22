@@ -2,7 +2,7 @@
 
 The _API_ component of the LetsGo boilerplate implements the HTTP APIs your application exposes. This includes APIs that are consumed from the _web_ component, as well as APIs designed to be called by your customer or partner applications.
 
-<img width="831" alt="image" src="https://github.com/tjanczuk/letsgo/assets/822369/e6787a3a-a1f6-47be-bf95-d19166494b67">
+<img width="924" alt="LetsGo API" src="https://github.com/47chapters/letsgo/assets/822369/44dc2631-6911-42c7-b56e-0309fe1bd054">
 
 This article assumes you have [integrated with Auth0 to enable user authentication](../tutorials/setting-up-authentication-with-auth0.md) and [integrated with Stripe to process payments](../tutorials/setting-up-payments-with-stripe.md).
 

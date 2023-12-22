@@ -6,7 +6,7 @@ In this tutorial, you will configure custom domains for your _web_ and _API_ com
 
 <!-- markdown-link-check-enable -->
 
-<img width="387" alt="image" src="https://github.com/tjanczuk/letsgo/assets/822369/e99a33c5-4a53-4af9-afbe-5f5c1d87d93b">
+<img width="402" alt="LetsGo Web - Custom Domain" src="https://github.com/47chapters/letsgo/assets/822369/74608383-850f-4d16-b9ca-be839a15cfda">
 
 This tutorial assumes you have already [set up authentication with Auth0](setting-up-authentication-with-auth0.md) as there will be modifications necessary in your Auth0 configuration.
 
@@ -40,7 +40,7 @@ Then set up a custom domain for the _API_ component by running:
 yarn ops domain add -a api api.contoso.com
 ```
 
-The output of these commands lists a number of required DNS records and will look simiar to this:
+The output of these commands lists several required DNS records and will look similar to this:
 
 ```text
 ...

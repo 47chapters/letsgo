@@ -42,7 +42,7 @@ Enqeue result, including SQS message Id.
 
 #### Defined in
 
-[index.ts:203](https://github.com/47chapters/letsgo/blob/11c7e19/packages/queue/src/index.ts#L203)
+[index.ts:203](https://github.com/47chapters/letsgo/blob/5310a6f/packages/queue/src/index.ts#L203)
 
 ___
 
@@ -67,4 +67,4 @@ Array of matching SQS queue URLs
 
 #### Defined in
 
-[index.ts:40](https://github.com/47chapters/letsgo/blob/11c7e19/packages/queue/src/index.ts#L40)
+[index.ts:40](https://github.com/47chapters/letsgo/blob/5310a6f/packages/queue/src/index.ts#L40)

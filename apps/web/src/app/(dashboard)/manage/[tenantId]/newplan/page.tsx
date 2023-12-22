@@ -1,11 +1,12 @@
 "use client";
 
 import { ActivePlans, Plan } from "@letsgo/pricing";
+import { PlanSelector } from "components/PlanSelector";
+import { useTenant } from "components/TenantProvider";
+import { Card, CardContent, CardHeader, CardTitle } from "components/ui/card";
 import { useRouter } from "next/navigation";
-import { PlanSelector } from "../../../../../components/PlanSelector";
-import { useTenant } from "../../../../../components/TenantProvider";
 
-function ChooseNewPlan({ params }: { params: { tenantId: string } }) {
+function ChooseNewPlan() {
   const router = useRouter();
   const { error, currentTenant } = useTenant();
 
@@ -19,26 +20,28 @@ function ChooseNewPlan({ params }: { params: { tenantId: string } }) {
         )}&from=/manage/${currentTenant?.tenantId}/newplan`
       );
     } else {
-      window.location.href = `/manage/newplan/${encodeURIComponent(
-        plan.planId
-      )}`;
+      router.push(`/manage/newplan/${encodeURIComponent(plan.planId)}`);
     }
   };
 
   if (currentTenant) {
     return (
-      <div>
-        <h1>Select new plan</h1>
-        <PlanSelector
-          plans={ActivePlans}
-          currentPlanId={currentTenant.plan.planId}
-          onPlanSelected={handlePlanSelected}
-        />
-      </div>
+      <Card className="border-none shadow-none">
+        <CardHeader>
+          <CardTitle>Select new plan</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <PlanSelector
+            plans={ActivePlans}
+            currentPlanId={currentTenant.plan.planId}
+            onPlanSelected={handlePlanSelected}
+          />
+        </CardContent>
+      </Card>
     );
   }
 
-  return <div>Loading...</div>;
+  return <div></div>;
 }
 
 export default ChooseNewPlan;

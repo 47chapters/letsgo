@@ -1,10 +1,9 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useApiMutate } from "../../../../../../components/common-client";
+import { useApiMutate } from "components/common-client";
 import { useEffect, useState } from "react";
-import { useTenant } from "../../../../../../components/TenantProvider";
-import { getTenant } from "@letsgo/tenant";
+import { useTenant } from "components/TenantProvider";
 
 export default function Join({
   params: { tenantId, invitationId },
@@ -29,10 +28,7 @@ export default function Join({
     afterSuccess: async () => {
       setInvitationAccepted(true);
       await refreshTenants();
-      // const newTenant = getTenantFromTenants(tenantId);
-      // setCurrentTenant(newTenant);
-      window.location.href = `/manage/${tenantId}/settings`;
-      // router.replace(`/manage/${tenantId}/settings`);
+      window.location.href = `/manage/${tenantId}/team`;
     },
   });
   const [invitationAccepted, setInvitationAccepted] = useState(false);

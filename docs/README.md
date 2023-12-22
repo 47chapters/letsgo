@@ -22,6 +22,7 @@
 [Develop the API](./how-to/develop-the-api.md)  
 [Develop the worker](./how-to/develop-the-worker.md)  
 [Enqueue asynchronous work](./how-to/enqueue-asynchronous-work.md)  
+[Schedule asynchronous work](./how-to/schedule-asynchronous-work.md)  
 [Access data in the database from code](./how-to/access-data-in-the-database-from-code.md)  
 [Process the contact form](./how-to/process-the-contact-form.md)  
 [Manage configuration](./how-to/manage-configuration.md)  

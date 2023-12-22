@@ -22,7 +22,7 @@ If a new Stripe customer needs to be created, this is their email address.
 
 #### Defined in
 
-[index.ts:122](https://github.com/47chapters/letsgo/blob/11c7e19/packages/types/src/index.ts#L122)
+[index.ts:126](https://github.com/47chapters/letsgo/blob/5310a6f/packages/types/src/index.ts#L126)
 
 ___
 
@@ -34,7 +34,7 @@ If a new Stripe customer needs to be created, this is their name.
 
 #### Defined in
 
-[index.ts:126](https://github.com/47chapters/letsgo/blob/11c7e19/packages/types/src/index.ts#L126)
+[index.ts:130](https://github.com/47chapters/letsgo/blob/5310a6f/packages/types/src/index.ts#L130)
 
 ___
 
@@ -46,4 +46,4 @@ The ID of the plan to switch the tenant to.
 
 #### Defined in
 
-[index.ts:118](https://github.com/47chapters/letsgo/blob/11c7e19/packages/types/src/index.ts#L118)
+[index.ts:122](https://github.com/47chapters/letsgo/blob/5310a6f/packages/types/src/index.ts#L122)

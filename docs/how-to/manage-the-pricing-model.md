@@ -12,7 +12,7 @@ This article assumes you have already followed the [set up payments with Stripe]
 
 A pricing plan in LetsGo declaratively describes the subscription plans you want to present to your users. Think of a "plan" as one column on your `/pricing` page, and the "pricing plan" as the collection of those plans:
 
-<img width="1312" alt="image" src="https://github.com/tjanczuk/letsgo/assets/822369/d33b7ef3-92fc-4c07-bb36-9f75a432df4f">
+<img width="1320" alt="LetsGo Web - Pricing" src="https://github.com/47chapters/letsgo/assets/822369/9dc6b58c-ce0d-47f0-9227-f7a14dab62a2">
 
 There are three types of plans in LetsGo:
 

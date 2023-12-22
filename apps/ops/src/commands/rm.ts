@@ -22,6 +22,7 @@ import { deleteRole } from "../aws/iam";
 import { deleteDynamo } from "../aws/dynamodb";
 import { deleteQueue } from "../aws/sqs";
 import { deleteLambda } from "../aws/lambda";
+import { deleteSchedule } from "../aws/scheduler";
 
 const program = new Command();
 
@@ -119,8 +120,10 @@ async function deleteWorker(
 ) {
   const logger = createLogger("aws", region, deployment, "worker");
   logger("deleting worker...");
+  await deleteSchedule(region, deployment, settings, logger);
   await deleteLambda(
     region,
+    deployment,
     settings.getLambdaFunctionName(deployment),
     logger
   );

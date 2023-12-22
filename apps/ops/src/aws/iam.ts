@@ -35,7 +35,7 @@ export const LambdaAssumeRolePolicy = {
     {
       Effect: "Allow",
       Principal: {
-        Service: "lambda.amazonaws.com",
+        Service: ["lambda.amazonaws.com", "scheduler.amazonaws.com"],
       },
       Action: "sts:AssumeRole",
     },

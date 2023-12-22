@@ -60,8 +60,6 @@ $ curl https://6ucstfkcn6.us-west-2.awsapprunner.com/v1/health
 
 Notice the output is an HTTP 200 response with a JSON providing some basic information about the API component. Also, notice how the `updatedAt` field contains a very recent timestamp indicating the time of the re-deployment.
 
-Finally, navigate to the Web component's URL in the browser, and notice how the local change you made got propagated to the cloud:
-
-<img width="912" alt="image" src="https://github.com/tjanczuk/letsgo/assets/822369/6aab4476-4d16-4ab4-97c4-211a80017266">
+Finally, navigate to the Web component's URL in the browser, and notice how the local change you made got propagated to the cloud.
 
 You have just successfully re-deployed your stack with a simple local modification to AWS. In the next step, you are going to [set up authentication with Auth0](setting-up-authentication-with-auth0.md) to enable authenticating users of your app and secure access to the dashboard section of the _web_ component and to the _API_ component.

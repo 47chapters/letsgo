@@ -3,10 +3,11 @@
 import { useUser } from "@auth0/nextjs-auth0/client";
 import { PostPaymentMethodResponse } from "@letsgo/types";
 import { useEffect } from "react";
-import Checkout from "../../../../../components/Checkout";
-import { StripeElements } from "../../../../../components/StripeElements";
-import { useTenant } from "../../../../../components/TenantProvider";
-import { useApiMutate } from "../../../../../components/common-client";
+import Checkout from "components/Checkout";
+import { StripeElements } from "components/StripeElements";
+import { useTenant } from "components/TenantProvider";
+import { useApiMutate } from "components/common-client";
+import { LoadingPlaceholder } from "components/LoadingPlaceholder";
 
 function PaymentMethodUpdate() {
   const { error: userError, user } = useUser();
@@ -44,7 +45,7 @@ function PaymentMethodUpdate() {
     );
   }
 
-  return <div>Loading...</div>;
+  return <LoadingPlaceholder />;
 }
 
 export default PaymentMethodUpdate;

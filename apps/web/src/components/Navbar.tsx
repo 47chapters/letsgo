@@ -1,9 +1,9 @@
 export default function Navbar({ children }: { children: React.ReactNode }) {
-  const style = {
-    display: "flex",
-    width: "100%",
-    justifyContent: "space-between",
-  };
-
-  return <div style={style}>{children}</div>;
+  return (
+    <div className="flex-col md:flex bg-red-100">
+      <div className="border-b">
+        <div className="flex h-16 items-center px-4">{children}</div>
+      </div>
+    </div>
+  );
 }

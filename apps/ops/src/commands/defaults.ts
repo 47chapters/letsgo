@@ -23,5 +23,9 @@ export function getArtifacts(artifacts: string[], allArtifacts: string[]) {
     acc[artifact] = true;
     return acc;
   }, {} as { [artifact: string]: boolean });
+  if (newArtifacts.worker) {
+    newArtifacts["worker-queue"] = true;
+    newArtifacts["worker-scheduler"] = true;
+  }
   return newArtifacts;
 }

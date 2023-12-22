@@ -11,7 +11,7 @@
  */
 
 import { AppRouteHandlerFn } from "@auth0/nextjs-auth0";
-import { getAuth0 } from "../../../../../components/auth0";
+import { getAuth0 } from "components/auth0";
 import proxyFactory from "../../proxy";
 
 // Delay the initialization of the proxy until the first request is received.

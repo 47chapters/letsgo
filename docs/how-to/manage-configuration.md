@@ -13,7 +13,7 @@ Providing configuration settings for the _web_, _API_, and _worker_ components r
 1. You set the desired configuration settings in [AWS Systems Manager Parameter Store](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-parameter-store.html) using the `yarn ops config set` command of the LetsGo CLI.
 1. During the deployment of your stack using `yarn ops deploy`, a snapshot of the configuration settings in AWS Parameter Store is taken and set as environment variables on the AppRunner service of the _web_ and _API_ components and the AWS Lambda function of the _worker_ component. Configuration of deployed artifacts is immutable until the next deployment.
 
-<img width="835" alt="image" src="https://github.com/tjanczuk/letsgo/assets/822369/52f10cb4-16fd-4803-9d0d-1c8fe04ee9a0">
+<img width="918" alt="LetsGo Config" src="https://github.com/47chapters/letsgo/assets/822369/a38fbf34-fcd9-4d1a-9e18-6b579f8be03b">
 
 For example, to set the memory size of the _API_ processes, you can call:
 

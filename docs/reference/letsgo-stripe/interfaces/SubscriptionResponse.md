@@ -30,7 +30,7 @@ Date and time when the current subscription period ends.
 
 #### Defined in
 
-[index.ts:230](https://github.com/47chapters/letsgo/blob/11c7e19/packages/stripe/src/index.ts#L230)
+[index.ts:230](https://github.com/47chapters/letsgo/blob/5310a6f/packages/stripe/src/index.ts#L230)
 
 ___
 
@@ -42,7 +42,7 @@ Stripe subscription status.
 
 #### Defined in
 
-[index.ts:226](https://github.com/47chapters/letsgo/blob/11c7e19/packages/stripe/src/index.ts#L226)
+[index.ts:226](https://github.com/47chapters/letsgo/blob/5310a6f/packages/stripe/src/index.ts#L226)
 
 ___
 
@@ -54,4 +54,4 @@ Stripe subscription Id.
 
 #### Defined in
 
-[index.ts:222](https://github.com/47chapters/letsgo/blob/11c7e19/packages/stripe/src/index.ts#L222)
+[index.ts:222](https://github.com/47chapters/letsgo/blob/5310a6f/packages/stripe/src/index.ts#L222)

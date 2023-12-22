@@ -45,7 +45,7 @@ If true, the tenant is returned even if it is deleted (i.e. it's `deletedAt` pro
 
 #### Defined in
 
-[tenant/src/index.ts:508](https://github.com/47chapters/letsgo/blob/11c7e19/packages/tenant/src/index.ts#L508)
+[tenant/src/index.ts:508](https://github.com/47chapters/letsgo/blob/5310a6f/packages/tenant/src/index.ts#L508)
 
 ___
 
@@ -73,4 +73,4 @@ The ID of the tenant to get.
 
 #### Defined in
 
-[tenant/src/index.ts:504](https://github.com/47chapters/letsgo/blob/11c7e19/packages/tenant/src/index.ts#L504)
+[tenant/src/index.ts:504](https://github.com/47chapters/letsgo/blob/5310a6f/packages/tenant/src/index.ts#L504)

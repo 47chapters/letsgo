@@ -22,6 +22,7 @@ export const meHandler: RequestHandler = async (req, res, next) => {
       isBuiltInIssuer(
         (request.user?.decodedJwt?.payload as JwtPayload).iss || ""
       );
+    const returnAccessToken = req.query.returnAccessToken !== undefined;
     let tenants = await getTenantsOfIdentity({
       identity: request.user.identity,
     });
@@ -54,6 +55,7 @@ export const meHandler: RequestHandler = async (req, res, next) => {
     const body: GetMeResponse = {
       identityId: request.user.identityId,
       identity: request.user.identity,
+      accessToken: returnAccessToken ? request.user.jwt : undefined,
       tenants,
     };
     return res.json(body);

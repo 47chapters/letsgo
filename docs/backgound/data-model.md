@@ -2,7 +2,7 @@
 
 The _database_ component of LetsGo consists of a single [DynamoDB](https://aws.amazon.com/pm/dynamodb) table with a very specific structure and usage pattern described below.
 
-<img width="844" alt="image" src="https://github.com/tjanczuk/letsgo/assets/822369/490eda3c-e494-4958-9749-252c8ed8fe31">
+<img width="938" alt="LetsGo Data Model" src="https://github.com/47chapters/letsgo/assets/822369/a5b2c67f-bd94-4e54-a685-18d3138c7029">
 
 ### Table structure
 

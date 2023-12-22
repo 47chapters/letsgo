@@ -54,7 +54,7 @@ The time when the PKI credentials was created.
 
 #### Defined in
 
-[trust/src/issuer.ts:50](https://github.com/47chapters/letsgo/blob/11c7e19/packages/trust/src/issuer.ts#L50)
+[trust/src/issuer.ts:50](https://github.com/47chapters/letsgo/blob/5310a6f/packages/trust/src/issuer.ts#L50)
 
 ___
 
@@ -86,7 +86,7 @@ OAuth key identifier.
 
 #### Defined in
 
-[trust/src/issuer.ts:46](https://github.com/47chapters/letsgo/blob/11c7e19/packages/trust/src/issuer.ts#L46)
+[trust/src/issuer.ts:46](https://github.com/47chapters/letsgo/blob/5310a6f/packages/trust/src/issuer.ts#L46)
 
 ___
 
@@ -102,7 +102,7 @@ Private RSA key in PEM format.
 
 #### Defined in
 
-[trust/src/issuer.ts:42](https://github.com/47chapters/letsgo/blob/11c7e19/packages/trust/src/issuer.ts#L42)
+[trust/src/issuer.ts:42](https://github.com/47chapters/letsgo/blob/5310a6f/packages/trust/src/issuer.ts#L42)
 
 ___
 
@@ -118,7 +118,7 @@ Public RSA key in PEM format.
 
 #### Defined in
 
-[trust/src/issuer.ts:38](https://github.com/47chapters/letsgo/blob/11c7e19/packages/trust/src/issuer.ts#L38)
+[trust/src/issuer.ts:38](https://github.com/47chapters/letsgo/blob/5310a6f/packages/trust/src/issuer.ts#L38)
 
 ___
 

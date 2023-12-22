@@ -1,7 +1,8 @@
 "use client";
 
 import { useUser } from "@auth0/nextjs-auth0/client";
-import { TenantProvider } from "../../../../../../components/TenantProvider";
+import { LoadingPlaceholder } from "components/LoadingPlaceholder";
+import { TenantProvider } from "components/TenantProvider";
 
 export default function AcceptLayout({
   children,
@@ -10,8 +11,16 @@ export default function AcceptLayout({
 }) {
   const { user, error, isLoading } = useUser();
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex justify-center align-middle">
+        <LoadingPlaceholder />
+      </div>
+    );
+  }
+
   if (error) throw error;
+
   if (user) {
     return (
       <TenantProvider noTenantProvisioning={true}>

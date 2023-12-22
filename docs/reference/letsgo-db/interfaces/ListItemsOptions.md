@@ -34,7 +34,7 @@ If true, the read will be strongly consistent read in DynamoDB.
 
 #### Defined in
 
-[index.ts:55](https://github.com/47chapters/letsgo/blob/11c7e19/packages/db/src/index.ts#L55)
+[index.ts:55](https://github.com/47chapters/letsgo/blob/5310a6f/packages/db/src/index.ts#L55)
 
 ___
 
@@ -50,7 +50,7 @@ LetsGo deployment name.
 
 #### Defined in
 
-[index.ts:45](https://github.com/47chapters/letsgo/blob/11c7e19/packages/db/src/index.ts#L45)
+[index.ts:45](https://github.com/47chapters/letsgo/blob/5310a6f/packages/db/src/index.ts#L45)
 
 ___
 
@@ -62,7 +62,7 @@ The maximum number of items to return.
 
 #### Defined in
 
-[index.ts:65](https://github.com/47chapters/letsgo/blob/11c7e19/packages/db/src/index.ts#L65)
+[index.ts:65](https://github.com/47chapters/letsgo/blob/5310a6f/packages/db/src/index.ts#L65)
 
 ___
 
@@ -74,7 +74,7 @@ Continuation token for paginated results.
 
 #### Defined in
 
-[index.ts:69](https://github.com/47chapters/letsgo/blob/11c7e19/packages/db/src/index.ts#L69)
+[index.ts:69](https://github.com/47chapters/letsgo/blob/5310a6f/packages/db/src/index.ts#L69)
 
 ___
 
@@ -90,4 +90,4 @@ AWS region.
 
 #### Defined in
 
-[index.ts:41](https://github.com/47chapters/letsgo/blob/11c7e19/packages/db/src/index.ts#L41)
+[index.ts:41](https://github.com/47chapters/letsgo/blob/5310a6f/packages/db/src/index.ts#L41)

@@ -24,7 +24,7 @@ Submission of the contact form.
 
 #### Defined in
 
-[index.ts:170](https://github.com/47chapters/letsgo/blob/11c7e19/packages/types/src/index.ts#L170)
+[index.ts:174](https://github.com/47chapters/letsgo/blob/5310a6f/packages/types/src/index.ts#L174)
 
 ___
 
@@ -36,7 +36,7 @@ Stripe webhook event.
 
 #### Defined in
 
-[index.ts:174](https://github.com/47chapters/letsgo/blob/11c7e19/packages/types/src/index.ts#L174)
+[index.ts:178](https://github.com/47chapters/letsgo/blob/5310a6f/packages/types/src/index.ts#L178)
 
 ___
 
@@ -48,7 +48,7 @@ LetsGo tenant deleted.
 
 #### Defined in
 
-[index.ts:182](https://github.com/47chapters/letsgo/blob/11c7e19/packages/types/src/index.ts#L182)
+[index.ts:186](https://github.com/47chapters/letsgo/blob/5310a6f/packages/types/src/index.ts#L186)
 
 ___
 
@@ -60,4 +60,4 @@ New LetsGo tenant created.
 
 #### Defined in
 
-[index.ts:178](https://github.com/47chapters/letsgo/blob/11c7e19/packages/types/src/index.ts#L178)
+[index.ts:182](https://github.com/47chapters/letsgo/blob/5310a6f/packages/types/src/index.ts#L182)

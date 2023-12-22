@@ -2,7 +2,7 @@
 
 A single deployment of LetsGo consists of the following components:
 
-<img width="837" alt="image" src="https://github.com/tjanczuk/letsgo/assets/822369/f7fe2317-d7de-4698-b093-416a52a1a145">
+<img width="950" alt="LetsGo Architecture" src="https://github.com/47chapters/letsgo/assets/822369/c9e803b3-c2ee-4b2e-b8a4-16e107342c4e">
 
 You can maintain multiple deployments of this stack in the same or different regions of AWS, and the [LetsGo CLI](../reference/letsgo-cli.md) makes it easy to set up and manage them all. You can also use LetsGo CLI to manage LetsGo stacks across different AWS accounts.
 

@@ -36,4 +36,4 @@ DynamoDB table name
 
 #### Defined in
 
-[index.ts:575](https://github.com/47chapters/letsgo/blob/11c7e19/packages/constants/src/index.ts#L575)
+[index.ts:585](https://github.com/47chapters/letsgo/blob/5310a6f/packages/constants/src/index.ts#L585)

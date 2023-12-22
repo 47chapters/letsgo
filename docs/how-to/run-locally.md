@@ -98,6 +98,15 @@ LETSGO_LOCAL_QUEUE_URL=http://localhost:3002
 
 These settings allow the code you write in the _worker_ component to call the _API_ endpoints as well as enqueue new, asynchronous work for itself using the [@letsgo/queue](../reference/letsgo-queue/README.md) package.
 
+By default, the locally running _worker_ component does not execute scheduled, asynchronous work. If you want to enable running scheduled work, add the following settings to the `apps/worker/.env` file:
+
+```bash
+LETSGO_WORKER_SCHEDULE='rate(1 minute)'
+LETSGO_WORKER_SCHEDULE_TIMEZONE=UTC
+```
+
+They are explained in detail in the [Schedule asynchronous work](./schedule-asynchronous-work.md) topic.
+
 In some situations, the worker may need to call Stripe using the [@letsgo/stripe](../reference/letsgo-stripe/README.md) package. In this case, you must provide the same set of Stripe-related configuration settings to the _worker_ as you did for the _API_ component. In the most general case:
 
 <!-- markdown-link-check-disable -->

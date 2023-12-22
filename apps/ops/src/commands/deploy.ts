@@ -28,6 +28,7 @@ import { ensureDynamo } from "../aws/dynamodb";
 import { ensureQueue } from "../aws/sqs";
 import { ensureLambda } from "../aws/lambda";
 import { createIssuer, getActiveIssuer } from "@letsgo/trust";
+import { ensureSchedule } from "../aws/scheduler";
 
 const AllArtifacts = ["all", "api", "web", "db", "worker"];
 
@@ -250,6 +251,15 @@ async function deployWorker(
     config,
     options.workerTag,
     serviceUrls,
+    logger
+  );
+  // Ensure schedule exists
+  logger("ensuring worker schedule exists", "aws:scheduler");
+  await ensureSchedule(
+    options.region,
+    options.deployment,
+    settings,
+    config,
     logger
   );
 }

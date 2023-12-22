@@ -2,8 +2,8 @@ import { AfterRefetch, AppRouteHandlerFn, Session } from "@auth0/nextjs-auth0";
 import { serializeIdentity } from "@letsgo/trust";
 import jwt from "jsonwebtoken";
 import { NextRequest } from "next/server";
-import { apiRequest, getApiUrl } from "../../../../../components/common-server";
-import { getAuth0 } from "../../../../../components/auth0";
+import { apiRequest, getApiUrl } from "components/common-server";
+import { getAuth0 } from "components/auth0";
 
 /**
  * Save the OpenId profile of the user in the database so that the management portal

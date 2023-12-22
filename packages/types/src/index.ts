@@ -103,8 +103,12 @@ export interface GetMeResponse {
    */
   identity: Identity;
   /**
-   * List of tenants that the user has access to.
+   * The JWT access token of the user. This is only returned if the `returnAccessToken` query parameter is set.
    */
+  accessToken?: string
+  /**
+   * List of tenants that the user has access to.
+   */;
   tenants: Tenant[];
 }
 

@@ -18,9 +18,10 @@
   "dependencies": {
     "@letsgo/db": "*",
     "@letsgo/queue": "*",
-    "@letsgo/types": "*",
-    "@letsgo/trust": "*",
     "@letsgo/slack": "*",
+    "@letsgo/trust": "*",
+    "@letsgo/types": "*",
+    "cron-parser": "^4.9.0",
     "stripe": "^14.2.0"
   },
   "devDependencies": {

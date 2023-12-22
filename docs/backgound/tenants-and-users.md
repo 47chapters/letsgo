@@ -12,7 +12,7 @@ A _tenant_ may have multiple _users_. This represents a situation where multiple
 
 A _user_ in turn may have access to multiple _tenants_. For example, Fubar and Fubaz are companies that are customers of your app. They are different _tenants_ in your system. Now, John is a contractor who works for both Fubar and Fubaz. John is a _user_ in our app who can access either _tenant_ Fubar or _tenant_ Fubaz. The way this manifests itself in the UI presented to the user in the _web_ component is via the tenant selector dropdown:
 
-<img width="254" alt="image" src="https://github.com/tjanczuk/letsgo/assets/822369/7ff31d3a-c2b3-4f96-8b69-11d931179dc8">
+<img width="409" alt="LetsGo Web - Tenant Selector" src="https://github.com/47chapters/letsgo/assets/822369/9d29557e-c254-470f-a00d-96cb3a088aa3">
 
 LetsGo also helps you manage subscription plans. In the LetsGo model, a _tenant_ is at all times associated with a specific _plan_ which describes the parameters of the service the app offers to that tenant. A plan may be a _freemium_ plan or a paid plan associated with a Stripe subscription.
 
