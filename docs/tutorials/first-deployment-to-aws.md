@@ -69,6 +69,10 @@ LetsGo requires that you have an Amazon Web Service (AWS) account and are able t
 1. To create a new AWS account, go [here](https://aws.amazon.com/free).
 1. To install and configure AWS CLI, follow [these instructions](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html).
 
+Note that the recommended authentication method for the AWS CLI is to use short-lived tokens. You can [enable](https://docs.aws.amazon.com/singlesignon/latest/userguide/get-set-up-for-idc.html) AWS IAM Identity Center at no cost, and then [set up users, groups, and appropriate permissions.](https://docs.aws.amazon.com/singlesignon/latest/userguide/quick-start-default-idc.html)
+
+Once you have configured AWS IAM Identity Center to your liking, you can use the `aws configure sso` wizard to establish a session in your AWS CLI, as described [here.](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-quickstart.html)
+
 When you are done, you should be able to run the following:
 
 ```bash
