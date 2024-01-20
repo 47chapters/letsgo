@@ -834,7 +834,7 @@ export async function listLetsGoAppRunnerServices(
   while (true) {
     const result = await apprunner.send(new ListServicesCommand(listInput));
     for (const service of result.ServiceSummaryList || []) {
-      if (service.ServiceName?.startsWith(VendorPrefix)) {
+      if (service.ServiceName?.startsWith(`${VendorPrefix}-`)) {
         const listTagsCommand = new ListTagsForResourceCommand({
           ResourceArn: service.ServiceArn || "",
         });

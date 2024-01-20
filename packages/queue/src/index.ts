@@ -11,7 +11,12 @@ import {
   SQSClient,
   SendMessageCommand,
 } from "@aws-sdk/client-sqs";
-import { DefaultRegion, DefaultDeployment, TagKeys } from "@letsgo/constants";
+import {
+  DefaultRegion,
+  DefaultDeployment,
+  TagKeys,
+  VendorPrefix,
+} from "@letsgo/constants";
 import { Message } from "@letsgo/types";
 import http from "http";
 
@@ -47,24 +52,27 @@ export async function listLetsGoQueues(
   while (true) {
     const result = await sqs.send(new ListQueuesCommand(listInput));
     for (const queueUrl of result.QueueUrls || []) {
-      const listTagsCommand = new ListQueueTagsCommand({
-        QueueUrl: queueUrl,
-      });
-      try {
-        const tagsResult = await sqs.send(listTagsCommand);
-        const deploymentValue = tagsResult.Tags?.[TagKeys.LetsGoDeployment];
-        if (
-          deploymentValue &&
-          (!deployment || deployment === deploymentValue)
-        ) {
-          queues.push(queueUrl);
-        }
-      } catch (e: any) {
-        if (
-          e.name !== "AWS.SimpleQueueService.NonExistentQueue" &&
-          e.name !== "QueueDoesNotExist"
-        ) {
-          throw e;
+      const queueName = queueUrl.split("/").pop();
+      if (queueName?.startsWith(`${VendorPrefix}-`)) {
+        const listTagsCommand = new ListQueueTagsCommand({
+          QueueUrl: queueUrl,
+        });
+        try {
+          const tagsResult = await sqs.send(listTagsCommand);
+          const deploymentValue = tagsResult.Tags?.[TagKeys.LetsGoDeployment];
+          if (
+            deploymentValue &&
+            (!deployment || deployment === deploymentValue)
+          ) {
+            queues.push(queueUrl);
+          }
+        } catch (e: any) {
+          if (
+            e.name !== "AWS.SimpleQueueService.NonExistentQueue" &&
+            e.name !== "QueueDoesNotExist"
+          ) {
+            throw e;
+          }
         }
       }
     }
