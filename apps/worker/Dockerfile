@@ -1,4 +1,4 @@
-FROM public.ecr.aws/lambda/nodejs:18 AS base
+FROM --platform=linux/amd64 public.ecr.aws/lambda/nodejs:18 AS base
 
 FROM base AS builder
 # Set working directory
