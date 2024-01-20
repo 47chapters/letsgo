@@ -1,4 +1,5 @@
 import chalk from "chalk";
+import { Option } from "commander";
 
 export type Logger = (message: string, prefixOverride?: string) => void;
 
@@ -28,4 +29,17 @@ export function getArtifacts(artifacts: string[], allArtifacts: string[]) {
     newArtifacts["worker-scheduler"] = true;
   }
   return newArtifacts;
+}
+
+export function createArtifactOption(
+  artifacts: string[],
+  description: string = "Artifact"
+): Option {
+  const option = new Option(
+    "-a, --artifact [component...]",
+    description
+  ).choices(artifacts);
+  option.makeOptionMandatory(true);
+  option.required = true;
+  return option;
 }

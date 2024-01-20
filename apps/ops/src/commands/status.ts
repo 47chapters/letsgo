@@ -468,9 +468,13 @@ program
   .option(`-r, --region <region>`, `The AWS region`, DefaultRegion)
   .option(`-d, --deployment <deployment>`, `The deployment`, DefaultDeployment)
   .addOption(
-    new Option("-a, --artifact [component...]", "Artifact")
-      .choices(AllArtifacts)
-      .default(["all"])
+    (() => {
+      const option = new Option("-a, --artifact [component...]", "Artifact")
+        .choices(AllArtifacts)
+        .default(["all"]);
+      option.required = true;
+      return option;
+    })()
   )
   .option(
     `-p, --property <property>`,

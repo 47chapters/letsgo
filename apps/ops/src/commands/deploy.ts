@@ -29,6 +29,7 @@ import { ensureQueue } from "../aws/sqs";
 import { ensureLambda } from "../aws/lambda";
 import { createIssuer, getActiveIssuer } from "@letsgo/trust";
 import { ensureSchedule } from "../aws/scheduler";
+import { createArtifactOption } from "./defaults";
 
 const AllArtifacts = ["all", "api", "web", "db", "worker"];
 
@@ -272,11 +273,7 @@ program
   )
   .option(`-r, --region <region>`, `The AWS region`, DefaultRegion)
   .option(`-d, --deployment <deployment>`, `The deployment`, DefaultDeployment)
-  .addOption(
-    new Option("-a, --artifact [component...]", "Artifact").choices(
-      AllArtifacts
-    )
-  )
+  .addOption(createArtifactOption(AllArtifacts))
   .option(
     "--api-tag [sha]",
     "The docker image tag of the 'api' docker image to deploy. Defaults to the last locally built image.",
@@ -293,13 +290,6 @@ program
     WorkerSha
   )
   .action(async (options) => {
-    options.artifact = options.artifact || [];
-    if (options.artifact.length === 0) {
-      console.log(
-        chalk.yellow("No artifacts to deploy specified. Use the '-a' option.")
-      );
-      return;
-    }
     console.log(
       `Deploying ${chalk.bold(
         options.artifact.sort().join(", ")

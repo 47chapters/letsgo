@@ -23,6 +23,7 @@ import { deleteDynamo } from "../aws/dynamodb";
 import { deleteQueue } from "../aws/sqs";
 import { deleteLambda } from "../aws/lambda";
 import { deleteSchedule } from "../aws/scheduler";
+import { createArtifactOption } from "./defaults";
 
 const program = new Command();
 
@@ -155,23 +156,12 @@ program
   )
   .option(`-r, --region <region>`, `The AWS region`, DefaultRegion)
   .option(`-d, --deployment <deployment>`, `The deployment`, DefaultDeployment)
-  .addOption(
-    new Option("-a, --artifact [component...]", "Artifact").choices(
-      AllArtifacts
-    )
-  )
+  .addOption(createArtifactOption(AllArtifacts))
   .option(
     `-k, --kill-data`,
     `Delete all durable data (db, queues), not just transient artifacts`
   )
   .action(async (options) => {
-    options.artifact = options.artifact || [];
-    if (options.artifact.length === 0) {
-      console.log(
-        chalk.yellow("No artifacts to remove specified. Use the '-a' option.")
-      );
-      return;
-    }
     console.log(
       `Removing ${chalk.bold(
         options.artifact.sort().join(", ")
