@@ -166,9 +166,11 @@ program
   )
   .action(async (options) => {
     options.artifact = options.artifact || [];
-    if (options.artifact.length === 0) {
+    // When -a param is set without providing artifacts to remove, the value is set to true instead of empty array
+    if (typeof options.artifact === 'boolean') {
       console.log(
-        chalk.yellow("No artifacts to remove specified. Use the '-a' option.")
+        chalk.yellow("No artifacts to remove specified. Use the '-a' option."),
+        chalk.yellow("\nValid artifacts are: " + AllArtifacts.join(", "))
       );
       return;
     }
