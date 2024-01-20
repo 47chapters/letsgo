@@ -38,6 +38,7 @@ import {
   ConfigSettings,
   TagKeys,
   WebConfiguration,
+  VendorPrefix,
 } from "@letsgo/constants";
 
 const MaxWaitTimeForAppRunnerCreate = 60 * 15;
@@ -833,23 +834,25 @@ export async function listLetsGoAppRunnerServices(
   while (true) {
     const result = await apprunner.send(new ListServicesCommand(listInput));
     for (const service of result.ServiceSummaryList || []) {
-      const listTagsCommand = new ListTagsForResourceCommand({
-        ResourceArn: service.ServiceArn || "",
-      });
-      const tagsResult = await apprunner.send(listTagsCommand);
-      const deploymentValue = tagsResult.Tags?.find(
-        (tag) => tag.Key === TagKeys.LetsGoDeployment
-      )?.Value;
-      const componentValue = tagsResult.Tags?.find(
-        (tag) => tag.Key === TagKeys.LetsGoComponent
-      )?.Value;
-      if (
-        deploymentValue &&
-        componentValue &&
-        (!deployment || deployment === deploymentValue) &&
-        (!component || component === componentValue)
-      ) {
-        services.push({ ...service, Tags: tagsResult.Tags });
+      if (service.ServiceName?.startsWith(VendorPrefix)) {
+        const listTagsCommand = new ListTagsForResourceCommand({
+          ResourceArn: service.ServiceArn || "",
+        });
+        const tagsResult = await apprunner.send(listTagsCommand);
+        const deploymentValue = tagsResult.Tags?.find(
+          (tag) => tag.Key === TagKeys.LetsGoDeployment
+        )?.Value;
+        const componentValue = tagsResult.Tags?.find(
+          (tag) => tag.Key === TagKeys.LetsGoComponent
+        )?.Value;
+        if (
+          deploymentValue &&
+          componentValue &&
+          (!deployment || deployment === deploymentValue) &&
+          (!component || component === componentValue)
+        ) {
+          services.push({ ...service, Tags: tagsResult.Tags });
+        }
       }
     }
     if (!result.NextToken) {
