@@ -757,8 +757,14 @@ export const WorkerConfiguration: WorkerSettings = {
           "sqs:ReceiveMessage",
           "sqs:DeleteMessage",
           "sqs:GetQueueAttributes",
+          "sqs:SendMessage",
         ],
         Resource: `arn:aws:sqs:${region}:${accountId}:${VendorPrefix}-${deployment}*`,
+      },
+      {
+        Effect: "Allow",
+        Action: ["sqs:ListQueueTags", "sqs:ListQueues"],
+        Resource: `arn:aws:sqs:${region}:${accountId}:*`,
       },
       {
         Effect: "Allow",
