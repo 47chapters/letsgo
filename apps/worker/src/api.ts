@@ -1,7 +1,7 @@
 import { createJwt } from "@letsgo/trust";
 import { VendorPrefix } from "@letsgo/constants";
 
-const DefaultWorkerAccessTokenExpiry = 3600;
+const DefaultWorkerAccessTokenExpirySeconds = 3600;
 const RenewBeforeExpirySeconds = 60;
 const WorkerSubject = `${VendorPrefix}:worker`;
 
@@ -16,12 +16,12 @@ let token: string = "";
 export async function getAccessToken() {
   if (renewAt < Date.now()) {
     token = await createJwt({
-      expiresIn: `${DefaultWorkerAccessTokenExpiry}`,
+      expiresIn: `${DefaultWorkerAccessTokenExpirySeconds}s`,
       subject: WorkerSubject,
     });
     renewAt =
       Date.now() +
-      (DefaultWorkerAccessTokenExpiry - RenewBeforeExpirySeconds) * 1000;
+      (DefaultWorkerAccessTokenExpirySeconds - RenewBeforeExpirySeconds) * 1000;
   }
   return token;
 }
