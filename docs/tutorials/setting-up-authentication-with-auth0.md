@@ -167,7 +167,7 @@ The `ey...` string in the `authorization` header will be quite a bit longer. It 
 
 ```bash
 $ curl --request GET \
->   --url https://localhost:3001/v1/me \
+>   --url http://localhost:3001/v1/me \
 >   --header 'authorization: Bearer eyJhbGciOi...31JX_NE2nAzwI2zyvW8qXcLuBk9hdb1RFdQ'
 ```
 
