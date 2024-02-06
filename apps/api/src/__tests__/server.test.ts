@@ -30,19 +30,14 @@ const createTestServer = () => {
 
   const handler: RequestHandler = (request, response) =>
     response.json({
-      params: request.params,
+      locals: response.locals,
       token: (request as AuthenticatedRequest).user.decodedJwt,
     });
 
   app.get("/1", authenticate(), handler);
-  app.get("/2", authenticate({ useTenantIdFromToken: true }), handler);
+  app.get("/2", authenticate(), handler);
   app.get("/3/:tenantId", authenticate(), authorizeTenant(), handler);
-  app.get(
-    "/3",
-    authenticate({ useTenantIdFromToken: true }),
-    authorizeTenant(),
-    handler
-  );
+  app.get("/3", authenticate(), authorizeTenant(), handler);
 
   return app;
 };
@@ -126,7 +121,7 @@ describe("api", () => {
       sub: "letsgo:test",
       [TenantIdClaim]: testTenantId,
     });
-    expect(res.body.params).toMatchObject({
+    expect(res.body.locals).toMatchObject({
       tenantId: testTenantId,
     });
   });
@@ -167,8 +162,16 @@ describe("api", () => {
       sub: "letsgo:test",
       [TenantIdClaim]: testTenantId,
     });
-    expect(res.body.params).toMatchObject({
+    expect(res.body.locals).toMatchObject({
       tenantId: testTenantId,
     });
+  });
+
+  it("GET /3 with access token without tenantId returns 403", async () => {
+    const accessToken = await getAccessToken();
+    const res = await supertest(createTestServer())
+      .get("/3")
+      .set("Authorization", `Bearer ${accessToken}`)
+      .expect(403);
   });
 });

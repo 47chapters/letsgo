@@ -41,16 +41,7 @@ export function isAuthenticatedRequest(
   return (request as AuthenticatedRequest).user !== undefined;
 }
 
-export interface AuthenticationOptions {
-  /**
-   * If the tenantId slug is absent in the request path, use the tenantId claim from the token to
-     synthetically populate it. This allows for shorter URLs to be used with access tokens
-     that specify the tenantId.
-   */
-  useTenantIdFromToken?: boolean;
-}
-
-export function authenticate(options?: AuthenticationOptions): RequestHandler {
+export function authenticate(): RequestHandler {
   const authenticationHandler: RequestHandler = async (
     request,
     response,
@@ -84,16 +75,10 @@ export function authenticate(options?: AuthenticationOptions): RequestHandler {
           jwt: token,
           decodedJwt,
         };
-        if (options?.useTenantIdFromToken) {
-          // If the tenantId slug is absent in the request path, use the tenantId claim from the token to
-          // synthetically populate it. This allows for shorter URLs to be used with access tokens
-          // that specify the tenantId.
-          const tenantIdClaim = (decodedJwt.payload as JwtPayload)[
-            TenantIdClaim
-          ];
-          if (tenantIdClaim && !request.params.tenantId) {
-            request.params.tenantId = tenantIdClaim as string;
-          }
+        const tenantIdClaim = (decodedJwt.payload as JwtPayload)[TenantIdClaim];
+        if (tenantIdClaim) {
+          // Promote tenantId claim from the token to the request context
+          response.locals.tenantId = tenantIdClaim;
         }
         next();
         return;

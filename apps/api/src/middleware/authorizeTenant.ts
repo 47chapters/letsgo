@@ -36,12 +36,13 @@ export function authorizeTenant(
       return;
     }
 
-    // If the access token specifies the tenantId claim, check if it matches the tenantId slug
+    // If the access token specifies the tenantId claim, ensure it either matches the tenantId slug
+    // or the tenantId slug is not defined
     const tenantIdClaim = (
       authenticatedRequest.user?.decodedJwt?.payload as JwtPayload
     )[TenantIdClaim];
     if (tenantIdClaim) {
-      if (tenantId === tenantIdClaim) {
+      if (tenantId === tenantIdClaim || tenantId === undefined) {
         next();
         return;
       }
