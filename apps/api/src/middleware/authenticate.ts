@@ -1,4 +1,9 @@
-import { Identity, verifyJwt, serializeIdentity } from "@letsgo/trust";
+import {
+  Identity,
+  verifyJwt,
+  serializeIdentity,
+  TenantIdClaim,
+} from "@letsgo/trust";
 import {
   DefaultRegion,
   DefaultDeployment,
@@ -36,7 +41,16 @@ export function isAuthenticatedRequest(
   return (request as AuthenticatedRequest).user !== undefined;
 }
 
-export function authenticate(): RequestHandler {
+export interface AuthenticationOptions {
+  /**
+   * If the tenantId slug is absent in the request path, use the tenantId claim from the token to
+     synthetically populate it. This allows for shorter URLs to be used with access tokens
+     that specify the tenantId.
+   */
+  useTenantIdFromToken?: boolean;
+}
+
+export function authenticate(options?: AuthenticationOptions): RequestHandler {
   const authenticationHandler: RequestHandler = async (
     request,
     response,
@@ -70,6 +84,17 @@ export function authenticate(): RequestHandler {
           jwt: token,
           decodedJwt,
         };
+        if (options?.useTenantIdFromToken) {
+          // If the tenantId slug is absent in the request path, use the tenantId claim from the token to
+          // synthetically populate it. This allows for shorter URLs to be used with access tokens
+          // that specify the tenantId.
+          const tenantIdClaim = (decodedJwt.payload as JwtPayload)[
+            TenantIdClaim
+          ];
+          if (tenantIdClaim && !request.params.tenantId) {
+            request.params.tenantId = tenantIdClaim as string;
+          }
+        }
         next();
         return;
       }

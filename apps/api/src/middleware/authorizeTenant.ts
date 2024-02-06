@@ -2,7 +2,7 @@ import { isIdentityInTenant } from "@letsgo/tenant";
 import { RequestHandler } from "express";
 import createError from "http-errors";
 import { AuthenticatedRequest } from "./authenticate";
-import { isBuiltInIssuer } from "@letsgo/trust";
+import { TenantIdClaim, isBuiltInIssuer } from "@letsgo/trust";
 import { JwtPayload } from "jsonwebtoken";
 
 export interface AuthorizeTenantOptions {
@@ -36,8 +36,17 @@ export function authorizeTenant(
       return;
     }
 
-    // Check if identityId is a member of tenantId
-    if (
+    // If the access token specifies the tenantId claim, check if it matches the tenantId slug
+    const tenantIdClaim = (
+      authenticatedRequest.user?.decodedJwt?.payload as JwtPayload
+    )[TenantIdClaim];
+    if (tenantIdClaim) {
+      if (tenantId === tenantIdClaim) {
+        next();
+        return;
+      }
+    } else if (
+      // Otherwise, check if identityId is a member of tenantId
       tenantId &&
       identityId &&
       (await isIdentityInTenant({ tenantId, identityId }))

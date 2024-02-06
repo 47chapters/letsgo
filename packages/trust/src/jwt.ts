@@ -9,6 +9,11 @@ import { StaticJwtAudience } from "@letsgo/constants";
 export const DefaultExpiry = "8h";
 
 /**
+ * The `letsgo:tenantId` claim in the JWT can be used to specify the tenantId the token can be used to access.
+ */
+export const TenantIdClaim = "letsgo:tenantId";
+
+/**
  * Options for creating a JWT access token.
  */
 export interface CreateJwtOptions {
@@ -30,6 +35,10 @@ export interface CreateJwtOptions {
    * or an expression like `8h`, `2d`, etc. If `0` is specified, a non-expiring JWT token is issued.
    */
   expiresIn?: string;
+  /**
+   * Additional claims to include in the JWT.
+   */
+  claims?: { [key: string]: any };
 }
 
 /**
@@ -53,7 +62,7 @@ export async function createJwt(options?: CreateJwtOptions): Promise<string> {
   }
 
   // Create JWT
-  const token = sign({}, options.issuer.privateKey, {
+  const token = sign(options.claims || {}, options.issuer.privateKey, {
     algorithm: "RS256",
     ...(+options.expiresIn === 0 ? {} : { expiresIn: options.expiresIn }),
     audience: options.audience,

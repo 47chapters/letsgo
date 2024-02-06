@@ -42,9 +42,25 @@ program
     `The expiration time of the JWT token, e.g. 60s, 1h, 1d, or 0 for non-expiring tokens`,
     "8h"
   )
+  .option(
+    "-c, --claim [key=value...]",
+    `Additional claims to include in the JWT`
+  )
   .option(`-v --verbose`, `Verbose output`)
   .action(async (issuer, options) => {
     try {
+      const claims: { [key: string]: any } = {};
+      if (options.claim) {
+        for (const claim of options.claim) {
+          const parts = claim.split("=");
+          if (parts.length !== 2) {
+            throw new Error(
+              `Invalid claim: '${claim}'. The claim must be in the format 'key=value'.`
+            );
+          }
+          claims[parts[0]] = parts[1];
+        }
+      }
       const activeIssuer = issuer
         ? await getIssuer(issuer, options)
         : await getActiveIssuer(options);
@@ -63,6 +79,7 @@ program
         issuer: activeIssuer,
         audience: options.aud,
         expiresIn: options.expiresIn,
+        claims,
       });
       console.log(jwt);
     } catch (e: any) {
