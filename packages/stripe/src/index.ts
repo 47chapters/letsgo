@@ -15,31 +15,37 @@ import {
 import createError from "http-errors";
 
 /**
+ * Stripe mode for the API client.
+ */
+export type StripeMode = "LIVE" | "TEST";
+
+/**
  * Configuration for _live_ or _test_ mode of the Stripe API client.
  */
 export interface StripeConfiguration {
-  stripeMode: "LIVE" | "TEST";
+  stripeMode: StripeMode;
   secretKey: string;
   publicKey: string;
   webhookKey: string;
 }
 
-function getStripeMode() {
+function getStripeMode(): StripeMode {
   const live = process.env["LETSGO_STRIPE_LIVE_MODE"] === "1";
   const stripeMode = live ? "LIVE" : "TEST";
   return stripeMode;
 }
 
-let stripeConfiguration: StripeConfiguration;
+let stripeConfiguration: { [mode: string]: StripeConfiguration };
 /**
- * Determine the Stripe configuration based on the environment variables. Depending on the value of the `LETSGO_STRIPE_LIVE_MODE`
- * environment variable, the configuration will use environment variables specific to the _live_ or _test_ mode to
- * determine the public, secret, and webhook keys for Stripe.
+ * Determine the Stripe configuration based on the environment variables. If the _mode_ parameter is not specified,
+ * the mode is selected using the value of the `LETSGO_STRIPE_LIVE_MODE`
+ * environment variable. Based on the mode, the configuration will use environment variables specific to the
+ * _live_ or _test_ mode to determine the public, secret, and webhook keys for Stripe.
  * @returns
  */
-export function getStripeConfiguration(): StripeConfiguration {
-  if (!stripeConfiguration) {
-    const stripeMode = getStripeMode();
+export function getStripeConfiguration(mode?: StripeMode): StripeConfiguration {
+  const stripeMode = mode || getStripeMode();
+  if (!stripeConfiguration[stripeMode]) {
     const requiredEnvVars = [
       "LETSGO_STRIPE_LIVE_MODE",
       `LETSGO_STRIPE_${stripeMode}_SECRET_KEY`,
@@ -57,7 +63,7 @@ export function getStripeConfiguration(): StripeConfiguration {
         )}.`
       );
     }
-    stripeConfiguration = {
+    stripeConfiguration[stripeMode] = {
       stripeMode,
       secretKey: process.env[
         `LETSGO_STRIPE_${stripeMode}_SECRET_KEY`
@@ -70,7 +76,7 @@ export function getStripeConfiguration(): StripeConfiguration {
       ] as string,
     };
   }
-  return stripeConfiguration;
+  return stripeConfiguration[stripeMode];
 }
 
 let stripeClient: Stripe;
@@ -96,6 +102,10 @@ export interface ValidateWebhookEventOptions {
    * The value of the `Stripe-signature` HTTP request header.
    */
   signature: string;
+  /**
+   * The mode of the Stripe environment that sent the webhook event.
+   */
+  mode: StripeMode;
 }
 
 /**
@@ -107,7 +117,7 @@ export async function validateWebhookEvent(
   options: ValidateWebhookEventOptions
 ): Promise<Stripe.Event> {
   const stripe = getStripeClient();
-  const webhookKey = getStripeConfiguration().webhookKey;
+  const webhookKey = getStripeConfiguration(options.mode).webhookKey;
   const event = stripe.webhooks.constructEvent(
     options.body,
     options.signature,

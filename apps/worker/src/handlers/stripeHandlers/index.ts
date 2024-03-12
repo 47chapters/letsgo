@@ -1,12 +1,14 @@
 import { sendSlackMessage } from "@letsgo/slack";
 import { MessageHandler } from "..";
 import { invoicePaid } from "./invoicePaid";
+import { StripeMode } from "@letsgo/stripe";
 
 export interface StripeMessage<T> {
   type: string;
   data: {
     object: T;
   };
+  stripeMode: StripeMode;
   [key: string]: any;
 }
 
@@ -14,11 +16,11 @@ export const unrecognizedStripeMessageTypeHandler: MessageHandler<
   StripeMessage<any>
 > = async (message, event, context) => {
   console.log(
-    "UNSUPPORTED STRIPE MESSAGE TYPE, IGNORING",
+    `UNSUPPORTED ${message.stripeMode} STRIPE MESSAGE TYPE, IGNORING`,
     JSON.stringify(message, null, 2)
   );
   await sendSlackMessage(
-    `:credit_card: Worker received an unsupported Stripe webhook (ignoring): *${message.type}*`
+    `:credit_card: [${message.stripeMode}] Worker received an unsupported Stripe webhook (ignoring): *${message.type}*`
   );
 };
 

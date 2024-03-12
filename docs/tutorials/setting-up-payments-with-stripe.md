@@ -18,7 +18,9 @@ We use Stripe CLI to tunnel webhook events related to payment and subscription l
 
 ### Collect the API keys from Stripe
 
-For the purpose of this tutorial, we exclusively use Stripe's test mode intended for development and testing. Stripe's test mode does not affect the flow of actual money and has its own set of API keys separate from production. You will need three keys: _publishable key_, _secret key_, and the _webhook signing secret_.
+For the purpose of this tutorial, we exclusively use Stripe's test mode intended for development and testing. Stripe's test mode does not affect the flow of actual money and has its own set of API keys separate from production. Setting up the live Stripe environment generally follows the same steps, except where indicated.
+
+You will need three keys: _publishable key_, _secret key_, and the _webhook signing secret_.
 
 You can access the _publishable key_ and _secret \_key_ for Stripe's test mode from [Test Mode API Keys](https://dashboard.stripe.com/test/apikeys) section of the Stripe dashboard.
 
@@ -28,7 +30,7 @@ To access the _webhook signing secret_, you must first register a new webhook en
 
 1. Determine the base URL of your _API_ server running in AWS by executing `yarn ops status -a api`. The _Url_ property contains the _API_ base URL.
 1. Go to the [Test Mode Webhooks](https://dashboard.stripe.com/test/webhooks) page of the Stripe's dashboard and choose _Add endpoint_ in the _Hosted endpoints_ section.
-1. In the _Endpoint URL_, enter `{base-url}/v1/stripe/webhook`, where `{base-url}` is the _API_ base URL you determined above.
+1. In the _Endpoint URL_, enter `{base-url}/v1/stripe/webhook/test`, where `{base-url}` is the _API_ base URL you determined above (**NOTE** when setting up live Stripe environment, you need to enter `{base-url}/v1/stripe/webhook/live` for the _Endpoint URL_).
 1. Click _Select events_ and check the checkbox next to _select all events_. Then click _Add events_.
 1. Back on the previous screen, click _Add endpoint_.
 1. You will now see a page with the status of the endpoint. Click _Reveal_ under _Signing secret_. Take note of this _webhook signing secret_, its value starts with `whsec_`.
@@ -56,6 +58,8 @@ EOF
 
 Remember to substitute the _publishable key_, _secret key_, and the _webhook signing secret_ obtained from the Stripe CLI above for `{publishable-key}`, `{secret-key}`, and `{cli-webhook-signing-secret}`, respectively.
 
+**NOTE** When setting up live Stripe environment, you need to set the `LETSGO_STRIPE_LIVE_PUBLIC_KEY`, `LETSGO_STRIPE_LIVE_SECRET_KEY`, and `LETSGO_STRIPE_LIVE_WEBHOOK_KEY` configuration settings instead.
+
 ### Configure Stripe in AWS
 
 Run the following commands to configure Stripe for the deployed version of your app in AWS:
@@ -68,6 +72,8 @@ yarn ops config set LETSGO_STRIPE_TEST_WEBHOOK_KEY={cloud-webhook-signing-secret
 ```
 
 Remember to substitute the _publishable key_, _secret key_, and the _webhook signing secret_ obtained when adding a webhook endpoint in the Stripe dashboard for `{publishable-key}`, `{secret-key}`, and `{cloud-webhook-signing-secret}`, respectively. The `{cloud-webhook-signing-secret}` is the _webhook signing secret_ obtained when [registering a Stipe webook](#registering-a-stripe-webhook) previously.
+
+**NOTE** When setting up live Stripe environment, you need to set the `LETSGO_STRIPE_LIVE_PUBLIC_KEY`, `LETSGO_STRIPE_LIVE_SECRET_KEY`, and `LETSGO_STRIPE_LIVE_WEBHOOK_KEY` configuration settings instead.
 
 For those configuration changes to take effect, you need to re-deploy your application with:
 

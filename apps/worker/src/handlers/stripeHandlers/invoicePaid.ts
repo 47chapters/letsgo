@@ -10,7 +10,9 @@ export const invoicePaid: MessageHandler<
   const o = message.data.object;
   await sendSlackMessage(
     [
-      `:boom::moneybag: You've got paid *${o.currency.toUpperCase()} ${Math.round(
+      `:boom::moneybag: [${
+        message.stripeMode
+      }] You've got paid *${o.currency.toUpperCase()} ${Math.round(
         o.amount_paid / 100
       ).toFixed(2)}*`,
       `*Subscription Id:* ${o.subscription}`,
