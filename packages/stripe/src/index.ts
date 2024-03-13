@@ -35,7 +35,7 @@ function getStripeMode(): StripeMode {
   return stripeMode;
 }
 
-let stripeConfiguration: { [mode: string]: StripeConfiguration };
+const stripeConfiguration: { [mode: string]: StripeConfiguration } = {};
 /**
  * Determine the Stripe configuration based on the environment variables. If the _mode_ parameter is not specified,
  * the mode is selected using the value of the `LETSGO_STRIPE_LIVE_MODE`
