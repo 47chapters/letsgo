@@ -24,7 +24,7 @@ of the LetsGo user who initiated the transaction, if available.
 
 #### Defined in
 
-[index.ts:139](https://github.com/47chapters/letsgo/blob/5310a6f/packages/stripe/src/index.ts#L139)
+[index.ts:149](https://github.com/47chapters/letsgo/blob/06da252/packages/stripe/src/index.ts#L149)
 
 ___
 
@@ -36,7 +36,7 @@ Identity of the LetsGo user who initiated the transaction to associate with the 
 
 #### Defined in
 
-[index.ts:130](https://github.com/47chapters/letsgo/blob/5310a6f/packages/stripe/src/index.ts#L130)
+[index.ts:140](https://github.com/47chapters/letsgo/blob/06da252/packages/stripe/src/index.ts#L140)
 
 ___
 
@@ -48,7 +48,7 @@ Friendly name of the customer in Stripe.
 
 #### Defined in
 
-[index.ts:134](https://github.com/47chapters/letsgo/blob/5310a6f/packages/stripe/src/index.ts#L134)
+[index.ts:144](https://github.com/47chapters/letsgo/blob/06da252/packages/stripe/src/index.ts#L144)
 
 ___
 
@@ -60,4 +60,4 @@ LetsGo tenant ID to associate with the Stripe customer.
 
 #### Defined in
 
-[index.ts:126](https://github.com/47chapters/letsgo/blob/5310a6f/packages/stripe/src/index.ts#L126)
+[index.ts:136](https://github.com/47chapters/letsgo/blob/06da252/packages/stripe/src/index.ts#L136)

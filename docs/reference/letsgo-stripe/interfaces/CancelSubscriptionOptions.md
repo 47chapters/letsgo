@@ -21,7 +21,7 @@ Identity of the LetsGo user who initiated the transaction to cancel the Stripe s
 
 #### Defined in
 
-[index.ts:478](https://github.com/47chapters/letsgo/blob/5310a6f/packages/stripe/src/index.ts#L478)
+[index.ts:488](https://github.com/47chapters/letsgo/blob/06da252/packages/stripe/src/index.ts#L488)
 
 ___
 
@@ -33,4 +33,4 @@ The Stripe subscription ID to cancel.
 
 #### Defined in
 
-[index.ts:474](https://github.com/47chapters/letsgo/blob/5310a6f/packages/stripe/src/index.ts#L474)
+[index.ts:484](https://github.com/47chapters/letsgo/blob/06da252/packages/stripe/src/index.ts#L484)

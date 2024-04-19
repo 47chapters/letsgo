@@ -31,7 +31,7 @@ Message payload.
 
 #### Defined in
 
-[index.ts:250](https://github.com/47chapters/letsgo/blob/5310a6f/packages/types/src/index.ts#L250)
+[index.ts:250](https://github.com/47chapters/letsgo/blob/06da252/packages/types/src/index.ts#L250)
 
 ___
 
@@ -47,4 +47,4 @@ Message type.
 
 #### Defined in
 
-[index.ts:246](https://github.com/47chapters/letsgo/blob/5310a6f/packages/types/src/index.ts#L246)
+[index.ts:246](https://github.com/47chapters/letsgo/blob/06da252/packages/types/src/index.ts#L246)

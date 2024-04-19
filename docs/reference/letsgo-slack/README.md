@@ -38,4 +38,4 @@ variable is not set, the message is not sent, and the function returns immediate
 
 #### Defined in
 
-[index.ts:43](https://github.com/47chapters/letsgo/blob/11c7e19/packages/slack/src/index.ts#L43)
+[index.ts:43](https://github.com/47chapters/letsgo/blob/06da252/packages/slack/src/index.ts#L43)

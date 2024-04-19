@@ -45,7 +45,7 @@ The identity of the user whose tenants are to be returned.
 
 #### Defined in
 
-[tenant/src/index.ts:614](https://github.com/47chapters/letsgo/blob/5310a6f/packages/tenant/src/index.ts#L614)
+[tenant/src/index.ts:614](https://github.com/47chapters/letsgo/blob/06da252/packages/tenant/src/index.ts#L614)
 
 ___
 
@@ -57,7 +57,7 @@ If true, the result includes tenants that have been deleted.
 
 #### Defined in
 
-[tenant/src/index.ts:618](https://github.com/47chapters/letsgo/blob/5310a6f/packages/tenant/src/index.ts#L618)
+[tenant/src/index.ts:618](https://github.com/47chapters/letsgo/blob/06da252/packages/tenant/src/index.ts#L618)
 
 ___
 

@@ -24,7 +24,7 @@ The JWT access token of the user. This is only returned if the `returnAccessToke
 
 #### Defined in
 
-[index.ts:108](https://github.com/47chapters/letsgo/blob/5310a6f/packages/types/src/index.ts#L108)
+[index.ts:108](https://github.com/47chapters/letsgo/blob/06da252/packages/types/src/index.ts#L108)
 
 ___
 
@@ -36,7 +36,7 @@ Deserialized identity of the user.
 
 #### Defined in
 
-[index.ts:104](https://github.com/47chapters/letsgo/blob/5310a6f/packages/types/src/index.ts#L104)
+[index.ts:104](https://github.com/47chapters/letsgo/blob/06da252/packages/types/src/index.ts#L104)
 
 ___
 
@@ -48,7 +48,7 @@ Serialized identityId of the user.
 
 #### Defined in
 
-[index.ts:100](https://github.com/47chapters/letsgo/blob/5310a6f/packages/types/src/index.ts#L100)
+[index.ts:100](https://github.com/47chapters/letsgo/blob/06da252/packages/types/src/index.ts#L100)
 
 ___
 
@@ -58,4 +58,4 @@ ___
 
 #### Defined in
 
-[index.ts:112](https://github.com/47chapters/letsgo/blob/5310a6f/packages/types/src/index.ts#L112)
+[index.ts:112](https://github.com/47chapters/letsgo/blob/06da252/packages/types/src/index.ts#L112)

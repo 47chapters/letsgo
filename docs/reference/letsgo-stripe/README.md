@@ -24,6 +24,10 @@ to the LetsGo use cases which wrap relevant Stripe API calls.
 - [UpdateSubscriptionOptions](interfaces/UpdateSubscriptionOptions.md)
 - [ValidateWebhookEventOptions](interfaces/ValidateWebhookEventOptions.md)
 
+### Type Aliases
+
+- [StripeMode](README.md#stripemode)
+
 ### Functions
 
 - [cancelSubscription](README.md#cancelsubscription)
@@ -37,6 +41,18 @@ to the LetsGo use cases which wrap relevant Stripe API calls.
 - [tryGetPrice](README.md#trygetprice)
 - [updateSubscription](README.md#updatesubscription)
 - [validateWebhookEvent](README.md#validatewebhookevent)
+
+## Type Aliases
+
+### StripeMode
+
+Ƭ **StripeMode**: ``"LIVE"`` \| ``"TEST"``
+
+Stripe mode for the API client.
+
+#### Defined in
+
+[index.ts:20](https://github.com/47chapters/letsgo/blob/06da252/packages/stripe/src/index.ts#L20)
 
 ## Functions
 
@@ -61,7 +77,7 @@ Updated Stripe subscription.
 
 #### Defined in
 
-[index.ts:487](https://github.com/47chapters/letsgo/blob/5310a6f/packages/stripe/src/index.ts#L487)
+[index.ts:497](https://github.com/47chapters/letsgo/blob/06da252/packages/stripe/src/index.ts#L497)
 
 ___
 
@@ -86,7 +102,7 @@ Parameters describing the result of a completed Stripe payment setup.
 
 #### Defined in
 
-[index.ts:395](https://github.com/47chapters/letsgo/blob/5310a6f/packages/stripe/src/index.ts#L395)
+[index.ts:405](https://github.com/47chapters/letsgo/blob/06da252/packages/stripe/src/index.ts#L405)
 
 ___
 
@@ -110,7 +126,7 @@ New Stripe customer.
 
 #### Defined in
 
-[index.ts:147](https://github.com/47chapters/letsgo/blob/5310a6f/packages/stripe/src/index.ts#L147)
+[index.ts:157](https://github.com/47chapters/letsgo/blob/06da252/packages/stripe/src/index.ts#L157)
 
 ___
 
@@ -136,7 +152,7 @@ Parameters describing the newly created Stripe payment setup including the payme
 
 #### Defined in
 
-[index.ts:328](https://github.com/47chapters/letsgo/blob/5310a6f/packages/stripe/src/index.ts#L328)
+[index.ts:338](https://github.com/47chapters/letsgo/blob/06da252/packages/stripe/src/index.ts#L338)
 
 ___
 
@@ -161,7 +177,7 @@ Parameters describing the newly created Stripe subscription including the paymen
 
 #### Defined in
 
-[index.ts:266](https://github.com/47chapters/letsgo/blob/5310a6f/packages/stripe/src/index.ts#L266)
+[index.ts:276](https://github.com/47chapters/letsgo/blob/06da252/packages/stripe/src/index.ts#L276)
 
 ___
 
@@ -186,17 +202,24 @@ The Stripe price with the specified lookup key.
 
 #### Defined in
 
-[index.ts:185](https://github.com/47chapters/letsgo/blob/5310a6f/packages/stripe/src/index.ts#L185)
+[index.ts:195](https://github.com/47chapters/letsgo/blob/06da252/packages/stripe/src/index.ts#L195)
 
 ___
 
 ### getStripeConfiguration
 
-▸ **getStripeConfiguration**(): [`StripeConfiguration`](interfaces/StripeConfiguration.md)
+▸ **getStripeConfiguration**(`mode?`): [`StripeConfiguration`](interfaces/StripeConfiguration.md)
 
-Determine the Stripe configuration based on the environment variables. Depending on the value of the `LETSGO_STRIPE_LIVE_MODE`
-environment variable, the configuration will use environment variables specific to the _live_ or _test_ mode to
-determine the public, secret, and webhook keys for Stripe.
+Determine the Stripe configuration based on the environment variables. If the _mode_ parameter is not specified,
+the mode is selected using the value of the `LETSGO_STRIPE_LIVE_MODE`
+environment variable. Based on the mode, the configuration will use environment variables specific to the
+_live_ or _test_ mode to determine the public, secret, and webhook keys for Stripe.
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `mode?` | [`StripeMode`](README.md#stripemode) |
 
 #### Returns
 
@@ -204,7 +227,7 @@ determine the public, secret, and webhook keys for Stripe.
 
 #### Defined in
 
-[index.ts:40](https://github.com/47chapters/letsgo/blob/5310a6f/packages/stripe/src/index.ts#L40)
+[index.ts:46](https://github.com/47chapters/letsgo/blob/06da252/packages/stripe/src/index.ts#L46)
 
 ___
 
@@ -228,7 +251,7 @@ Select parameters of a Stripe subscription with the specified ID or `undefined` 
 
 #### Defined in
 
-[index.ts:522](https://github.com/47chapters/letsgo/blob/5310a6f/packages/stripe/src/index.ts#L522)
+[index.ts:532](https://github.com/47chapters/letsgo/blob/06da252/packages/stripe/src/index.ts#L532)
 
 ___
 
@@ -252,7 +275,7 @@ The Stripe price with the specified lookup key or undefined if not found.
 
 #### Defined in
 
-[index.ts:168](https://github.com/47chapters/letsgo/blob/5310a6f/packages/stripe/src/index.ts#L168)
+[index.ts:178](https://github.com/47chapters/letsgo/blob/06da252/packages/stripe/src/index.ts#L178)
 
 ___
 
@@ -276,7 +299,7 @@ Updated Stripe subscription.
 
 #### Defined in
 
-[index.ts:446](https://github.com/47chapters/letsgo/blob/5310a6f/packages/stripe/src/index.ts#L446)
+[index.ts:456](https://github.com/47chapters/letsgo/blob/06da252/packages/stripe/src/index.ts#L456)
 
 ___
 
@@ -300,4 +323,4 @@ Validated Stripe event.
 
 #### Defined in
 
-[index.ts:106](https://github.com/47chapters/letsgo/blob/5310a6f/packages/stripe/src/index.ts#L106)
+[index.ts:116](https://github.com/47chapters/letsgo/blob/06da252/packages/stripe/src/index.ts#L116)

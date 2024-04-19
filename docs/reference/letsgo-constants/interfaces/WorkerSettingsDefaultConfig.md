@@ -36,7 +36,7 @@ The maximum number of messages the _worker_ component can process in a single in
 
 #### Defined in
 
-[index.ts:629](https://github.com/47chapters/letsgo/blob/5310a6f/packages/constants/src/index.ts#L629)
+[index.ts:629](https://github.com/47chapters/letsgo/blob/06da252/packages/constants/src/index.ts#L629)
 
 ___
 
@@ -48,7 +48,7 @@ The maximum time in seconds the _worker_ component waits for more messages to ar
 
 #### Defined in
 
-[index.ts:633](https://github.com/47chapters/letsgo/blob/5310a6f/packages/constants/src/index.ts#L633)
+[index.ts:633](https://github.com/47chapters/letsgo/blob/06da252/packages/constants/src/index.ts#L633)
 
 ___
 
@@ -61,7 +61,7 @@ This number multipled by the [batchSize](WorkerSettingsDefaultConfig.md#batchsiz
 
 #### Defined in
 
-[index.ts:638](https://github.com/47chapters/letsgo/blob/5310a6f/packages/constants/src/index.ts#L638)
+[index.ts:638](https://github.com/47chapters/letsgo/blob/06da252/packages/constants/src/index.ts#L638)
 
 ___
 
@@ -74,7 +74,7 @@ in the `/tmp` directory.
 
 #### Defined in
 
-[index.ts:625](https://github.com/47chapters/letsgo/blob/5310a6f/packages/constants/src/index.ts#L625)
+[index.ts:625](https://github.com/47chapters/letsgo/blob/06da252/packages/constants/src/index.ts#L625)
 
 ___
 
@@ -86,7 +86,7 @@ The amount of memory allocated to the Lambda function of the _worker_ component.
 
 #### Defined in
 
-[index.ts:620](https://github.com/47chapters/letsgo/blob/5310a6f/packages/constants/src/index.ts#L620)
+[index.ts:620](https://github.com/47chapters/letsgo/blob/06da252/packages/constants/src/index.ts#L620)
 
 ___
 
@@ -98,7 +98,7 @@ The maximum time in seconds the Lambda function of the _worker_ component can ru
 
 #### Defined in
 
-[index.ts:616](https://github.com/47chapters/letsgo/blob/5310a6f/packages/constants/src/index.ts#L616)
+[index.ts:616](https://github.com/47chapters/letsgo/blob/06da252/packages/constants/src/index.ts#L616)
 
 ___
 
@@ -111,7 +111,7 @@ before it is discarded.
 
 #### Defined in
 
-[index.ts:603](https://github.com/47chapters/letsgo/blob/5310a6f/packages/constants/src/index.ts#L603)
+[index.ts:603](https://github.com/47chapters/letsgo/blob/06da252/packages/constants/src/index.ts#L603)
 
 ___
 
@@ -123,7 +123,7 @@ The time in seconds a request for a message from the SQS queue remains pending i
 
 #### Defined in
 
-[index.ts:612](https://github.com/47chapters/letsgo/blob/5310a6f/packages/constants/src/index.ts#L612)
+[index.ts:612](https://github.com/47chapters/letsgo/blob/06da252/packages/constants/src/index.ts#L612)
 
 ___
 
@@ -137,7 +137,7 @@ as documented in [CreateScheduleCommand](https://docs.aws.amazon.com/AWSJavaScri
 
 #### Defined in
 
-[index.ts:644](https://github.com/47chapters/letsgo/blob/5310a6f/packages/constants/src/index.ts#L644)
+[index.ts:644](https://github.com/47chapters/letsgo/blob/06da252/packages/constants/src/index.ts#L644)
 
 ___
 
@@ -150,7 +150,7 @@ the Lambda function of the _worker_ component. Valid values are [IANA time zone 
 
 #### Defined in
 
-[index.ts:649](https://github.com/47chapters/letsgo/blob/5310a6f/packages/constants/src/index.ts#L649)
+[index.ts:649](https://github.com/47chapters/letsgo/blob/06da252/packages/constants/src/index.ts#L649)
 
 ___
 
@@ -163,4 +163,4 @@ confirm its processing.
 
 #### Defined in
 
-[index.ts:608](https://github.com/47chapters/letsgo/blob/5310a6f/packages/constants/src/index.ts#L608)
+[index.ts:608](https://github.com/47chapters/letsgo/blob/06da252/packages/constants/src/index.ts#L608)

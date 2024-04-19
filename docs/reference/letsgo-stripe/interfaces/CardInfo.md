@@ -21,7 +21,7 @@ The brand of the credit card.
 
 #### Defined in
 
-[index.ts:371](https://github.com/47chapters/letsgo/blob/5310a6f/packages/stripe/src/index.ts#L371)
+[index.ts:381](https://github.com/47chapters/letsgo/blob/06da252/packages/stripe/src/index.ts#L381)
 
 ___
 
@@ -33,4 +33,4 @@ Last four digits of the credit card number.
 
 #### Defined in
 
-[index.ts:367](https://github.com/47chapters/letsgo/blob/5310a6f/packages/stripe/src/index.ts#L367)
+[index.ts:377](https://github.com/47chapters/letsgo/blob/06da252/packages/stripe/src/index.ts#L377)

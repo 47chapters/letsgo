@@ -21,4 +21,4 @@ variable will be used.
 
 #### Defined in
 
-[index.ts:34](https://github.com/47chapters/letsgo/blob/11c7e19/packages/slack/src/index.ts#L34)
+[index.ts:34](https://github.com/47chapters/letsgo/blob/06da252/packages/slack/src/index.ts#L34)

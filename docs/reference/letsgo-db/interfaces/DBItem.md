@@ -28,7 +28,7 @@ The DynamoDB partition key.
 
 #### Defined in
 
-[index.ts:79](https://github.com/47chapters/letsgo/blob/5310a6f/packages/db/src/index.ts#L79)
+[index.ts:79](https://github.com/47chapters/letsgo/blob/06da252/packages/db/src/index.ts#L79)
 
 ___
 
@@ -40,7 +40,7 @@ The DynamoDB sort key.
 
 #### Defined in
 
-[index.ts:83](https://github.com/47chapters/letsgo/blob/5310a6f/packages/db/src/index.ts#L83)
+[index.ts:83](https://github.com/47chapters/letsgo/blob/06da252/packages/db/src/index.ts#L83)
 
 ___
 
@@ -52,4 +52,4 @@ The time-to-live (TTL) value for the item.
 
 #### Defined in
 
-[index.ts:87](https://github.com/47chapters/letsgo/blob/5310a6f/packages/db/src/index.ts#L87)
+[index.ts:87](https://github.com/47chapters/letsgo/blob/06da252/packages/db/src/index.ts#L87)

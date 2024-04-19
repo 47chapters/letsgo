@@ -31,7 +31,7 @@ The name of the component for which an AppRunner service is created (`web` or `a
 
 #### Defined in
 
-[index.ts:352](https://github.com/47chapters/letsgo/blob/5310a6f/packages/constants/src/index.ts#L352)
+[index.ts:352](https://github.com/47chapters/letsgo/blob/06da252/packages/constants/src/index.ts#L352)
 
 ___
 
@@ -43,7 +43,7 @@ Returns the default configuration settings for the component.
 
 #### Defined in
 
-[index.ts:425](https://github.com/47chapters/letsgo/blob/5310a6f/packages/constants/src/index.ts#L425)
+[index.ts:425](https://github.com/47chapters/letsgo/blob/06da252/packages/constants/src/index.ts#L425)
 
 ___
 
@@ -71,7 +71,7 @@ AppRunner Auto Scaling Configuration name
 
 #### Defined in
 
-[index.ts:410](https://github.com/47chapters/letsgo/blob/5310a6f/packages/constants/src/index.ts#L410)
+[index.ts:410](https://github.com/47chapters/letsgo/blob/06da252/packages/constants/src/index.ts#L410)
 
 ___
 
@@ -99,7 +99,7 @@ AppRunner service name
 
 #### Defined in
 
-[index.ts:404](https://github.com/47chapters/letsgo/blob/5310a6f/packages/constants/src/index.ts#L404)
+[index.ts:404](https://github.com/47chapters/letsgo/blob/06da252/packages/constants/src/index.ts#L404)
 
 ___
 
@@ -127,7 +127,7 @@ ECR repository name
 
 #### Defined in
 
-[index.ts:392](https://github.com/47chapters/letsgo/blob/5310a6f/packages/constants/src/index.ts#L392)
+[index.ts:392](https://github.com/47chapters/letsgo/blob/06da252/packages/constants/src/index.ts#L392)
 
 ___
 
@@ -158,7 +158,7 @@ IAM inline policy document
 
 #### Defined in
 
-[index.ts:375](https://github.com/47chapters/letsgo/blob/5310a6f/packages/constants/src/index.ts#L375)
+[index.ts:375](https://github.com/47chapters/letsgo/blob/06da252/packages/constants/src/index.ts#L375)
 
 ___
 
@@ -186,7 +186,7 @@ Local Docker image name (without the tag)
 
 #### Defined in
 
-[index.ts:398](https://github.com/47chapters/letsgo/blob/5310a6f/packages/constants/src/index.ts#L398)
+[index.ts:398](https://github.com/47chapters/letsgo/blob/06da252/packages/constants/src/index.ts#L398)
 
 ___
 
@@ -215,7 +215,7 @@ Number of days to retain CloudWatch logs.
 
 #### Defined in
 
-[index.ts:417](https://github.com/47chapters/letsgo/blob/5310a6f/packages/constants/src/index.ts#L417)
+[index.ts:417](https://github.com/47chapters/letsgo/blob/06da252/packages/constants/src/index.ts#L417)
 
 ___
 
@@ -244,7 +244,7 @@ Array of managed IAM policy ARNs
 
 #### Defined in
 
-[index.ts:386](https://github.com/47chapters/letsgo/blob/5310a6f/packages/constants/src/index.ts#L386)
+[index.ts:386](https://github.com/47chapters/letsgo/blob/06da252/packages/constants/src/index.ts#L386)
 
 ___
 
@@ -273,7 +273,7 @@ IAM policy name
 
 #### Defined in
 
-[index.ts:366](https://github.com/47chapters/letsgo/blob/5310a6f/packages/constants/src/index.ts#L366)
+[index.ts:366](https://github.com/47chapters/letsgo/blob/06da252/packages/constants/src/index.ts#L366)
 
 ___
 
@@ -302,7 +302,7 @@ IAM role name
 
 #### Defined in
 
-[index.ts:359](https://github.com/47chapters/letsgo/blob/5310a6f/packages/constants/src/index.ts#L359)
+[index.ts:359](https://github.com/47chapters/letsgo/blob/06da252/packages/constants/src/index.ts#L359)
 
 ___
 
@@ -314,4 +314,4 @@ Returns the name of the environment variable containing the public URL of the Ap
 
 #### Defined in
 
-[index.ts:421](https://github.com/47chapters/letsgo/blob/5310a6f/packages/constants/src/index.ts#L421)
+[index.ts:421](https://github.com/47chapters/letsgo/blob/06da252/packages/constants/src/index.ts#L421)

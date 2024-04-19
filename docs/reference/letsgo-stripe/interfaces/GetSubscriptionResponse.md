@@ -30,7 +30,7 @@ Credit card information on file.
 
 #### Defined in
 
-[index.ts:514](https://github.com/47chapters/letsgo/blob/5310a6f/packages/stripe/src/index.ts#L514)
+[index.ts:524](https://github.com/47chapters/letsgo/blob/06da252/packages/stripe/src/index.ts#L524)
 
 ___
 
@@ -46,7 +46,7 @@ Date and time when the current subscription period ends.
 
 #### Defined in
 
-[index.ts:230](https://github.com/47chapters/letsgo/blob/5310a6f/packages/stripe/src/index.ts#L230)
+[index.ts:240](https://github.com/47chapters/letsgo/blob/06da252/packages/stripe/src/index.ts#L240)
 
 ___
 
@@ -58,7 +58,7 @@ LetsGo plan ID associated with the Stripe subscription.
 
 #### Defined in
 
-[index.ts:510](https://github.com/47chapters/letsgo/blob/5310a6f/packages/stripe/src/index.ts#L510)
+[index.ts:520](https://github.com/47chapters/letsgo/blob/06da252/packages/stripe/src/index.ts#L520)
 
 ___
 
@@ -74,7 +74,7 @@ Stripe subscription status.
 
 #### Defined in
 
-[index.ts:226](https://github.com/47chapters/letsgo/blob/5310a6f/packages/stripe/src/index.ts#L226)
+[index.ts:236](https://github.com/47chapters/letsgo/blob/06da252/packages/stripe/src/index.ts#L236)
 
 ___
 
@@ -90,4 +90,4 @@ Stripe subscription Id.
 
 #### Defined in
 
-[index.ts:222](https://github.com/47chapters/letsgo/blob/5310a6f/packages/stripe/src/index.ts#L222)
+[index.ts:232](https://github.com/47chapters/letsgo/blob/06da252/packages/stripe/src/index.ts#L232)

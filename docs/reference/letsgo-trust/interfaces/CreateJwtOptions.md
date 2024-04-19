@@ -9,6 +9,7 @@ Options for creating a JWT access token.
 ### Properties
 
 - [audience](CreateJwtOptions.md#audience)
+- [claims](CreateJwtOptions.md#claims)
 - [expiresIn](CreateJwtOptions.md#expiresin)
 - [issuer](CreateJwtOptions.md#issuer)
 - [subject](CreateJwtOptions.md#subject)
@@ -24,7 +25,23 @@ be used if specified, or `letsgo:service` otherwise.
 
 #### Defined in
 
-[trust/src/jwt.ts:27](https://github.com/47chapters/letsgo/blob/5310a6f/packages/trust/src/jwt.ts#L27)
+[trust/src/jwt.ts:32](https://github.com/47chapters/letsgo/blob/06da252/packages/trust/src/jwt.ts#L32)
+
+___
+
+### claims
+
+• `Optional` **claims**: `Object`
+
+Additional claims to include in the JWT.
+
+#### Index signature
+
+▪ [key: `string`]: `any`
+
+#### Defined in
+
+[trust/src/jwt.ts:41](https://github.com/47chapters/letsgo/blob/06da252/packages/trust/src/jwt.ts#L41)
 
 ___
 
@@ -37,7 +54,7 @@ or an expression like `8h`, `2d`, etc. If `0` is specified, a non-expiring JWT t
 
 #### Defined in
 
-[trust/src/jwt.ts:32](https://github.com/47chapters/letsgo/blob/5310a6f/packages/trust/src/jwt.ts#L32)
+[trust/src/jwt.ts:37](https://github.com/47chapters/letsgo/blob/06da252/packages/trust/src/jwt.ts#L37)
 
 ___
 
@@ -49,7 +66,7 @@ The built-in PKI issuer to use to sign the JWT. If not specified, the active iss
 
 #### Defined in
 
-[trust/src/jwt.ts:18](https://github.com/47chapters/letsgo/blob/5310a6f/packages/trust/src/jwt.ts#L18)
+[trust/src/jwt.ts:23](https://github.com/47chapters/letsgo/blob/06da252/packages/trust/src/jwt.ts#L23)
 
 ___
 
@@ -61,4 +78,4 @@ The `sub` claim of the JWT. If not specified, the same value as the `iss` claim 
 
 #### Defined in
 
-[trust/src/jwt.ts:22](https://github.com/47chapters/letsgo/blob/5310a6f/packages/trust/src/jwt.ts#L22)
+[trust/src/jwt.ts:27](https://github.com/47chapters/letsgo/blob/06da252/packages/trust/src/jwt.ts#L27)

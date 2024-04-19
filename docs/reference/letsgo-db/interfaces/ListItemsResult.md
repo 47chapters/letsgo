@@ -27,7 +27,7 @@ The list of items matching the query.
 
 #### Defined in
 
-[index.ts:101](https://github.com/47chapters/letsgo/blob/5310a6f/packages/db/src/index.ts#L101)
+[index.ts:101](https://github.com/47chapters/letsgo/blob/06da252/packages/db/src/index.ts#L101)
 
 ___
 
@@ -41,4 +41,4 @@ retrieve the next page of results.
 
 #### Defined in
 
-[index.ts:107](https://github.com/47chapters/letsgo/blob/5310a6f/packages/db/src/index.ts#L107)
+[index.ts:107](https://github.com/47chapters/letsgo/blob/06da252/packages/db/src/index.ts#L107)

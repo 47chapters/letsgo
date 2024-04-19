@@ -22,7 +22,7 @@ New credit card information if the payment setup was successful.
 
 #### Defined in
 
-[index.ts:386](https://github.com/47chapters/letsgo/blob/5310a6f/packages/stripe/src/index.ts#L386)
+[index.ts:396](https://github.com/47chapters/letsgo/blob/06da252/packages/stripe/src/index.ts#L396)
 
 ___
 
@@ -34,4 +34,4 @@ Status of the completed Stripe payment setup.
 
 #### Defined in
 
-[index.ts:382](https://github.com/47chapters/letsgo/blob/5310a6f/packages/stripe/src/index.ts#L382)
+[index.ts:392](https://github.com/47chapters/letsgo/blob/06da252/packages/stripe/src/index.ts#L392)

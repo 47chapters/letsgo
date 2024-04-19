@@ -29,7 +29,7 @@ The identity of the user who is creating the tenant.
 
 #### Defined in
 
-[tenant/src/index.ts:447](https://github.com/47chapters/letsgo/blob/5310a6f/packages/tenant/src/index.ts#L447)
+[tenant/src/index.ts:447](https://github.com/47chapters/letsgo/blob/06da252/packages/tenant/src/index.ts#L447)
 
 ___
 
@@ -57,7 +57,7 @@ The tenant's display name. If not specified, a random display name is generated.
 
 #### Defined in
 
-[tenant/src/index.ts:451](https://github.com/47chapters/letsgo/blob/5310a6f/packages/tenant/src/index.ts#L451)
+[tenant/src/index.ts:451](https://github.com/47chapters/letsgo/blob/06da252/packages/tenant/src/index.ts#L451)
 
 ___
 

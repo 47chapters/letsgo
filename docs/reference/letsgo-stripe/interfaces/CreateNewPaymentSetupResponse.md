@@ -22,7 +22,7 @@ Client secret for the Stripe payment intent.
 
 #### Defined in
 
-[index.ts:313](https://github.com/47chapters/letsgo/blob/5310a6f/packages/stripe/src/index.ts#L313)
+[index.ts:323](https://github.com/47chapters/letsgo/blob/06da252/packages/stripe/src/index.ts#L323)
 
 ___
 
@@ -35,4 +35,4 @@ on the Stripe configuration.
 
 #### Defined in
 
-[index.ts:318](https://github.com/47chapters/letsgo/blob/5310a6f/packages/stripe/src/index.ts#L318)
+[index.ts:328](https://github.com/47chapters/letsgo/blob/06da252/packages/stripe/src/index.ts#L328)

@@ -27,7 +27,7 @@ LetsGo deployment name.
 
 #### Defined in
 
-[index.ts:45](https://github.com/47chapters/letsgo/blob/5310a6f/packages/db/src/index.ts#L45)
+[index.ts:45](https://github.com/47chapters/letsgo/blob/06da252/packages/db/src/index.ts#L45)
 
 ___
 
@@ -39,4 +39,4 @@ AWS region.
 
 #### Defined in
 
-[index.ts:41](https://github.com/47chapters/letsgo/blob/5310a6f/packages/db/src/index.ts#L41)
+[index.ts:41](https://github.com/47chapters/letsgo/blob/06da252/packages/db/src/index.ts#L41)

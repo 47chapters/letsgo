@@ -45,7 +45,7 @@ LetsGo identity Id.
 
 #### Defined in
 
-[tenant/src/index.ts:697](https://github.com/47chapters/letsgo/blob/5310a6f/packages/tenant/src/index.ts#L697)
+[tenant/src/index.ts:697](https://github.com/47chapters/letsgo/blob/06da252/packages/tenant/src/index.ts#L697)
 
 ___
 
@@ -73,4 +73,4 @@ LetsGo tenant Id.
 
 #### Defined in
 
-[tenant/src/index.ts:693](https://github.com/47chapters/letsgo/blob/5310a6f/packages/tenant/src/index.ts#L693)
+[tenant/src/index.ts:693](https://github.com/47chapters/letsgo/blob/06da252/packages/tenant/src/index.ts#L693)
